@@ -1,3 +1,3 @@
 # reedlin2002.github.io
 ### 『123321456789』
-![image]([https://imgur.com/a/GgbHXyg])
+![image](FLPBAwiaMAI5WX5.jpg)
