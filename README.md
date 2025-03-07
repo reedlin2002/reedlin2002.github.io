@@ -60,11 +60,9 @@
     </div>
 </nav>
 <!-- 音樂播放器按鈕 -->
-<audio autoplay loop style="display: none;">
-<source src="flower.mp3" type="audio/mp3">
+<audio autoplay loop>
+    <source src="flower.mp3" type="audio/mp3">
     Your browser does not support the audio element.
     </audio>
-    <button onclick="toggleAudio()" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">
-        播放/暫停
-    </button>
+
 
