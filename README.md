@@ -52,8 +52,8 @@
 
 <nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000; text-align: center;">
     <a href="https://reedlin2002.github.io/" style="color: white; margin-right: 20px;">Home</a>
-    <a href="https://reedlin2002.github.io/go" style="color: white; margin-right: 20px;">Go</a>
-    <a href="https://reedlin2002.github.io/food" style="color: white; margin-right: 20px;">Food</a>
-    <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">Firework</a>
-    <a href="https://reedlin2002.github.io/gopher" style="color: white;">Gopher</a>
+    <a href="https://reedlin2002.github.io/go" style="color: white; margin-right: 20px;">五子棋</a>
+    <a href="https://reedlin2002.github.io/food" style="color: white; margin-right: 20px;">食物CHOOSE</a>
+    <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">煙火</a>
+    <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
 </nav>
