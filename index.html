@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reedlin2002</title>
+    <style>
+        /* 設置背景圖片 */
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* 頁面導航條 */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            z-index: 1000;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin-right: 20px;
+            text-decoration: none;
+        }
+        /* 內容區域 */
+        .content {
+            margin-top: 50px; /* 防止內容被導航條遮住 */
+            padding: 20px;
+        }
+        /* 音樂播放器區域 */
+        audio {
+            display: block;
+            margin: 20px auto;
+        }
+        /* 圖片顯示 */
+        img {
+            display: block;
+            margin: 20px auto;
+        }
+        .links {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 20px;
+        }
+        .links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 音樂播放器 -->
+    <audio controls autoplay loop>
+        <source src="flower.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- 圖片顯示 -->
+    <img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300">
+    <img src="background.jpg" alt="image" width="300">
+
+    <!-- 按鈕區域 -->
+    <div class="links">
+        <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> |
+        <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> |
+        <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a> |
+        <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
+    </div>
+
+    <div class="content">
+        <h2>📖 Learning Focus</h2>
+        <hr>
+        <p>挑戰 LeetCode _(Python)_，目標每1~3天完成一題 Easy 題目。</p>
+        <table>
+            <tr>
+                <th>✅</th>
+                <th>🉑</th>
+                <th>🚫</th>
+            </tr>
+            <tr>
+                <td>了解並寫出</td>
+                <td>寫出但不清楚</td>
+                <td>寫不出來</td>
+            </tr>
+        </table>
+
+        <h3>📌 LeetCode 記錄</h3>
+        <ul>
+            <li><strong>D1</strong> 🉑  #1  Two Sum *(GPT)*</li>
+            <li><strong>D2</strong> 🉑  #9  Palindrome Number *(GPT)*</li>
+            <li><strong>D3</strong> ✅  #13 Roman to Integer *(GPT)*</li>
+            <li><strong>D4</strong> ✅  #1  Two Sum</li>
+            <li><strong>D5</strong> ☕ **休息**</li>
+            <li><strong>D6</strong> ✅  #9  Palindrome</li>
+            <li><strong>D7</strong> 🉑  #14 Longest Common Prefix</li>
+            <li><strong>D8</strong> 🉑  #14 Longest Common Prefix</li>
+            <li><strong>D9</strong> 🉑  #14 Longest Common Prefix</li>
+            <li><strong>D10</strong> ✅  #14 Longest Common Prefix</li>
+            <li><strong>D11</strong> ✅  #14 Longest Common Prefix *(複習)*</li>
+            <li><strong>D12</strong> 🚫  #20 Valid Parentheses</li>
+            <li><strong>D13</strong> 🚫  #20 Valid Parentheses</li>
+            <li><strong>D14</strong> ☕ **休息**</li>
+            <li><strong>D15</strong> 🚫  #20 Valid Parentheses</li>
+            <li><strong>D16</strong> 🚫  #20 Valid Parentheses</li>
+            <li><strong>D17</strong> 🚫  #20 Valid Parentheses</li>
+            <li><strong>D18</strong> 🉑  #20 Valid Parentheses</li>
+            <li><strong>D19</strong> 🉑  #20 Valid Parentheses</li>
+            <li><strong>D20</strong> 🉑  #20 Valid Parentheses</li>
+        </ul>
+    </div>
+
+    <!-- 導航列 -->
+    <nav>
+        <div>
+            <a href="https://reedlin2002.github.io/" style="color: white; margin-right: 20px;">Home</a>
+            <a href="https://reedlin2002.github.io/go" style="color: white; margin-right: 20px;">五子棋</a>
+            <a href="https://reedlin2002.github.io/food" style="color: white; margin-right: 20px;">食物Choose</a>
+            <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">煙火</a>
+            <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
+        </div>
+    </nav>
+</body>
+</html>
