@@ -1,5 +1,5 @@
 ### 『歡迎光臨』
-![image](FLPBAwiaMAI5WX5.jpg)
+<img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300">
 
 📖  Learning Focus
 ======
