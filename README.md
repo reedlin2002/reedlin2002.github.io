@@ -50,7 +50,7 @@
 - **D20** 🉑  #20 Valid Parentheses
 
 
-<nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000;">
+<nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000; text-align: center;">
     <a href="https://reedlin2002.github.io/" style="color: white; margin-right: 20px;">Home</a>
     <a href="https://reedlin2002.github.io/go" style="color: white; margin-right: 20px;">Go</a>
     <a href="https://reedlin2002.github.io/food" style="color: white; margin-right: 20px;">Food</a>
