@@ -1,4 +1,4 @@
-### 『歡迎光臨』
+## 『歡迎光臨』
 <img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300">
 
 <div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
