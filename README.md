@@ -2,10 +2,10 @@
 <img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300">
 
 <div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
-    <a href="https://reedlin2002.github.io/go" target="_blank">五子棋</a><br>
-    <a href="https://reedlin2002.github.io/food" target="_blank">食物CHOOSE！！！</a><br>
-    <a href="https://reedlin2002.github.io/firework" target="_blank">煙火</a><br>
-    <a href="https://reedlin2002.github.io/gopher" target="_blank">小海獺</a>
+    <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
+    <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> | 
+    <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a> | 
+    <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
 </div>
 
 ## 📖  Learning Focus
@@ -48,3 +48,15 @@
    - `stack.append`  **<- 將資料放入堆疊頂端**
    - `stack.pop`     **<- 將堆疊頂端資料移除**
 - **D20** 🉑  #20 Valid Parentheses
+
+### 返回主頁：
+[返回主頁](https://reedlin2002.github.io/)
+
+### 回到主頁導航欄（固定在頁面頂端）：
+<nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000;">
+    <a href="https://reedlin2002.github.io/" style="color: white; margin-right: 20px;">Home</a>
+    <a href="https://reedlin2002.github.io/go" style="color: white; margin-right: 20px;">Go</a>
+    <a href="https://reedlin2002.github.io/food" style="color: white; margin-right: 20px;">Food</a>
+    <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">Firework</a>
+    <a href="https://reedlin2002.github.io/gopher" style="color: white;">Gopher</a>
+</nav>
