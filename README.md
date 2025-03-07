@@ -1,3 +1,9 @@
+<div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
+    <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
+    <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> | 
+    <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a> | 
+    <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
+</div>
 
 ## 📖  Learning Focus
 ======
