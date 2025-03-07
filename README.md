@@ -68,4 +68,17 @@
     </div>
 </nav>
 
+<script>
+  let audio = document.querySelector("audio");
+  let playPauseButton = document.querySelector("button");
 
+  function toggleAudio() {
+    if (audio.paused) {
+      audio.play();
+      playPauseButton.textContent = "暫停";
+    } else {
+      audio.pause();
+      playPauseButton.textContent = "播放";
+    }
+  }
+</script>
