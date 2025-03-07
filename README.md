@@ -67,7 +67,7 @@
         </button>
     </div>
 </nav>
-
+```html
 <script>
   let audio = document.querySelector("audio");
   let playPauseButton = document.querySelector("button");
@@ -82,3 +82,4 @@
     }
   }
 </script>
+
