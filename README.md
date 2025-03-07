@@ -1,12 +1,12 @@
 ### 『歡迎光臨』
 <img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300"> 
 <div>
-        <div style="display: inline-block; vertical-align: middle;">
+        <table style="display: inline-block; vertical-align: middle;">
             <a href="https://reedlin2002.github.io/go" target="_blank">Go</a><br>
             <a href="https://reedlin2002.github.io/food" target="_blank">Food</a><br>
             <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a><br>
             <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
-        </div>
+        </table>
  </div>
  
 ## 📖  Learning Focus
