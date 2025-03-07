@@ -58,7 +58,8 @@
         <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">煙火</a>
         <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
     </div>
-    <audio controls style="margin-left: auto;">
+    <!-- 音樂播放器放在導覽列右邊 -->
+    <audio controls autoplay loop style="height: 15px; width: auto;">
         <source src="flower.mp3" type="audio/mp3">
         Your browser does not support the audio element.
     </audio>
