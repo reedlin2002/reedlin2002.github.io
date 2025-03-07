@@ -78,17 +78,6 @@
         </div>
     </nav>
 
-    <script>
-    // 使用 GitHub raw content 來加載 README.md
-    fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/README.md')
-        .then(response => response.text())
-        .then(text => {
-            // 使用 marked.js 將 markdown 轉換成 HTML
-            document.getElementById('readme-content').innerHTML = marked(text);
-        })
-        .catch(err => {
-            console.error("無法加載 README.md", err);
-        });
-</script>
+    <iframe src="https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/main/README.md" width="100%" height="500px"></iframe>
 </body>
 </html>
