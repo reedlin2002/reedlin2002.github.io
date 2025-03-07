@@ -1,4 +1,3 @@
-## 『歡迎光臨』 
 <audio controls autoplay loop>
     <source src="flower.mp3" type="audio/mp3">
     Your browser does not support the audio element.
