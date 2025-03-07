@@ -49,10 +49,7 @@
    - `stack.pop`     **<- 將堆疊頂端資料移除**
 - **D20** 🉑  #20 Valid Parentheses
 
-### 返回主頁：
-[返回主頁](https://reedlin2002.github.io/)
 
-### 回到主頁導航欄（固定在頁面頂端）：
 <nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000;">
     <a href="https://reedlin2002.github.io/" style="color: white; margin-right: 20px;">Home</a>
     <a href="https://reedlin2002.github.io/go" style="color: white; margin-right: 20px;">Go</a>
