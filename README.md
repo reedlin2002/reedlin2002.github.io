@@ -57,9 +57,7 @@
         <a href="https://reedlin2002.github.io/food" style="color: white; margin-right: 20px;">食物Choose</a>
         <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">煙火</a>
         <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
-    </div>
-</nav>
-<!-- 音樂播放器按鈕 -->
+        <!-- 音樂播放器按鈕 -->
     <audio autoplay loop style="display: none;">
       <source src="flower.mp3" type="audio/mp3">
       Your browser does not support the audio element.
@@ -67,4 +65,7 @@
     <button onclick="toggleAudio()" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">
         Music On/OFF
     </button>
+    </div>
+</nav>
+
 
