@@ -61,7 +61,7 @@
     </div>
 </nav>
 <!-- 音樂播放器按鈕 -->
-<audio autoplay loop>
+<audio controls autoplay loop>
     <source src="flower.mp3" type="audio/mp3">
     Your browser does not support the audio element.
     </audio>
