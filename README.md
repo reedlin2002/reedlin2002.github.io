@@ -65,6 +65,6 @@
       Your browser does not support the audio element.
     </audio>
     <button onclick="toggleAudio()" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">
-        播放/暫停
+        Music On/OFF
     </button>
 
