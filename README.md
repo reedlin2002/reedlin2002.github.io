@@ -1,7 +1,12 @@
 ## 『歡迎光臨』
 <img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300">
 <img src="background.jpg" alt="image" width="300">
-
+<!-- 音樂播放器按鈕 -->
+<audio controls autoplay loop>
+    <source src="flower.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+    </audio>
+    
 <div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
     <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
     <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> | 
@@ -60,10 +65,5 @@
         <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
     </div>
 </nav>
-<!-- 音樂播放器按鈕 -->
-<audio controls autoplay loop>
-    <source src="flower.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-    </audio>
 
 
