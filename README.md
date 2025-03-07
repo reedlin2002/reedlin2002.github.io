@@ -56,7 +56,7 @@
     <a href="https://reedlin2002.github.io/food" style="color: white; margin-right: 20px;">食物CHOOSE</a>
     <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">煙火</a>
     <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
-    <audio controls autoplay loop>
+    <audio controls autoplay loop style="text-align: right;">
       <source src="flower.mp3" type="audio/mp3">
       Your browser does not support the audio element.
     </audio>
