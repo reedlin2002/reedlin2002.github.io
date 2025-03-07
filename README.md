@@ -1,7 +1,7 @@
 ### 『歡迎光臨』
-<img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300">
+<img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300"> 
 
-📖  Learning Focus
+## 📖  Learning Focus
 ======
 挑戰 LeetCode _(Python)_，目標每1~3天完成一題 Easy 題目。
 ✅ | 🉑 | 🚫
