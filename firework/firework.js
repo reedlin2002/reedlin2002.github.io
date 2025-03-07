@@ -20,15 +20,15 @@ function draw() {
   background(0);
   textSize(32);
   text("click to change color!", 180, 180);
-
+  
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
-      let rectX = 250 + i * (blockSize + spacing);
-      let rectY = 250 + j * (blockSize + spacing);
+      let rectX = 250 + i * (blockSize + spacing); 
+      let rectY = 250 + j * (blockSize + spacing); 
       let distance = dist(rectX, rectY, mouseX, mouseY);
-
+      
       if (distance < blockSize / 2) {
-        let randomX = random(-10, 10);
+        let randomX = random(-10, 10); 
         let randomY = random(-10, 10);
         rectX += randomX;
         rectY += randomY;
