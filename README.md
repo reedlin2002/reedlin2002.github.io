@@ -50,7 +50,7 @@
 - **D20** 🉑  #20 Valid Parentheses
 
 
-<nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000; display: flex; justify-content: space-between; align-items: center;">
+<nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000; text-align: center;">
     <div>
         <a href="https://reedlin2002.github.io/" style="color: white; margin-right: 20px;">Home</a>
         <a href="https://reedlin2002.github.io/go" style="color: white; margin-right: 20px;">五子棋</a>
@@ -58,7 +58,8 @@
         <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px;">煙火</a>
         <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
     </div>
-    <!-- 音樂播放器按鈕 -->
+</nav>
+<!-- 音樂播放器按鈕 -->
     <audio autoplay loop style="display: none;">
       <source src="flower.mp3" type="audio/mp3">
       Your browser does not support the audio element.
@@ -66,20 +67,4 @@
     <button onclick="toggleAudio()" style="background: none; border: none; color: white; font-size: 16px; cursor: pointer;">
         播放/暫停
     </button>
-</nav>
-
-<script>
-  let audio = document.querySelector("audio");
-  let playPauseButton = document.querySelector("button");
-
-  function toggleAudio() {
-    if (audio.paused) {
-      audio.play();
-      playPauseButton.textContent = "暫停";
-    } else {
-      audio.pause();
-      playPauseButton.textContent = "播放";
-    }
-  }
-</script>
 
