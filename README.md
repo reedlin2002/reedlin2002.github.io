@@ -1,5 +1,6 @@
 ## 『歡迎光臨』
 <img src="FLPBAwiaMAI5WX5.jpg" alt="image" width="300">
+<p style="background-image: url('background.jpg');">
 
 <div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
     <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
