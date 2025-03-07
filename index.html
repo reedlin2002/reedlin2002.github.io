@@ -51,11 +51,13 @@
             margin-left: 20px;
         }
         .links a {
-            color: white;
             text-decoration: none;
             margin: 0 10px;
         }
     </style>
+
+    <!-- 引入 marked.js 庫來將 Markdown 轉換為 HTML -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -82,6 +84,9 @@
         <hr>
         <p>挑戰 LeetCode _(Python)_，目標每1~3天完成一題 Easy 題目。</p>
 
+        <!-- 顯示 README.md 的內容 -->
+        <div id="readme-content"></div>
+    </div>
 
     <!-- 導航列 -->
     <nav>
@@ -93,5 +98,18 @@
             <a href="https://reedlin2002.github.io/gopher" style="color: white;">小海獺</a>
         </div>
     </nav>
+
+    <script>
+        // 使用 fetch 加載 README.md 並用 marked 轉換成 HTML
+        fetch('README.md')
+            .then(response => response.text())
+            .then(text => {
+                // 使用 marked.js 將 markdown 轉換成 HTML
+                document.getElementById('readme-content').innerHTML = marked(text);
+            })
+            .catch(err => {
+                console.error("無法加載 README.md", err);
+            });
+    </script>
 </body>
 </html>
