@@ -1,15 +1,16 @@
-let particles;
-let countdown = 5;
-let numFireflies = 25;
-let posX = new Array(numFireflies);
-let posY = new Array(numFireflies);
-let speedX = new Array(numFireflies);
-let speedY = new Array(numFireflies);
-let fireflySize = new Array(numFireflies);
-let fireflyColors = new Array(numFireflies);
-let NYfontSize = 64;
-let NYdelta = 0.3;
-let colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#00F100']; // Rainbow colors
+var particles;
+var countdown = 5;
+var numFireflies = 25;
+var posX = new Array(numFireflies);
+var posY = new Array(numFireflies);
+var speedX = new Array(numFireflies);
+var speedY = new Array(numFireflies);
+var fireflySize = new Array(numFireflies);
+var fireflyColors = new Array(numFireflies);
+var NYfontSize = 64;
+var NYdelta = 0.3;
+var colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#00F100']; // Rainbow colors
+
 
 function setup() {
   createCanvas(800, 600);
