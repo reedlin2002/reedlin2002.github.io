@@ -14,13 +14,14 @@
     }
 
     /* 🔹 將背景獨立放入一個 div，並設置層級 */
-    #background {
-      background: url('background.png') no-repeat center center fixed;
-      background-position: center;
-      background-attachment: fixed;
-      background-position: center;
-      background-size: cover;
-      z-index: -1; /* 讓背景在最底層，不影響 p5.js */
+    background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -999;
+      /*z-index: -1; /* 讓背景在最底層，不影響 p5.js */
     }
 
     /*  p5.js 置中 */
