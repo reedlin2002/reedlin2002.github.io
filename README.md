@@ -49,3 +49,11 @@
    - `stack.append`  **<- 將資料放入堆疊頂端**
    - `stack.pop`     **<- 將堆疊頂端資料移除**
 - **D20** 🉑  #20 Valid Parentheses
+
+<nav style="position: fixed; top: 0; left: 0; width: 100%; background-color: #333; color: white; padding: 10px; z-index: 1000; text-align: center;">
+  <a href="https://reedlin2002.github.io/"         style="color: white; margin-right: 20px; text-decoration: none;">Home</a>
+  <a href="https://reedlin2002.github.io/food"     style="color: white; margin-right: 20px; text-decoration: none;">Food Choose</a>
+  <a href="https://reedlin2002.github.io/firework" style="color: white; margin-right: 20px; text-decoration: none;">Firework</a>
+  <a href="https://reedlin2002.github.io/gopher"   style="color: white; margin-right: 20px; text-decoration: none;">Gopher</a>
+  <a href="https://reedlin2002.github.io/go"       style="color: white; margin-right: 20px; text-decoration: none;">Gomoku</a>
+</nav>
