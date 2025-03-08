@@ -13,18 +13,21 @@
       overflow: hidden; /* 防止捲動 */
     }
 
-    /* 🔹 將背景獨立放入一個 div，並設置層級 */
-    background {
+    /* 🔹 將背景設為 div 並調整顯示 */
+    #background {
       position: fixed;
       top: 0;
       left: 0;
-      bottom: 0;
       right: 0;
-      z-index: -999;
-      /*z-index: -1; /* 讓背景在最底層，不影響 p5.js */
+      bottom: 0;
+      z-index: -1; /* 背景層級設置為最底層 */
+      background-image: url('background.jpg'); /* 背景圖片 */
+      background-size: cover; /* 圖片滿版顯示，保持比例 */
+      background-position: center; /* 使背景圖片居中 */
+      background-repeat: no-repeat; /* 防止圖片重複 */
     }
 
-    /*  p5.js 置中 */
+    /* 讓 p5.js 畫布置中顯示 */
     canvas {
       display: block;
       position: absolute;
@@ -35,11 +38,9 @@
   </style>
 </head>
   
-<!-- 🔹 這裡放背景 -->
+<!-- 🔹 背景放在這裡 -->
 <body>
-  <div id="background">
-    <img src="background.jpg">
-  </div> 
+  <div id="background"></div>
+  <!-- 其他內容可以繼續添加 -->
 </body>
 </html>
-
