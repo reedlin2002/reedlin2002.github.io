@@ -1,10 +1,6 @@
-<audio controls autoplay loop>
-    <source src="flower.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-    </audio>
+### 『歡迎光臨』
 
 <img src="background.jpg" alt="image" width="300">
-<!-- 音樂播放器按鈕 -->
 
 <div style="display: inline-block; vertical-align: middle; margin-left: 20px;">
     <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
