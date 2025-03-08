@@ -1,20 +1,19 @@
-var particles;
-var countdown = 5;
-var numFireflies = 25;
-var posX = new Array(numFireflies);
-var posY = new Array(numFireflies);
-var speedX = new Array(numFireflies);
-var speedY = new Array(numFireflies);
-var fireflySize = new Array(numFireflies);
-var fireflyColors = new Array(numFireflies);
-var NYfontSize = 64;
-var NYdelta = 0.3;
-var colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#00F100']; // Rainbow colors
-
+let particles = [];
+let countdown = 5;
+let numFireflies = 25;
+let posX = [];
+let posY = [];
+let speedX = [];
+let speedY = [];
+let fireflySize = [];
+let fireflyColors = [];
+let NYfontSize = 64;
+let NYdelta = 0.3;
+let colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#00F100']; // 彩虹顏色
 
 function setup() {
   createCanvas(800, 600);
-  background(0); 
+  background(0);
   textSize(64);
   initializeFireflies();
   textAlign(CENTER, CENTER);
@@ -27,50 +26,43 @@ function draw() {
   building();
   Moon();
   Grass();
-  if (particles !== null) {
-    for (let p of particles) {
-      p.move();
-      p.display();
-    }
+  
+  for (let p of particles) {
+    p.move();
+    p.display();
   }
 }
 
 function timer() {
+  fill(255);
+  textSize(64);
   if (countdown > 0) {
-    textSize(64);
-    fill(255);
     text(countdown, width / 2, height / 4);
-  } 
-  else if (countdown <= 0) {
+  } else {
     NewYearText();
   }
-  
   if (frameCount % 60 === 0 && countdown > 0) {
     countdown--;
   }
 }
 
-function Grass() { // Grass
-  fill(34, 139, 34); // Green
-  rect(0, 500, 800, 200); 
+function Grass() {
+  fill(34, 139, 34);
+  rect(0, 500, 800, 200);
 }
 
-function Moon() { // Moon
-  let moonX = 650; // Moon position
+function Moon() {
+  let moonX = 650;
   let moonY = 140;
-  let distance = dist(mouseX, mouseY, moonX, moonY); // Distance between mouse and moon
-  
+  let distance = dist(mouseX, mouseY, moonX, moonY);
+
   noStroke();
-  fill(255, 255, 204); 
-  if (distance < 60) { // If mouse is near moon
-    moonX += random(-2, 2); // Randomly move moon
+  fill(255, 255, 204);
+  if (distance < 60) {
+    moonX += random(-2, 2);
     moonY += random(-2, 2);
     textSize(24);
-    if(countdown > 0) {
-      text("? ? ?", moonX - 100, moonY - 70);
-    } else {
-      text("Happy New Year!", moonX - 100, moonY - 70);
-    }
+    text(countdown > 0 ? "? ? ?" : "Happy New Year!", moonX - 100, moonY - 70);
   }
   ellipse(moonX, moonY, 120, 120);
 }
@@ -78,64 +70,59 @@ function Moon() { // Moon
 function building() {
   noStroke();
   fill(100);
-  rect(100, 150, 100, 400); // Building body
+  rect(100, 150, 100, 400);
   fill(255, 255, 204);
-  rect(150, 250, 20, 30); // Window 1
-  rect(150, 200, 20, 30); // Window 2
+  rect(150, 250, 20, 30);
+  rect(150, 200, 20, 30);
   
   fill(0, 0, 51);
-  rect(200, 250, 100, 400); // Building body
+  rect(200, 250, 100, 400);
   fill(255, 255, 204);
-  rect(230, 330, 20, 30); // Window 1
-  rect(270, 320, 20, 30); // Window 2
+  rect(230, 330, 20, 30);
+  rect(270, 320, 20, 30);
   
   fill(96, 96, 96);
-  rect(0, 200, 100, 400); // Building body
+  rect(0, 200, 100, 400);
   fill(255, 255, 204);
-  rect(10, 250, 20, 30); // Window 1
-  rect(50, 350, 20, 30); // Window 2
-  rect(50, 400, 20, 30); // Window 3
+  rect(10, 250, 20, 30);
+  rect(50, 350, 20, 30);
+  rect(50, 400, 20, 30);
 }
 
 function NewYearText() {
   textSize(NYfontSize);
-  let index = Math.floor(frameCount / 30) % colors.length; // Control color change speed
+  let index = int(frameCount / 30) % colors.length;
   fill(colors[index]);
   text("Happy New Year!", width / 2, height / 4);
-
-  NYfontSize = map(Math.sin(frameCount * NYdelta), -1, 1, 24, 40); // Scaling effect
+  NYfontSize = map(sin(frameCount * NYdelta), -1, 1, 24, 40);
 }
 
-// Initialize fireflies
 function initializeFireflies() {
   for (let i = 0; i < numFireflies; i++) {
-    posX[i] = random(width); // Random X position for fireflies
-    posY[i] = random(height); // Random Y position for fireflies
-    speedX[i] = random(-1, 1); // Random X speed
-    speedY[i] = random(-1, 1); // Random Y speed
-    fireflySize[i] = random(2, 5); // Random firefly size
-    fireflyColors[i] = color(200, 255, 0); // Firefly color (yellow)
+    posX[i] = random(width);
+    posY[i] = random(height);
+    speedX[i] = random(-1, 1);
+    speedY[i] = random(-1, 1);
+    fireflySize[i] = random(2, 5);
+    fireflyColors[i] = color(200, 255, 0);
   }
 }
 
-// Move fireflies
 function moveFireflies() {
   for (let i = 0; i < numFireflies; i++) {
-    posX[i] += speedX[i]; // Update X position
-    posY[i] += speedY[i]; // Update Y position
+    posX[i] += speedX[i];
+    posY[i] += speedY[i];
 
-    if (posX[i] > width || posX[i] < 0) { // Check for boundary
-      posX[i] = random(width); // Reposition firefly if out of bounds
+    if (posX[i] > width || posX[i] < 0) {
+      posX[i] = random(width);
     }
     if (posY[i] > height || posY[i] < 0) {
       posY[i] = random(height);
     }
-
-    drawFirefly(posX[i], posY[i], fireflySize[i], fireflyColors[i]); // Draw firefly
+    drawFirefly(posX[i], posY[i], fireflySize[i], fireflyColors[i]);
   }
 }
 
-// Draw a single firefly
 function drawFirefly(x, y, size, col) {
   fill(col);
   noStroke();
@@ -153,7 +140,6 @@ function createFirework(x, y) {
   }
 }
 
-// Fireworks
 class Particle {
   constructor(x, y) {
     this.x = x;
@@ -162,17 +148,13 @@ class Particle {
     this.speedY = random(-5, 5);
     this.col = color(random(255), random(255), random(255));
   }
-
-  // Update position
   move() {
     this.x += this.speedX;
     this.y += this.speedY;
   }
-
-  // Display particle
   display() {
     noStroke();
     fill(this.col);
-    ellipse(this.x, this.y, 5, 5); // Draw circle
+    ellipse(this.x, this.y, 5, 5);
   }
 }
