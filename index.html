@@ -10,6 +10,7 @@
             font-family: Arial, sans-serif;
             background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
+            position: relative;
             text-align: left;
             min-height: 100vh;
         }
@@ -31,20 +32,35 @@
             width: 100%;
             background-color: #333;
             color: white;
-            padding: 10px;
+            padding: 10px 20px;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            padding: 0;
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
         }
 
-        .nav-links a {
+        .menu-toggle div {
+            height: 4px;
+            width: 100%;
+            background-color: white;
+            border-radius: 2px;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu a {
             color: white;
             margin-right: 20px;
             text-decoration: none;
@@ -52,48 +68,97 @@
             transition: background 0.3s;
         }
 
-        .nav-links a:hover {
+        .menu a:hover {
             background: rgba(255, 255, 255, 0.2);
         }
 
-        .menu-icon {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-links a {
             color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* 全螢幕漢堡選單 */
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .menu-overlay a {
+            color: white;
+            font-size: 24px;
+            text-decoration: none;
+            padding: 15px;
+            display: block;
+        }
+
+        .menu-overlay a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .menu-overlay.open {
+            display: flex;
         }
 
         @media (max-width: 768px) {
-            .nav-links {
+            .menu {
                 display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 50px;
-                left: 0;
-                width: 100%;
-                background-color: #333;
             }
 
-            .nav-links.active {
+            .menu-toggle {
                 display: flex;
             }
+        }
 
-            .menu-icon {
-                display: block;
-            }
-
-            .nav-links a {
-                padding: 15px;
-                text-align: center;
-                width: 100%;
-                border-top: 1px solid #555;
-            }
+        .container {
+            max-width: 800px;
+            margin: 80px 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: calc(100% - 40px);
+            min-height: 100vh;
+            position: relative;
         }
     </style>
     <script>
+        function toggleLeetCode() {
+            var iframe = document.getElementById('leetcode-iframe');
+            var title = document.querySelector('.leetcode-title');
+            
+            if (iframe.style.display === 'none' || iframe.style.display === '') {
+                iframe.style.display = 'block';
+                if (!iframe.src) {
+                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html';
+                }
+            } else {
+                iframe.style.display = 'none';
+            }
+            
+            title.classList.toggle('open');
+        }
+
         function toggleMenu() {
-            var navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
+            var menuOverlay = document.querySelector('.menu-overlay');
+            menuOverlay.classList.toggle('open');
         }
     </script>
 </head>
@@ -101,25 +166,39 @@
     <div class="overlay"></div>
     
     <nav>
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
-        <ul class="nav-links">
-            <li><a href="https://reedlin2002.github.io/">Home</a></li>
-            <li><a href="https://reedlin2002.github.io/food">Food Choose</a></li>
-            <li><a href="https://reedlin2002.github.io/firework">Firework</a></li>
-            <li><a href="https://reedlin2002.github.io/gopher">Gopher</a></li>
-            <li><a href="https://reedlin2002.github.io/go">Gomoku</a></li>
-        </ul>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        
+        <div class="menu">
+            <a href="https://reedlin2002.github.io/">Home</a>
+            <a href="https://reedlin2002.github.io/food">Food Choose</a>
+            <a href="https://reedlin2002.github.io/firework">Firework</a>
+            <a href="https://reedlin2002.github.io/gopher">Gopher</a>
+            <a href="https://reedlin2002.github.io/go">Gomoku</a>
+        </div>
+
+        <div class="social-links">
+            <a href="#">🐦 Twitter</a>
+            <a href="#">📘 Facebook</a>
+            <a href="#">📸 Instagram</a>
+        </div>
     </nav>
+
+    <div class="menu-overlay">
+        <a href="https://reedlin2002.github.io/">Home</a>
+        <a href="https://reedlin2002.github.io/food">Food Choose</a>
+        <a href="https://reedlin2002.github.io/firework">Firework</a>
+        <a href="https://reedlin2002.github.io/gopher">Gopher</a>
+        <a href="https://reedlin2002.github.io/go">Gomoku</a>
+    </div>
     
     <div class="container">
         <h2>Reedlin2002's Page</h2>
         <p>Coding, learning, building.</p>
         <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
-        
-        <div class="leetcode-section">
-            <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
-            <iframe id="leetcode-iframe" style="display: none; width: 100%; height: 500px; border: none;"></iframe>
-        </div>
     </div>
 </body>
 </html>
