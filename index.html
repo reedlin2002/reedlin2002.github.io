@@ -120,7 +120,7 @@
                 content.style.display = 'block';
                 // 加載內容
                 if (!content.innerHTML.trim()) {
-                    fetch('leetcode-content.html')  // 確保使用相對路徑
+                    fetch('https://reedlin2002.github.io/leetcode-content.html')  // 確保使用相對路徑
                         .then(response => response.text())
                         .then(data => {
                             content.innerHTML = data;
