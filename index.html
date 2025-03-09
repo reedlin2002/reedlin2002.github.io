@@ -33,15 +33,18 @@
             background-color: #333;
             color: white;
             padding: 10px;
-            text-align: center;
+            display: flex; /* 使用flex布局 */
+            flex-wrap: wrap; /* 當空間不足時換行 */
+            justify-content: center; /* 將項目置中 */
             z-index: 1000;
         }
         nav a {
             color: white;
-            margin-right: 20px;
+            margin-right: 15px;
             text-decoration: none;
             padding: 5px 10px;
             transition: background 0.3s;
+            text-align: center;
         }
         nav a:hover {
             background: rgba(255, 255, 255, 0.2);
@@ -124,13 +127,14 @@
         /* Media queries for mobile devices */
         @media (max-width: 768px) {
             nav {
+                flex-direction: column; /* 在手機上讓nav按鈕垂直排列 */
                 text-align: left;
-                padding: 15px;
             }
-
             nav a {
-                margin-right: 10px;
-                padding: 5px 8px;
+                margin-right: 0; /* 去掉左右邊距 */
+                padding: 8px;
+                width: 100%; /* 讓每個導航項目都佔滿整行 */
+                text-align: center; /* 使文字置中 */
             }
 
             .container {
