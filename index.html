@@ -12,26 +12,28 @@
             background-size: cover;
             position: relative;
         }
-        body::after {
-            content: "";
+        
+        /* 半透明覆蓋層，提升可讀性 */
+        .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.5); /* 半透明背景提高可讀性 */
+            background: rgba(255, 255, 255, 0.6);
             z-index: -1;
         }
+        
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #444;
+            background-color: #333;
             color: white;
             padding: 10px;
-            z-index: 1000;
             text-align: center;
+            z-index: 1000;
         }
         nav a {
             color: white;
@@ -41,35 +43,59 @@
             transition: background 0.3s;
         }
         nav a:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
         }
+        
         .container {
             max-width: 800px;
             margin: 80px auto 20px auto;
             padding: 20px;
             background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
-        h2 {
-            color: #333;
+        
+        h1 {
+            color: #444;
         }
+        
         .links {
             margin: 20px 0;
         }
-        .daily-log {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        
+        .leetcode-section {
             margin-top: 20px;
         }
-        .daily-log p {
-            margin: 5px 0;
+        .leetcode-title {
+            cursor: pointer;
+            background: #007acc;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .leetcode-content {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            white-space: pre-line;
         }
     </style>
+    <script>
+        function toggleLeetCode() {
+            var content = document.getElementById('leetcode-content');
+            content.style.display = (content.style.display === 'none' || content.style.display === '') ? 'block' : 'none';
+        }
+    </script>
 </head>
 <body>
+    <div class="overlay"></div>
+    
     <nav>
         <a href="https://reedlin2002.github.io/">Home</a>
         <a href="https://reedlin2002.github.io/food">Food Choose</a>
@@ -77,37 +103,45 @@
         <a href="https://reedlin2002.github.io/gopher">Gopher</a>
         <a href="https://reedlin2002.github.io/go">Gomoku</a>
     </nav>
-
+    
     <div class="container">
-        <h2>📌 LeetCode 記錄</h2>
-        <div class="daily-log">
-            <p><strong>D1</strong> 🉑 #1 Two Sum *(GPT)*</p>
-            <p><strong>D2</strong> 🉑 #9 Palindrome Number *(GPT)*</p>
-            <p><strong>D3</strong> ✅ #13 Roman to Integer *(GPT)*</p>
-            <p><strong>D4</strong> ✅ #1 Two Sum</p>
-            <p><strong>D5</strong> ☕ **休息**</p>
-            <p><strong>D6</strong> ✅ #9 Palindrome - [::-1] **<- Python 能用來順序相反**</p>
-            <p><strong>D7</strong> 🉑 #14 Longest Common Prefix - startswith(prefix) **<- 檢查字串是否「以 prefix 開頭」**</p>
-            <p><strong>D8</strong> 🉑 #14 Longest Common Prefix - if not 某東西: **<- 檢查 "某東西" 是否為空，如果是就執行**</p>
-            <p><strong>D9</strong> 🉑 #14 Longest Common Prefix - while not 某東西: **<- 檢查 "某東西" 為 True/False，如果為 False 就執行**</p>
-            <p><strong>D10</strong> ✅ #14 Longest Common Prefix</p>
-            <p><strong>D11</strong> ✅ #14 Longest Common Prefix *(複習)*</p>
-            <p><strong>D12</strong> 🚫 #20 Valid Parentheses</p>
-            <p><strong>D13</strong> 🚫 #20 Valid Parentheses - {")": "(", "]": "[", "}": "{"} **<- 嘗試理解 mapping 對應關係**</p>
-            <p><strong>D14</strong> ☕ **休息**</p>
-            <p><strong>D15</strong> 🚫 #20 Valid Parentheses - {")": "(", "]": "[", "}": "{"} **<- 嘗試理解 mapping 對應關係**</p>
-            <p><strong>D16</strong> 🚫 #20 Valid Parentheses - for i in s: **<- 直接遍歷字串中的每個字元**</p>
-            <p><strong>D17</strong> 🚫 #20 Valid Parentheses - if i in mapping: **<- 檢查 i 是否是右括號（),], }）**</p>
-            <p><strong>D18</strong> 🉑 #20 Valid Parentheses</p>
-            <p><strong>D19</strong> 🉑 #20 Valid Parentheses - stack.append  **<- 將資料放入堆疊頂端**</p>
-            <p><strong>D20</strong> 🉑 #20 Valid Parentheses - stack.pop **<- 將堆疊頂端資料移除**</p>
-        </div>
-
+        <h2>Reedlin2002's Page</h2>
+        <p>Coding, learning, building.</p>
+        
         <div class="links">
             <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
             <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> | 
             <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a> | 
             <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
+        </div>
+        
+        <div class="leetcode-section">
+            <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄（點擊展開/收起）</div>
+            <div class="leetcode-content" id="leetcode-content">
+- **D1** 🉑  #1  Two Sum *(GPT)*<br>
+- **D2** 🉑  #9  Palindrome Number *(GPT)*<br>
+- **D3** ✅  #13 Roman to Integer *(GPT)*<br>
+- **D4** ✅  #1  Two Sum  <br>
+- **D5** ☕ **休息**<br>
+- **D6** ✅  #9  Palindrome  <br>
+  - [::-1] **<- Python 能用來順序相反**<br>
+- **D7** 🉑  #14 Longest Common Prefix  <br>
+  - startswith(prefix) **<- 檢查字串是否「以 prefix 開頭」**<br>
+- **D8** 🉑  #14 Longest Common Prefix  <br>
+  - if not 某東西: **<- 檢查 "某東西" 是否為空，如果是就執行**<br>
+- **D9** 🉑  #14 Longest Common Prefix  <br>
+  - while not 某東西: **<- 檢查 "某東西" 為 True/False，如果為 False 就執行**<br>
+- **D10** ✅  #14 Longest Common Prefix<br>
+- **D11** ✅  #14 Longest Common Prefix *(複習)*<br>
+- **D12** 🚫  #20 Valid Parentheses  <br>
+- **D13** 🚫  #20 Valid Parentheses  <br>
+  - {")": "(", "]": "[", "}": "{"} **<- 嘗試理解 mapping 對應關係**<br>
+- **D14** ☕ **休息**<br>
+- **D15** 🚫  #20 Valid Parentheses<br>
+  - {")": "(", "]": "[", "}": "{"} **<- 嘗試理解 mapping 對應關係**<br>
+- **D16** 🚫  #20 Valid Parentheses<br>
+  - for i in s: **<- 直接遍歷字串中的每個字元**<br>
+            </div>
         </div>
     </div>
 </body>
