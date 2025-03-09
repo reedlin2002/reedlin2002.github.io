@@ -74,14 +74,36 @@
         }
 
         .social-links {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             display: flex;
-            gap: 15px;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .social-links a {
             color: white;
-            font-size: 18px;
             text-decoration: none;
+            padding: 8px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 80px auto 20px auto; /* 增加 margin-top 避免被 nav 擋住 */
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
         }
 
         @media (max-width: 768px) {
@@ -140,5 +162,18 @@
             <a href="#">Instagram</a>
         </div>
     </nav>
+
+    <div class="container">
+        <h2>Reedlin2002's Page</h2>
+        <p>Coding, learning, building.</p>
+        <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
+
+        <div class="links">
+            <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
+            <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> | 
+            <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a> | 
+            <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
+        </div>
+    </div>
 </body>
 </html>
