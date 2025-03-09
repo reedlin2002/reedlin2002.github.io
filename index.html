@@ -73,19 +73,34 @@
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            z-index: 999;  /* 確保菜單在最上層 */
+            z-index: 999;
         }
 
         .menu.open {
             display: flex;
             flex-direction: column;
             position: absolute;
-            top: 50px;  /* 預設位置下移，防止覆蓋到漢堡菜單 */
+            top: 50px;
             left: 0;
             background-color: #333;
             width: 100%;
             padding: 10px;
-            z-index: 1000;  /* 確保菜單顯示在最上層 */
+            z-index: 1000;
+        }
+
+        .menu a {
+            color: white; /* 確保按鈕文字是白色 */
+            padding: 10px 20px;
+            text-align: center;
+            width: 100%;
+            display: block;
+            text-decoration: none;
+            font-size: 18px;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Media queries for mobile devices */
