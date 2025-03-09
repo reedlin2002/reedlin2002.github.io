@@ -113,18 +113,17 @@
     </style>
     <script>
         function toggleLeetCode() {
-            var content = document.getElementById('leetcode-content');
-            var title = document.querySelector('.leetcode-title');
             var iframe = document.getElementById('leetcode-iframe');
+            var title = document.querySelector('.leetcode-title');
             
-            if (content.style.display === 'none' || content.style.display === '') {
-                content.style.display = 'block';
-                // 檢查 iframe 是否已經加載內容，如果還沒加載則設置 src
+            if (iframe.style.display === 'none' || iframe.style.display === '') {
+                iframe.style.display = 'block';
+                // 如果iframe还没有src, 就设定src
                 if (!iframe.src) {
-                    iframe.src = 'leetcode-content.html';  // 指定 iframe 的來源
+                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html';
                 }
             } else {
-                content.style.display = 'none';
+                iframe.style.display = 'none';
             }
             
             title.classList.toggle('open');
@@ -154,9 +153,9 @@
         </div>
         
         <div class="leetcode-section">
+            <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
-            <div class="leetcode-content" id="leetcode-content" style="display: none;">
-                <iframe id="leetcode-iframe" src="" width="100%" height="500px" style="border: none;"></iframe>
+            <iframe id="leetcode-iframe" style="display: none; width: 100%; height: 500px; border: none;"></iframe>
             </div>
         </div>
     </div>
