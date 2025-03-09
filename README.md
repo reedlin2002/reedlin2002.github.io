@@ -1,4 +1,4 @@
-# Reedlin2002's page
+# Reedlin2002's Page
 
 <img src="background.jpg" alt="image" width="300">
 
