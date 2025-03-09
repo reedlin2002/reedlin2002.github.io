@@ -5,41 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reedlin2002.github.io</title>
     <style>
+        /* 設定網頁的基本樣式 */
         body {
             margin: 0;
             font-family: 'Trebuchet MS', sans-serif;
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: url('background.jpg') no-repeat center center fixed; /* 背景圖設置 */
+            background-size: cover; /* 使背景圖片覆蓋整個頁面 */
             position: relative;
             text-align: left;
             min-height: 100vh;
         }
 
+        /* 背景遮罩 */
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.5);
-            z-index: -1;
+            background: rgba(255, 255, 255, 0.5); /* 半透明的白色遮罩 */
+            z-index: -1; /* 確保在最底層 */
         }
 
+        /* 網頁內容的容器 */
         .container {
             max-width: 800px;
             margin: 60px 10px 20px; /* 上邊60px，底部20px，左右各10px */
             padding: 15px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 輕微的陰影 */
             text-align: left;
             position: relative;
         }
 
+        /* 頁面標題和段落文字樣式 */
         h2, p {
             color: #444;
         }
 
+        /* 超連結樣式 */
         a {
             color: #015bc1;
             text-decoration: none;
@@ -49,6 +54,7 @@
             background: rgba(4, 1, 193, 0.2);
         }
 
+        /* 其他連結區塊 */
         .links {
             margin: 20px 0;
             font-size: 14px;
@@ -59,10 +65,12 @@
             margin-right: 5px;
         }
 
+        /* LeetCode 記錄區塊樣式 */
         .leetcode-section {
             margin-top: 20px;
         }
 
+        /* LeetCode 標題樣式 */
         .leetcode-title {
             cursor: pointer;
             background: white;
@@ -77,6 +85,7 @@
             min-width: 200px;
         }
 
+        /* LeetCode 標題旁邊的小箭頭 */
         .leetcode-title:after {
             content: " ▼";
             font-size: 18px;
@@ -84,10 +93,11 @@
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            transition: transform 0.3s;
+            transition: transform 0.3s; /* 動畫效果 */
             color: black;
         }
 
+        /* LeetCode 內容區塊樣式 */
         .leetcode-content {
             display: none;
             margin-top: 10px;
@@ -98,10 +108,12 @@
             white-space: pre-line;
         }
 
+        /* 開啟狀態時的小箭頭動畫 */
         .leetcode-title.open:after {
             transform: translateY(-50%) rotate(180deg);
         }
 
+        /* LeetCode iframe 設置 */
         #leetcode-iframe {
             display: none;
             width: 100%;
@@ -111,6 +123,7 @@
             z-index: 999;
         }
 
+        /* 導覽列樣式 */
         nav {
             position: fixed;
             top: 0;
@@ -122,9 +135,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
         }
 
+        /* 導覽列背景模糊效果 */
         nav::before {
             content: "";
             position: absolute;
@@ -138,12 +151,14 @@
             z-index: -1;
         }
 
+        /* 響應式設計：當螢幕寬度小於768px時，調整導航列 */
         .menu-toggle {
             display: none;
             flex-direction: column;
             cursor: pointer;
         }
 
+        /* 三條橫線的樣式，用來觸發導覽列顯示 */
         .menu-toggle div {
             width: 30px;
             height: 4px;
@@ -151,11 +166,13 @@
             margin: 5px 0;
         }
 
+        /* 導覽列的主要樣式 */
         .menu {
             display: flex;
             align-items: center;
         }
 
+        /* 導覽列中的連結樣式 */
         .menu a {
             color: white;
             text-decoration: none;
@@ -166,6 +183,7 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
+        /* 響應式設計：調整小螢幕下導覽列的顯示方式 */
         @media (max-width: 768px) {
             nav {
                 justify-content: flex-start;
@@ -197,6 +215,7 @@
                 display: flex;
             }
 
+            /* 響應式設計：調整內容區塊大小 */
             .container {
                 margin: 60px 10px 20px;
                 padding: 15px;
@@ -224,30 +243,34 @@
     </style>
 
     <script>
+        /* 切換導航列顯示狀態 */
         function toggleMenu() {
             document.querySelector('.menu').classList.toggle('open');
         }
 
+        /* 顯示或隱藏 LeetCode 記錄的內容 */
         function toggleLeetCode() {
             var iframe = document.getElementById('leetcode-iframe');
             var title = document.querySelector('.leetcode-title');
 
+            // 顯示或隱藏 iframe
             if (iframe.style.display === 'none' || iframe.style.display === '') {
                 iframe.style.display = 'block';
                 if (!iframe.src) {
-                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html';
+                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html'; /* 設置 iframe 內容 */
                 }
             } else {
                 iframe.style.display = 'none';
             }
 
-            title.classList.toggle('open');
+            title.classList.toggle('open'); /* 切換標題的開關狀態 */
         }
     </script>
 </head>
 <body>
     <div class="overlay"></div>
 
+    <!-- 導覽列 -->
     <nav>
         <div class="menu-toggle" onclick="toggleMenu()">
             <div></div>
@@ -263,11 +286,13 @@
         </div>
     </nav>
 
+    <!-- 主要內容區域 -->
     <div class="container">
         <h2>Reedlin2002's Page</h2>
         <p>Coding, learning, building.</p>
         <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
 
+        <!-- 連結區 -->
         <div class="links">
             <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> |
             <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> |
@@ -275,6 +300,7 @@
             <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
         </div>
 
+        <!-- LeetCode 記錄區 -->
         <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
             <iframe id="leetcode-iframe"></iframe>
