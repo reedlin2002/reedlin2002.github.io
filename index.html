@@ -70,13 +70,14 @@
         }
         .leetcode-title {
             cursor: pointer;
-            background: #007acc;
-            color: white;
+            background: white; /* 白色背景 */
+            color: black; /* 黑色文字 */
             padding: 10px;
             border-radius: 5px;
             display: inline-block;
             font-size: 16px;
             position: relative;
+            border: 1px solid #ccc; /* 輕微的邊框 */
         }
         .leetcode-title:after {
             content: " ▼";
@@ -86,6 +87,7 @@
             top: 50%;
             transform: translateY(-50%);
             transition: transform 0.3s;
+            color: black; /* 黑色箭頭 */
         }
         .leetcode-content {
             display: none;
@@ -132,7 +134,7 @@
         </div>
         
         <div class="leetcode-section">
-            <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄    </div>
+            <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
             <div class="leetcode-content" id="leetcode-content">
 - **D1** 🉑  #1  Two Sum *(GPT)*<br>
 - **D2** 🉑  #9  Palindrome Number *(GPT)*<br>
