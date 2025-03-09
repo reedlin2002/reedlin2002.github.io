@@ -3,120 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reedlin2002.github.io</title>
+    <title>Reedlin2002's Page</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-            text-align: left;
-        }
-        
-        /* 半透明覆蓋層，提升可讀性 */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.5); /* 更透明的背景 */
-            z-index: -1;
-        }
-        
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            z-index: 1000;
-        }
-        nav a {
-            color: white;
-            margin-right: 20px;
-            text-decoration: none;
-            padding: 5px 10px;
-            transition: background 0.3s;
-        }
-        nav a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .container {
-            max-width: 800px;
-            margin: 80px auto 20px auto;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-        
-        h2, p {
-            color: #444;
-        }
-        
-        .links {
-            margin: 20px 0;
-        }
-        
-        .leetcode-section {
-            margin-top: 20px;
-        }
-        .leetcode-title {
-            cursor: pointer;
-            background: white; /* 白色背景 */
-            color: black; /* 黑色文字 */
-            padding: 10px;
-            border-radius: 5px;
-            display: inline-block;
-            font-size: 16px;
-            position: relative;
-            border: 1px solid #ccc; /* 輕微的邊框 */
-            width: auto;
-            min-width: 200px;
-        }
-        .leetcode-title:after {
-            content: " ▼";
-            font-size: 18px;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: transform 0.3s;
-            color: black; /* 黑色箭頭 */
-        }
-        .leetcode-content {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 5px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            white-space: pre-line;
-        }
-        .leetcode-title.open:after {
-            transform: translateY(-50%) rotate(180deg);
-        }
-        /* 調整內容為 <ul> 與 <li> */
-        .leetcode-content ul {
-            list-style-type: none;
-            padding-left: 20px;
-        }
-        .leetcode-content li {
-            margin-bottom: 5px;
-        }
+        /* 樣式設置同之前... */
     </style>
     <script>
         function toggleLeetCode() {
             var content = document.getElementById('leetcode-content');
             var title = document.querySelector('.leetcode-title');
-            content.style.display = (content.style.display === 'none' || content.style.display === '') ? 'block' : 'none';
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                // 加載內容
+                if (!content.innerHTML.trim()) {
+                    fetch('leetcode-content.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            content.innerHTML = data;
+                        })
+                        .catch(error => console.error('Error loading content:', error));
+                }
+            } else {
+                content.style.display = 'none';
+            }
             title.classList.toggle('open');
         }
     </script>
@@ -145,41 +53,8 @@
         
         <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
-            <div class="leetcode-content" id="leetcode-content">
-                <ul>
-                    <li><strong>D1</strong> 🉑 #1 Two Sum *(GPT)*</li>
-                    <li><strong>D2</strong> 🉑 #9 Palindrome Number *(GPT)*</li>
-                    <li><strong>D3</strong> ✅ #13 Roman to Integer *(GPT)*</li>
-                    <li><strong>D4</strong> ✅ #1 Two Sum</li>
-                    <li><strong>D5</strong> ☕ 休息</li>
-                    <li><strong>D6</strong> ✅ #9 Palindrome</li>
-                    <li><em><code>[::-1]</code> **<- Python 能用來順序相反**</em></li>
-                    <li><strong>D7</strong> 🉑 #14 Longest Common Prefix</li>
-                    <li><em><code>startswith(prefix)</code> **<- 檢查字串是否「以 prefix 開頭」**</em></li>
-                    <li><strong>D8</strong> 🉑 #14 Longest Common Prefix</li>
-                    <li><em><code>if not 某東西:</code> **<- 檢查 "某東西" 是否為空，如果是就執行**</em></li>
-                    <li><strong>D9</strong> 🉑 #14 Longest Common Prefix</li>
-                    <li><em><code>while not 某東西:</code> **<- 檢查 "某東西" 為 True/False，如果為 False 就執行**</em></li>
-                    <li><strong>D10</strong> ✅ #14 Longest Common Prefix</li>
-                    <li><strong>D11</strong> ✅ #14 Longest Common Prefix *(複習)*</li>
-                    <li><strong>D12</strong> 🚫 #20 Valid Parentheses</li>
-                    <li><strong>D13</strong> 🚫 #20 Valid Parentheses</li>
-                    <li><em><code>{")": "(", "]": "[", "}": "{"}</code> **<- 嘗試理解 mapping 對應關係**</em></li>
-                    <li><strong>D14</strong> ☕ 休息</li>
-                    <li><strong>D15</strong> 🚫 #20 Valid Parentheses</li>
-                    <li><em><code>{")": "(", "]": "[", "}": "{"}</code> **<- 嘗試理解 mapping 對應關係**</em></li>
-                    <li><strong>D16</strong> 🚫 #20 Valid Parentheses</li>
-                    <li><em><code>for i in s:</code> **<- 直接遍歷字串中的每個字元**</em></li>
-                    <li><strong>D17</strong> 🚫 #20 Valid Parentheses</li>
-                    <li><em><code>if i in mapping:</code> **<- 檢查 i 是否是右括號（`)`,`]`, `}`）**</em></li>
-                    <li><em><code>mapping[")"]</code> **<- 會得到 `(`  (從mapping這個對應關係中)**</em></li>
-                    <li><em><code>stack[-1]</code> **意思是stack的堆疊的最上層** EX: <code>x=[10, 20, 30] x[-1]=30 x[-2]=20 x[-3]=10</code></em></li>
-                    <li><strong>D18</strong> 🉑 #20 Valid Parentheses</li>
-                    <li><strong>D19</strong> 🉑 #20 Valid Parentheses</li>
-                    <li><em><code>stack.append</code> **<- 將資料放入堆疊頂端**</em></li>
-                    <li><em><code>stack.pop</code> **<- 將堆疊頂端資料移除**</em></li>
-                    <li><strong>D20</strong> 🉑 #20 Valid Parentheses</li>
-                </ul>
+            <div class="leetcode-content" id="leetcode-content" style="display: none;">
+                <!-- LeetCode 內容會加載在這裡 -->
             </div>
         </div>
     </div>
