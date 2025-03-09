@@ -1,90 +1,114 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reedlin2002's Page</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      text-align: center;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: rgba(51, 51, 51, 0.8);
-      color: white;
-      padding: 10px;
-      z-index: 1000;
-      text-align: center;
-    }
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .content {
-      margin-top: 80px;
-      padding: 20px;
-    }
-    table {
-      width: 80%;
-      margin: auto;
-      border-collapse: collapse;
-    }
-    td, th {
-      padding: 10px;
-      border: 1px solid white;
-    }
-    .highlight {
-      animation: highlight 2s ease-in-out infinite alternate;
-    }
-    @keyframes highlight {
-      from { background-color: rgba(255, 255, 255, 0.2); }
-      to { background-color: rgba(255, 255, 255, 0.4); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reedlin2002's Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5); /* 半透明背景提高可讀性 */
+            z-index: -1;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #444;
+            color: white;
+            padding: 10px;
+            z-index: 1000;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin-right: 20px;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: background 0.3s;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .container {
+            max-width: 800px;
+            margin: 80px auto 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+        h2 {
+            color: #333;
+        }
+        .links {
+            margin: 20px 0;
+        }
+        .daily-log {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+        .daily-log p {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <a href="https://reedlin2002.github.io/">Home</a>
-    <a href="https://reedlin2002.github.io/food">Food Choose</a>
-    <a href="https://reedlin2002.github.io/firework">Firework</a>
-    <a href="https://reedlin2002.github.io/gopher">Gopher</a>
-    <a href="https://reedlin2002.github.io/go">Gomoku</a>
-  </nav>
-  
-  <div class="content">
-    <h1>Reedlin2002's Page</h1>
-    <h2>📖 Learning Focus</h2>
-    <p>挑戰 LeetCode (Python)，目標每1~3天完成一題 Easy 題目。</p>
-    <table>
-      <tr>
-        <th>✅ 了解並寫出</th>
-        <th>🉑 寫出但不清楚</th>
-        <th>🚫 寫不出來</th>
-      </tr>
-      <tr class="highlight"><td>D3 ✅ #13 Roman to Integer</td><td>D1 🉑 #1 Two Sum</td><td>D12 🚫 #20 Valid Parentheses</td></tr>
-      <tr><td>D4 ✅ #1 Two Sum</td><td>D2 🉑 #9 Palindrome Number</td><td>D13 🚫 #20 Valid Parentheses</td></tr>
-      <tr class="highlight"><td>D6 ✅ #9 Palindrome</td><td>D7 🉑 #14 Longest Common Prefix</td><td>D15 🚫 #20 Valid Parentheses</td></tr>
-      <tr><td>D10 ✅ #14 Longest Common Prefix</td><td>D8 🉑 #14 Longest Common Prefix</td><td>D16 🚫 #20 Valid Parentheses</td></tr>
-      <tr class="highlight"><td>D11 ✅ #14 Longest Common Prefix (複習)</td><td>D9 🉑 #14 Longest Common Prefix</td><td>D17 🚫 #20 Valid Parentheses</td></tr>
-      <tr><td>D18 🉑 #20 Valid Parentheses</td><td>D19 🉑 #20 Valid Parentheses</td><td>D20 🉑 #20 Valid Parentheses</td></tr>
-    </table>
-  </div>
+    <nav>
+        <a href="https://reedlin2002.github.io/">Home</a>
+        <a href="https://reedlin2002.github.io/food">Food Choose</a>
+        <a href="https://reedlin2002.github.io/firework">Firework</a>
+        <a href="https://reedlin2002.github.io/gopher">Gopher</a>
+        <a href="https://reedlin2002.github.io/go">Gomoku</a>
+    </nav>
+
+    <div class="container">
+        <h2>📌 LeetCode 記錄</h2>
+        <div class="daily-log">
+            <p><strong>D1</strong> 🉑 #1 Two Sum *(GPT)*</p>
+            <p><strong>D2</strong> 🉑 #9 Palindrome Number *(GPT)*</p>
+            <p><strong>D3</strong> ✅ #13 Roman to Integer *(GPT)*</p>
+            <p><strong>D4</strong> ✅ #1 Two Sum</p>
+            <p><strong>D5</strong> ☕ **休息**</p>
+            <p><strong>D6</strong> ✅ #9 Palindrome - [::-1] **<- Python 能用來順序相反**</p>
+            <p><strong>D7</strong> 🉑 #14 Longest Common Prefix - startswith(prefix) **<- 檢查字串是否「以 prefix 開頭」**</p>
+            <p><strong>D8</strong> 🉑 #14 Longest Common Prefix - if not 某東西: **<- 檢查 "某東西" 是否為空，如果是就執行**</p>
+            <p><strong>D9</strong> 🉑 #14 Longest Common Prefix - while not 某東西: **<- 檢查 "某東西" 為 True/False，如果為 False 就執行**</p>
+            <p><strong>D10</strong> ✅ #14 Longest Common Prefix</p>
+            <p><strong>D11</strong> ✅ #14 Longest Common Prefix *(複習)*</p>
+            <p><strong>D12</strong> 🚫 #20 Valid Parentheses</p>
+            <p><strong>D13</strong> 🚫 #20 Valid Parentheses - {")": "(", "]": "[", "}": "{"} **<- 嘗試理解 mapping 對應關係**</p>
+            <p><strong>D14</strong> ☕ **休息**</p>
+            <p><strong>D15</strong> 🚫 #20 Valid Parentheses - {")": "(", "]": "[", "}": "{"} **<- 嘗試理解 mapping 對應關係**</p>
+            <p><strong>D16</strong> 🚫 #20 Valid Parentheses - for i in s: **<- 直接遍歷字串中的每個字元**</p>
+            <p><strong>D17</strong> 🚫 #20 Valid Parentheses - if i in mapping: **<- 檢查 i 是否是右括號（),], }）**</p>
+            <p><strong>D18</strong> 🉑 #20 Valid Parentheses</p>
+            <p><strong>D19</strong> 🉑 #20 Valid Parentheses - stack.append  **<- 將資料放入堆疊頂端**</p>
+            <p><strong>D20</strong> 🉑 #20 Valid Parentheses - stack.pop **<- 將堆疊頂端資料移除**</p>
+        </div>
+
+        <div class="links">
+            <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
+            <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> | 
+            <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a> | 
+            <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
+        </div>
+    </div>
 </body>
 </html>
