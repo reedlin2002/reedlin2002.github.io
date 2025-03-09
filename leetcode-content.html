@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reedlin2002's Page</title>
+    <style>
+        /* 樣式設置同之前... */
+    </style>
+    <script>
+        function toggleLeetCode() {
+            var content = document.getElementById('leetcode-content');
+            var title = document.querySelector('.leetcode-title');
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                // 加載內容
+                if (!content.innerHTML.trim()) {
+                    fetch('leetcode-content.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            content.innerHTML = data;
+                        })
+                        .catch(error => console.error('Error loading content:', error));
+                }
+            } else {
+                content.style.display = 'none';
+            }
+            title.classList.toggle('open');
+        }
+    </script>
+</head>
+<body>
+    <div class="overlay"></div>
+    
+    <nav>
+        <a href="https://reedlin2002.github.io/">Home</a>
+        <a href="https://reedlin2002.github.io/food">Food Choose</a>
+        <a href="https://reedlin2002.github.io/firework">Firework</a>
+        <a href="https://reedlin2002.github.io/gopher">Gopher</a>
+        <a href="https://reedlin2002.github.io/go">Gomoku</a>
+    </nav>
+    
+    <div class="container">
+        <h2>Reedlin2002's Page</h2>
+        <p>Coding, learning, building.</p>
+        
+        <div class="links">
+            <a href="https://reedlin2002.github.io/go" target="_blank">Go</a> | 
+            <a href="https://reedlin2002.github.io/food" target="_blank">Food</a> | 
+            <a href="https://reedlin2002.github.io/firework" target="_blank">Firework</a> | 
+            <a href="https://reedlin2002.github.io/gopher" target="_blank">Gopher</a>
+        </div>
+        
+        <div class="leetcode-section">
+            <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
+            <div class="leetcode-content" id="leetcode-content" style="display: none;">
+                <!-- LeetCode 內容會加載在這裡 -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>
