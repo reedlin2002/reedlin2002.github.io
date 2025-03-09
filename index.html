@@ -33,19 +33,22 @@
             background-color: #333;
             color: white;
             padding: 10px;
-            display: flex; /* 使用flex布局 */
-            flex-wrap: wrap; /* 當空間不足時換行 */
-            justify-content: center; /* 將項目置中 */
+            text-align: center;
             z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* 讓項目在小螢幕上換行 */
         }
+        
         nav a {
             color: white;
-            margin-right: 15px;
+            margin-right: 20px;
             text-decoration: none;
             padding: 5px 10px;
             transition: background 0.3s;
-            text-align: center;
         }
+        
         nav a:hover {
             background: rgba(255, 255, 255, 0.2);
         }
@@ -124,17 +127,26 @@
             margin-bottom: 5px;
         }
 
+        /* 設置 iframe 在頁面底部 */
+        #leetcode-iframe {
+            display: none;
+            width: 100%;
+            min-height: 500px;
+            border: none;
+            position: relative;
+            z-index: 999;
+        }
+
         /* Media queries for mobile devices */
         @media (max-width: 768px) {
-            nav {
-                flex-direction: column; /* 在手機上讓nav按鈕垂直排列 */
-                text-align: left;
+           nav {
+                justify-content: flex-start; /* 左對齊 */
+                padding: 15px;
             }
+        
             nav a {
-                margin-right: 0; /* 去掉左右邊距 */
-                padding: 8px;
-                width: 100%; /* 讓每個導航項目都佔滿整行 */
-                text-align: center; /* 使文字置中 */
+                margin-right: 10px;
+                padding: 5px 8px;
             }
 
             .container {
@@ -207,7 +219,7 @@
         
         <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
-            <iframe id="leetcode-iframe" style="display: none; width: 100%; height: 500px; border: none;"></iframe>
+            <iframe id="leetcode-iframe"></iframe>
         </div>
     </div>
 </body>
