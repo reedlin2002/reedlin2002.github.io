@@ -114,30 +114,23 @@
     </style>
     <script>
             function toggleLeetCode() {
-        var content = document.getElementById('leetcode-content');
-        var title = document.querySelector('.leetcode-title');
-        if (content.style.display === 'none' || content.style.display === '') {
-            content.style.display = 'block';
-            // 加載內容
-            if (!content.innerHTML.trim()) {
-                fetch('leetcode-content.html')  // 確保使用相對路徑
-                    .then(response => {
-                        console.log(response);  // 查看回應狀態
-                        return response.text();
-                    })
-                    .then(data => {
-                        console.log(data);  // 查看加載的內容
-                        content.innerHTML = data;
-                    })
-                    .catch(error => {
-                        console.error('Error loading content:', error);
-                    });
+                var content = document.getElementById('leetcode-content');
+                var iframe = document.getElementById('leetcode-iframe');
+                var title = document.querySelector('.leetcode-title');
+            
+                if (content.style.display === 'none' || content.style.display === '') {
+                    content.style.display = 'block';
+                
+                // 檢查 iframe 是否已經加載內容，如果還沒加載則設置 src
+                    if (!iframe.src) {
+                        iframe.src = 'leetcode-content.html';  // 指定 iframe 的來源
+                    }
+            }     else {
+                    content.style.display = 'none';
             }
-        } else {
-            content.style.display = 'none';
+            
+            title.classList.toggle('open');
         }
-        title.classList.toggle('open');
-    }
     </script>
 </head>
 <body>
