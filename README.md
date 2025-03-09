@@ -1,4 +1,4 @@
-### 『歡迎光臨』
+# Reedlin2002's page
 
 <img src="background.jpg" alt="image" width="300">
 
