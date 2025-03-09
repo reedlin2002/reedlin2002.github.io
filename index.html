@@ -113,25 +113,31 @@
         }
     </style>
     <script>
-        function toggleLeetCode() {
-            var content = document.getElementById('leetcode-content');
-            var title = document.querySelector('.leetcode-title');
-            if (content.style.display === 'none' || content.style.display === '') {
-                content.style.display = 'block';
-                // 加載內容
-                if (!content.innerHTML.trim()) {
-                    fetch('https://reedlin2002.github.io/leetcode-content.html')  // 確保使用相對路徑
-                        .then(response => response.text())
-                        .then(data => {
-                            content.innerHTML = data;
-                        })
-                        .catch(error => console.error('Error loading content:', error));
-                }
-            } else {
-                content.style.display = 'none';
+            function toggleLeetCode() {
+        var content = document.getElementById('leetcode-content');
+        var title = document.querySelector('.leetcode-title');
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+            // 加載內容
+            if (!content.innerHTML.trim()) {
+                fetch('leetcode-content.html')  // 確保使用相對路徑
+                    .then(response => {
+                        console.log(response);  // 查看回應狀態
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log(data);  // 查看加載的內容
+                        content.innerHTML = data;
+                    })
+                    .catch(error => {
+                        console.error('Error loading content:', error);
+                    });
             }
-            title.classList.toggle('open');
+        } else {
+            content.style.display = 'none';
         }
+        title.classList.toggle('open');
+    }
     </script>
 </head>
 <body>
