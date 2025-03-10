@@ -29,12 +29,13 @@
 
         /* 網頁內容的容器 */
         .container {
-            max-width: 800px;
-            margin: 60px 10px 20px; /* 上邊60px，底部20px，左右各10px */
+            width: 90%; /* 設定為 90% 讓其適應不同螢幕尺寸 */
+            max-width: 800px; /* 保持桌面版的最大寬度 */
+            margin: 60px auto 20px; /* 自動置中 */
             padding: 15px;
-            background: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 輕微的陰影 */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: left;
             position: relative;
         }
@@ -217,9 +218,8 @@
 
             /* 響應式設計：調整內容區塊大小 */
             .container {
-                margin: 60px 10px 20px;
-                padding: 15px;
-                width: 100%;
+                width: 95%; /* 在更小的螢幕上讓內容稍微拉開 */
+                padding: 10px; /* 減少內距，避免擁擠 */
             }
 
             .leetcode-title {
