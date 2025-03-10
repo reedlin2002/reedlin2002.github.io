@@ -126,6 +126,9 @@
 
         /* 導覽列樣式 */
         nav {
+            display: flex;
+            justify-content: space-between; /* 讓 Home 置左，其他連結置右 */
+            align-items: center;
             position: fixed;
             top: 0;
             left: 0;
@@ -133,88 +136,63 @@
             color: black;
             padding: 10px 20px;
             z-index: 1000;
+        }
+        
+        /* 左側 Home 連結 */
+        .nav-left {
+            flex: 1; /* 讓 Home 連結保持在左側 */
+        }
+        
+        .nav-left a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+        }
+        
+        /* 右側連結 */
+        .nav-right {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 15px; /* 調整連結之間的間距 */
         }
-
-        /* 導覽列背景模糊效果 */
-        nav::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%), url('background.jpg') no-repeat center center;
-            background-size: cover;
-            filter: blur(10px);
-            z-index: -1;
-        }
-
-        /* 響應式設計：當螢幕寬度小於768px時，調整導航列 */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        /* 三條橫線的樣式，用來觸發導覽列顯示 */
-        .menu-toggle div {
-            width: 30px;
-            height: 4px;
-            background-color: white;
-            margin: 5px 0;
-        }
-
-        /* 導覽列的主要樣式 */
-        .menu {
-            display: flex;
-            align-items: center;
-        }
-
-        /* 導覽列中的連結樣式 */
+        
+        /* 調整導覽列中的連結樣式 */
         .menu a {
             color: white;
             text-decoration: none;
             padding: 10px;
         }
-
+        
         .menu a:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-
-        /* 響應式設計：調整小螢幕下導覽列的顯示方式 */
+        
+        /* 響應式設計 */
         @media (max-width: 768px) {
-            nav {
-                justify-content: flex-start;
-                padding: 15px;
+            .nav-left {
+                flex: none; /* 移除自動擴展 */
             }
-
-            nav a {
-                margin-right: 10px;
-                padding: 5px 8px;
+        
+            .nav-right {
+                display: none; /* 手機版預設隱藏選單 */
             }
-
+        
             .menu-toggle {
                 display: flex;
             }
-
-            .menu {
-                display: none;
+        
+            .menu.open {
+                display: flex;
+                flex-direction: column;
                 position: absolute;
                 top: 50px;
                 left: 0;
                 width: 100%;
                 background: rgba(0, 0, 0, 0.9);
-                flex-direction: column;
                 text-align: center;
                 padding: 20px 0;
             }
-
-            .menu.open {
-                display: flex;
-            }
+        }
 
             /* 響應式設計：調整內容區塊大小 */
             .container {
@@ -272,13 +250,15 @@
 
     <!-- 導覽列 -->
     <nav>
+        <div class="nav-left">
+            <a href="https://reedlin2002.github.io/">Home</a>
+        </div>
         <div class="menu-toggle" onclick="toggleMenu()">
             <div></div>
             <div></div>
             <div></div>
         </div>
-        <div class="menu">
-            <a href="https://reedlin2002.github.io/">Home</a>
+        <div class="nav-right menu">
             <a href="https://reedlin2002.github.io/food">Food Choose</a>
             <a href="https://reedlin2002.github.io/firework">Firework</a>
             <a href="https://reedlin2002.github.io/gopher">Gopher</a>
