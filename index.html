@@ -149,6 +149,30 @@
             border: none;
         }
 
+        .leetcode-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .leetcode-title {
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: none;
+        }
+
         @media (max-width: 768px) {
             nav {
                 justify-content: flex-start;
@@ -190,9 +214,20 @@
         function openProject(url) {
             var iframe = document.getElementById('project-iframe');
             var container = document.querySelector('.iframe-container');
-            
             iframe.src = url;
             container.style.display = 'block';
+        }
+
+        // 新增的 LeetCode 部分的 JS
+        function toggleLeetCode() {
+            var iframe = document.getElementById('leetcode-iframe');
+            if (iframe.style.display === "none" || iframe.style.display === "") {
+                iframe.style.display = "block";
+                iframe.src = "https://leetcode.com";  // 這裡可以改成你自己的 LeetCode 記錄頁面
+            } else {
+                iframe.style.display = "none";
+                iframe.src = "";  // 关闭 iframe 內容
+            }
         }
     </script>
 </head>
@@ -235,6 +270,12 @@
                     <img src="go.png" alt="Gomoku">
                 </div>
             </div>
+        </div>
+
+        <!-- LeetCode 記錄區塊 -->
+        <div class="leetcode-section">
+            <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
+            <iframe id="leetcode-iframe"></iframe>
         </div>
 
         <div class="iframe-container">
