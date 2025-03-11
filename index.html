@@ -103,7 +103,63 @@
         .menu a:hover {
             background: rgba(255, 255, 255, 0.2);
         }
+        /* LeetCode 記錄區塊樣式 */
+        .leetcode-section {
+            margin-top: 20px;
+        }
 
+        /* LeetCode 標題樣式 */
+        .leetcode-title {
+            cursor: pointer;
+            background: white;
+            color: black;
+            padding: 8px;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 14px;
+            position: relative;
+            border: 1px solid #ccc;
+            width: auto;
+            min-width: 200px;
+        }
+
+        /* LeetCode 標題旁邊的小箭頭 */
+        .leetcode-title:after {
+            content: " ▼";
+            font-size: 18px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s; /* 動畫效果 */
+            color: black;
+        }
+
+        /* LeetCode 內容區塊樣式 */
+        .leetcode-content {
+            display: none;
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            white-space: pre-line;
+        }
+
+        /* 開啟狀態時的小箭頭動畫 */
+        .leetcode-title.open:after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* LeetCode iframe 設置 */
+        #leetcode-iframe {
+            display: none;
+            width: 100%;
+            min-height: 500px;
+            border: none;
+            position: relative;
+            z-index: 999;
+        }
         .projects {
             margin-top: 20px;
             text-align: center;
