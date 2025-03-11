@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>reedlin2002.github.io</title>
     <style>
-        /* 設定網頁的基本樣式 */
         body {
             margin: 0;
             font-family: 'Trebuchet MS', sans-serif;
@@ -51,135 +50,195 @@
             background: rgba(4, 1, 193, 0.2);
         }
 
-        .links {
-            margin: 20px 0;
-            font-size: 14px;
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            color: black;
+            padding: 10px 20px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%), url('background.jpg') no-repeat center center;
+            background-size: cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin: 5px 0;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .projects {
+            margin-top: 20px;
             text-align: center;
         }
 
-        .links a {
-            margin-right: 5px;
-        }
-
-        .leetcode-section {
-            margin-top: 20px;
-        }
-
-        .leetcode-title {
-            cursor: pointer;
-            background: white;
-            color: black;
-            padding: 8px;
-            border-radius: 5px;
-            display: inline-block;
-            font-size: 14px;
-            position: relative;
-            border: 1px solid #ccc;
-            width: auto;
-            min-width: 200px;
-        }
-
-        .leetcode-title:after {
-            content: " ▼";
-            font-size: 18px;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: transform 0.3s;
-            color: black;
-        }
-
-        .leetcode-content {
-            display: none;
-            margin-top: 10px;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 5px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            white-space: pre-line;
-        }
-
-        .leetcode-title.open:after {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        #leetcode-iframe {
-            display: none;
-            width: 100%;
-            min-height: 500px;
-            border: none;
-            position: relative;
-            z-index: 999;
-        }
-
-        .project-links {
+        .project-list {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .project-links a {
-            display: inline-block;
+        .project-item {
             width: 120px;
             height: 120px;
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
+            cursor: pointer;
             transition: opacity 0.3s;
         }
 
-        .project-links a:hover img {
-            opacity: 0.5;
-        }
-
-        .project-links img {
+        .project-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 10px;
+        }
+
+        .project-item:hover {
+            opacity: 0.7;
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 600px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #project-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                justify-content: flex-start;
+                padding: 15px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .menu.open {
+                display: flex;
+            }
+
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
         }
     </style>
+
     <script>
         function toggleMenu() {
             document.querySelector('.menu').classList.toggle('open');
         }
 
-        function toggleLeetCode() {
-            var iframe = document.getElementById('leetcode-iframe');
-            var title = document.querySelector('.leetcode-title');
-
-            if (iframe.style.display === 'none' || iframe.style.display === '') {
-                iframe.style.display = 'block';
-                if (!iframe.src) {
-                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html';
-                }
-            } else {
-                iframe.style.display = 'none';
-            }
-
-            title.classList.toggle('open');
+        function openProject(url) {
+            var iframe = document.getElementById('project-iframe');
+            var container = document.querySelector('.iframe-container');
+            
+            iframe.src = url;
+            container.style.display = 'block';
         }
     </script>
 </head>
 <body>
     <div class="overlay"></div>
+
+    <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="menu">
+            <a href="https://reedlin2002.github.io/">Home</a>
+            <a href="https://reedlin2002.github.io/food">Food Choose</a>
+            <a href="https://reedlin2002.github.io/firework">Firework</a>
+            <a href="https://reedlin2002.github.io/gopher">Gopher</a>
+            <a href="https://reedlin2002.github.io/go">Gomoku</a>
+        </div>
+    </nav>
+
     <div class="container">
         <h2>Reedlin2002's Page</h2>
         <p>Coding, learning, building.</p>
         <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
 
-        <div class="leetcode-section">
-            <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
-            <iframe id="leetcode-iframe"></iframe>
+        <div class="projects">
+            <h3>我的其他網頁</h3>
+            <div class="project-list">
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/food')">
+                    <img src="food.png" alt="Food Choose">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/firework')">
+                    <img src="firework.png" alt="Firework">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/gopher')">
+                    <img src="gopher.png" alt="Gopher">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/go')">
+                    <img src="go.png" alt="Gomoku">
+                </div>
+            </div>
         </div>
 
-        <div class="project-links">
-            <a href="https://reedlin2002.github.io/go" target="_blank"><img src="go.jpg" alt="Go"></a>
-            <a href="https://reedlin2002.github.io/food" target="_blank"><img src="food.jpg" alt="Food"></a>
-            <a href="https://reedlin2002.github.io/firework" target="_blank"><img src="firework.jpg" alt="Firework"></a>
-            <a href="https://reedlin2002.github.io/gopher" target="_blank"><img src="gopher.jpg" alt="Gopher"></a>
+        <div class="iframe-container">
+            <iframe id="project-iframe"></iframe>
         </div>
     </div>
 </body>
