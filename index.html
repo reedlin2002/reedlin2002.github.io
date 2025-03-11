@@ -3,140 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reedlin2002's Page</title>
+    <title>reedlin2002.github.io</title>
     <style>
         body {
             margin: 0;
             font-family: 'Trebuchet MS', sans-serif;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            overflow-x: hidden;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            text-align: left;
+            min-height: 100vh;
         }
-        /* 背景動畫 */
-        @keyframes backgroundAnimation {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            z-index: -1;
         }
-        body {
-            background-size: 400% 400%;
-            animation: backgroundAnimation 15s infinite ease-in-out;
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 60px auto 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            position: relative;
         }
-        /* 導覽列 */
+
+        h2, p {
+            color: #444;
+        }
+
+        a {
+            color: #015bc1;
+            text-decoration: none;
+        }
+
+        a:hover {
+            background: rgba(4, 1, 193, 0.2);
+        }
+
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 15px 20px;
+            color: black;
+            padding: 10px 20px;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s;
         }
+
+        nav::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%), url('background.jpg') no-repeat center center;
+            background-size: cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin: 5px 0;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
         .menu a {
             color: white;
             text-decoration: none;
-            padding: 10px 15px;
-            transition: 0.3s;
+            padding: 10px;
         }
+
         .menu a:hover {
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
         }
-        /* 主要內容區塊 */
-        .container {
-            max-width: 800px;
-            margin: 100px auto 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-        h2, p {
-            color: #444;
-        }
-        /* 社交媒體區塊 */
-        .social-links {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .social-links a {
-            margin: 0 10px;
-            font-size: 24px;
-            text-decoration: none;
-            color: #444;
-        }
-        /* 最新文章區塊 */
-        .latest-updates {
+
+        .projects {
             margin-top: 20px;
-            padding: 10px;
-            background: #f5f5f5;
-            border-radius: 5px;
+            text-align: center;
         }
-        /* 回到頂部按鈕 */
-        .back-to-top {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #2575fc;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 50%;
+
+        .project-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project-item {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.3s;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .project-item:hover {
+            opacity: 0.7;
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: 600px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        #project-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                justify-content: flex-start;
+                padding: 15px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .menu.open {
+                display: flex;
+            }
+
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
         }
     </style>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('open');
+        }
+
+        function openProject(url) {
+            var iframe = document.getElementById('project-iframe');
+            var container = document.querySelector('.iframe-container');
+            
+            iframe.src = url;
+            container.style.display = 'block';
+        }
+    </script>
 </head>
 <body>
-    <!-- 導覽列 -->
+    <div class="overlay"></div>
+
     <nav>
-        <div>Reedlin2002</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <div class="menu">
-            <a href="#">Home</a>
-            <a href="#">Projects</a>
-            <a href="#">Blog</a>
+            <a href="https://reedlin2002.github.io/">Home</a>
+            <a href="https://reedlin2002.github.io/food">Food Choose</a>
+            <a href="https://reedlin2002.github.io/firework">Firework</a>
+            <a href="https://reedlin2002.github.io/gopher">Gopher</a>
+            <a href="https://reedlin2002.github.io/go">Gomoku</a>
         </div>
     </nav>
-    
-    <!-- 主要內容區域 -->
+
     <div class="container">
-        <h2>Welcome to Reedlin2002's Page</h2>
+        <h2>Reedlin2002's Page</h2>
         <p>Coding, learning, building.</p>
         <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
-    
-        <!-- 社交媒體區塊 -->
-        <div class="social-links">
-            <a href="https://twitter.com" target="_blank">🐦</a>
-            <a href="https://linkedin.com" target="_blank">💼</a>
-            <a href="https://instagram.com" target="_blank">📷</a>
+
+        <div class="projects">
+            <h3>我的其他網頁</h3>
+            <div class="project-list">
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/food')">
+                    <img src="food.png" alt="Food Choose">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/firework')">
+                    <img src="firework.png" alt="Firework">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/gopher')">
+                    <img src="gopher.png" alt="Gopher">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/go')">
+                    <img src="go.png" alt="Gomoku">
+                </div>
+            </div>
         </div>
-        
-        <!-- 最新更新 -->
-        <div class="latest-updates">
-            <h3>Latest Updates</h3>
-            <ul>
-                <li>🚀 New blog post about JavaScript animations</li>
-                <li>📢 Open-source project released on GitHub</li>
-            </ul>
+
+        <div class="iframe-container">
+            <iframe id="project-iframe"></iframe>
         </div>
     </div>
-    
-    <!-- 回到頂部按鈕 -->
-    <div class="back-to-top" onclick="scrollToTop()">⬆</div>
-    
-    <script>
-        // 回到頂部功能
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        // 監聽滾動事件，顯示回到頂部按鈕
-        window.onscroll = function() {
-            document.querySelector('.back-to-top').style.display = window.scrollY > 200 ? 'block' : 'none';
-        };
-    </script>
 </body>
 </html>
