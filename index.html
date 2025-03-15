@@ -264,7 +264,15 @@
 
             title.classList.toggle('open');
         }
+        
+        function openProject(url) {
+            var iframe = document.getElementById('project-iframe');
+            var container = document.querySelector('.iframe-container');
 
+            iframe.src = url;
+            container.style.display = 'block';
+        }
+        
         function loadMarkdown() {
             fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/master/index.md')
                 .then(response => response.text())
