@@ -30,10 +30,24 @@
             max-width: 800px;
             margin: 60px auto 20px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
             position: relative;
+        }
+
+        h2, p {
+            color: #444;
+        }
+
+        a {
+            color: #015bc1;
+            text-decoration: none;
+        }
+
+        a:hover {
+            background: rgba(4, 1, 193, 0.2);
         }
 
         nav {
@@ -41,72 +55,111 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.8);
+            color: black;
             padding: 10px 20px;
             z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(10px);
+        }
+
+        nav::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.7) 100%), url('background.jpg') no-repeat center center;
+            background-size: cover;
+            filter: blur(10px);
+            z-index: -1;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle div {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin: 5px 0;
         }
 
         .menu {
             display: flex;
+            align-items: center;
         }
 
         .menu a {
-            color: black;
+            color: white;
             text-decoration: none;
             padding: 10px;
-            transition: background 0.3s ease;
         }
 
         .menu a:hover {
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
         }
 
+        /* LeetCode 記錄區塊樣式 */
         .leetcode-section {
             margin-top: 20px;
         }
 
+        /* LeetCode 標題樣式 */
         .leetcode-title {
             cursor: pointer;
             background: white;
             color: black;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 8px 25px 8px 8px; /* 調整padding，讓箭頭不被文字擋住 */
+            border-radius: 5px;
             display: inline-block;
-            font-size: 16px;
+            font-size: 14px;
             position: relative;
             border: 1px solid #ccc;
-            transition: background 0.3s;
+            width: auto;
+            min-width: 200px;
         }
 
-        .leetcode-title:hover {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
+        /* LeetCode 標題旁邊的小箭頭 */
         .leetcode-title:after {
             content: " ▼";
             font-size: 18px;
             position: absolute;
-            right: 15px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            transition: transform 0.3s;
+            transition: transform 0.3s; /* 動畫效果 */
+            color: black;
         }
 
+        /* LeetCode 內容區塊樣式 */
+        .leetcode-content {
+            display: none;
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            white-space: pre-line;
+        }
+
+        /* 開啟狀態時的小箭頭動畫 */
         .leetcode-title.open:after {
             transform: translateY(-50%) rotate(180deg);
         }
 
+        /* LeetCode iframe 設置 */
         #leetcode-iframe {
             display: none;
             width: 100%;
             min-height: 500px;
             border: none;
-            margin-top: 10px;
+            position: relative;
+            z-index: 999;
         }
 
         .projects {
@@ -118,21 +171,27 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
 
         .project-item {
-            width: 120px;
-            height: 40px;
+            width: 120px; /* 調整大小 */
+            height: 40px; /* 調整大小 */
             border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
-            transition: opacity 0.3s, transform 0.2s;
+            transition: opacity 0.3s;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
         }
 
         .project-item:hover {
-            opacity: 0.8;
-            transform: scale(1.05);
+            opacity: 0.7;
         }
 
         .iframe-container {
@@ -147,18 +206,81 @@
             height: 100%;
             border: none;
         }
+
+        @media (max-width: 768px) {
+            nav {
+                justify-content: flex-start;
+                padding: 15px;
+            }
+            nav a {
+                margin-right: 10px;
+                padding: 5px 8px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .menu.open {
+                display: flex;
+            }
+
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+
+            .leetcode-title {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .leetcode-content {
+                padding: 8px;
+            }
+        }
     </style>
+
     <script>
+        /* 切換導航列顯示狀態 */
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('open');
+        }
+
+        /* 顯示或隱藏 LeetCode 記錄的內容 */
         function toggleLeetCode() {
             var iframe = document.getElementById('leetcode-iframe');
             var title = document.querySelector('.leetcode-title');
-            iframe.style.display = (iframe.style.display === 'none' || iframe.style.display === '') ? 'block' : 'none';
-            title.classList.toggle('open');
+
+            // 顯示或隱藏 iframe
+            if (iframe.style.display === 'none' || iframe.style.display === '') {
+                iframe.style.display = 'block';
+                if (!iframe.src) {
+                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html'; /* 設置 iframe 內容 */
+                }
+            } else {
+                iframe.style.display = 'none';
+            }
+
+            title.classList.toggle('open'); /* 切換標題的開關狀態 */
         }
 
         function openProject(url) {
             var iframe = document.getElementById('project-iframe');
             var container = document.querySelector('.iframe-container');
+
             iframe.src = url;
             container.style.display = 'block';
         }
@@ -168,6 +290,11 @@
     <div class="overlay"></div>
 
     <nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <div class="menu">
             <a href="https://reedlin2002.github.io/">Home</a>
             <a href="https://reedlin2002.github.io/food">Food Choose</a>
@@ -182,21 +309,32 @@
         <p>Coding, learning, building.</p>
         <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
 
+        <!-- LeetCode 記錄區 -->
         <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
             <iframe id="leetcode-iframe"></iframe>
         </div>
 
+        <!-- 其它網頁 -->
         <div class="projects">
             <h3>我的其他網頁</h3>
             <div class="project-list">
-                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/food')">Food</div>
-                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/firework')">Firework</div>
-                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/gopher')">Gopher</div>
-                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/go')">Gomoku</div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/food')">
+                    <img src="background.jpg" alt="Food Choose">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/firework')">
+                    <img src="background.jpg" alt="Firework">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/gopher')">
+                    <img src="gopher/groundhogIdle.png" alt="Gopher">
+                </div>
+                <div class="project-item" onclick="openProject('https://reedlin2002.github.io/go')">
+                    <img src="background.jpg" alt="Gomoku">
+                </div>
             </div>
         </div>
 
+        <!-- *其它網頁開啟* -->
         <div class="iframe-container">
             <iframe id="project-iframe"></iframe>
         </div>
