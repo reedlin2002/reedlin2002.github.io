@@ -248,18 +248,15 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        function toggleMenu() {
-            document.querySelector('.menu').classList.toggle('open');
-        }
-
         function toggleLeetCode() {
             var iframe = document.getElementById('leetcode-iframe');
             var title = document.querySelector('.leetcode-title');
 
+            // 切換顯示狀態
             if (iframe.style.display === 'none' || iframe.style.display === '') {
                 iframe.style.display = 'block';
                 if (!iframe.src) {
-                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html';
+                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html'; // 設定 iframe 的來源
                 }
             } else {
                 iframe.style.display = 'none';
@@ -311,6 +308,7 @@
         <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
             <div id="markdown-content"></div>
+            <iframe id="leetcode-iframe"></iframe>
         </div>
 
         <div class="projects">
@@ -329,10 +327,6 @@
                     <img src="background.jpg" alt="Gomoku">
                 </div>
             </div>
-        </div>
-
-        <div class="iframe-container">
-            <iframe id="project-iframe"></iframe>
         </div>
     </div>
 </body>
