@@ -252,7 +252,6 @@
             }
         }
     </style>
-
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         /* 切換導航列顯示狀態 */
@@ -269,16 +268,7 @@
             if (iframe.style.display === 'none' || iframe.style.display === '') {
                 iframe.style.display = 'block';
                 if (!iframe.src) {
-                    iframe.src = ''; /* 空白 iframe */
-                    // 讀取並轉換 GitHub 上的 Markdown 文件
-                    fetch('https://raw.githubusercontent.com/reedlin2002/repository-name/main/index.md')
-                        .then(response => response.text())
-                        .then(markdown => {
-                            // 使用 marked.js 轉換 Markdown 為 HTML
-                            const htmlContent = marked(markdown);
-                            // 將 HTML 內容插入到 iframe 中
-                            iframe.contentDocument.body.innerHTML = htmlContent;
-                        });
+                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html'; /* 設置 iframe 內容 */
                 }
             } else {
                 iframe.style.display = 'none';
@@ -287,13 +277,23 @@
             title.classList.toggle('open'); /* 切換標題的開關狀態 */
         }
 
-        function openProject(url) {
-            var iframe = document.getElementById('project-iframe');
-            var container = document.querySelector('.iframe-container');
-
-            iframe.src = url;
-            container.style.display = 'block';
+        /* 使用 marked.js 抓取 GitHub 上的 index.md 並轉換成 HTML */
+        function loadMarkdown() {
+            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/master/index.md') // 替換成你的 GitHub markdown 文件的原始 URL
+                .then(response => response.text())
+                .then(markdown => {
+                    var htmlContent = marked(markdown);  // 使用 marked.js 轉換
+                    document.getElementById('markdown-content').innerHTML = htmlContent;
+                })
+                .catch(error => {
+                    console.error('錯誤:', error);
+                });
         }
+
+        // 當頁面載入後呼叫
+        window.onload = function() {
+            loadMarkdown();
+        };
     </script>
 </head>
 <body>
@@ -322,7 +322,7 @@
         <!-- LeetCode 記錄區 -->
         <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
-            <iframe id="leetcode-iframe"></iframe>
+            <div id="markdown-content"></div>
         </div>
 
         <!-- 其它網頁 -->
