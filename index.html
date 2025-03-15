@@ -104,17 +104,15 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
-        /* LeetCode 記錄區塊樣式 */
         .leetcode-section {
             margin-top: 20px;
         }
 
-        /* LeetCode 標題樣式 */
         .leetcode-title {
             cursor: pointer;
             background: white;
             color: black;
-            padding: 8px 25px 8px 8px; /* 調整padding，讓箭頭不被文字擋住 */
+            padding: 8px 25px 8px 8px;
             border-radius: 5px;
             display: inline-block;
             font-size: 14px;
@@ -124,7 +122,6 @@
             min-width: 200px;
         }
 
-        /* LeetCode 標題旁邊的小箭頭 */
         .leetcode-title:after {
             content: " ▼";
             font-size: 18px;
@@ -132,11 +129,10 @@
             right: 10px;
             top: 50%;
             transform: translateY(-50%);
-            transition: transform 0.3s; /* 動畫效果 */
+            transition: transform 0.3s;
             color: black;
         }
 
-        /* LeetCode 內容區塊樣式 */
         .leetcode-content {
             display: none;
             margin-top: 10px;
@@ -147,12 +143,10 @@
             white-space: pre-line;
         }
 
-        /* 開啟狀態時的小箭頭動畫 */
         .leetcode-title.open:after {
             transform: translateY(-50%) rotate(180deg);
         }
 
-        /* LeetCode iframe 設置 */
         #leetcode-iframe {
             display: none;
             width: 100%;
@@ -175,8 +169,8 @@
         }
 
         .project-item {
-            width: 120px; /* 調整大小 */
-            height: 40px; /* 調整大小 */
+            width: 120px;
+            height: 40px;
             border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
@@ -254,35 +248,31 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        /* 切換導航列顯示狀態 */
         function toggleMenu() {
             document.querySelector('.menu').classList.toggle('open');
         }
 
-        /* 顯示或隱藏 LeetCode 記錄的內容 */
         function toggleLeetCode() {
             var iframe = document.getElementById('leetcode-iframe');
             var title = document.querySelector('.leetcode-title');
 
-            // 顯示或隱藏 iframe
             if (iframe.style.display === 'none' || iframe.style.display === '') {
                 iframe.style.display = 'block';
                 if (!iframe.src) {
-                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html'; /* 設置 iframe 內容 */
+                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html';
                 }
             } else {
                 iframe.style.display = 'none';
             }
 
-            title.classList.toggle('open'); /* 切換標題的開關狀態 */
+            title.classList.toggle('open');
         }
 
-        /* 使用 marked.js 抓取 GitHub 上的 index.md 並轉換成 HTML */
         function loadMarkdown() {
-            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/master/index.md') // 替換成你的 GitHub markdown 文件的原始 URL
+            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/master/index.md')
                 .then(response => response.text())
                 .then(markdown => {
-                    var htmlContent = marked(markdown);  // 使用 marked.js 轉換
+                    var htmlContent = marked(markdown);
                     document.getElementById('markdown-content').innerHTML = htmlContent;
                 })
                 .catch(error => {
@@ -290,7 +280,6 @@
                 });
         }
 
-        // 當頁面載入後呼叫
         window.onload = function() {
             loadMarkdown();
         };
@@ -319,13 +308,11 @@
         <p>Coding, learning, building.</p>
         <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
 
-        <!-- LeetCode 記錄區 -->
         <div class="leetcode-section">
             <div class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</div>
             <div id="markdown-content"></div>
         </div>
 
-        <!-- 其它網頁 -->
         <div class="projects">
             <h3>我的其他網頁</h3>
             <div class="project-list">
@@ -344,7 +331,6 @@
             </div>
         </div>
 
-        <!-- *其它網頁開啟* -->
         <div class="iframe-container">
             <iframe id="project-iframe"></iframe>
         </div>
