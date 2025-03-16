@@ -211,52 +211,50 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        function showTime() {
-        	document.getElementById('currentTime').innerHTML = new Date().toUTCString();
-        }
-        showTime();
-        setInterval(function () {
-        	showTime();
-        }, 1000);
+            function toggleLeetCode() {
+                var markdownContent = document.getElementById('markdown-content');
+                var title = document.querySelector('.leetcode-title');
         
-        function toggleLeetCode() {
-            var markdownContent = document.getElementById('markdown-content');
-            var title = document.querySelector('.leetcode-title');
+                if (markdownContent.style.display === 'none' || markdownContent.style.display === '') {
+                    markdownContent.style.display = 'block';
         
-            if (markdownContent.style.display === 'none' || markdownContent.style.display === '') {
-                markdownContent.style.display = 'block';
-                if (!markdownContent.dataset.loaded) {
-                    loadMarkdown();
-                    markdownContent.dataset.loaded = 'true';
+                    // 確保只有第一次點擊時才載入 Markdown
+                    if (!markdownContent.dataset.loaded) {
+                        console.log("載入 Markdown...");
+                        loadMarkdown();
+                        markdownContent.dataset.loaded = 'true';
+                    }
+                } else {
+                    markdownContent.style.display = 'none';
                 }
-            } else {
-                markdownContent.style.display = 'none';
+        
+                title.classList.toggle('open');
             }
         
-            title.classList.toggle('open');
-        }
+            function loadMarkdown() {
+                fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/main/dailyleetcode.md')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(markdown => {
+                        var htmlContent = marked.parse(markdown);
+                        document.getElementById('markdown-content').innerHTML = htmlContent;
+                        console.log("Markdown 成功載入");
+                    })
+                    .catch(error => {
+                        console.error('載入 Markdown 失敗:', error);
+                    });
+            }
         
-        function loadMarkdown() {
-            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/main/dailyleetcode.md')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(markdown => {
-                    var htmlContent = marked.parse(markdown);
-                    document.getElementById('markdown-content').innerHTML = htmlContent;
-                })
-                .catch(error => {
-                    console.error('錯誤:', error);
-                });
-        }
-        
-        window.onload = function() {
-            document.getElementById('markdown-content').style.display = 'none';
-        };
+            window.onload = function() {
+                console.log("頁面載入完成，隱藏 Markdown");
+                document.getElementById('markdown-content').style.display = 'none';
+            };
     </script>
+
 </head>
 <body>
     <div class="overlay"></div>
