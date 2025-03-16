@@ -212,36 +212,41 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
         function toggleLeetCode() {
-            var iframe = document.getElementById('leetcode-iframe');
+            var markdownContent = document.getElementById('markdown-content');
             var title = document.querySelector('.leetcode-title');
-
-            // 切換顯示狀態
-            if (iframe.style.display === 'none' || iframe.style.display === '') {
-                iframe.style.display = 'block';
-                if (!iframe.src) {
-                    iframe.src = 'https://reedlin2002.github.io/leetcode-content.html'; // 設定 iframe 的來源
+        
+            if (markdownContent.style.display === 'none' || markdownContent.style.display === '') {
+                markdownContent.style.display = 'block';
+                if (!markdownContent.dataset.loaded) {
+                    loadMarkdown();
+                    markdownContent.dataset.loaded = 'true';
                 }
             } else {
-                iframe.style.display = 'none';
+                markdownContent.style.display = 'none';
             }
-
+        
             title.classList.toggle('open');
         }
         
         function loadMarkdown() {
-            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/master/dailyleetcode.md')
-                .then(response => response.text())
+            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/main/dailyleetcode.md')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.text();
+                })
                 .then(markdown => {
-                    var htmlContent = marked(markdown);
+                    var htmlContent = marked.parse(markdown);
                     document.getElementById('markdown-content').innerHTML = htmlContent;
                 })
                 .catch(error => {
                     console.error('錯誤:', error);
                 });
         }
-
+        
         window.onload = function() {
-            loadMarkdown();
+            document.getElementById('markdown-content').style.display = 'none';
         };
     </script>
 </head>
