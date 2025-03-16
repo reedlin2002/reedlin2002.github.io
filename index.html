@@ -274,7 +274,7 @@
         }
         
         function loadMarkdown() {
-            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/master/index.md')
+            fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/master/dailyleetcod.md')
                 .then(response => response.text())
                 .then(markdown => {
                     var htmlContent = marked(markdown);
