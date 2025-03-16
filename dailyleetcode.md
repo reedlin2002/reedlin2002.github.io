@@ -35,3 +35,4 @@
    - `stack.append`  **<- 將資料放入堆疊頂端**
    - `stack.pop`     **<- 將堆疊頂端資料移除**
 - **D20** 🉑  #20 Valid Parentheses
+- **D21** 🉑  #20 Valid Parentheses
