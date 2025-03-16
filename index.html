@@ -211,6 +211,14 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
+        function showTime() {
+        	document.getElementById('currentTime').innerHTML = new Date().toUTCString();
+        }
+        showTime();
+        setInterval(function () {
+        	showTime();
+        }, 1000);
+        
         function toggleLeetCode() {
             var markdownContent = document.getElementById('markdown-content');
             var title = document.querySelector('.leetcode-title');
@@ -271,6 +279,7 @@
     <div class="container">
         <h2>Reedlin2002's Page</h2>
         <p>Coding, learning, building.</p>
+        <p id="currentTime"></p>
         <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
 
         <div class="leetcode-section">
