@@ -32,6 +32,10 @@
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
       text-align: left;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: auto; /* ⬅ 讓內容可變大 */
+      overflow: visible; /* ⬅ 避免內容超出 */
     }
     h2, p {
       color: #444;
@@ -107,7 +111,10 @@
       padding: 0;
       margin-top: 10px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      width: 100%; /* ⬅ 確保寬度填滿 */
+      box-sizing: border-box; /* ⬅ 避免寬度跑掉 */
     }
+    
     .leetcode-content.open {
       max-height: 1000px;
       opacity: 1;
