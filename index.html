@@ -176,6 +176,14 @@
         })
         .catch(error => console.error('載入 Markdown 失敗:', error));
     }
+    function updateOverlayHeight() {
+      document.querySelector('.overlay').style.height = document.body.scrollHeight + 'px';
+    }
+    
+    window.addEventListener('load', updateOverlayHeight);
+    window.addEventListener('resize', updateOverlayHeight);
+    window.addEventListener('click', updateOverlayHeight);
+
   </script>
 </head>
 <body>
