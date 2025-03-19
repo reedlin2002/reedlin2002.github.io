@@ -8,45 +8,43 @@
     body {
       margin: 0;
       font-family: 'Trebuchet MS', sans-serif;
-      background: url('background.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(to right, #001f3f, #003366);
+      color: white;
       text-align: left;
       min-height: 100vh;
     }
     .overlay {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%; /* ⬅ 讓 overlay 覆蓋整個頁面 */
-      background: rgba(255, 255, 255, 0.5);
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.2);
       z-index: -1;
     }
-
     .container {
       width: 90%;
       max-width: 800px;
-      margin: 80px auto 20px;
+      margin: 100px auto 20px;
       padding: 20px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: left;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      color: #333;
       position: relative;
       display: flex;
       flex-direction: column;
-      min-height: auto; /* ⬅ 讓內容可變大 */
-      overflow: visible; /* ⬅ 避免內容超出 */
     }
     h2, p {
-      color: #444;
+      color: #222;
     }
     a {
-      color: #015bc1;
+      color: #0277ff;
       text-decoration: none;
+      font-weight: bold;
     }
     a:hover {
-      background: rgba(4, 1, 193, 0.2);
+      text-decoration: underline;
     }
     /* 導覽列 */
     nav {
@@ -54,9 +52,10 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
       color: white;
-      padding: 10px 20px;
+      padding: 15px 20px;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
@@ -70,28 +69,24 @@
     .menu a:hover {
       background: rgba(255, 255, 255, 0.2);
     }
-    /* LeetCode 記錄區 */
-    .leetcode-section {
-      margin-top: 20px;
-    }
+    /* LeetCode 按鈕 */
     .leetcode-title {
       cursor: pointer;
-      background: #015bc1;
+      background: #0277ff;
       color: white;
-      padding: 10px 20px;
+      padding: 12px 20px;
       border-radius: 5px;
       display: inline-block;
       font-size: 16px;
       font-weight: bold;
       border: none;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
+      transition: background 0.3s ease;
     }
     .leetcode-title:hover {
-      background: #013f8a;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+      background: #015bc1;
     }
     .leetcode-title.open {
-      background: #013f8a;
+      background: #015bc1;
     }
     .leetcode-title:after {
       content: " ▼";
@@ -101,7 +96,7 @@
     .leetcode-title.open:after {
       content: " ▲";
     }
-    /* 內容區塊 */
+    /* LeetCode 內容區塊 */
     .leetcode-content {
       max-height: 0;
       overflow: hidden;
@@ -112,10 +107,9 @@
       padding: 0;
       margin-top: 10px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-      width: 100%; /* ⬅ 確保寬度填滿 */
-      box-sizing: border-box; /* ⬅ 避免寬度跑掉 */
+      width: 100%;
+      box-sizing: border-box;
     }
-    
     .leetcode-content.open {
       max-height: 1000px;
       opacity: 1;
@@ -130,13 +124,13 @@
     }
     .leetcode-content th, .leetcode-content td {
       border: 1px solid #ddd;
-      padding: 8px;
+      padding: 10px;
       text-align: center;
     }
     .leetcode-content th {
       background-color: #f4f4f4;
     }
-    /* RWD */
+    /* RWD 調整 */
     @media (max-width: 768px) {
       .container {
         padding: 15px;
@@ -156,10 +150,8 @@
     function toggleLeetCode() {
       var title = document.querySelector('.leetcode-title');
       var content = document.querySelector('.leetcode-content');
-
       title.classList.toggle('open');
       content.classList.toggle('open');
-
       if (content.classList.contains('open')) {
         if (!content.dataset.loaded) {
           loadMarkdown();
@@ -167,7 +159,6 @@
         }
       }
     }
-
     function loadMarkdown() {
       fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/main/dailyleetcode.md')
         .then(response => response.text())
@@ -176,25 +167,15 @@
         })
         .catch(error => console.error('載入 Markdown 失敗:', error));
     }
-    function updateOverlayHeight() {
-      document.querySelector('.overlay').style.height = document.body.scrollHeight + 'px';
-    }
-    
-    window.addEventListener('load', updateOverlayHeight);
-    window.addEventListener('resize', updateOverlayHeight);
-    window.addEventListener('click', updateOverlayHeight);
-
   </script>
 </head>
 <body>
   <div class="overlay"></div>
-
   <nav>
     <div class="menu">
       <a href="#">Home</a>
     </div>
   </nav>
-
   <div class="container">
     <h2>Welcome to Reedlin2002's Page</h2>
     <p>Coding, learning, building.</p>
