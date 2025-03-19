@@ -25,7 +25,7 @@
     .container {
       width: 90%;
       max-width: 800px;
-      margin: 60px auto 20px;
+      margin: 80px auto 20px;
       padding: 20px;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 10px;
@@ -49,12 +49,21 @@
       top: 0;
       left: 0;
       width: 100%;
-      color: black;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
       padding: 10px 20px;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+    }
+    .menu a:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
     /* LeetCode 記錄區 */
     .leetcode-section {
@@ -87,22 +96,37 @@
     .leetcode-title.open:after {
       content: " ▲";
     }
-    /* 內容區塊動畫 */
+    /* 內容區塊 */
     .leetcode-content {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
       opacity: 0;
       background: white;
       border-radius: 5px;
-      padding: 0 15px;
+      padding: 0;
       margin-top: 10px;
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     }
     .leetcode-content.open {
-      max-height: 500px;
+      max-height: 1000px;
       opacity: 1;
       padding: 15px;
+      overflow: auto;
+    }
+    /* 表格樣式 */
+    .leetcode-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .leetcode-content th, .leetcode-content td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    .leetcode-content th {
+      background-color: #f4f4f4;
     }
     /* RWD */
     @media (max-width: 768px) {
@@ -112,6 +136,10 @@
       .leetcode-title {
         font-size: 14px;
         padding: 8px 15px;
+      }
+      nav {
+        flex-direction: column;
+        text-align: center;
       }
     }
   </style>
@@ -146,11 +174,6 @@
   <div class="overlay"></div>
 
   <nav>
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
     <div class="menu">
       <a href="#">Home</a>
     </div>
