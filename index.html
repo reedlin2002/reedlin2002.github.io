@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>reedlin2002.github.io</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Orbitron&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -37,6 +38,8 @@
     }
     h2, p {
       color: #222;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
     }
     a {
       color: #0277ff;
@@ -46,7 +49,6 @@
     a:hover {
       background: rgba(4, 1, 193, 0.2);
     }
-    /* 導覽列 */
     nav {
       position: fixed;
       top: 0;
@@ -69,7 +71,6 @@
     .menu a:hover {
       background: rgba(255, 255, 255, 0.2);
     }
-    /* LeetCode 按鈕 */
     .leetcode-title {
       cursor: pointer;
       background: #0277ff;
@@ -96,7 +97,6 @@
     .leetcode-title.open:after {
       content: " ▲";
     }
-    /* LeetCode 內容區塊 */
     .leetcode-content {
       max-height: 0;
       overflow: hidden;
@@ -116,33 +116,33 @@
       padding: 15px;
       overflow: auto;
     }
-    /* 表格樣式 */
-    .leetcode-content table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: #ff00ff;
+      letter-spacing: 2px;
+      transition: transform 0.3s ease;
     }
-    .leetcode-content th, .leetcode-content td {
-      border: 1px solid #ddd;
-      padding: 10px;
-      text-align: center;
+    h1:hover {
+      transform: scale(1.1) rotate(5deg);
     }
-    .leetcode-content th {
-      background-color: #f4f4f4;
+    .container > div {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
-    /* RWD 調整 */
-    @media (max-width: 768px) {
-      .container {
-        padding: 15px;
-      }
-      .leetcode-title {
-        font-size: 14px;
-        padding: 8px 15px;
-      }
-      nav {
-        flex-direction: column;
-        text-align: center;
-      }
+    .card {
+      background: #333;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      transform: rotate(-10deg);
+      transition: transform 0.3s ease;
+      flex: 1 1 30%;
+      margin: 10px;
+    }
+    .card:hover {
+      transform: rotate(0deg);
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -179,6 +179,12 @@
   <div class="container">
     <h2>Welcome to Reedlin2002's Page</h2>
     <p>Coding, learning, building.</p>
+    <h1>我的網站</h1>
+    <div>
+      <div class="card">卡片 1</div>
+      <div class="card">卡片 2</div>
+      <div class="card">卡片 3</div>
+    </div>
     <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
     <div class="leetcode-section">
       <button class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</button>
