@@ -144,36 +144,6 @@
         text-align: center;
       }
     }
-
-    /* 新增動畫區域 */
-    .animated-background {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 200px;
-      height: 200px;
-      background: rgba(255, 0, 0, 0.5);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-      z-index: -2;
-      transform: translate(-50%, -50%);
-    }
-
-    /* 動畫效果 */
-    @keyframes pulse {
-      0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0.5;
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-      }
-    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
@@ -215,8 +185,5 @@
       <div class="leetcode-content" id="markdown-content"></div>
     </div>
   </div>
-
-  <!-- 新增的動畫區域 -->
-  <div class="animated-background"></div>
 </body>
 </html>
