@@ -37,3 +37,4 @@
 - **D20** 🉑  #20 Valid Parentheses
 - **D21** 🉑  #20 Valid Parentheses
 - **D22** ✅  #20 Valid Parentheses
+- **D23** 🚫  #20250527 繼續寫
