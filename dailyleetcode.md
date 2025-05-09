@@ -41,3 +41,8 @@
 - **D23** 🚫  #21 Merge Two Sorted Lists
   - `self.val = val        # 節點的數值，例如 1、2、3`<br>
     `self.next = next      # 指向下一個節點的指標`  **<- 理解鏈表節點（Node）中..**
+- **D24** 🚫  #21 Merge Two Sorted Lists
+  - `ListNode(1) -> ListNode(3) -> ListNode(5)`<br>
+    `每個節點 (ListNode) 裡面都有：`<br>
+        `.val：存放數值（1、3、5）`<br>
+        `.next：指向下一個節點（或 None 表示結尾）`  **<- 理解鏈表節點（Node）中..**
