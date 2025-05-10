@@ -40,9 +40,15 @@
 - **D23** 🚫  #20250527 繼續寫
 - **D23** 🚫  #21 Merge Two Sorted Lists
   - `self.val = val        # 節點的數值，例如 1、2、3`<br>
-    `self.next = next      # 指向下一個節點的指標`  **<- 理解鏈表節點（Node）中..**
+    `self.next = next      # 指向下一個節點的指標`  **<- 理解鏈表節點（Node）...**
 - **D24** 🚫  #21 Merge Two Sorted Lists
   - `ListNode(1) -> ListNode(3) -> ListNode(5)`<br>
     `每個節點 (ListNode) 裡面都有：`<br>
-        `.val：存放數值（1、3、5）`<br>
-        `.next：指向下一個節點（或 None 表示結尾）`  **<- 理解鏈表節點（Node）中..**
+    `.val：存放數值（1、3、5）`<br>
+    `.next：指向下一個節點（或 None 表示結尾）`  **<- 理解鏈表節點（Node）...**
+- **D25** 🚫  #21 Merge Two Sorted Lists
+  -`list1 = 1 -> 3 -> 5 、list2 = 2 -> 4 -> 6`<br>
+  -`比較 1 和 2 → 接 1 → list1 向前 → 結果：1`
+   `比較 3 和 2 → 接 2 → list2 向前 → 結果：1 → 2`<br>
+   `比較 3 和 4 → 接 3 → ...`<br>
+   `一直到兩邊都走完 → 合併完成`<br> **<- 理解此迴圈合併邏輯...**
