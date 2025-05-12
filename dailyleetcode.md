@@ -3,7 +3,7 @@
 **了解並寫出** | **寫出但不清楚** | **寫不出來**
 
 📌 **LeetCode 記錄**
-- **D1** 🉑  #1  ==Two Sum *(GPT)*==
+- **D1** 🉑  #1  Two Sum *(GPT)*
 - **D2** 🉑  #9  Palindrome Number *(GPT)*
 - **D3** ✅  #13 Roman to Integer *(GPT)*
 - **D4** ✅  #1  Two Sum  
