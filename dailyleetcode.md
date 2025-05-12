@@ -38,7 +38,7 @@
 - **D21** 🉑  #20 Valid Parentheses
 - **D22** ✅  #20 Valid Parentheses
 - **D23** 🚫  #21 Merge Two Sorted Lists
-   - 2025/05/07 回歸繼續寫<br>
+  - 2025/05/07 回歸繼續寫<br>
     > `self.val = val        # 節點的數值，例如 1、2、3`<br>
     > `self.next = next      # 指向下一個節點的指標` **<- 理解鏈表節點（Node）**
 - **D24** 🚫  #21 Merge Two Sorted Lists
