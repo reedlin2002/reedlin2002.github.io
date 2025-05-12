@@ -18,6 +18,7 @@
   - `while not 某東西:` **<- 檢查 "某東西" 為 True/False，如果為 False 就執行**
 - **D10** ✅  #14 Longest Common Prefix
 - **D11** ✅  #14 Longest Common Prefix *(複習)*
+***
 - **D12** 🚫  #20 Valid Parentheses  
 - **D13** 🚫  #20 Valid Parentheses  
   - `{")": "(", "]": "[", "}": "{"}` **<- 嘗試理解 mapping 對應關係**
@@ -37,6 +38,7 @@
 - **D20** 🉑  #20 Valid Parentheses
 - **D21** 🉑  #20 Valid Parentheses
 - **D22** ✅  #20 Valid Parentheses
+***
 - **D23** 🚫  #21 Merge Two Sorted Lists
   - 2025/05/07 回歸繼續寫<br>
     > `self.val = val        # 節點的數值，例如 1、2、3`<br>
