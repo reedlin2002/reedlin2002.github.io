@@ -130,3 +130,46 @@
     }
   </style>
 </head>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    function toggleLeetCode() {
+      var title = document.querySelector('.leetcode-title');
+      var content = document.querySelector('.leetcode-content');
+      title.classList.toggle('open');
+      content.classList.toggle('open');
+      if (content.classList.contains('open')) {
+        if (!content.dataset.loaded) {
+          loadMarkdown();
+          content.dataset.loaded = "true";
+        }
+      }
+    }
+    function loadMarkdown() {
+      fetch('https://raw.githubusercontent.com/reedlin2002/reedlin2002.github.io/main/dailyleetcode.md')
+        .then(response => response.text())
+        .then(markdown => {
+          document.getElementById('markdown-content').innerHTML = marked.parse(markdown);
+        })
+        .catch(error => console.error('載入 Markdown 失敗:', error));
+    }
+  </script>
+</head>
+<body>
+  <div class="overlay"></div>
+  <nav>
+    <div class="menu">
+      <a href="#">Home</a>
+    </div>
+  </nav>
+  <div class="container">
+    <h2>Welcome to Reedlin2002's Page</h2>
+    <p>Coding, learning, building.</p>
+    <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
+    <div class="leetcode-section">
+      <button class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</button>
+      <div class="leetcode-content" id="markdown-content"></div>
+    </div>
+  </div>
+</body>
+</html>
