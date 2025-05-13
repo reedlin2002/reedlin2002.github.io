@@ -4,22 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>reedlin2002.github.io</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
+      font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+      background: linear-gradient(to right, #001f3f, #003366);
+      color: #f0f0f0;
       min-height: 100vh;
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(2px);
-      z-index: -1;
     }
 
     nav {
@@ -27,123 +18,156 @@
       top: 0;
       left: 0;
       width: 100%;
-      padding: 15px 40px;
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
       color: white;
+      padding: 15px 20px;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
     .menu a {
-      color: #fff;
+      color: white;
       text-decoration: none;
-      margin-right: 20px;
-      font-weight: 600;
-      font-size: 16px;
+      padding: 10px;
+      font-weight: bold;
     }
 
     .menu a:hover {
-      border-bottom: 2px solid #fff;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 5px;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: -1;
     }
 
     .container {
       width: 90%;
-      max-width: 720px;
+      max-width: 800px;
       margin: 120px auto 40px;
-      padding: 30px;
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 16px;
-      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 12px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
       color: #222;
-      line-height: 1.8;
     }
 
-    h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
+    h2, h4, p, a {
+      color: #111;
     }
 
     a {
-      color: #1e88e5;
+      color: #0277ff;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     a:hover {
-      text-decoration: underline;
+      background: rgba(4, 1, 193, 0.1);
+      border-radius: 3px;
     }
 
     .leetcode-title {
-      background: #1e88e5;
-      border: none;
-      border-radius: 6px;
+      cursor: pointer;
+      background: #0277ff;
       color: white;
       padding: 12px 20px;
+      border-radius: 6px;
+      display: inline-block;
       font-size: 16px;
       font-weight: bold;
-      cursor: pointer;
-      margin-top: 30px;
+      border: none;
       transition: background 0.3s ease;
+      margin-top: 20px;
     }
 
-    .leetcode-title:hover {
-      background: #1565c0;
+    .leetcode-title:hover,
+    .leetcode-title.open {
+      background: #015bc1;
     }
 
-    .leetcode-title.open::after {
-      content: " ▲";
-    }
-
-    .leetcode-title::after {
+    .leetcode-title:after {
       content: " ▼";
+      font-size: 14px;
       margin-left: 10px;
     }
 
+    .leetcode-title.open:after {
+      content: " ▲";
+    }
+
     .leetcode-content {
-      margin-top: 10px;
-      padding: 0;
       max-height: 0;
-      opacity: 0;
       overflow: hidden;
       transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
-      background: #f8f9fa;
-      color: #333;
+      opacity: 0;
+      background: white;
       border-radius: 8px;
+      padding: 0;
+      margin-top: 15px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .leetcode-content.open {
-      padding: 20px;
       max-height: 1000px;
       opacity: 1;
+      padding: 15px;
+      overflow: auto;
+    }
+
+    .leetcode-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .leetcode-content th, .leetcode-content td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .leetcode-content th {
+      background-color: #f2f2f2;
     }
 
     @media (max-width: 768px) {
       .container {
-        padding: 20px;
+        padding: 15px;
       }
+
+      .leetcode-title {
+        font-size: 14px;
+        padding: 10px 15px;
+      }
+
       nav {
         flex-direction: column;
-        align-items: flex-start;
-      }
-      .menu a {
-        margin-bottom: 8px;
+        text-align: center;
       }
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     function toggleLeetCode() {
-      var title = document.querySelector('.leetcode-title');
-      var content = document.querySelector('.leetcode-content');
+      const title = document.querySelector('.leetcode-title');
+      const content = document.querySelector('.leetcode-content');
       title.classList.toggle('open');
       content.classList.toggle('open');
-      if (content.classList.contains('open')) {
-        if (!content.dataset.loaded) {
-          loadMarkdown();
-          content.dataset.loaded = "true";
-        }
+      if (content.classList.contains('open') && !content.dataset.loaded) {
+        loadMarkdown();
+        content.dataset.loaded = "true";
       }
     }
 
