@@ -7,19 +7,68 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
-      background: linear-gradient(to right, #001f3f, #003366);
-      color: #f0f0f0;
+      font-family: 'Trebuchet MS', sans-serif;
+      color: white;
+      text-align: left;
       min-height: 100vh;
     }
 
+    /* Particles 背景設定 */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.2);
+      z-index: -1;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 100px auto 20px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      color: #333;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    h2, p {
+      color: #222;
+    }
+
+    a {
+      color: #0277ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      background: rgba(4, 1, 193, 0.2);
+    }
+
+    /* 導覽列 */
     nav {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
       color: white;
       padding: 15px 20px;
       z-index: 1000;
@@ -32,65 +81,30 @@
       color: white;
       text-decoration: none;
       padding: 10px;
-      font-weight: bold;
     }
 
     .menu a:hover {
       background: rgba(255, 255, 255, 0.2);
-      border-radius: 5px;
     }
 
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(255, 255, 255, 0.1);
-      z-index: -1;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 800px;
-      margin: 120px auto 40px;
-      padding: 25px;
-      background: rgba(255, 255, 255, 0.97);
-      border-radius: 12px;
-      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
-      color: #222;
-    }
-
-    h2, h4, p, a {
-      color: #111;
-    }
-
-    a {
-      color: #0277ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      background: rgba(4, 1, 193, 0.1);
-      border-radius: 3px;
-    }
-
+    /* LeetCode 按鈕 */
     .leetcode-title {
       cursor: pointer;
       background: #0277ff;
       color: white;
       padding: 12px 20px;
-      border-radius: 6px;
+      border-radius: 5px;
       display: inline-block;
       font-size: 16px;
       font-weight: bold;
       border: none;
       transition: background 0.3s ease;
-      margin-top: 20px;
     }
 
-    .leetcode-title:hover,
+    .leetcode-title:hover {
+      background: #015bc1;
+    }
+
     .leetcode-title.open {
       background: #015bc1;
     }
@@ -105,16 +119,17 @@
       content: " ▲";
     }
 
+    /* LeetCode 內容區塊 */
     .leetcode-content {
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
       opacity: 0;
       background: white;
-      border-radius: 8px;
+      border-radius: 5px;
       padding: 0;
-      margin-top: 15px;
-      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      margin-top: 10px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
       width: 100%;
       box-sizing: border-box;
     }
@@ -126,6 +141,7 @@
       overflow: auto;
     }
 
+    /* 表格樣式 */
     .leetcode-content table {
       width: 100%;
       border-collapse: collapse;
@@ -133,41 +149,76 @@
     }
 
     .leetcode-content th, .leetcode-content td {
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       padding: 10px;
       text-align: center;
     }
 
     .leetcode-content th {
-      background-color: #f2f2f2;
+      background-color: #f4f4f4;
     }
 
+    /* RWD 調整 */
     @media (max-width: 768px) {
       .container {
         padding: 15px;
       }
-
       .leetcode-title {
         font-size: 14px;
-        padding: 10px 15px;
+        padding: 8px 15px;
       }
-
       nav {
         flex-direction: column;
         text-align: center;
       }
     }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <!-- Particles 背景 -->
+  <div id="particles-js"></div>
+  
+  <div class="overlay"></div>
+  <nav>
+    <div class="menu">
+      <a href="#">Home</a>
+    </div>
+  </nav>
+  
+  <div class="container">
+    <h2>Welcome to Reedlin2002's Page</h2>
+    <p>Coding, learning, building.</p>
+    <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
+    <div class="leetcode-section">
+      <button class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</button>
+      <div class="leetcode-content" id="markdown-content"></div>
+    </div>
+  </div>
+
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80 },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: { enable: true, speed: 2 }
+      }
+    });
+
     function toggleLeetCode() {
-      const title = document.querySelector('.leetcode-title');
-      const content = document.querySelector('.leetcode-content');
+      var title = document.querySelector('.leetcode-title');
+      var content = document.querySelector('.leetcode-content');
       title.classList.toggle('open');
       content.classList.toggle('open');
-      if (content.classList.contains('open') && !content.dataset.loaded) {
-        loadMarkdown();
-        content.dataset.loaded = "true";
+      if (content.classList.contains('open')) {
+        if (!content.dataset.loaded) {
+          loadMarkdown();
+          content.dataset.loaded = "true";
+        }
       }
     }
 
@@ -180,22 +231,5 @@
         .catch(error => console.error('載入 Markdown 失敗:', error));
     }
   </script>
-</head>
-<body>
-  <div class="overlay"></div>
-  <nav>
-    <div class="menu">
-      <a href="#">Home</a>
-    </div>
-  </nav>
-  <div class="container">
-    <h2>Welcome to Reedlin2002's Page</h2>
-    <p>Coding, learning, building.</p>
-    <h4><a href="https://github.com/reedlin2002/" target="_blank">My GitHub</a></h4>
-    <div class="leetcode-section">
-      <button class="leetcode-title" onclick="toggleLeetCode()">📌 LeetCode 記錄</button>
-      <div class="leetcode-content" id="markdown-content"></div>
-    </div>
-  </div>
 </body>
 </html>
