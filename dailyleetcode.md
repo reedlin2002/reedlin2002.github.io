@@ -62,3 +62,4 @@
     > `然後那邊的 list 移動到下一個節點（list1 = list1.next），再讓 current 自己也往前移（current = current.next）`<br>
   - ✔️ 接剩下沒比完的節點，最後 return dummy.next 而不是 dummy
 - **D28** 🉑  #21 Merge Two Sorted Lists
+- **D29** ✅  #21 Merge Two Sorted Lists
