@@ -63,3 +63,4 @@
   - ✔️ 接剩下沒比完的節點，最後 return dummy.next 而不是 dummy
 - **D28** 🉑  #21 Merge Two Sorted Lists
 - **D29** ✅  #21 Merge Two Sorted Lists
+- **D30** ✅  #21 Merge Two Sorted Lists (review)
