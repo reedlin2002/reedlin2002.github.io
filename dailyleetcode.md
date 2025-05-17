@@ -64,3 +64,4 @@
 - **D28** 🉑  #21 Merge Two Sorted Lists
 - **D29** ✅  #21 Merge Two Sorted Lists
 - **D30** ✅  #21 Merge Two Sorted Lists (review)
+- **D31** ✅  #75 Sort Colors (Daily Question)
