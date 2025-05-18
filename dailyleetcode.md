@@ -65,3 +65,5 @@
 - **D29** ✅  #21 Merge Two Sorted Lists
 - **D30** ✅  #21 Merge Two Sorted Lists (review)
 - **D31** ✅  #75 Sort Colors (Daily Question)
+- **D32** 🚫  #26 Remove Duplicates from Sorted Array
+  - 目標為輸出不重複結果 (應該是用i,j解決)<br>
