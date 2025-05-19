@@ -69,6 +69,11 @@
   - 目標為輸出不重複結果 (應該是用i、j解決)<br>
 - **D33** 🚫  #26 Remove Duplicates from Sorted Array
   - 找出不重複的元素<br>
-    for j in range(1, len(nums)): > `從第二個元素開始找，j是掃描指標。`<br>
-    if nums[j] != nums[i]: > `比較當前掃描到的 nums[j] 跟上次保留的 nums[i]`<br>
-     > `如果不一樣 → 代表找到一個 新的不重複元素`<br>
+  - for j in range(1, len(nums)):<br>
+    > `從第二個元素開始找，j是掃描指標。`<br>
+  - if nums[j] != nums[i]:<br>
+    > `比較當前掃描到的 nums[j] 跟上次保留的 nums[i]`<br>
+    > `如果不一樣 → 代表找到一個 新的不重複元素`<br>
+  -  i += 1<br>
+     nums[i] = nums[j]<br>
+    > `把這個新元素「放到前面」來取代舊的重複元素`<br>
