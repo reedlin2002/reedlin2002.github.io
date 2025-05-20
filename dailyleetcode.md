@@ -77,3 +77,4 @@
   -  i += 1<br>
      nums[i] = nums[j]<br>
     > `把這個新元素「放到前面」來取代舊的重複元素`<br>
+- **D34** 🉑  #26 Remove Duplicates from Sorted Array
