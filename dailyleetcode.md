@@ -82,3 +82,4 @@
   - 邊掃描、邊把不重複的元素往前搬<br>
       > `nums[0] 到 nums[i] 是 不重複且排序好的`<br>
 - **D36** ✅  #26 Remove Duplicates from Sorted Array
+- **D37** 🚫  #27 Remove Element
