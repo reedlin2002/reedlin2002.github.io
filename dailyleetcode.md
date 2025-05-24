@@ -83,3 +83,5 @@
       > `nums[0] 到 nums[i] 是 不重複且排序好的`<br>
 - **D36** ✅  #26 Remove Duplicates from Sorted Array
 - **D37** 🚫  #27 Remove Element
+- **D38** 🚫  #27 Remove Element
+  - 就地 (in-place) 移除所有等於 val 的元素，並回傳「移除後的陣列長度」<br>
