@@ -86,3 +86,4 @@
 - **D38** 🉑  #27 Remove Element
   - 就地 (in-place) 移除所有等於 val 的元素，並回傳「移除後的陣列長度」<br>
 - **D39** ✅  #27 Remove Element
+- **D40** 🚫  #28 Find the Index of the First Occurrence in a String
