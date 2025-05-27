@@ -88,3 +88,8 @@
 - **D39** ✅  #27 Remove Element
 - **D40** 🚫  #28 Find the Index of the First Occurrence in a String
   - 找出一段小字串，第一次在大字串中出現的位置<br>
+- **D41** 🉑  #28 Find the Index of the First Occurrence in a String
+  - 判斷<br>
+      > `haystack = "TCodeLee"`<br>
+      > `haystack[0:3] → 取第 0、1、2 的字 → "TCo"`<br>
+      > `haystack[1:4] → 取第 1、2、3 的字 → "Cod"`<br>
