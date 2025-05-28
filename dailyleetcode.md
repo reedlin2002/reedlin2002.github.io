@@ -94,3 +94,8 @@
       > `haystack[0:3] → 取第 0、1、2 的字 → "TCo"`<br>
       > `haystack[1:4] → 取第 1、2、3 的字 → "Cod"`<br>
 - **D42** 🉑  #28 Find the Index of the First Occurrence in a String
+  - 假設hatstack:LeetCode , needle:Lee<br>
+      > `for i in range(len(haystack) - len(needle) + 1): ↓ `<br>
+      > `len(haystack) - len(needle) + 1 = 8 - 3 + 1 = 6 `<br>
+      > `i=0	→ haystack[i : i + 3] → haystack[0:3]`<br>
+      > `haystack[0:3] → "Lee"	 符合！立刻 return 0 `<br>
