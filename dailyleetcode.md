@@ -93,3 +93,4 @@
       > `haystack = "TCodeLee"`<br>
       > `haystack[0:3] → 取第 0、1、2 的字 → "TCo"`<br>
       > `haystack[1:4] → 取第 1、2、3 的字 → "Cod"`<br>
+- **D42** 🉑  #28 Find the Index of the First Occurrence in a String
