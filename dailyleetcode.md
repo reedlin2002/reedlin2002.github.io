@@ -97,5 +97,5 @@
   - 假設hatstack:LeetCode , needle:Lee<br>
       > `for i in range(len(haystack) - len(needle) + 1): ↓ `<br>
       > `len(haystack) - len(needle) + 1 = 8 - 3 + 1 = 6 `<br>
-      > `i=0	→ haystack[i : i + 3] → haystack[0:3]`<br>
-      > `haystack[0:3] → "Lee"	 符合！立刻 return 0 `<br>
+      > `i=0 → haystack[i : i + 3] → haystack[0:3]`<br>
+      > `haystack[0:3] → "Lee" 符合！立刻 return 0 `<br>
