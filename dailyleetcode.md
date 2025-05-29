@@ -99,4 +99,4 @@
       > `len(haystack) - len(needle) + 1 = 8 - 3 + 1 = 6 `<br>
       > `i=0 → haystack[i : i + 3] → haystack[0:3]`<br>
       > `haystack[0:3] → "Lee" 符合！立刻 return 0 `<br>
-- **D43** 🉑  #28 Find the Index of the First Occurrence in a String
+- **D43** ✅  #28 Find the Index of the First Occurrence in a String
