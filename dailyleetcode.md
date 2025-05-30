@@ -100,3 +100,4 @@
       > `i=0 → haystack[i : i + 3] → haystack[0:3]`<br>
       > `haystack[0:3] → "Lee" 符合！立刻 return 0 `<br>
 - **D43** ✅  #28 Find the Index of the First Occurrence in a String
+- **D44** 🚫  #35 Search Insert Position
