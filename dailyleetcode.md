@@ -101,3 +101,5 @@
       > `haystack[0:3] → "Lee" 符合！立刻 return 0 `<br>
 - **D43** ✅  #28 Find the Index of the First Occurrence in a String
 - **D44** 🚫  #35 Search Insert Position
+  - 找出target 是不是出現在 nums 裡？如果有，回傳它的 index；<br>
+    如果沒有，就回傳它應該被插入的位置<br>
