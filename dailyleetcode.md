@@ -106,3 +106,4 @@
 - **D45** 🚫  #35 Search Insert Position
   - 經典的「二分搜尋（Binary Search）」應用，時間複雜度是 O(log n)<br>
       > `用來在「已排序的陣列」中找出某個數字 ↓ `<br>
+      > `公式：mid = (left + right) / 2`<br>
