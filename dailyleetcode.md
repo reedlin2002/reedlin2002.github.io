@@ -103,3 +103,6 @@
 - **D44** 🚫  #35 Search Insert Position
   - 找出target 是不是出現在 nums 裡？如果有，回傳它的 index；<br>
     如果沒有，就回傳它應該被插入的位置<br>
+- **D45** 🚫  #35 Search Insert Position
+  - 經典的「二分搜尋（Binary Search）」應用，時間複雜度是 O(log n)<br>
+      > `用來在「已排序的陣列」中找出某個數字 ↓ `<br>
