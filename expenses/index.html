@@ -8,19 +8,49 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <!-- Babel 用來轉譯 JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
-    input, button { font-size: 16px; padding: 8px; margin: 5px 0; }
-    input { width: 200px; }
-    button { cursor: pointer; }
-    ul { padding-left: 20px; }
-    li { margin-bottom: 8px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      margin: 0;
+    }
     .container {
       background: white;
       padding: 20px;
       border-radius: 10px;
-      max-width: 400px;
+      max-width: 900px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin: auto;
+      flex-wrap: wrap;
+    }
+    .form-section, .list-section {
+      flex: 1;
+      min-width: 300px;
+    }
+    input, button {
+      font-size: 16px;
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button {
+      cursor: pointer;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
     }
     .delete-btn {
       margin-left: 10px;
@@ -29,6 +59,10 @@
       border: none;
       padding: 4px 8px;
       border-radius: 5px;
+    }
+    .github-link {
+      margin-top: 20px;
+      text-align: center;
     }
   </style>
 </head>
@@ -57,22 +91,18 @@
 
       return (
         <form onSubmit={handleSubmit}>
-          <div>
-            <input
-              type="text"
-              placeholder="項目名稱"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type="number"
-              placeholder="金額"
-              value={amount}
-              onChange={e => setAmount(e.target.value)}
-            />
-          </div>
+          <input
+            type="text"
+            placeholder="項目名稱"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="金額"
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
+          />
           <button type="submit">新增支出</button>
         </form>
       );
@@ -94,13 +124,11 @@
     }
 
     function ExpenseApp() {
-      // 初始嘗試從 localStorage 讀取
       const [expenses, setExpenses] = React.useState(() => {
         const saved = localStorage.getItem('expenses');
         return saved ? JSON.parse(saved) : [];
       });
 
-      // expenses 變化時同步寫入 localStorage
       React.useEffect(() => {
         localStorage.setItem('expenses', JSON.stringify(expenses));
       }, [expenses]);
@@ -117,23 +145,36 @@
       const total = expenses.reduce((acc, cur) => acc + cur.amount, 0);
 
       return (
-        <div className="container">
-          <h1>簡易計帳 App</h1>
-          <ExpenseForm onAdd={addExpense} />
-          <h3>支出紀錄</h3>
-          <ExpenseList expenses={expenses} onDelete={handleDelete} />
-          <h3>總花費: ${total.toFixed(2)}</h3>
-        </div>
+        <>
+          <div className="container">
+            <div className="form-section">
+              <h1>簡易計帳 App</h1>
+              <ExpenseForm onAdd={addExpense} />
+              <h3>總花費: ${total.toFixed(2)}</h3>
+            </div>
+            <div className="list-section">
+              <h3>支出紀錄</h3>
+              <ExpenseList expenses={expenses} onDelete={handleDelete} />
+            </div>
+          </div>
+
+          <div className="github-link">
+            <a className="image-link" href="https://github.com/reedlin2002/" target="_blank">
+              <img
+                align="center"
+                src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg"
+                alt="reedlin2002"
+                height="30"
+                width="40"
+              />
+            </a>
+          </div>
+        </>
       );
     }
 
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<ExpenseApp />);
   </script>
-  
-  <a class="image-link" href="https://github.com/reedlin2002/" target="_blank">
-      <img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="reedlin2002" height="30" width="40" />
-  </a>
-  
 </body>
 </html>
