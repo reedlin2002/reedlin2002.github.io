@@ -213,12 +213,13 @@
             <ExpenseForm onAdd={addExpense} />
             <h3>總花費: ${total.toFixed(2)}</h3>
             
-            <div className="github-link">
-              <a className="image-link" href="https://reedlin2002.github.io/" target="_blank" align="center">🏠 Home</a>
-              
-              <a className="image-link" href="https://github.com/reedlin2002/" target="_blank">
+            <div className="github-link" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <a className="image-link" href="https://reedlin2002.github.io/" target="_blank" rel="noopener noreferrer">
+                🏠 Home
+              </a>
+            
+              <a className="image-link" href="https://github.com/reedlin2002/" target="_blank" rel="noopener noreferrer">
                 <img
-                  align="center"
                   src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg"
                   alt="reedlin2002"
                   height="30"
@@ -226,6 +227,7 @@
                 />
               </a>
             </div>
+
             
           </div>
           <div className="list-section">
