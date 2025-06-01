@@ -110,4 +110,5 @@
 - **D46** 🚫  #35 Search Insert Position
   - 公式 ↓ <br>
       > `nums = [1, 3, 5, 6, 9, 12, 15] , target = 9 `<br>
-      > `nums = [1, 3, 5, 6, 9, 12, 15] , target = 9 `<br>
+      > `設定 left = 0，right = 6（因為陣列長度是 7）`<br>
+      > `計算 mid = (left + right) // 2`<br>
