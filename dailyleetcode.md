@@ -107,3 +107,7 @@
   - 經典的「二分搜尋（Binary Search）」應用，時間複雜度是 O(log n)<br>
       > `用來在「已排序的陣列」中找出某個數字 ↓ `<br>
       > `每次都只看一半，時間複雜度 O(log n)（非常快）`<br>
+- **D46** 🚫  #35 Search Insert Position
+  - 公式 ↓ <br>
+      > `nums = [1, 3, 5, 6, 9, 12, 15] , target = 9 `<br>
+      > `nums = [1, 3, 5, 6, 9, 12, 15] , target = 9 `<br>
