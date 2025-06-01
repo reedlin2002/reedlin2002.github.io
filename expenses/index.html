@@ -67,16 +67,64 @@
       border-radius: 5px;
       font-size: 12px;
       margin-left: 10px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
+
+    button[type="submit"] {
+      font-size: 14px;
+      padding: 8px 16px;
+      background: linear-gradient(145deg, #4da0ff, #1e74d1);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 10px;
+    }
+
+    button[type="submit"]:hover {
+      background: linear-gradient(145deg, #1e74d1, #4da0ff);
+      transform: translateY(-2px);
     }
 
     .github-link {
       margin-top: 20px;
     }
 
-    a.image-link:hover {
-      display: inline-block;
+    .github-link a.image-link {
+      margin-right: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 5px;
+      color: #1e74d1;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .github-link a.image-link:hover {
       background: rgba(4, 1, 193, 0.1);
-      border-radius: 3px;
+      text-decoration: underline;
+    }
+
+    .github-link a.image-link[href*="reedlin2002.github.io"] {
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ccc;
+    }
+
+    .github-link a.image-link[href*="reedlin2002.github.io"]:hover {
+      background-color: #d6eaff;
+      border-color: #1e74d1;
+      color: #1e74d1;
     }
   </style>
 </head>
@@ -171,11 +219,10 @@
                   src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg"
                   alt="reedlin2002"
                   height="30"
-                  width="40"
+                  width="30"
                 />
               </a>
-              
-              <a className="image-link" href="https://reedlin2002.github.io/" align="center"> Home </a>
+              <a className="image-link" href="https://reedlin2002.github.io/" target="_blank">🏠 Home</a>
             </div>
           </div>
           <div className="list-section">
