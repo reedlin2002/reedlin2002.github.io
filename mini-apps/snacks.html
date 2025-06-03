@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potato Chip Snack Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        #gameContainer {
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>來包洋芋片</h1>
+    <div id="gameContainer"></div>
+    
+    <script>
+        // Potato Chip Snack Game
+        // Click on the bag to take out chips!
+
+        let satiety = 0;
+        let gameFull = false;
+        let chips = [];
+        let bagPos;
+        let bagClicked = false;
+        let bagClickTime = 0;
+
+        function setup() {
+            let canvas = createCanvas(800, 600);
+            canvas.parent('gameContainer');
+            bagPos = createVector(width/2, height/2 + 50);
+        }
+
+        function draw() {
+            background(135, 206, 235); // Sky blue background
+            
+            // Draw satiety counter in upper right
+            fill(0);
+            textSize(24);
+            textAlign(RIGHT);
+            text("飽足感: " + satiety, width - 20, 40);
+            
+            if (gameFull) {
+                fill(255, 0, 0);
+                textSize(32);
+                textAlign(CENTER);
+                text("飽了！", width/2, 80);
+            }
+            
+            // Draw potato chip bag
+            drawBag();
+            
+            // Draw all chips
+            for (let i = chips.length - 1; i >= 0; i--) {
+                let chip = chips[i];
+                chip.update();
+                chip.display();
+                
+                // Remove chips that are off screen
+                if (chip.pos.y < -50) {
+                    chips.splice(i, 1);
+                }
+            }
+            
+            // Instructions
+            fill(0);
+            textSize(16);
+            textAlign(CENTER);
+            text("來吃洋芋片吧！", width/2, height - 30);
+        }
+
+        function drawBag() {
+            push();
+            translate(bagPos.x, bagPos.y);
+            
+            // Bag animation when clicked
+            if (bagClicked && millis() - bagClickTime < 200) {
+                scale(1.1);
+            }
+            
+            // Bag body (brown)
+            fill(139, 69, 19);
+            stroke(101, 67, 33);
+            strokeWeight(3);
+            rectMode(CENTER);
+            rect(0, -10, 120, 160, 15);
+            
+            // Bag top (folded)
+            fill(160, 82, 45);
+            rect(0, -95, 100, 30, 5);
+            
+            // Brand text
+            fill(255, 215, 0);
+            textAlign(CENTER);
+            textSize(16);
+            text("洋芋片", 0, -35);
+            
+            // Chip illustration on bag
+            fill(255, 200, 100);
+            noStroke();
+            ellipse(-15, 5, 25, 15);
+            ellipse(15, -5, 20, 12);
+            ellipse(0, 20, 22, 14);
+            
+            pop();
+        }
+
+        function mousePressed() {
+            // Check if bag is clicked and game not full
+            if (!gameFull && dist(mouseX, mouseY, bagPos.x, bagPos.y) < 80) {
+                bagClicked = true;
+                bagClickTime = millis();
+                
+                // Create new chip
+                createChip();
+                
+                // Increase satiety
+                satiety++;
+                
+                // Check if full
+                if (satiety >= 15) {
+                    gameFull = true;
+                }
+            }
+        }
+
+        function createChip() {
+            // Create chip at bag position with random properties
+            let chipPos = createVector(bagPos.x + random(-30, 30), bagPos.y - 20);
+            let chipVel = createVector(random(-2, 2), random(-8, -4));
+            let chipColor = color(random(200, 255), random(150, 200), random(50, 100));
+            
+            chips.push(new Chip(chipPos, chipVel, chipColor));
+        }
+
+        class Chip {
+            constructor(p, v, c) {
+                this.pos = p.copy();
+                this.vel = v.copy();
+                this.chipColor = c;
+                this.rotation = random(TWO_PI);
+                this.rotSpeed = random(-0.2, 0.2);
+                this.size = random(20, 35);
+            }
+            
+            update() {
+                this.pos.add(this.vel);
+                this.vel.y += 0.2; // gravity
+                this.rotation += this.rotSpeed;
+                
+                // Bounce off walls
+                if (this.pos.x < this.size/2 || this.pos.x > width - this.size/2) {
+                    this.vel.x *= -0.7;
+                    this.pos.x = constrain(this.pos.x, this.size/2, width - this.size/2);
+                }
+                
+                // Bounce off ground
+                if (this.pos.y > height - this.size/2) {
+                    this.vel.y *= -0.6;
+                    this.vel.x *= 0.8; // friction
+                    this.pos.y = height - this.size/2;
+                }
+            }
+            
+            display() {
+                push();
+                translate(this.pos.x, this.pos.y);
+                rotate(this.rotation);
+                
+                // Chip shadow
+                fill(0, 0, 0, 50);
+                noStroke();
+                ellipse(2, 2, this.size, this.size * 0.6);
+                
+                // Chip body
+                fill(this.chipColor);
+                stroke(red(this.chipColor) - 50, green(this.chipColor) - 50, blue(this.chipColor) - 50);
+                strokeWeight(2);
+                ellipse(0, 0, this.size, this.size * 0.6);
+                
+                // Chip texture (spots)
+                fill(red(this.chipColor) + 30, green(this.chipColor) + 20, blue(this.chipColor));
+                noStroke();
+                for (let i = 0; i < 5; i++) {
+                    let x = random(-this.size/3, this.size/3);
+                    let y = random(-this.size/4, this.size/4);
+                    ellipse(x, y, 3, 2);
+                }
+                
+                pop();
+            }
+        }
+    </script>
+</body>
+</html>
