@@ -116,4 +116,5 @@
       > `再算新的 mid = (4 + 6) // 2 = 5 → nums[5] = 12 → 12 > 9，表示 9 在左邊 → 所以更新 right = mid - 1 = 4`<br>
       > `再算新的 mid = (4 + 4) // 2 = 4 → nums[4] = 9 ✅ 找到了！回傳 index 4！`<br>
 - **D47** 🉑  #35 Search Insert Position
-- **D47** 🉑  #35 Search Insert Position
+- **D48** 🉑  #35 Search Insert Position
+- **D49** ✅  #35 Search Insert Position
