@@ -118,3 +118,4 @@
 - **D47** 🉑  #35 Search Insert Position
 - **D48** 🉑  #35 Search Insert Position
 - **D49** ✅  #35 Search Insert Position
+- **D50** 🚫  #35 Length of Last Word
