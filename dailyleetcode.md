@@ -119,3 +119,4 @@
 - **D48** 🉑  #35 Search Insert Position
 - **D49** ✅  #35 Search Insert Position
 - **D50** 🚫  #35 Length of Last Word
+  - 目標：找出最後一個單字的長度<br>
