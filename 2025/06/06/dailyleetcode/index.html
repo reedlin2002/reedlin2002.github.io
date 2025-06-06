@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="程式能力的提升離不開持續的練習。我會在這裡分享： 每日筆記 - 自己對題目的理解與應用心得分享 - 刷題過程中的進度與收穫    ✅ 🉑 🚫    了解並寫出 寫出但不清楚 寫不出來   📌 LeetCode 記錄  D1 🉑  #1  Two Sum (GPT) D2 🉑  #9  Palindrome Number (GPT) D3 ✅  #13 Roman to Integer (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="📌 LeetCode 學習記錄">
+<meta property="og:url" content="http://example.com/2025/06/06/dailyleetcode/index.html">
+<meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
+<meta property="og:description" content="程式能力的提升離不開持續的練習。我會在這裡分享： 每日筆記 - 自己對題目的理解與應用心得分享 - 刷題過程中的進度與收穫    ✅ 🉑 🚫    了解並寫出 寫出但不清楚 寫不出來   📌 LeetCode 記錄  D1 🉑  #1  Two Sum (GPT) D2 🉑  #9  Palindrome Number (GPT) D3 ✅  #13 Roman to Integer (">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-06-06T02:42:24.000Z">
+<meta property="article:modified_time" content="2025-06-06T03:07:05.431Z">
+<meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="Leetcode">
+<meta property="article:tag" content="Daily">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>📌 LeetCode 學習記錄</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002.github.io/tree/backup-original-site">項目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2025/06/05/Aboutme/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/06/06/dailyleetcode/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/06/06/dailyleetcode/&text=📌 LeetCode 學習記錄"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/06/06/dailyleetcode/&is_video=false&description=📌 LeetCode 學習記錄"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📌 LeetCode 學習記錄&body=Check out this article: http://example.com/2025/06/06/dailyleetcode/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/06/06/dailyleetcode/&name=📌 LeetCode 學習記錄&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/06/06/dailyleetcode/&t=📌 LeetCode 學習記錄"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        📌 LeetCode 學習記錄
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Jerry Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-06-06T02:42:24.000Z" class="dt-published" itemprop="datePublished">2025-06-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Daily/" rel="tag">Daily</a>, <a class="p-category" href="/tags/Leetcode/" rel="tag">Leetcode</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>程式能力的提升離不開持續的練習。我會在這裡分享：</p>
+<p>每日筆記 - 自己對題目的理解與應用<br>心得分享 - 刷題過程中的進度與收穫</p>
+<table>
+<thead>
+<tr>
+<th>✅</th>
+<th>🉑</th>
+<th>🚫</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>了解並寫出</strong></td>
+<td><strong>寫出但不清楚</strong></td>
+<td><strong>寫不出來</strong></td>
+</tr>
+</tbody></table>
+<p>📌 <strong>LeetCode 記錄</strong></p>
+<ul>
+<li><strong>D1</strong> 🉑  #1  Two Sum <em>(GPT)</em></li>
+<li><strong>D2</strong> 🉑  #9  Palindrome Number <em>(GPT)</em></li>
+<li><strong>D3</strong> ✅  #13 Roman to Integer <em>(GPT)</em></li>
+<li><strong>D4</strong> ✅  #1  Two Sum  </li>
+<li><strong>D5</strong> ☕ <strong>休息</strong></li>
+<li><strong>D6</strong> ✅  #9  Palindrome  <ul>
+<li><code>[::-1]</code> ← Python 能用來順序相反</li>
+</ul>
+</li>
+<li><strong>D7</strong> 🉑  #14 Longest Common Prefix  <ul>
+<li><code>startswith(prefix)</code> ← 檢查字串是否「以 prefix 開頭」</li>
+</ul>
+</li>
+<li><strong>D8</strong> 🉑  #14 Longest Common Prefix  <ul>
+<li><code>if not 某東西:</code> ← 檢查 “某東西” 是否為空，如果是就執行</li>
+</ul>
+</li>
+<li><strong>D9</strong> 🉑  #14 Longest Common Prefix  <ul>
+<li><code>while not 某東西:</code> ← 檢查 “某東西” 為 True&#x2F;False，如果為 False 就執行</li>
+</ul>
+</li>
+<li><strong>D10</strong> ✅  #14 Longest Common Prefix</li>
+<li><strong>D11</strong> ✅  #14 Longest Common Prefix <em>(複習)</em></li>
+<li><strong>D12</strong> 🚫  #20 Valid Parentheses  </li>
+<li><strong>D13</strong> 🚫  #20 Valid Parentheses  <ul>
+<li><code>&#123;&quot;)&quot;: &quot;(&quot;, &quot;]&quot;: &quot;[&quot;, &quot;&#125;&quot;: &quot;&#123;&quot;&#125;</code> ← 嘗試理解 mapping 對應關係</li>
+</ul>
+</li>
+<li><strong>D14</strong> ☕ <strong>休息</strong></li>
+<li><strong>D15</strong> 🚫  #20 Valid Parentheses<ul>
+<li><code>&#123;&quot;)&quot;: &quot;(&quot;, &quot;]&quot;: &quot;[&quot;, &quot;&#125;&quot;: &quot;&#123;&quot;&#125;</code> ← 嘗試理解 mapping 對應關係</li>
+</ul>
+</li>
+<li><strong>D16</strong> 🚫  #20 Valid Parentheses<ul>
+<li><code>for i in s:</code> ← 直接遍歷字串中的每個字元</li>
+</ul>
+</li>
+<li><strong>D17</strong> 🚫  #20 Valid Parentheses<ul>
+<li><code>if i in mapping:</code> ← 檢查 i 是否是右括號（<code>)</code>,<code>]</code>, <code>&#125;</code>）</li>
+<li><code>mapping[&quot;)&quot;]</code>  ← 會得到 <code>(</code>  (從mapping這個對應關係中)</li>
+<li><code>stack[-1]</code> 意思是stack的堆疊的最上層 EX: <code>x=[ 10, 20, 30] x[-1]=30 x[-2]=20 x[-3]=10</code></li>
+</ul>
+</li>
+<li><strong>D18</strong> 🉑  #20 Valid Parentheses</li>
+<li><strong>D19</strong> 🉑  #20 Valid Parentheses<ul>
+<li><code>stack.append</code>  ← 將資料放入堆疊頂端</li>
+<li><code>stack.pop</code>     ← 將堆疊頂端資料移除</li>
+</ul>
+</li>
+<li><strong>D20</strong> 🉑  #20 Valid Parentheses</li>
+<li><strong>D21</strong> 🉑  #20 Valid Parentheses</li>
+<li><strong>D22</strong> ✅  #20 Valid Parentheses</li>
+<li><strong>D23</strong> 🚫  #21 Merge Two Sorted Lists<ul>
+<li>2025&#x2F;05&#x2F;07 回歸繼續寫<blockquote>
+<p>self.val &#x3D; val        # 節點的數值，例如 1、2、3<br>self.next &#x3D; next      # 指向下一個節點的指標</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D24</strong> 🚫  #21 Merge Two Sorted Lists<ul>
+<li>ListNode(1) -&gt; ListNode(3) -&gt; ListNode(5)<blockquote>
+<p>每個節點 (ListNode) 裡面都有：<br>.val：存放數值（1、3、5）<br>.next：指向下一個節點（或 None 表示結尾）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D25</strong> 🚫  #21 Merge Two Sorted Lists<ul>
+<li>list1 &#x3D; 1 -&gt; 3 -&gt; 5、list2 &#x3D; 2 -&gt; 4 -&gt; 6<blockquote>
+<p>比較 1 和 2 → 接 1 → list1 向前 → 結果：1<br>比較 3 和 2 → 接 2 → list2 向前 → 結果：1 → 2<br>比較 3 和 4 → 接 3 → …<br>一直到兩邊都走完 → 合併完成</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D26</strong> 🚫  #21 Merge Two Sorted Lists<ul>
+<li>🔚 dummy 是儲存「整條串列的起點」<br><br>🔧 current.next 是「不斷接節點的位置」</li>
+</ul>
+</li>
+<li><strong>D27</strong> 🚫  #21 Merge Two Sorted Lists<ul>
+<li>✔️ dummy 是假節點，current 是用來構建新串列的指標</li>
+<li>✔️ while 迴圈比較 list1 和 list2：<blockquote>
+<p>每次比較 .val，把比較小的節點接到 current.next<br>然後那邊的 list 移動到下一個節點（list1 &#x3D; list1.next），再讓 current 自己也往前移（current &#x3D; current.next）</p>
+</blockquote>
+</li>
+<li>✔️ 接剩下沒比完的節點，最後 return dummy.next 而不是 dummy</li>
+</ul>
+</li>
+<li><strong>D28</strong> 🉑  #21 Merge Two Sorted Lists</li>
+<li><strong>D29</strong> ✅  #21 Merge Two Sorted Lists</li>
+<li><strong>D30</strong> ✅  #21 Merge Two Sorted Lists (review)</li>
+<li><strong>D31</strong> ✅  #75 Sort Colors (Daily Question)</li>
+<li><strong>D32</strong> 🚫  #26 Remove Duplicates from Sorted Array<ul>
+<li>目標為輸出不重複結果 (應該是用i、j解決)</li>
+</ul>
+</li>
+<li><strong>D33</strong> 🚫  #26 Remove Duplicates from Sorted Array<ul>
+<li>找出不重複的元素</li>
+<li>for j in range(1, len(nums)):<blockquote>
+<p>從第二個元素開始找 j是掃描指標</p>
+</blockquote>
+</li>
+<li>if nums[j] !&#x3D; nums[i]:<blockquote>
+<p>比較當前掃描到的 nums[j] 跟上次保留的 nums[i]<br>如果不一樣 → 代表找到一個 新的不重複元素</p>
+</blockquote>
+</li>
+<li>i +&#x3D; 1<br>nums[i] &#x3D; nums[j]<blockquote>
+<p>把這個新元素「放到前面」來取代舊的重複元素</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D34</strong> 🉑  #26 Remove Duplicates from Sorted Array</li>
+<li><strong>D35</strong> 🉑  #26 Remove Duplicates from Sorted Array<ul>
+<li>邊掃描、邊把不重複的元素往前搬<blockquote>
+<p>nums[0] 到 nums[i] 是 不重複且排序好的</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D36</strong> ✅  #26 Remove Duplicates from Sorted Array</li>
+<li><strong>D37</strong> 🚫  #27 Remove Element</li>
+<li><strong>D38</strong> 🉑  #27 Remove Element<ul>
+<li>就地 (in-place) 移除所有等於 val 的元素，並回傳「移除後的陣列長度」</li>
+</ul>
+</li>
+<li><strong>D39</strong> ✅  #27 Remove Element</li>
+<li><strong>D40</strong> 🚫  #28 Find the Index of the First Occurrence in a String<ul>
+<li>找出一段小字串，第一次在大字串中出現的位置</li>
+</ul>
+</li>
+<li><strong>D41</strong> 🉑  #28 Find the Index of the First Occurrence in a String<ul>
+<li>判斷<blockquote>
+<p>haystack &#x3D; “TCodeLee”<br>haystack[0:3] → 取第 0、1、2 的字 → “TCo”<br>haystack[1:4] → 取第 1、2、3 的字 → “Cod”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D42</strong> 🉑  #28 Find the Index of the First Occurrence in a String<ul>
+<li>假設hatstack:LeetCode , needle:Lee<blockquote>
+<p>for i in range(len(haystack) - len(needle) + 1):<br>len(haystack) - len(needle) + 1 &#x3D; 8 - 3 + 1 &#x3D; 6<br>i&#x3D;0 → haystack[i : i + 3] → haystack[0:3]<br>haystack[0:3] → “Lee” 符合！立刻 return 0</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D43</strong> ✅  #28 Find the Index of the First Occurrence in a String</li>
+<li><strong>D44</strong> 🚫  #35 Search Insert Position<ul>
+<li>找出target 是不是出現在 nums 裡？如果有，回傳它的 index；<br>如果沒有，就回傳它應該被插入的位置</li>
+</ul>
+</li>
+<li><strong>D45</strong> 🚫  #35 Search Insert Position<ul>
+<li>經典的「二分搜尋（Binary Search）」應用，時間複雜度是 O(log n)<blockquote>
+<p>用來在「已排序的陣列」中找出某個數字<br>每次都只看一半，時間複雜度 O(log n)（非常快）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D46</strong> 🚫  #35 Search Insert Position<ul>
+<li>公式 ↓ <blockquote>
+<p>nums &#x3D; [1, 3, 5, 6, 9, 12, 15] , target &#x3D; 9<br>設定 left &#x3D; 0，right &#x3D; 6（因為陣列長度是 7）<br>計算 mid &#x3D; (left + right) &#x2F;&#x2F; 2<br>(0 + 6) &#x2F;&#x2F; 2 &#x3D; 3 , 看 nums[3] &#x3D; 6 → 6 &lt; 9,表示 9 在右邊 → 所以更新 left &#x3D; mid + 1 &#x3D; 4<br>再算新的 mid &#x3D; (4 + 6) &#x2F;&#x2F; 2 &#x3D; 5 → nums[5] &#x3D; 12 → 12 &gt; 9，表示 9 在左邊 → 所以更新 right &#x3D; mid - 1 &#x3D; 4<br>再算新的 mid &#x3D; (4 + 4) &#x2F;&#x2F; 2 &#x3D; 4 → nums[4] &#x3D; 9 ✅ 找到了！回傳 index 4！</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><strong>D47</strong> 🉑  #35 Search Insert Position</li>
+<li><strong>D48</strong> 🉑  #35 Search Insert Position</li>
+<li><strong>D49</strong> ✅  #35 Search Insert Position</li>
+<li><strong>D50</strong> 🚫  #35 Length of Last Word<ul>
+<li>目標：找出最後一個單字的長度</li>
+</ul>
+</li>
+<li><strong>D51</strong> 🚫  #35 Length of Last Word<ul>
+<li>研究：.strip() &#x2F; .split()<blockquote>
+<p>.strip() 是把 開頭和結尾 的空白全部去掉<br>.split() 預設是根據「空白」把句子切開成單字</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002.github.io/tree/backup-original-site">項目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/06/06/dailyleetcode/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/06/06/dailyleetcode/&text=📌 LeetCode 學習記錄"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/06/06/dailyleetcode/&is_video=false&description=📌 LeetCode 學習記錄"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📌 LeetCode 學習記錄&body=Check out this article: http://example.com/2025/06/06/dailyleetcode/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/06/06/dailyleetcode/&title=📌 LeetCode 學習記錄"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/06/06/dailyleetcode/&name=📌 LeetCode 學習記錄&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/06/06/dailyleetcode/&t=📌 LeetCode 學習記錄"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Jerry Lin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002.github.io/tree/backup-original-site">項目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "複製成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
