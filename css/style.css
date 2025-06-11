@@ -1144,40 +1144,37 @@ article .content .video-container embed {
   height: 100%;
 }
 article .content blockquote {
-  margin: 1rem 10px;
-  padding: 0.5em 10px;
-  background: inherit;
-  color: #ab2251;
-  quotes: "\201C" "\201D" "\2018" "\2019";
-  font-weight: bold;
+      margin: 1rem 0
+      padding: 0 0 0 1rem
+      border-left: 4px solid $color-accent-1
+      background: transparent
+      color: $color-text
+      quotes: none
+      font-weight: normal
+      font-style: italic
 }
 article .content blockquote p {
   margin: 0;
 }
 article .content blockquote:before {
-  margin-right: 0.25em;
-  color: #ab2251;
-  content: "\201C";
-  vertical-align: -0.4em;
-  font-size: 2em;
-  line-height: 0.1em;
+  content: none
 }
 article .content blockquote footer {
-  margin: line-height 0;
-  color: #666;
-  font-size: 12px;
+  margin: line-height 0
+  color: $color-meta
+  font-size: 12px
 }
 article .content blockquote footer a {
-  background-image: linear-gradient(transparent, transparent 5px, #666 5px, #666);
-  color: #666;
+  background-image: linear-gradient(transparent, transparent 5px, $color-meta 5px, $color-meta)
+  color: $color-meta
 }
 article .content blockquote footer a:hover {
-  background-image: linear-gradient(transparent, transparent 4px, #858585 4px, #858585);
-  color: #858585;
+  background-image: linear-gradient(transparent, transparent 4px, lighten($color-meta, 20%) 4px, lighten($color-meta, 20%))
+ color: lighten($color-meta, 20%)
 }
 article .content blockquote footer cite:before {
-  padding: 0 0.5em;
-  content: "—";
+  padding: 0 .5em
+  content: "—"
 }
 article .content .pullquote {
   margin: 0;
