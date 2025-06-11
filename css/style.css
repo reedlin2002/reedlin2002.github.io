@@ -419,7 +419,7 @@ body table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 12px;
+  font-size: 16px;
   overflow: auto;
   display: block;
 }
@@ -428,7 +428,7 @@ body th {
   border-bottom: 1px dashed #666;
   color: #111;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 17px;
 }
 body td {
   padding: 0 8px;
@@ -481,8 +481,8 @@ body {
   background-color: #e2e0de;
   color: #363533;
   font-weight: 400;
-  font-size: 14px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-size: 18px;
+  font-family: "Nunito", sans-serif;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
@@ -1143,53 +1143,53 @@ article .content .video-container embed {
   width: 100%;
   height: 100%;
 }
-article .content blockquote {
-      margin: 1rem 0
-      padding: 0 0 0 1rem
-      border-left: 4px solid $color-accent-1
-      background: transparent
-      color: $color-text
-      quotes: none
-      font-weight: normal
-      font-style: italic
+blockquote {
+  margin: 1rem 0;
+  padding: 0 0 0 1rem;
+  border-left: 4px solid #d44375;
+  background: transparent;
+  color: #363533;
+  quotes: none;
+  font-weight: normal;
+  font-style: italic;
 }
-article .content blockquote p {
+blockquote p {
   margin: 0;
 }
-article .content blockquote:before {
-  content: none
+blockquote:before {
+  content: none;
 }
-article .content blockquote footer {
-  margin: line-height 0
-  color: $color-meta
-  font-size: 12px
+blockquote footer {
+  margin: line-height 0;
+  color: #666;
+  font-size: 12px;
 }
-article .content blockquote footer a {
-  background-image: linear-gradient(transparent, transparent 5px, $color-meta 5px, $color-meta)
-  color: $color-meta
+blockquote footer a {
+  background-image: linear-gradient(transparent, transparent 5px, #666 5px, #666);
+  color: #666;
 }
-article .content blockquote footer a:hover {
-  background-image: linear-gradient(transparent, transparent 4px, lighten($color-meta, 20%) 4px, lighten($color-meta, 20%))
-  color: lighten($color-meta, 20%)
+blockquote footer a:hover {
+  background-image: linear-gradient(transparent, transparent 4px, #858585 4px, #858585);
+  color: #858585;
 }
-article .content blockquote footer cite:before {
-  padding: 0 .5em
-  content: "—"
+blockquote footer cite:before {
+  padding: 0 0.5em;
+  content: "—";
 }
-article .content .pullquote {
+.pullquote {
   margin: 0;
   width: 45%;
   text-align: left;
 }
-article .content .pullquote.left {
+.pullquote.left {
   margin-right: 1em;
   margin-left: 0.5em;
 }
-article .content .pullquote.right {
+.pullquote.right {
   margin-right: 0.5em;
   margin-left: 1em;
 }
-article .content .caption {
+.caption {
   position: relative;
   display: block;
   margin-top: 0.5em;
@@ -1412,8 +1412,8 @@ article .content .caption {
   color: #e2e0de;
   font-display: swap;
   font-weight: 400;
-  font-size: 11.200000000000001px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-size: 14.4px;
+  font-family: "Nunito", sans-serif;
   line-height: 1.725;
   text-rendering: geometricPrecision;
   text-align: center;
@@ -1594,7 +1594,7 @@ pre {
   border: 1px dotted #666;
   border-radius: 4px;
   font-size: 13px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-family: "Nunito", monospace;
   line-height: 22px;
   -webkit-border-radius: 4px;
 }
@@ -1615,7 +1615,7 @@ code {
   padding: 10px 15px;
   border-radius: 4px;
   background: #dedcd9;
-  font-family: "Menlo", "Meslo LG", monospace;
+  font-family: "Nunito", monospace;
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {
