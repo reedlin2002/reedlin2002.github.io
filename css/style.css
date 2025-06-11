@@ -1676,3 +1676,7 @@ code {
 #header-post #actions {
   direction: ltr !important;
 }
+
+body {
+  font-family: 'Nunito', sans-serif !important;
+}
