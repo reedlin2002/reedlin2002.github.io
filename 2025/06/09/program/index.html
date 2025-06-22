@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- so meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="description" content="我會在部落格分享一些用來學習的小程式，並簡單介紹程式內容與用途。  PDF Reader這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。 技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 Sente">
+<meta property="og:type" content="article">
+<meta property="og:title" content="📕 | PDF Reader">
+<meta property="og:url" content="http://example.com/2025/06/09/program/index.html">
+<meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
+<meta property="og:description" content="我會在部落格分享一些用來學習的小程式，並簡單介紹程式內容與用途。  PDF Reader這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。 技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 Sente">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-06-09T13:10:31.000Z">
+<meta property="article:modified_time" content="2025-06-18T04:14:48.890Z">
+<meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+  
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+  <!-- title -->
+  <title>📕 | PDF Reader</title>
+  <!-- async scripts -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <!-- styles -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!-- persian styles -->
+  
+  <!-- rss -->
+  
+  
+<!-- mathjax -->
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2025/06/18/expenses/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2025/06/06/dailyleetcode/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/06/09/program/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/06/09/program/&text=📕 | PDF Reader"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/06/09/program/&is_video=false&description=📕 | PDF Reader"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📕 | PDF Reader&body=Check out this article: http://example.com/2025/06/09/program/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/06/09/program/&name=📕 | PDF Reader&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/06/09/program/&t=📕 | PDF Reader"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PDF-Reader"><span class="toc-number">1.</span> <span class="toc-text">PDF Reader</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E6%9E%B6%E6%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text">技術架構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-RAG-%E6%B5%81%E7%A8%8B-%E7%B0%A1%E6%98%93"><span class="toc-number">1.2.</span> <span class="toc-text">🧩 RAG 流程 (簡易)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Retrieval%EF%BC%88%E6%AA%A2%E7%B4%A2%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. Retrieval（檢索）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Augmentation%EF%BC%88%E5%A2%9E%E5%BC%B7%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. Augmentation（增強）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Generation%EF%BC%88%E7%94%9F%E6%88%90%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. Generation（生成）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.3.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">程式</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        📕 | PDF Reader
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Jerry Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-06-09T13:10:31.000Z" class="dt-published" itemprop="datePublished">2025-06-09</time>
+        
+        (Updated: <time datetime="2025-06-18T04:14:48.890Z" class="dt-updated" itemprop="dateModified">2025-06-18</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/project/" rel="tag">project</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>我會在部落格分享一些用來學習的小程式，並簡單介紹程式內容與用途。</p>
+<hr>
+<h1 id="PDF-Reader"><a href="#PDF-Reader" class="headerlink" title="PDF Reader"></a>PDF Reader</h1><p>這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。</p>
+<h2 id="技術架構"><a href="#技術架構" class="headerlink" title="技術架構"></a>技術架構</h2><ul>
+<li>使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。</li>
+<li>使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。</li>
+<li>使用 SentenceTransformer 將文本轉成向量，再用 FAISS 建立向量搜尋索引。</li>
+<li>利用 Hugging Face 中文問答模型，從搜尋到的相關段落中找答案。</li>
+<li>將答案與參考段落顯示給使用者。</li>
+</ul>
+<p>RAG 技術透過檢索（Retrieval）+ 增強上下文（Augmentation）+ 生成回答（Generation）三步驟，讓模型根據提供的內容產出準確的答案。</p>
+<hr>
+<h2 id="🧩-RAG-流程-簡易"><a href="#🧩-RAG-流程-簡易" class="headerlink" title="🧩 RAG 流程 (簡易)"></a>🧩 RAG 流程 (簡易)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">提問 → 檢索相關內容 → 合併為上下文 → 模型生成回答</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-Retrieval（檢索）"><a href="#1-Retrieval（檢索）" class="headerlink" title="1. Retrieval（檢索）"></a>1. Retrieval（檢索）</h3><ul>
+<li>將 PDF 切成段落並建立向量表示（TF-IDF 或 embedding）</li>
+<li>使用 cosine similarity 找出與問題最相關的段落</li>
+</ul>
+<h3 id="2-Augmentation（增強）"><a href="#2-Augmentation（增強）" class="headerlink" title="2. Augmentation（增強）"></a>2. Augmentation（增強）</h3><ul>
+<li>將相關段落合併成上下文內容</li>
+<li>與問題一起輸入給模型</li>
+</ul>
+<h3 id="3-Generation（生成）"><a href="#3-Generation（生成）" class="headerlink" title="3. Generation（生成）"></a>3. Generation（生成）</h3><ul>
+<li>使用 Hugging Face 的中文 QA 模型回答問題</li>
+</ul>
+<hr>
+<h2 id="系統流程圖"><a href="#系統流程圖" class="headerlink" title="系統流程圖"></a>系統流程圖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[PDF 上傳] → [文字解析] → [中文分段]</span><br><span class="line">                        ↓</span><br><span class="line">           [段落向量化（TF-IDF）]</span><br><span class="line">                        ↓</span><br><span class="line">         [使用者提問 → 問題向量化]</span><br><span class="line">                        ↓</span><br><span class="line">         [計算相似度 → 取前 3 段]</span><br><span class="line">                        ↓</span><br><span class="line">        [合併上下文 + question]</span><br><span class="line">                        ↓</span><br><span class="line">         [丟進 HuggingFace QA 模型]</span><br><span class="line">                        ↓</span><br><span class="line">                 [產生回答]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="程式"><a href="#程式" class="headerlink" title="程式"></a>程式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立段落的 TF-IDF 向量庫</span></span><br><span class="line">chunk_vectors = vectorizer.fit_transform(chunks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 將使用者問題向量化</span></span><br><span class="line">query_vec = vectorizer.transform([user_question])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算問題與各段落相似度</span></span><br><span class="line">similarities = cosine_similarity(query_vec, chunk_vectors)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取得前三個最高相似度段落索引</span></span><br><span class="line">top_indices = similarities.argsort()[-<span class="number">3</span>:][::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 聚合成上下文</span></span><br><span class="line">top_chunks = [chunks[i] <span class="keyword">for</span> i <span class="keyword">in</span> top_indices]</span><br><span class="line">context = <span class="string">&quot;\n&quot;</span>.join(top_chunks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 丟給問答模型產生答案</span></span><br><span class="line">result = qa_pipeline(&#123;<span class="string">&quot;question&quot;</span>: user_question, <span class="string">&quot;context&quot;</span>: context&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>技術包含：<br>Python、Streamlit、PyPDF2、jieba、SentenceTransformers、FAISS、Hugging Face Transformers</p>
+<blockquote>
+<p><strong>備註</strong>：這個程式是我學習 RAG 技術的初步嘗試，所以還有很多能夠優化的地方，請多指教。</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li>
+        
+          <li><a href="/search/">seacrh</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PDF-Reader"><span class="toc-number">1.</span> <span class="toc-text">PDF Reader</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E6%9E%B6%E6%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text">技術架構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-RAG-%E6%B5%81%E7%A8%8B-%E7%B0%A1%E6%98%93"><span class="toc-number">1.2.</span> <span class="toc-text">🧩 RAG 流程 (簡易)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Retrieval%EF%BC%88%E6%AA%A2%E7%B4%A2%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. Retrieval（檢索）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Augmentation%EF%BC%88%E5%A2%9E%E5%BC%B7%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. Augmentation（增強）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Generation%EF%BC%88%E7%94%9F%E6%88%90%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. Generation（生成）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.3.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">程式</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/06/09/program/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/06/09/program/&text=📕 | PDF Reader"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/06/09/program/&is_video=false&description=📕 | PDF Reader"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📕 | PDF Reader&body=Check out this article: http://example.com/2025/06/09/program/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/06/09/program/&name=📕 | PDF Reader&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/06/09/program/&t=📕 | PDF Reader"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Jerry Lin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "複製成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
