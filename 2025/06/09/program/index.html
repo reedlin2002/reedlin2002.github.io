@@ -6,15 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="description" content="我會在部落格分享一些用來學習的小程式，並簡單介紹程式內容與用途。  PDF Reader這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。 技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 Sente">
+  <meta name="description" content="PDF Reader 這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。   技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 SentenceTransformer 將文本轉成向量，再用 FAISS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="📕 | PDF Reader">
 <meta property="og:url" content="http://example.com/2025/06/09/program/index.html">
 <meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
-<meta property="og:description" content="我會在部落格分享一些用來學習的小程式，並簡單介紹程式內容與用途。  PDF Reader這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。 技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 Sente">
+<meta property="og:description" content="PDF Reader 這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。   技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 SentenceTransformer 將文本轉成向量，再用 FAISS">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2025-06-09T13:10:31.000Z">
-<meta property="article:modified_time" content="2025-06-18T04:14:48.890Z">
+<meta property="article:modified_time" content="2025-06-25T15:50:00.756Z">
 <meta property="article:author" content="Jerry Lin">
 <meta property="article:tag" content="project">
 <meta name="twitter:card" content="summary">
@@ -143,7 +143,7 @@
       
         <time datetime="2025-06-09T13:10:31.000Z" class="dt-published" itemprop="datePublished">2025-06-09</time>
         
-        (Updated: <time datetime="2025-06-18T04:14:48.890Z" class="dt-updated" itemprop="dateModified">2025-06-18</time>)
+        (Updated: <time datetime="2025-06-25T15:50:00.756Z" class="dt-updated" itemprop="dateModified">2025-06-25</time>)
         
       
     </div>
@@ -163,9 +163,10 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <p>我會在部落格分享一些用來學習的小程式，並簡單介紹程式內容與用途。</p>
+    <h1 id="PDF-Reader"><a href="#PDF-Reader" class="headerlink" title="PDF Reader"></a>PDF Reader</h1><blockquote>
+<p>這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。</p>
+</blockquote>
 <hr>
-<h1 id="PDF-Reader"><a href="#PDF-Reader" class="headerlink" title="PDF Reader"></a>PDF Reader</h1><p>這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。</p>
 <h2 id="技術架構"><a href="#技術架構" class="headerlink" title="技術架構"></a>技術架構</h2><ul>
 <li>使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。</li>
 <li>使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。</li>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- so meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="description" content="用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答） 這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。   🔧 專案目標 ✫️ 建立一個 AI 助手系統，具備：   多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="🧠 | 聊天機器人">
+<meta property="og:url" content="http://example.com/2025/06/25/ollama/index.html">
+<meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
+<meta property="og:description" content="用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答） 這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。   🔧 專案目標 ✫️ 建立一個 AI 助手系統，具備：   多">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://example.com/images/ollama-test-1.png">
+<meta property="article:published_time" content="2025-06-25T15:43:59.000Z">
+<meta property="article:modified_time" content="2025-06-25T16:54:13.256Z">
+<meta property="article:author" content="Jerry Lin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/ollama-test-1.png">
+  
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+  <!-- title -->
+  <title>🧠 | 聊天機器人</title>
+  <!-- async scripts -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <!-- styles -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!-- persian styles -->
+  
+  <!-- rss -->
+  
+  
+<!-- mathjax -->
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2025/06/18/expenses/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/06/25/ollama/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/06/25/ollama/&text=🧠 | 聊天機器人"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/06/25/ollama/&is_video=false&description=🧠 | 聊天機器人"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🧠 | 聊天機器人&body=Check out this article: http://example.com/2025/06/25/ollama/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/06/25/ollama/&name=🧠 | 聊天機器人&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/06/25/ollama/&t=🧠 | 聊天機器人"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Ollama-LangChain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-AI-%E5%B7%A5%E5%85%B7%E5%9E%8B-Agent%EF%BC%88%E5%90%AB-RAG-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text">套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-Tool-%E8%88%87-Agent"><span class="toc-number">1.3.2.</span> <span class="toc-text">整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text">測試</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E7%B5%90%E6%A7%8B"><span class="toc-number">1.6.</span> <span class="toc-text">📁 結構</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        🧠 | 聊天機器人
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Jerry Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-06-25T15:43:59.000Z" class="dt-published" itemprop="datePublished">2025-06-25</time>
+        
+        (Updated: <time datetime="2025-06-25T16:54:13.256Z" class="dt-updated" itemprop="dateModified">2025-06-26</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="用-Ollama-LangChain-打造本地-AI-工具型-Agent（含-RAG-文件問答）"><a href="#用-Ollama-LangChain-打造本地-AI-工具型-Agent（含-RAG-文件問答）" class="headerlink" title="用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）"></a>用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</h1><blockquote>
+<p>這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。</p>
+</blockquote>
+<hr>
+<h2 id="🔧-專案目標"><a href="#🔧-專案目標" class="headerlink" title="🔧 專案目標"></a>🔧 專案目標</h2><blockquote>
+<p>✫️ 建立一個 AI 助手系統，具備：</p>
+</blockquote>
+<ul>
+<li>多工具整合能力（如計算器、天氣查詢）</li>
+<li>基於本地文字檔的知識問答功能（RAG）</li>
+<li>使用自己裝好模型的 Ollama + LangChain Agent 結構</li>
+</ul>
+<hr>
+<h2 id="系統流程圖"><a href="#系統流程圖" class="headerlink" title="系統流程圖"></a>系統流程圖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">使用者輸入問題</span><br><span class="line">    ↓</span><br><span class="line">判斷是否需呼叫工具？</span><br><span class="line">    ↓</span><br><span class="line">【需要工具的流程】                                           【不需要工具的流程】</span><br><span class="line">LangChain Agent 分析                 直接呼叫 LLM → LLM 生成回答 → 輸出結果給使用者</span><br><span class="line">    ↓</span><br><span class="line">選擇對應 Tool</span><br><span class="line">    ├ Calculator Tool</span><br><span class="line">    │</span><br><span class="line">    ├ Get Weather Tool  </span><br><span class="line">    │</span><br><span class="line">    └ RAG Tool</span><br><span class="line">        ├ TextLoader 載入檔案</span><br><span class="line">        ├ Text Splitter 切段</span><br><span class="line">        ├ HuggingFaceEmbeddings 向量化</span><br><span class="line">        └ FAISS 向量資料庫檢索</span><br><span class="line">    ↓</span><br><span class="line">Ollama LLM (Mistral)</span><br><span class="line">    ↓</span><br><span class="line">生成回答</span><br><span class="line">    ↓</span><br><span class="line">輸出結果給使用者</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="套件與技術"><a href="#套件與技術" class="headerlink" title="套件與技術"></a>套件與技術</h2><table>
+<thead>
+<tr>
+<th>技術</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.langchain.com/">LangChain</a></td>
+<td>組合 Agent 與工具</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://ollama.com/">Ollama</a> (Mistral)</td>
+<td>本地執行的大語言模型</td>
+</tr>
+<tr>
+<td><code>Tool</code> (LangChain)</td>
+<td>包裝可被 Agent 呼叫的功能</td>
+</tr>
+<tr>
+<td><code>RetrievalQA</code></td>
+<td>建立基於文字檔的問答鏈</td>
+</tr>
+<tr>
+<td><code>FAISS</code></td>
+<td>高效的向量資料庫</td>
+</tr>
+<tr>
+<td><code>HuggingFaceEmbeddings</code></td>
+<td>將文本轉換為向量的埋入模型</td>
+</tr>
+<tr>
+<td><code>TextLoader</code>, <code>CharacterTextSplitter</code></td>
+<td>處理本地文件內容</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="核心程式"><a href="#核心程式" class="headerlink" title="核心程式"></a>核心程式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ⭐️ LLM 模型（使用 Ollama + Mistral）</span></span><br><span class="line">llm = OllamaLLM(model=<span class="string">&quot;mistral&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ⭐️ 建立工具：Calculator / Get Weather</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculator</span>(<span class="params">query</span>): <span class="keyword">return</span> <span class="built_in">str</span>(<span class="built_in">eval</span>(query))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_weather</span>(<span class="params">city</span>): <span class="keyword">return</span> &#123;<span class="string">&quot;台北&quot;</span>:<span class="string">&quot;晴天30度&quot;</span>&#125;.get(city, <span class="string">&quot;查無資料&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ⭐️ RAG 工具：透過 FAISS 向量庫查詢本地 data.txt</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_rag_tool</span>():</span><br><span class="line">    loader = TextLoader(<span class="string">&quot;data.txt&quot;</span>)</span><br><span class="line">    docs = loader.load()</span><br><span class="line">    splits = CharacterTextSplitter(chunk_size=<span class="number">500</span>).split_documents(docs)</span><br><span class="line">    embeddings = HuggingFaceEmbeddings()</span><br><span class="line">    vectorstore = FAISS.from_documents(splits, embeddings)</span><br><span class="line">    retriever = vectorstore.as_retriever()</span><br><span class="line">    rag_chain = RetrievalQA.from_chain_type(llm, retriever=retriever)</span><br><span class="line">    <span class="keyword">return</span> Tool(name=<span class="string">&quot;rag_tool&quot;</span>, func=rag_chain.run, description=<span class="string">&quot;查詢本地知識文件&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="整合-Tool-與-Agent"><a href="#整合-Tool-與-Agent" class="headerlink" title="整合 Tool 與 Agent"></a>整合 Tool 與 Agent</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tools = [</span><br><span class="line">    Tool.from_function(<span class="string">&quot;calculator&quot;</span>, calculator, <span class="string">&quot;數學計算&quot;</span>),</span><br><span class="line">    Tool.from_function(<span class="string">&quot;get_weather&quot;</span>, get_weather, <span class="string">&quot;天氣查詢&quot;</span>),</span><br><span class="line">    build_rag_tool()</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    tools=tools,</span><br><span class="line">    llm=llm,</span><br><span class="line">    agent_type=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,</span><br><span class="line">    handle_parsing_errors=<span class="literal">True</span>,</span><br><span class="line">    verbose=<span class="literal">False</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><blockquote>
+<p>提問： 3 * 9 是多少？ </p>
+</blockquote>
+<div id="gallery">
+  <a href="/images/ollama-test-1.png">
+    <img src="/images/ollama-test-1.png" alt="TEST" style="max-width: 600px;">
+  </a>
+</div>
+
+<p><strong>(未能成功呼叫Agent)</strong></p>
+<hr>
+<h2 id="📝-心得"><a href="#📝-心得" class="headerlink" title="📝 心得"></a>📝 心得</h2><p>這個 project 幫助我：</p>
+<ul>
+<li>熟悉 LangChain 中 Tool&#x2F;Agent 的用法</li>
+<li>練習本地模型 Ollama 的載入與使用</li>
+<li>理解 RAG 的流程從文件切分到檢篩的設計邏輯</li>
+</ul>
+<hr>
+<h2 id="📁-結構"><a href="#📁-結構" class="headerlink" title="📁 結構"></a>📁 結構</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my-ollama/</span><br><span class="line">│</span><br><span class="line">├── main.py</span><br><span class="line">├── data.txt       ← 本地知識庫文字檔</span><br><span class="line">├── .venv/         ← 虛擬環境</span><br><span class="line">├── requirements.txt</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>技術包含：<br>Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、RetrievalQA、自訂工具函數（Calculator、Get Weather）</p>
+<blockquote>
+<p>第一次接觸LLM、LangChain、Agent 花了2、3天完成這個小應用。</p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li>
+        
+          <li><a href="/search/">seacrh</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Ollama-LangChain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-AI-%E5%B7%A5%E5%85%B7%E5%9E%8B-Agent%EF%BC%88%E5%90%AB-RAG-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text">套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-Tool-%E8%88%87-Agent"><span class="toc-number">1.3.2.</span> <span class="toc-text">整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text">測試</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E7%B5%90%E6%A7%8B"><span class="toc-number">1.6.</span> <span class="toc-text">📁 結構</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/06/25/ollama/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/06/25/ollama/&text=🧠 | 聊天機器人"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/06/25/ollama/&is_video=false&description=🧠 | 聊天機器人"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🧠 | 聊天機器人&body=Check out this article: http://example.com/2025/06/25/ollama/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/06/25/ollama/&name=🧠 | 聊天機器人&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/06/25/ollama/&t=🧠 | 聊天機器人"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Jerry Lin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "複製成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
