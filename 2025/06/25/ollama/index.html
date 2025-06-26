@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/images/ollama-RAG.png">
 <meta property="og:image" content="http://example.com/images/ollama-LLM.png">
 <meta property="article:published_time" content="2025-06-25T15:43:59.000Z">
-<meta property="article:modified_time" content="2025-06-26T06:19:11.155Z">
+<meta property="article:modified_time" content="2025-06-26T06:34:53.223Z">
 <meta property="article:author" content="Jerry Lin">
 <meta property="article:tag" content="project">
 <meta name="twitter:card" content="summary">
@@ -147,7 +147,7 @@
       
         <time datetime="2025-06-25T15:43:59.000Z" class="dt-published" itemprop="datePublished">2025-06-25</time>
         
-        (Updated: <time datetime="2025-06-26T06:19:11.155Z" class="dt-updated" itemprop="dateModified">2025-06-26</time>)
+        (Updated: <time datetime="2025-06-26T06:34:53.223Z" class="dt-updated" itemprop="dateModified">2025-06-26</time>)
         
       
     </div>
@@ -227,7 +227,7 @@
 <hr>
 <h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><h3 id="查詢天氣：台北"><a href="#查詢天氣：台北" class="headerlink" title="查詢天氣：台北"></a>查詢天氣：台北</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：查台北天氣</span><br><span class="line">🧩 使用 [Agent] 處理中...</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;Taipei&#x27;</span></span><br><span class="line">Observation: 晴天，30 度</span><br><span class="line">Final Answer: 晴天，30 度</span><br></pre></td></tr></table></figure>
 
-<div id="gallery">
+<div id="gallery1">
   <a href="/images/ollama-Taipei.png">
     <img src="/images/ollama-Taipei.png" alt="查詢天氣：台北" style="max-width: 600px;">
   </a>
@@ -235,7 +235,7 @@
 
 <hr>
 <h3 id="查詢天氣：高雄"><a href="#查詢天氣：高雄" class="headerlink" title="查詢天氣：高雄"></a>查詢天氣：高雄</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：高雄幾度</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;高雄&#x27;</span></span><br><span class="line">Observation: 小雨，27 度</span><br><span class="line">Final Answer: 高雄今天是小雨且27度。</span><br></pre></td></tr></table></figure>
-<div id="gallery">
+<div id="gallery2">
   <a href="/images/ollama-KAO.png">
     <img src="/images/ollama-KAO.png" alt="查詢天氣：高雄" style="max-width: 600px;">
   </a>
@@ -244,7 +244,7 @@
 <hr>
 <h3 id="數學運算"><a href="#數學運算" class="headerlink" title="數學運算"></a>數學運算</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：12 * 3 + 5 是多少？</span><br><span class="line"></span><br><span class="line">Action: calculator</span><br><span class="line">Action Input: <span class="string">&#x27;12 * 3 + 5&#x27;</span></span><br><span class="line">Observation: 45</span><br><span class="line">Final Answer: 結果為45。</span><br></pre></td></tr></table></figure>
 
-<div id="gallery">
+<div id="gallery3">
   <a href="/images/ollama-math.png">
     <img src="/images/ollama-math.png" alt="數學運算" style="max-width: 600px;">
   </a>
@@ -253,7 +253,7 @@
 <hr>
 <h3 id="問文件內容"><a href="#問文件內容" class="headerlink" title="問文件內容"></a>問文件內容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：文件內容有提到什麼？</span><br><span class="line"></span><br><span class="line">Action: rag_tool</span><br><span class="line">Observation: 文件提到了台灣、台北、自然風景、語言（台語、閩南語、客家話）、夜市與珍珠奶茶等。</span><br><span class="line">Final Answer: 這份文件提到了台灣、台北、自然風景、文化與語言、以及夜市文化。</span><br></pre></td></tr></table></figure>
 
-<div id="gallery">
+<div id="gallery4">
   <a href="/images/ollama-RAG.png">
     <img src="/images/ollama-RAG.png" alt="問文件內容" style="max-width: 600px;">
   </a>
@@ -262,7 +262,7 @@
 <hr>
 <h3 id="自然對話"><a href="#自然對話" class="headerlink" title="自然對話"></a>自然對話</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：你好</span><br><span class="line"></span><br><span class="line">💬 使用 LLM 直接回答...</span><br><span class="line">🤖 回答：您好！讓我有幸為您提供服務。如果您有任何問題，請隨時告知，我會盡力幫助您解決。</span><br></pre></td></tr></table></figure>
 
-<div id="gallery">
+<div id="gallery5">
   <a href="/images/ollama-LLM.png">
     <img src="/images/ollama-LLM.png" alt="自然對話" style="max-width: 600px;">
   </a>
@@ -290,11 +290,31 @@
 <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
 <script>
-  lightGallery(document.getElementById("gallery"), {
+    lightGallery(document.getElementById("gallery1"), {
     plugins: [lgZoom],
     speed: 300,
     zoom: true
-  });
+    });
+    lightGallery(document.getElementById("gallery2"), {
+    plugins: [lgZoom],
+    speed: 300,
+    zoom: true
+    });
+    lightGallery(document.getElementById("gallery3"), {
+    plugins: [lgZoom],
+    speed: 300,
+    zoom: true
+    });
+    lightGallery(document.getElementById("gallery4"), {
+    plugins: [lgZoom],
+    speed: 300,
+    zoom: true
+    });
+    lightGallery(document.getElementById("gallery5"), {
+    plugins: [lgZoom],
+    speed: 300,
+    zoom: true
+    });
 </script>
   </div>
 </article>
