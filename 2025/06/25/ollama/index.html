@@ -13,12 +13,17 @@
 <meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
 <meta property="og:description" content="用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答） 這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。   🔧 專案目標 ✫️ 建立一個 AI 助手系統，具備：   多">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="http://example.com/images/ollama-test-1.png">
+<meta property="og:image" content="http://example.com/images/ollama-Taipei.png">
+<meta property="og:image" content="http://example.com/images/ollama-KAO.png">
+<meta property="og:image" content="http://example.com/images/ollama-math.png">
+<meta property="og:image" content="http://example.com/images/ollama-RAG.png">
+<meta property="og:image" content="http://example.com/images/ollama-LLM.png">
 <meta property="article:published_time" content="2025-06-25T15:43:59.000Z">
-<meta property="article:modified_time" content="2025-06-25T16:54:13.256Z">
+<meta property="article:modified_time" content="2025-06-26T06:12:05.586Z">
 <meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="project">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/ollama-test-1.png">
+<meta name="twitter:image" content="http://example.com/images/ollama-Taipei.png">
   
   
     
@@ -115,7 +120,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Ollama-LangChain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-AI-%E5%B7%A5%E5%85%B7%E5%9E%8B-Agent%EF%BC%88%E5%90%AB-RAG-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text">套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-Tool-%E8%88%87-Agent"><span class="toc-number">1.3.2.</span> <span class="toc-text">整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text">測試</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E7%B5%90%E6%A7%8B"><span class="toc-number">1.6.</span> <span class="toc-text">📁 結構</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Ollama-LangChain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-AI-%E5%B7%A5%E5%85%B7%E5%9E%8B-Agent%EF%BC%88%E5%90%AB-RAG-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text">套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-Tool-%E8%88%87-Agent"><span class="toc-number">1.3.2.</span> <span class="toc-text">整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text">測試</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%EF%BC%9A%E5%8F%B0%E5%8C%97"><span class="toc-number">1.4.1.</span> <span class="toc-text">查詢天氣：台北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%EF%BC%9A%E9%AB%98%E9%9B%84"><span class="toc-number">1.4.2.</span> <span class="toc-text">查詢天氣：高雄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B8%E5%AD%B8%E9%81%8B%E7%AE%97"><span class="toc-number">1.4.3.</span> <span class="toc-text">數學運算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%95%8F%E6%96%87%E4%BB%B6%E5%85%A7%E5%AE%B9"><span class="toc-number">1.4.4.</span> <span class="toc-text">問文件內容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E5%B0%8D%E8%A9%B1"><span class="toc-number">1.4.5.</span> <span class="toc-text">自然對話</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E7%B5%90%E6%A7%8B"><span class="toc-number">1.6.</span> <span class="toc-text">📁 結構</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -142,7 +147,7 @@
       
         <time datetime="2025-06-25T15:43:59.000Z" class="dt-published" itemprop="datePublished">2025-06-25</time>
         
-        (Updated: <time datetime="2025-06-25T16:54:13.256Z" class="dt-updated" itemprop="dateModified">2025-06-26</time>)
+        (Updated: <time datetime="2025-06-26T06:12:05.586Z" class="dt-updated" itemprop="dateModified">2025-06-26</time>)
         
       
     </div>
@@ -151,6 +156,11 @@
       
 
       
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/project/" rel="tag">project</a>
+    </div>
+
 
     </div>
   </header>
@@ -215,16 +225,49 @@
 <h3 id="整合-Tool-與-Agent"><a href="#整合-Tool-與-Agent" class="headerlink" title="整合 Tool 與 Agent"></a>整合 Tool 與 Agent</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tools = [</span><br><span class="line">    Tool.from_function(<span class="string">&quot;calculator&quot;</span>, calculator, <span class="string">&quot;數學計算&quot;</span>),</span><br><span class="line">    Tool.from_function(<span class="string">&quot;get_weather&quot;</span>, get_weather, <span class="string">&quot;天氣查詢&quot;</span>),</span><br><span class="line">    build_rag_tool()</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    tools=tools,</span><br><span class="line">    llm=llm,</span><br><span class="line">    agent_type=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,</span><br><span class="line">    handle_parsing_errors=<span class="literal">True</span>,</span><br><span class="line">    verbose=<span class="literal">False</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><blockquote>
-<p>提問： 3 * 9 是多少？ </p>
-</blockquote>
+<h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><h3 id="查詢天氣：台北"><a href="#查詢天氣：台北" class="headerlink" title="查詢天氣：台北"></a>查詢天氣：台北</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：查台北天氣</span><br><span class="line">🧩 使用 [Agent] 處理中...</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;Taipei&#x27;</span></span><br><span class="line">Observation: 晴天，30 度</span><br><span class="line">Final Answer: 晴天，30 度</span><br></pre></td></tr></table></figure>
+
 <div id="gallery">
-  <a href="/images/ollama-test-1.png">
-    <img src="/images/ollama-test-1.png" alt="TEST" style="max-width: 600px;">
+  <a href="/images/ollama-Taipei.png">
+    <img src="/images/ollama-Taipei.png" alt="查台北天氣" style="max-width: 600px;">
   </a>
 </div>
 
-<p><strong>(未能成功呼叫Agent)</strong></p>
+<hr>
+<h3 id="查詢天氣：高雄"><a href="#查詢天氣：高雄" class="headerlink" title="查詢天氣：高雄"></a>查詢天氣：高雄</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：高雄幾度</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;高雄&#x27;</span></span><br><span class="line">Observation: 小雨，27 度</span><br><span class="line">Final Answer: 高雄今天是小雨且27度。</span><br></pre></td></tr></table></figure>
+<div id="gallery">
+  <a href="/images/ollama-KAO.png">
+    <img src="/images/ollama-KAO.png" alt="TEST" style="max-width: 600px;">
+  </a>
+</div>
+
+<hr>
+<h3 id="數學運算"><a href="#數學運算" class="headerlink" title="數學運算"></a>數學運算</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：12 * 3 + 5 是多少？</span><br><span class="line"></span><br><span class="line">Action: calculator</span><br><span class="line">Action Input: <span class="string">&#x27;12 * 3 + 5&#x27;</span></span><br><span class="line">Observation: 45</span><br><span class="line">Final Answer: 結果為45。</span><br></pre></td></tr></table></figure>
+
+<div id="gallery">
+  <a href="/images/ollama-math.png">
+    <img src="/images/ollama-math.png" alt="TEST" style="max-width: 600px;">
+  </a>
+</div>
+
+<hr>
+<h3 id="問文件內容"><a href="#問文件內容" class="headerlink" title="問文件內容"></a>問文件內容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：文件內容有提到什麼？</span><br><span class="line"></span><br><span class="line">Action: rag_tool</span><br><span class="line">Observation: 文件提到了台灣、台北、自然風景、語言（台語、閩南語、客家話）、夜市與珍珠奶茶等。</span><br><span class="line">Final Answer: 這份文件提到了台灣、台北、自然風景、文化與語言、以及夜市文化。</span><br></pre></td></tr></table></figure>
+
+<div id="gallery">
+  <a href="/images/ollama-RAG.png">
+    <img src="/images/ollama-RAG.png" alt="TEST" style="max-width: 600px;">
+  </a>
+</div>
+
+<hr>
+<h3 id="自然對話"><a href="#自然對話" class="headerlink" title="自然對話"></a>自然對話</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：你好</span><br><span class="line"></span><br><span class="line">💬 使用 LLM 直接回答...</span><br><span class="line">🤖 回答：您好！讓我有幸為您提供服務。如果您有任何問題，請隨時告知，我會盡力幫助您解決。</span><br></pre></td></tr></table></figure>
+
+<div id="gallery">
+  <a href="/images/ollama-LLM.png">
+    <img src="/images/ollama-LLM.png" alt="TEST" style="max-width: 600px;">
+  </a>
+</div>
+
 <hr>
 <h2 id="📝-心得"><a href="#📝-心得" class="headerlink" title="📝 心得"></a>📝 心得</h2><p>這個 project 幫助我：</p>
 <ul>
@@ -267,7 +310,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Ollama-LangChain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-AI-%E5%B7%A5%E5%85%B7%E5%9E%8B-Agent%EF%BC%88%E5%90%AB-RAG-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text">套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-Tool-%E8%88%87-Agent"><span class="toc-number">1.3.2.</span> <span class="toc-text">整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text">測試</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E7%B5%90%E6%A7%8B"><span class="toc-number">1.6.</span> <span class="toc-text">📁 結構</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-Ollama-LangChain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-AI-%E5%B7%A5%E5%85%B7%E5%9E%8B-Agent%EF%BC%88%E5%90%AB-RAG-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A7-%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text">套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-Tool-%E8%88%87-Agent"><span class="toc-number">1.3.2.</span> <span class="toc-text">整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text">測試</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%EF%BC%9A%E5%8F%B0%E5%8C%97"><span class="toc-number">1.4.1.</span> <span class="toc-text">查詢天氣：台北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%EF%BC%9A%E9%AB%98%E9%9B%84"><span class="toc-number">1.4.2.</span> <span class="toc-text">查詢天氣：高雄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B8%E5%AD%B8%E9%81%8B%E7%AE%97"><span class="toc-number">1.4.3.</span> <span class="toc-text">數學運算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%95%8F%E6%96%87%E4%BB%B6%E5%85%A7%E5%AE%B9"><span class="toc-number">1.4.4.</span> <span class="toc-text">問文件內容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E5%B0%8D%E8%A9%B1"><span class="toc-number">1.4.5.</span> <span class="toc-text">自然對話</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%81-%E7%B5%90%E6%A7%8B"><span class="toc-number">1.6.</span> <span class="toc-text">📁 結構</span></a></li></ol></li></ol>
       </div>
     
 
