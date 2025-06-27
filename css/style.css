@@ -1679,3 +1679,94 @@ code {
 body {
   font-family: 'Nunito', sans-serif !important;
 }
+/* 長條列表容器 */
+ul.list-with-bgcover {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+/* 單篇文章條目 */
+ul.list-with-bgcover > li.post-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 140px;
+  margin-bottom: 18px;
+  padding: 20px 30px;
+  border-radius: 12px;
+  background-color: #f0f0f0; /* 無封面時背景 */
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+/* 濾鏡遮罩，增加文字可讀性 */
+ul.list-with-bgcover > li.post-item .post-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  pointer-events: none;
+  border-radius: 12px;
+  transition: background 0.3s ease;
+}
+/* 滑鼠移上時濾鏡加深，卡片浮起 */
+ul.list-with-bgcover > li.post-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+ul.list-with-bgcover > li.post-item:hover .post-overlay {
+  background: rgba(0,0,0,0.55);
+}
+/* 文字內容區 */
+ul.list-with-bgcover > li.post-item .post-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+/* 日期 */
+ul.list-with-bgcover > li.post-item .meta {
+  font-size: 0.85em;
+  margin-bottom: 6px;
+  color: #fff;
+}
+/* 標題 */
+ul.list-with-bgcover > li.post-item .post-title {
+  font-size: 1.4em;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+/* 標題連結顏色 */
+ul.list-with-bgcover > li.post-item .post-title a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+ul.list-with-bgcover > li.post-item .post-title a:hover {
+  color: #f0c040;
+}
+/* 摘要 */
+ul.list-with-bgcover > li.post-item .post-excerpt {
+  font-size: 1em;
+  color: #eee;
+  max-width: 600px;
+  line-height: 1.4;
+  margin-top: 0;
+}
+/* 無封面時背景色 & 文字顏色調整 */
+ul.list-with-bgcover > li.post-item:not([style*="background-image"]) {
+  background-color: #fff;
+  color: #fff;
+}
+ul.list-with-bgcover > li.post-item:not([style*="background-image"]) .meta,
+ul.list-with-bgcover > li.post-item:not([style*="background-image"]) .post-excerpt {
+  color: #000;
+}
+ul.list-with-bgcover > li.post-item:not([style*="background-image"]) .post-title a {
+  color: #222;
+}
+ul.list-with-bgcover > li.post-item:not([style*="background-image"]) .post-title a:hover {
+  color: #f08c00;
+}
