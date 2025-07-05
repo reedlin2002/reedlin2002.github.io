@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="http://example.com/images/expenses_1.png">
 <meta property="article:published_time" content="2025-06-18T04:10:35.000Z">
-<meta property="article:modified_time" content="2025-06-26T06:30:52.209Z">
+<meta property="article:modified_time" content="2025-07-05T14:23:05.042Z">
 <meta property="article:author" content="Jerry Lin">
 <meta property="article:tag" content="project">
 <meta name="twitter:card" content="summary">
@@ -118,7 +118,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%80%8B%E7%B5%90%E5%90%88-React-%E5%89%8D%E7%AB%AF%E8%88%87-Flask-%E5%BE%8C%E7%AB%AF%E7%9A%84%E5%80%8B%E4%BA%BA%E8%A8%98%E5%B8%B3%E5%B0%88%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">一個結合 React 前端與 Flask 後端的個人記帳專案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%B7%E8%A1%8C%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">執行目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">技術使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-%E5%BE%8C%E7%AB%AF"><span class="toc-number">1.2.1.</span> <span class="toc-text">Flask 後端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF-HTML-React"><span class="toc-number">1.2.2.</span> <span class="toc-text">前端 HTML + React</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-core"><span class="toc-number">1.3.</span> <span class="toc-text">React 應用程式 core</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">資料儲存方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">架構設計</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%80%8B%E7%B5%90%E5%90%88-React-%E5%89%8D%E7%AB%AF%E8%88%87-Flask-%E5%BE%8C%E7%AB%AF%E7%9A%84%E5%80%8B%E4%BA%BA%E8%A8%98%E5%B8%B3%E5%B0%88%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">一個結合 React 前端與 Flask 後端的個人記帳專案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%B7%E8%A1%8C%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">執行目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">技術使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-%E5%BE%8C%E7%AB%AF"><span class="toc-number">1.2.1.</span> <span class="toc-text">Flask 後端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF-HTML-React"><span class="toc-number">1.2.2.</span> <span class="toc-text">前端 HTML + React</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-core"><span class="toc-number">1.3.</span> <span class="toc-text">React 應用程式 core</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">資料儲存方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">架構設計</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.4.</span> <span class="toc-text">📝 心得</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -145,7 +145,7 @@
       
         <time datetime="2025-06-18T04:10:35.000Z" class="dt-published" itemprop="datePublished">2025-06-18</time>
         
-        (Updated: <time datetime="2025-06-26T06:30:52.209Z" class="dt-updated" itemprop="dateModified">2025-06-26</time>)
+        (Updated: <time datetime="2025-07-05T14:23:05.042Z" class="dt-updated" itemprop="dateModified">2025-07-05</time>)
         
       
     </div>
@@ -227,7 +227,7 @@
 <li>視覺化統計：使用 Chart.js 呈現每日總支出，支援週次切換與點擊查看。</li>
 </ul>
 <p>技術包含：<br>Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStorage、Render.com</p>
-<blockquote>
+<h2 id="📝-心得"><a href="#📝-心得" class="headerlink" title="📝 心得"></a>📝 心得</h2><blockquote>
 <p>這是一個簡單的 Flask + React 應用，Side Project。</p>
 </blockquote>
 <link
@@ -269,7 +269,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%80%8B%E7%B5%90%E5%90%88-React-%E5%89%8D%E7%AB%AF%E8%88%87-Flask-%E5%BE%8C%E7%AB%AF%E7%9A%84%E5%80%8B%E4%BA%BA%E8%A8%98%E5%B8%B3%E5%B0%88%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">一個結合 React 前端與 Flask 後端的個人記帳專案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%B7%E8%A1%8C%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">執行目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">技術使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-%E5%BE%8C%E7%AB%AF"><span class="toc-number">1.2.1.</span> <span class="toc-text">Flask 後端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF-HTML-React"><span class="toc-number">1.2.2.</span> <span class="toc-text">前端 HTML + React</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-core"><span class="toc-number">1.3.</span> <span class="toc-text">React 應用程式 core</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">資料儲存方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">架構設計</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%80%8B%E7%B5%90%E5%90%88-React-%E5%89%8D%E7%AB%AF%E8%88%87-Flask-%E5%BE%8C%E7%AB%AF%E7%9A%84%E5%80%8B%E4%BA%BA%E8%A8%98%E5%B8%B3%E5%B0%88%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">一個結合 React 前端與 Flask 後端的個人記帳專案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%B7%E8%A1%8C%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">執行目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text">技術使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Flask-%E5%BE%8C%E7%AB%AF"><span class="toc-number">1.2.1.</span> <span class="toc-text">Flask 後端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF-HTML-React"><span class="toc-number">1.2.2.</span> <span class="toc-text">前端 HTML + React</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-core"><span class="toc-number">1.3.</span> <span class="toc-text">React 應用程式 core</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text">資料儲存方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88"><span class="toc-number">1.3.2.</span> <span class="toc-text">架構設計</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.4.</span> <span class="toc-text">📝 心得</span></a></li></ol></li></ol>
       </div>
     
 
