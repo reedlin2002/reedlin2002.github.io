@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@Jerry Lin-名片</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            background: rgba(30, 30, 50, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px 50px;
+            max-width: 1000px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .left-section {
+            text-align: center;
+        }
+
+	.avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            background-image: url('https://avatars.githubusercontent.com/u/91250398?s=400&u=d1bc9b71f7c20802dd80d61ad2484f1c32093105&v=4');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+              align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+	}
+
+
+        .avatar:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .username {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .language-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .lang-btn:hover, .lang-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .right-section {
+            padding-left: 20px;
+        }
+
+        .bio-section {
+            margin-bottom: 30px;
+        }
+
+        .bio-list {
+            list-style: none;
+            line-height: 2.2;
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+
+        .bio-list li {
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            cursor: default;
+            border-left: 3px solid transparent;
+            padding-left: 20px;
+        }
+
+        .bio-list li:hover {
+            color: #667eea;
+            border-left-color: #667eea;
+            transform: translateX(10px);
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 5px;
+        }
+
+        .bio-list li::before {
+            content: "▸";
+            color: #667eea;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .skills-section {
+            margin-top: 30px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-tag:hover {
+            background: rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 30px;
+                text-align: center;
+            }
+            
+            .right-section {
+                padding-left: 0;
+            }
+            
+            .bio-list {
+                text-align: left;
+            }
+            
+            .avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 3rem;
+            }
+            
+            .username {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+
+        /* 添加一些動態背景效果 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <div class="avatar"></div>
+            
+            <h1 class="username">@Jerry Lin</h1>
+            
+            <div class="language-toggle">
+                <button class="lang-btn active" onclick="switchLanguage('zh')">中文</button>
+                <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+            </div>
+            
+            <a href="mailto:your@email.com" class="contact-btn" id="contact-btn">聯繫我</a>
+            <a href="https://github.com/reedlin2002" class="contact-btn" id="contact-btn">GitHub</a>
+            <a href="https://reedlin2002.github.io/" class="contact-btn" id="contact-btn">Blog</a>
+        </div>
+        
+        <div class="right-section">
+            <div class="bio-section">
+                <h2 class="section-title" id="about-title">關於我</h2>
+                <ul class="bio-list" id="bio-zh">
+                    <li>網路愛好者，沉迷於數位世界</li>
+                    <li>主要寫 Python，偶爾碰 JavaScript 和 HTML
+</li>
+                    <li>大學研究 AI 影像處理，熟悉實例分割、OpenCV等技術
+</li>
+                    <li>正在探索 AI 與深度學習領域
+</li>
+                    <li>熱愛遊戲，閒暇時光的最佳夥伴</li>
+                    <li>歡迎隨時聯繫交流！</li>
+                </ul>
+                
+                <ul class="bio-list hidden" id="bio-en">
+                    <li>Internet enthusiast, addicted to the digital world</li>
+                    <li>Mainly write Python, occasionally touch JavaScript and HTML</li>
+                    <li>University research on AI image processing, familiar with instance segmentation, OpenCV and other technologies</li>
+                    <li>Currently exploring AI and deep learning fields</li>
+                    <li>Gaming enthusiast, perfect companion for leisure time</li>
+                    <li>Feel free to reach out anytime!</li>
+                </ul>
+            </div>
+            
+            <div class="skills-section">
+                <h2 class="section-title" id="skills-title">技能標籤</h2>
+                <div class="skills-grid" id="skills-zh">
+                    <div class="skill-tag">Python</div>
+                    <div class="skill-tag">PyTorch</div>
+                    <div class="skill-tag">OpenCV</div>
+                    <div class="skill-tag">Detectron2</div>
+                    <div class="skill-tag">HTML5</div>
+                    <div class="skill-tag">PHP</div>
+                    <div class="skill-tag">MySQL</div>
+                    <div class="skill-tag">Node.js</div>
+                    <div class="skill-tag">Instance Segmentation</div>
+                </div>
+                
+                <div class="skills-grid hidden" id="skills-en">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchLanguage(lang) {
+            const zhBio = document.getElementById('bio-zh');
+            const enBio = document.getElementById('bio-en');
+            const zhSkills = document.getElementById('skills-zh');
+            const enSkills = document.getElementById('skills-en');
+            const buttons = document.querySelectorAll('.lang-btn');
+            const contactBtn = document.getElementById('contact-btn');
+            const aboutTitle = document.getElementById('about-title');
+            const skillsTitle = document.getElementById('skills-title');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            if (lang === 'zh') {
+                zhBio.classList.remove('hidden');
+                enBio.classList.add('hidden');
+                zhSkills.classList.remove('hidden');
+                enSkills.classList.add('hidden');
+                buttons[0].classList.add('active');
+                contactBtn.textContent = '聯繫我';
+                aboutTitle.textContent = '關於我';
+                skillsTitle.textContent = '技能標籤';
+            } else {
+                zhBio.classList.add('hidden');
+                enBio.classList.remove('hidden');
+                zhSkills.classList.add('hidden');
+                enSkills.classList.remove('hidden');
+                buttons[1].classList.add('active');
+                contactBtn.textContent = 'Contact Me';
+                aboutTitle.textContent = 'About Me';
+                skillsTitle.textContent = 'Skills';
+            }
+        }
+
+        // 添加動態效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.container');
+            
+            // 漸進式載入動畫
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(30px)';
+            container.style.transition = 'all 0.8s ease';
+            
+            setTimeout(() => {
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 200);
+            
+            // 微妙的視差效果
+            document.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const { innerWidth, innerHeight } = window;
+                
+                const xPercent = (clientX / innerWidth - 0.5) * 2;
+                const yPercent = (clientY / innerHeight - 0.5) * 2;
+                
+                container.style.transform = `translateY(-5px) rotateX(${yPercent * 1}deg) rotateY(${xPercent * 1}deg)`;
+            });
+            
+            document.addEventListener('mouseleave', () => {
+                container.style.transform = 'translateY(-5px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
