@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <!-- so meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="description" content="Python 設計模式四選這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。  四種模式  單例模式 (Singleton) 工廠模式 (Factory) 策略模式 (Strategy) 觀察者模式 (Observer)    🟢 單例模式 Singleton Pattern概念確保一個類別在全程只存在唯一一個實例。 使用情境 設定檔管理 資源共用 (e.g.,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="設計模式 (Software design pattern)">
+<meta property="og:url" content="http://example.com/2025/07/12/design-patterns/index.html">
+<meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
+<meta property="og:description" content="Python 設計模式四選這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。  四種模式  單例模式 (Singleton) 工廠模式 (Factory) 策略模式 (Strategy) 觀察者模式 (Observer)    🟢 單例模式 Singleton Pattern概念確保一個類別在全程只存在唯一一個實例。 使用情境 設定檔管理 資源共用 (e.g.,">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-07-12T06:36:56.000Z">
+<meta property="article:modified_time" content="2025-07-12T07:21:02.741Z">
+<meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="技術筆記">
+<meta property="article:tag" content="(作者自學用)">
+<meta name="twitter:card" content="summary">
+  
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+  <!-- title -->
+  <title>設計模式 (Software design pattern)</title>
+  <!-- async scripts -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <!-- styles -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <!-- persian styles -->
+  
+  <!-- rss -->
+  
+  
+<!-- mathjax -->
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2025/07/05/UrlHealthMonitor/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/07/12/design-patterns/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/07/12/design-patterns/&text=設計模式 (Software design pattern)"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/07/12/design-patterns/&is_video=false&description=設計模式 (Software design pattern)"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=設計模式 (Software design pattern)&body=Check out this article: http://example.com/2025/07/12/design-patterns/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/07/12/design-patterns/&name=設計模式 (Software design pattern)&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/07/12/design-patterns/&t=設計模式 (Software design pattern)"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F%E5%9B%9B%E9%81%B8"><span class="toc-number">1.</span> <span class="toc-text">Python 設計模式四選</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.1.</span> <span class="toc-text">🟢 單例模式 Singleton Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%B7%A5%E5%BB%A0%E6%A8%A1%E5%BC%8F-Factory-Pattern"><span class="toc-number">1.2.</span> <span class="toc-text">🟢 工廠模式 Factory Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">🟢 策略模式 Strategy Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">使用情境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E8%A7%80%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer-Pattern"><span class="toc-number">1.4.</span> <span class="toc-text">🟢 觀察者模式 Observer Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-3"><span class="toc-number">1.4.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">1.4.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%B0%8F%E7%B5%90"><span class="toc-number">1.5.</span> <span class="toc-text">✨ 小結</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        設計模式 (Software design pattern)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Jerry Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-07-12T06:36:56.000Z" class="dt-published" itemprop="datePublished">2025-07-12</time>
+        
+        (Updated: <time datetime="2025-07-12T07:21:02.741Z" class="dt-updated" itemprop="dateModified">2025-07-12</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" rel="tag">(作者自學用)</a>, <a class="p-category" href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" rel="tag">技術筆記</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="Python-設計模式四選"><a href="#Python-設計模式四選" class="headerlink" title="Python 設計模式四選"></a>Python 設計模式四選</h1><p>這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。</p>
+<blockquote>
+<p><strong>四種模式</strong></p>
+<ol>
+<li>單例模式 (Singleton)</li>
+<li>工廠模式 (Factory)</li>
+<li>策略模式 (Strategy)</li>
+<li>觀察者模式 (Observer)</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="🟢-單例模式-Singleton-Pattern"><a href="#🟢-單例模式-Singleton-Pattern" class="headerlink" title="🟢 單例模式 Singleton Pattern"></a>🟢 單例模式 Singleton Pattern</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>確保一個類別在全程只存在唯一一個實例。</p>
+<h3 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h3><ul>
+<li>設定檔管理</li>
+<li>資源共用 (e.g., 日誌 Logger)</li>
+<li>全域狀態控制</li>
+</ul>
+<h3 id="範例程式碼"><a href="#範例程式碼" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SingletonLogger</span>:</span><br><span class="line">    _instance = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> cls._instance:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;建立 SingletonLogger 實例&quot;</span>)</span><br><span class="line">            cls._instance = <span class="built_in">super</span>().__new__(cls)</span><br><span class="line">        <span class="keyword">return</span> cls._instance</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;執行 __init__()&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 測試</span></span><br><span class="line">log1 = SingletonLogger()</span><br><span class="line">log2 = SingletonLogger()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;log1 is log2:&quot;</span>, log1 <span class="keyword">is</span> log2)</span><br></pre></td></tr></table></figure>
+
+<p>執行輸出</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">建立 SingletonLogger 實例</span><br><span class="line">執行 <span class="built_in">__init__</span>()</span><br><span class="line">執行 <span class="built_in">__init__</span>()</span><br><span class="line">log1 is log2: True</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在單例模式中，第一次建立 SingletonLogger() 時，會產生唯一一個「全域實例」。<br>後面不管呼叫幾次 SingletonLogger()，都會回傳同一個物件，記憶體位置完全相同。<br>也就是說：<br>整個程式只會有一個 Logger，大家共用這個唯一的「盒子」。</p>
+</blockquote>
+<hr>
+<h2 id="🟢-工廠模式-Factory-Pattern"><a href="#🟢-工廠模式-Factory-Pattern" class="headerlink" title="🟢 工廠模式 Factory Pattern"></a>🟢 工廠模式 Factory Pattern</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>將「建立物件的邏輯」抽離到工廠方法，統一管理實例化流程。</p>
+<h3 id="使用情境-1"><a href="#使用情境-1" class="headerlink" title="使用情境"></a>使用情境</h3><ul>
+<li>根據參數決定建立哪個子類別</li>
+<li>解耦「建立物件」與「使用物件」</li>
+</ul>
+<h3 id="範例程式碼-1"><a href="#範例程式碼-1" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Woof&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Cat</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">speak</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Meow&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AnimalFactory</span>:</span><br><span class="line">    animal_classes = &#123;</span><br><span class="line">        <span class="string">&quot;dog&quot;</span>: Dog,</span><br><span class="line">        <span class="string">&quot;cat&quot;</span>: Cat</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">create_animal</span>(<span class="params">animal_type</span>):</span><br><span class="line">        <span class="keyword">if</span> animal_type <span class="keyword">in</span> AnimalFactory.animal_classes:</span><br><span class="line">            <span class="keyword">return</span> AnimalFactory.animal_classes[animal_type]()</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;未知的動物種類&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 測試</span></span><br><span class="line">animal = AnimalFactory.create_animal(<span class="string">&quot;dog&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(animal.speak())</span><br></pre></td></tr></table></figure>
+<p>執行輸出</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Woof</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在工廠模式中，每次呼叫 AnimalFactory.create_animal()，都會根據你給的參數，產生一個新的動物物件。<br>同一種動物（例如 Dog）呼叫多次，也會創建多個不同的 Dog 實例，彼此互不影響。<br>也就是說：<br>工廠就像流水線，每次都造出新的產品，產品彼此獨立。</p>
+</blockquote>
+<hr>
+<h2 id="🟢-策略模式-Strategy-Pattern"><a href="#🟢-策略模式-Strategy-Pattern" class="headerlink" title="🟢 策略模式 Strategy Pattern"></a>🟢 策略模式 Strategy Pattern</h2><h3 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h3><p>將「行為策略」封裝為獨立類別，執行時依據情境決定要用哪個策略。</p>
+<h3 id="使用情境-2"><a href="#使用情境-2" class="headerlink" title="使用情境"></a>使用情境</h3><ul>
+<li>動態切換演算法</li>
+<li>行為多樣化的系統</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Strategy</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">execute</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UpperCaseStrategy</span>(<span class="title class_ inherited__">Strategy</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">execute</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="keyword">return</span> data.upper()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LowerCaseStrategy</span>(<span class="title class_ inherited__">Strategy</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">execute</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="keyword">return</span> data.lower()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Context</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, strategy</span>):</span><br><span class="line">        <span class="variable language_">self</span>.strategy = strategy</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">set_strategy</span>(<span class="params">self, strategy</span>):</span><br><span class="line">        <span class="variable language_">self</span>.strategy = strategy</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">execute_strategy</span>(<span class="params">self, data</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.strategy.execute(data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 測試</span></span><br><span class="line">context = Context(UpperCaseStrategy())</span><br><span class="line"><span class="built_in">print</span>(context.execute_strategy(<span class="string">&quot;Hello Strategy&quot;</span>))</span><br><span class="line"></span><br><span class="line">context.set_strategy(LowerCaseStrategy())</span><br><span class="line"><span class="built_in">print</span>(context.execute_strategy(<span class="string">&quot;Hello Strategy&quot;</span>))</span><br></pre></td></tr></table></figure>
+<p>執行輸出</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HELLO STRATEGY</span><br><span class="line">hello strategy</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在策略模式中，每次 CreditCardPayment() 都會建立一個新的「策略物件」，<br>ShoppingCart() 也每次產生一個新的購物車，<br>不會共用同一個實例，也就是說：<br>策略物件和購物車都是獨立的！</p>
+</blockquote>
+<hr>
+<h2 id="🟢-觀察者模式-Observer-Pattern"><a href="#🟢-觀察者模式-Observer-Pattern" class="headerlink" title="🟢 觀察者模式 Observer Pattern"></a>🟢 觀察者模式 Observer Pattern</h2><h3 id="概念-3"><a href="#概念-3" class="headerlink" title="概念"></a>概念</h3><p>當主題狀態改變時，自動通知所有依賴它的觀察者。</p>
+<h3 id="使用情境-3"><a href="#使用情境-3" class="headerlink" title="使用情境"></a>使用情境</h3><ul>
+<li>事件通知</li>
+<li>資料監聽</li>
+<li>訂閱&#x2F;發布系統</li>
+</ul>
+<h3 id="範例程式碼-2"><a href="#範例程式碼-2" class="headerlink" title="範例程式碼"></a>範例程式碼</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Observer</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">self, message</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>(<span class="title class_ inherited__">Observer</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, name</span>):</span><br><span class="line">        <span class="variable language_">self</span>.name = name</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">update</span>(<span class="params">self, message</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;self.name&#125;</span> 收到通知: <span class="subst">&#123;message&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ChatRoom</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.observers = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">add_observer</span>(<span class="params">self, observer</span>):</span><br><span class="line">        <span class="variable language_">self</span>.observers.append(observer)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">notify_observers</span>(<span class="params">self, message</span>):</span><br><span class="line">        <span class="keyword">for</span> observer <span class="keyword">in</span> <span class="variable language_">self</span>.observers:</span><br><span class="line">            observer.update(message)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 測試</span></span><br><span class="line">chat_room = ChatRoom()</span><br><span class="line">user1 = User(<span class="string">&quot;小明&quot;</span>)</span><br><span class="line">user2 = User(<span class="string">&quot;小美&quot;</span>)</span><br><span class="line"></span><br><span class="line">chat_room.add_observer(user1)</span><br><span class="line">chat_room.add_observer(user2)</span><br><span class="line"></span><br><span class="line">chat_room.notify_observers(<span class="string">&quot;今天有新活動！&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>執行輸出</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">小明 收到通知: 今天有新活動！</span><br><span class="line">小美 收到通知: 今天有新活動！</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在觀察者模式中，每次 User() 都會建立一個新的「觀察者物件」，<br>ChatRoom() 也可以建立多個聊天室，彼此沒有關聯。<br>當聊天室呼叫 notify_observers() 時，會通知它自己「清單裡的觀察者」。<br>也就是說：<br>每個聊天室都維護自己的訂閱清單，觀察者和主題都是獨立物件，沒有共享同一個實例。</p>
+</blockquote>
+<hr>
+<h2 id="✨-小結"><a href="#✨-小結" class="headerlink" title="✨ 小結"></a>✨ 小結</h2><p>這四種模式是物件導向程式設計中最經典的設計模式：</p>
+<ul>
+<li>單例：只有一個實例</li>
+<li>工廠：統一建立流程</li>
+<li>策略：行為可替換</li>
+<li>觀察者：自動通知訂閱者</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">設計模式</th>
+<th align="center">主要特點</th>
+<th align="center">適用情境</th>
+<th align="center">物件產生方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>單例模式</strong></td>
+<td align="center">保證一個類別只有一個實例，並提供全局唯一的存取點。</td>
+<td align="center">需要全局唯一資源或管理器，例如設定管理、日誌記錄器等。</td>
+<td align="center">第一次建立時創建，之後重複使用同一實例。</td>
+</tr>
+<tr>
+<td align="center"><strong>工廠模式</strong></td>
+<td align="center">封裝物件創建邏輯，根據參數決定要建立哪一種物件，讓使用者不用直接接觸具體類別。</td>
+<td align="center">需要根據條件動態生成不同類型物件，降低使用者與物件具體類別的耦合。</td>
+<td align="center">每次呼叫都會新建不同物件。</td>
+</tr>
+<tr>
+<td align="center"><strong>策略模式</strong></td>
+<td align="center">將算法或行為封裝成獨立物件，並讓它們可互換，使得系統在運行時能動態切換算法。</td>
+<td align="center">需要靈活切換算法或行為，避免條件分支過多。</td>
+<td align="center">每次使用時新建策略物件，不同策略互相獨立。</td>
+</tr>
+<tr>
+<td align="center"><strong>觀察者模式</strong></td>
+<td align="center">建立一對多關係，當主題狀態改變時，自動通知所有訂閱者，達成鬆耦合的事件傳遞。</td>
+<td align="center">事件驅動、發布訂閱系統、即時更新通知等場景。</td>
+<td align="center">主題與觀察者皆可多次建立，互為獨立物件。</td>
+</tr>
+</tbody></table>
+<p>未來如果專案規模變大，這些模式能幫助：</p>
+<ul>
+<li>降低耦合度</li>
+<li>提高可維護性</li>
+<li>提升擴展彈性</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li>
+        
+          <li><a href="/search/">seacrh</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F%E5%9B%9B%E9%81%B8"><span class="toc-number">1.</span> <span class="toc-text">Python 設計模式四選</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.1.</span> <span class="toc-text">🟢 單例模式 Singleton Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%B7%A5%E5%BB%A0%E6%A8%A1%E5%BC%8F-Factory-Pattern"><span class="toc-number">1.2.</span> <span class="toc-text">🟢 工廠模式 Factory Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">🟢 策略模式 Strategy Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">使用情境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E8%A7%80%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer-Pattern"><span class="toc-number">1.4.</span> <span class="toc-text">🟢 觀察者模式 Observer Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-3"><span class="toc-number">1.4.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">1.4.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%B0%8F%E7%B5%90"><span class="toc-number">1.5.</span> <span class="toc-text">✨ 小結</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2025/07/12/design-patterns/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2025/07/12/design-patterns/&text=設計模式 (Software design pattern)"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2025/07/12/design-patterns/&is_video=false&description=設計模式 (Software design pattern)"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=設計模式 (Software design pattern)&body=Check out this article: http://example.com/2025/07/12/design-patterns/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2025/07/12/design-patterns/&title=設計模式 (Software design pattern)"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2025/07/12/design-patterns/&name=設計模式 (Software design pattern)&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2025/07/12/design-patterns/&t=設計模式 (Software design pattern)"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2025
+    Jerry Lin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "複製成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
