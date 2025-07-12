@@ -6,15 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="description" content="Python 設計模式四選這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。  四種模式  單例模式 (Singleton) 工廠模式 (Factory) 策略模式 (Strategy) 觀察者模式 (Observer)    🟢 單例模式 Singleton Pattern概念確保一個類別在全程只存在唯一一個實例。 使用情境 設定檔管理 資源共用 (e.g.,">
+  <meta name="description" content="Python 設計模式這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。  四種模式  單例模式 (Singleton) 工廠模式 (Factory) 策略模式 (Strategy) 觀察者模式 (Observer)    🟢 單例模式 Singleton Pattern概念確保一個類別在全程只存在唯一一個實例。 使用情境 設定檔管理 資源共用 (e.g., 日誌">
 <meta property="og:type" content="article">
 <meta property="og:title" content="設計模式 (Software design pattern)">
 <meta property="og:url" content="http://example.com/2025/07/12/design-patterns/index.html">
 <meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
-<meta property="og:description" content="Python 設計模式四選這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。  四種模式  單例模式 (Singleton) 工廠模式 (Factory) 策略模式 (Strategy) 觀察者模式 (Observer)    🟢 單例模式 Singleton Pattern概念確保一個類別在全程只存在唯一一個實例。 使用情境 設定檔管理 資源共用 (e.g.,">
+<meta property="og:description" content="Python 設計模式這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。  四種模式  單例模式 (Singleton) 工廠模式 (Factory) 策略模式 (Strategy) 觀察者模式 (Observer)    🟢 單例模式 Singleton Pattern概念確保一個類別在全程只存在唯一一個實例。 使用情境 設定檔管理 資源共用 (e.g., 日誌">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2025-07-12T06:36:56.000Z">
-<meta property="article:modified_time" content="2025-07-12T07:21:02.741Z">
+<meta property="article:modified_time" content="2025-07-12T08:01:22.447Z">
 <meta property="article:author" content="Jerry Lin">
 <meta property="article:tag" content="技術筆記">
 <meta property="article:tag" content="(作者自學用)">
@@ -115,7 +115,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F%E5%9B%9B%E9%81%B8"><span class="toc-number">1.</span> <span class="toc-text">Python 設計模式四選</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.1.</span> <span class="toc-text">🟢 單例模式 Singleton Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%B7%A5%E5%BB%A0%E6%A8%A1%E5%BC%8F-Factory-Pattern"><span class="toc-number">1.2.</span> <span class="toc-text">🟢 工廠模式 Factory Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">🟢 策略模式 Strategy Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">使用情境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E8%A7%80%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer-Pattern"><span class="toc-number">1.4.</span> <span class="toc-text">🟢 觀察者模式 Observer Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-3"><span class="toc-number">1.4.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">1.4.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%B0%8F%E7%B5%90"><span class="toc-number">1.5.</span> <span class="toc-text">✨ 小結</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">Python 設計模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.1.</span> <span class="toc-text">🟢 單例模式 Singleton Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%B7%A5%E5%BB%A0%E6%A8%A1%E5%BC%8F-Factory-Pattern"><span class="toc-number">1.2.</span> <span class="toc-text">🟢 工廠模式 Factory Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">🟢 策略模式 Strategy Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">使用情境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E8%A7%80%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer-Pattern"><span class="toc-number">1.4.</span> <span class="toc-text">🟢 觀察者模式 Observer Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-3"><span class="toc-number">1.4.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">1.4.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%B0%8F%E7%B5%90"><span class="toc-number">1.5.</span> <span class="toc-text">✨ 小結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D%E5%BF%83%E5%BE%97%EF%BC%9A"><span class="toc-number">1.6.</span> <span class="toc-text">📝心得：</span></a></li></ol></li></ol>
       </div>
     
   </span>
@@ -142,7 +142,7 @@
       
         <time datetime="2025-07-12T06:36:56.000Z" class="dt-published" itemprop="datePublished">2025-07-12</time>
         
-        (Updated: <time datetime="2025-07-12T07:21:02.741Z" class="dt-updated" itemprop="dateModified">2025-07-12</time>)
+        (Updated: <time datetime="2025-07-12T08:01:22.447Z" class="dt-updated" itemprop="dateModified">2025-07-12</time>)
         
       
     </div>
@@ -162,7 +162,7 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h1 id="Python-設計模式四選"><a href="#Python-設計模式四選" class="headerlink" title="Python 設計模式四選"></a>Python 設計模式四選</h1><p>這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。</p>
+    <h1 id="Python-設計模式"><a href="#Python-設計模式" class="headerlink" title="Python 設計模式"></a>Python 設計模式</h1><p>這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。</p>
 <blockquote>
 <p><strong>四種模式</strong></p>
 <ol>
@@ -268,10 +268,35 @@
 </tbody></table>
 <p>未來如果專案規模變大，這些模式能幫助：</p>
 <ul>
-<li>降低耦合度</li>
-<li>提高可維護性</li>
-<li>提升擴展彈性</li>
+<li><p>✅ 降低耦合度（大家不再黏在一起）</p>
+<blockquote>
+<p>這些模式會強迫你把各種責任分散開來，<br>物件之間不需要互相知道彼此內部細節，<br>就像不同部門只透過「公開的接口」溝通，<br>大幅減少改一個功能導致整個系統崩潰的風險。</p>
+</blockquote>
+</li>
+<li><p>✅ 提高可維護性（東西更好修、更好改）</p>
+<blockquote>
+<p>有了清晰的模式，每個部分都只負責一種角色，<br>你要修 bug 或調整邏輯時，可以聚焦在單一地方，<br>不用像無頭蒼蠅一樣到處追查影響範圍。<br>也方便新人上手，因為架構清楚一目了然。</p>
+</blockquote>
+</li>
+<li><p>✅ 提升擴展彈性（新功能不再痛苦）</p>
+<blockquote>
+<p>當業務成長、需求變化時，<br>這些模式讓你用「替換」或「新增」的方式擴展功能，<br>不必動原本穩定的代碼：</p>
+</blockquote>
+</li>
+<li><p>工廠模式：多增加一種產品類別即可</p>
+</li>
+<li><p>策略模式：多一個演算法就 plug-in</p>
+</li>
+<li><p>觀察者模式：隨時加訂閱者、移訂閱者</p>
+</li>
+<li><p>單例模式：確保全域只有一個資源</p>
+</li>
 </ul>
+<hr>
+<p>技術與應用方法：<br>Python（OOP 與 Design Pattern）、VS Code（Python Extension）、互動式 CLI（範例測試）</p>
+<h2 id="📝心得："><a href="#📝心得：" class="headerlink" title="📝心得："></a>📝心得：</h2><blockquote>
+<p>一開始對 <code>__new__()</code>、工廠模式的「字典映射類別」還有策略模式「注入策略物件」這種寫法有點陌生，看起來超抽象，不太確定「為什麼要多繞一層」，但慢慢測試、比對記憶體位置，就理解到它們的用意，這次練習也算是把「抽象的設計模式」變成「具體的練習案例」，實際跑一遍後真的對日後專案會有很大幫助，不管是要降低耦合度、提高可維護性、還是做功能擴展，都比單純 procedural code 更直覺清晰。如果未來要用到更大型的框架（像 Django、Flask、.NET Core），這些模式也能直接套用。</p>
+</blockquote>
 
   </div>
 </article>
@@ -299,7 +324,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F%E5%9B%9B%E9%81%B8"><span class="toc-number">1.</span> <span class="toc-text">Python 設計模式四選</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.1.</span> <span class="toc-text">🟢 單例模式 Singleton Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%B7%A5%E5%BB%A0%E6%A8%A1%E5%BC%8F-Factory-Pattern"><span class="toc-number">1.2.</span> <span class="toc-text">🟢 工廠模式 Factory Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">🟢 策略模式 Strategy Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">使用情境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E8%A7%80%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer-Pattern"><span class="toc-number">1.4.</span> <span class="toc-text">🟢 觀察者模式 Observer Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-3"><span class="toc-number">1.4.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">1.4.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%B0%8F%E7%B5%90"><span class="toc-number">1.5.</span> <span class="toc-text">✨ 小結</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Python-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">Python 設計模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.1.</span> <span class="toc-text">🟢 單例模式 Singleton Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83"><span class="toc-number">1.1.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E5%B7%A5%E5%BB%A0%E6%A8%A1%E5%BC%8F-Factory-Pattern"><span class="toc-number">1.2.</span> <span class="toc-text">🟢 工廠模式 Factory Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-1"><span class="toc-number">1.2.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-1"><span class="toc-number">1.2.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-Strategy-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">🟢 策略模式 Strategy Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">1.3.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-2"><span class="toc-number">1.3.2.</span> <span class="toc-text">使用情境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9F%A2-%E8%A7%80%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-Observer-Pattern"><span class="toc-number">1.4.</span> <span class="toc-text">🟢 觀察者模式 Observer Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">1.4.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-3"><span class="toc-number">1.4.2.</span> <span class="toc-text">使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">1.4.3.</span> <span class="toc-text">範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9C%A8-%E5%B0%8F%E7%B5%90"><span class="toc-number">1.5.</span> <span class="toc-text">✨ 小結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D%E5%BF%83%E5%BE%97%EF%BC%9A"><span class="toc-number">1.6.</span> <span class="toc-text">📝心得：</span></a></li></ol></li></ol>
       </div>
     
 
