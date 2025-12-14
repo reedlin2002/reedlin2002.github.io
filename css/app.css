@@ -58,7 +58,7 @@
   --color-yellow: #eab700;
   --color-green: #0a7426;
   --color-aqua: #3e999f;
-  --color-blue: #38a1db;
+  --color-blue: #789;
   --color-purple: #9d5b8b;
   --color-grey: #869194;
   --color-red-a1: rgba(233,84,107,0.1);
@@ -71,7 +71,7 @@
   --box-bg-shadow: var(--grey-9-a1);
   --text-color: var(--grey-7);
   --header-text-color: var(--grey-0);
-  --primary-color: var(--color-red);
+  --primary-color: #2f4f4f;
   --nav-bg: linear-gradient(-225deg, var(--color-cyan-light) 0, var(--color-pink-light) 100%);
 }
 .primary {
