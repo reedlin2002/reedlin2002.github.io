@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head>
+  <head>
   <!-- so meta -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,11 +56,15 @@
 <!-- mathjax -->
 
 <meta name="generator" content="Hexo 7.3.0"></head>
-<body class="max-width mx-auto px3 ltr">
-    
-    <div class="content index py4 h-card">
-        
-          <header id="header">
+
+    <body class="max-width mx-auto px3 ltr">
+      <!-- 粒子特效 Canvas -->
+      <canvas id="particle-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+      
+            <div class="content index py4 h-card">
+              <header id="header">
   <a class="u-url u-uid" href="/">
   
     
@@ -89,8 +93,7 @@
   </div>
 </header>
 
-        
-        <section id="about" class="p-note">
+                <section id="about" class="p-note">
   
     <p>用來記錄學習與開發的歷程</p>
 
@@ -358,8 +361,8 @@
 </section>
 
 
-        
-        <footer id="footer">
+                  
+                        <footer id="footer">
   <div class="footer-left">
     Copyright &copy;
     
@@ -384,15 +387,15 @@
   </div>
 </footer>
 
-    </div>
-    <!-- styles -->
+            </div>
+            <!-- styles -->
 
 
 
   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
 
 
-    <!-- jquery -->
+              <!-- jquery -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
@@ -414,5 +417,16 @@
 
 <!-- utterances Comments -->
 
-</body>
-</html>
+
+                <!-- 終極視覺特效腳本 -->
+                
+<script src="/js/particle-system.js"></script>
+
+                  <!-- 游標特效（已移除以提升效能與體驗） -->
+                  <!-- <script src="/js/cursor-effects.js"></script> -->
+                  
+<script src="/js/typewriter.js"></script>
+
+    </body>
+
+    </html>

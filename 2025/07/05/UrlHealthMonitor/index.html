@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang=zh>
-<head>
+  <head>
   <!-- so meta -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,9 +61,14 @@
 <!-- mathjax -->
 
 <meta name="generator" content="Hexo 7.3.0"></head>
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
+
+    <body class="max-width mx-auto px3 ltr">
+      <!-- 粒子特效 Canvas -->
+      <canvas id="particle-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+      
+        <div id="header-post">
   <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
   <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
@@ -124,10 +129,38 @@
   </span>
 </div>
 
+          
+            <div class="content index py4 ">
+              <header id="header">
+  <a class="u-url u-uid" href="/">
+  
     
-    <div class="content index py4 ">
-        
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+      <img id="logo" alt class="u-logo" src="/images/logo.png" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Welcome to Reedlin2002&#39;s Page</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">首頁</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+   --><!--
+     --><li><a href="/search/">seacrh</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
@@ -249,8 +282,8 @@
 
 
 
-        
-          <div id="footer-post-container">
+                  
+                    <div id="footer-post-container">
   <div id="footer-post">
 
     <div id="nav-footer" style="display: none">
@@ -303,8 +336,8 @@
   </div>
 </div>
 
-        
-        <footer id="footer">
+                      
+                        <footer id="footer">
   <div class="footer-left">
     Copyright &copy;
     
@@ -329,15 +362,15 @@
   </div>
 </footer>
 
-    </div>
-    <!-- styles -->
+            </div>
+            <!-- styles -->
 
 
 
   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
 
 
-    <!-- jquery -->
+              <!-- jquery -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
 
@@ -382,5 +415,16 @@
 
 <!-- utterances Comments -->
 
-</body>
-</html>
+
+                <!-- 終極視覺特效腳本 -->
+                
+<script src="/js/particle-system.js"></script>
+
+                  <!-- 游標特效（已移除以提升效能與體驗） -->
+                  <!-- <script src="/js/cursor-effects.js"></script> -->
+                  
+<script src="/js/typewriter.js"></script>
+
+    </body>
+
+    </html>
