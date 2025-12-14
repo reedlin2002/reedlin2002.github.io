@@ -1,0 +1,12 @@
+[
+    {
+       "name":"API",
+       "url":"/api/",
+       "desc":"local url"
+    },
+    {
+       "name":"Google",
+       "url":"https://google.com/",
+       "desc":"remote url"
+    }
+]
