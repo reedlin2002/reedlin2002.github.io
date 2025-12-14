@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <rss version="2.0">
     <channel>
-        <title>Welcome to Reedlin2002&#39;s Page • Posts by &#34;project&#34; tag</title>
+        <title>Reedlin2002 • Posts by &#34;project&#34; tag</title>
         <link>https://reedlin2002.github.io</link>
         <description>用來記錄學習與開發的歷程</description>
         <language>zh-TW</language>
         <pubDate>Sat, 19 Jul 2025 15:34:20 +0800</pubDate>
         <lastBuildDate>Sat, 19 Jul 2025 15:34:20 +0800</lastBuildDate>
         <category>myself</category>
-        <category>leetcode</category>
-        <category>Daily</category>
         <category>project</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/</guid>
             <title>📍 | LocalAIAgentAPI</title>

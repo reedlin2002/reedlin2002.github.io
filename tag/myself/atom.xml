@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://reedlin2002.github.io</id>
-    <title>Welcome to Reedlin2002&#39;s Page • Posts by &#34;myself&#34; tag</title>
+    <title>Reedlin2002 • Posts by &#34;myself&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2025-06-05T07:03:00.000Z</updated>
     <category term="myself" />
-    <category term="leetcode" />
-    <category term="Daily" />
     <category term="project" />
     <category term="技術筆記" />
     <category term="(作者自學用)" />
+    <category term="leetcode" />
+    <category term="Daily" />
     <entry>
         <id>https://reedlin2002.github.io/2025/06/05/Aboutme/</id>
         <title>🧣 | GitHub</title>
@@ -60,29 +60,5 @@
 </content>
         <category term="myself" />
         <updated>2025-06-05T07:03:00.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://reedlin2002.github.io/2025/06/05/hello-world/</id>
-        <title>關於我</title>
-        <link rel="alternate" href="https://reedlin2002.github.io/2025/06/05/hello-world/"/>
-        <content type="html">&lt;h3 id=&#34;coding-learning-building-img-srchttpsrawgithubusercontentcomrahuldkjaingithub-profile-readme-generatormastersrcimagesiconssocialgithubsvg-width30-height40&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#coding-learning-building-img-srchttpsrawgithubusercontentcomrahuldkjaingithub-profile-readme-generatormastersrcimagesiconssocialgithubsvg-width30-height40&#34;&gt;#&lt;/a&gt; Coding, learning, building. &lt;a href=&#34;https://github.com/reedlin2002&#34;&gt;&lt;img data-src=&#34;https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg&#34; width=&#34;30&#34; height=&#34;40&#34;&gt;&lt;/a&gt;&lt;/h3&gt;
-&lt;p&gt;嘿！歡迎來到我的個人空間！我是 Jerry lin，這是我第一次嘗試架設個人網頁，會不定期記錄一些生活與學習上的小雜記。&lt;/p&gt;
-&lt;h2 id=&#34;關於我&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#關於我&#34;&gt;#&lt;/a&gt; 🚀 關於我&lt;/h2&gt;
-&lt;p&gt;我是一個熱愛程式設計的大學生 (應屆畢業！)，正在探索各種技術領域。從前端到後端，從 AI 到專案實作，每一步都是新的挑戰與成長。&lt;/p&gt;
-&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;()&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;	&lt;span class=&#34;built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;Hello, World!\n&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&#34;學習足跡&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#學習足跡&#34;&gt;#&lt;/a&gt; 📚 學習足跡&lt;/h2&gt;
-&lt;h3 id=&#34;程式語言探索中&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#程式語言探索中&#34;&gt;#&lt;/a&gt; 程式語言探索中&lt;/h3&gt;
-&lt;p&gt;Python - 最熟悉的語言&lt;br&gt;
- C# - 專案的開發神器&lt;br&gt;
- JavaScript - 前端開發的基石&lt;br&gt;
- Vue.js &amp;amp; React.js - 現代前端框架實戰&lt;br&gt;
- LangChain - 做智能助手、資料摘要、流程控制都能派上用場&lt;br&gt;
- RAG - 打造問答系統、知識庫搜尋&lt;/p&gt;
-&lt;h3 id=&#34;持續精進&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#持續精進&#34;&gt;#&lt;/a&gt; 持續精進&lt;/h3&gt;
-&lt;p&gt;LeetCode 刷題 - 演算法思維訓練&lt;br&gt;
-專案實作 - 理論與實務結合&lt;/p&gt;
-</content>
-        <category term="myself" />
-        <updated>2025-06-05T06:05:00.000Z</updated>
     </entry>
 </feed>

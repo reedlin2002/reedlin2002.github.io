@@ -179,25 +179,6 @@
     </entry>
     
     
-    
-    <entry>
-      <title>關於我</title>
-      <link href="/2025/06/05/hello-world/"/>
-      <url>/2025/06/05/hello-world/</url>
-      
-        <content type="html"><![CDATA[<h3 id="coding-learning-building-img-srchttpsrawgithubusercontentcomrahuldkjaingithub-profile-readme-generatormastersrcimagesiconssocialgithubsvg-width30-height40"><a class="markdownIt-Anchor" href="#coding-learning-building-img-srchttpsrawgithubusercontentcomrahuldkjaingithub-profile-readme-generatormastersrcimagesiconssocialgithubsvg-width30-height40">#</a> Coding, learning, building. <a href="https://github.com/reedlin2002"><img data-src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" width="30" height="40"></a></h3><p>嘿！歡迎來到我的個人空間！我是 Jerry lin，這是我第一次嘗試架設個人網頁，會不定期記錄一些生活與學習上的小雜記。</p><h2 id="關於我"><a class="markdownIt-Anchor" href="#關於我">#</a> 🚀 關於我</h2><p>我是一個熱愛程式設計的大學生 (應屆畢業！)，正在探索各種技術領域。從前端到後端，從 AI 到專案實作，每一步都是新的挑戰與成長。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;Hello, World!\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="學習足跡"><a class="markdownIt-Anchor" href="#學習足跡">#</a> 📚 學習足跡</h2><h3 id="程式語言探索中"><a class="markdownIt-Anchor" href="#程式語言探索中">#</a> 程式語言探索中</h3><p>Python - 最熟悉的語言<br> C# - 專案的開發神器<br> JavaScript - 前端開發的基石<br> Vue.js &amp; React.js - 現代前端框架實戰<br> LangChain - 做智能助手、資料摘要、流程控制都能派上用場<br> RAG - 打造問答系統、知識庫搜尋</p><h3 id="持續精進"><a class="markdownIt-Anchor" href="#持續精進">#</a> 持續精進</h3><p>LeetCode 刷題 - 演算法思維訓練<br>專案實作 - 理論與實務結合</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> myself </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
   
   
 </search>
