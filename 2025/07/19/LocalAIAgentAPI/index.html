@@ -1,212 +1,162 @@
+
+
+
+
 <!DOCTYPE html>
-<html lang=zh>
-  <head>
-  <!-- so meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="description" content="學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習 這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。                 學習目標作為一個正在準備面試的開發者，我給自己設定了一個挑戰：能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？ 說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有">
-<meta property="og:type" content="article">
-<meta property="og:title" content="📍 | LocalAIAgentAPI">
-<meta property="og:url" content="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/index.html">
-<meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
-<meta property="og:description" content="學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習 這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。                 學習目標作為一個正在準備面試的開發者，我給自己設定了一個挑戰：能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？ 說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有">
-<meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://reedlin2002.github.io/images/LocalAIAgentAPI_frontend.png">
-<meta property="article:published_time" content="2025-07-19T07:34:20.000Z">
-<meta property="article:modified_time" content="2025-07-22T08:44:06.782Z">
-<meta property="article:author" content="Jerry Lin">
-<meta property="article:tag" content="project">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://reedlin2002.github.io/images/LocalAIAgentAPI_frontend.png">
-  
-  
-    
-      
-        <link rel="shortcut icon" href="/images/favicon.ico">
-      
-    
-    
-      
-        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-      
-    
-    
-      
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-      
-    
-  
-  <!-- title -->
-  <title>📍 | LocalAIAgentAPI</title>
-  <!-- async scripts -->
-  <!-- Google Analytics -->
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 
-  <!-- Umami Analytics -->
+<link rel="alternate" type="application/rss+xml" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="project" />
 
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-  <!-- styles -->
-  
-<link rel="stylesheet" href="/css/style.css">
+<link rel="canonical" href="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/">
 
-  <!-- persian styles -->
-  
-  <!-- rss -->
-  
-  
-<!-- mathjax -->
 
+
+  <title>
+📍 | LocalAIAgentAPI |
+Reedlin2002 = Welcome to Reedlin2002's Page = 個人筆記與作品集</title>
 <meta name="generator" content="Hexo 7.3.0"></head>
-
-    <body class="max-width mx-auto px3 ltr">
-      <!-- 粒子特效 Canvas -->
-      <canvas id="particle-canvas"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
-
-      
-        <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">首頁</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-     --><!--
-       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-     --><!--
-       --><li><a href="/search/">seacrh</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        
-        <li><a class="icon" aria-label="下一篇" href="/2025/07/13/singleton-pattern/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">上一篇</span>
-      <span id="i-next" class="info" style="display:none;">下一篇</span>
-      <span id="i-top" class="info" style="display:none;">回到頁首</span>
-      <span id="i-share" class="info" style="display:none;">分享</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&text=📍 | LocalAIAgentAPI"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&is_video=false&description=📍 | LocalAIAgentAPI"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=📍 | LocalAIAgentAPI&body=Check out this article: https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&name=📍 | LocalAIAgentAPI&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&t=📍 | LocalAIAgentAPI"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E5%B0%88%E6%A1%88%EF%BC%9ALocalAIAgentAPI-%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E7%9A%84-AI-%E6%95%B4%E5%90%88%E7%B7%B4%E7%BF%92"><span class="toc-number">1.</span> <span class="toc-text">學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">學習目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LocalAIAgentAPI"><span class="toc-number">1.2.</span> <span class="toc-text">LocalAIAgentAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Building"><span class="toc-number">1.3.</span> <span class="toc-text">Building</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problems"><span class="toc-number">1.4.</span> <span class="toc-text">Problems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning"><span class="toc-number">1.5.</span> <span class="toc-text">Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E5%B1%A4%E9%9D%A2"><span class="toc-number">1.5.1.</span> <span class="toc-text">技術層面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BB%9F%E5%AF%A6%E5%8A%9B"><span class="toc-number">1.5.2.</span> <span class="toc-text">軟實力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%99%E5%80%8B%E5%B0%88%E6%A1%88"><span class="toc-number">1.5.3.</span> <span class="toc-text">這個專案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next-Week%EF%BC%81"><span class="toc-number">1.6.</span> <span class="toc-text">Next Week！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E5%8E%9F%E5%A7%8B%E7%A2%BC"><span class="toc-number">1.7.</span> <span class="toc-text">專案原始碼</span></a></li></ol></li></ol>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
       </div>
-    
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">📍 | LocalAIAgentAPI
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="創建時間：2025-07-19 15:34:20">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">發表於</span>
+    <time itemprop="dateCreated datePublished" datetime="2025-07-19T15:34:20+08:00">2025-07-19</time>
   </span>
 </div>
 
-          
-            <div class="content index py4 ">
-              <header id="header">
-  <a class="u-url u-uid" href="/">
-  
-    
-      <img id="logo" alt class="u-logo" src="/images/logo.png" />
-    
-  
-    <div id="title">
-      <h1 class="p-name">Welcome to Reedlin2002&#39;s Page</h1>
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切換導航欄">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
     </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Reedlin2002</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
       </li>
-      <!--
-     --><li><a href="/">首頁</a></li><!--
-   --><!--
-     --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-   --><!--
-     --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-   --><!--
-     --><li><a href="/search/">seacrh</a></li><!--
-   -->
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
     </ul>
   </div>
-</header>
+</nav>
 
-                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="//images/LocalAIAgentAPI.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
     
-    <h1 class="posttitle p-name" itemprop="name headline">
-        📍 | LocalAIAgentAPI
-    </h1>
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首頁</a></span>
+</div>
 
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-TW">
+  <link itemprop="mainEntityOfPage" href="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/">
 
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/https:/github.com/reedlin2002.png">
+    <meta itemprop="name" content="Jerry Lin">
+    <meta itemprop="description" content="個人筆記與作品集, 用來記錄學習與開發的歷程">
+  </span>
 
-    <div class="meta">
-      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">Jerry Lin</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2025-07-19T07:34:20.000Z" class="dt-published" itemprop="datePublished">2025-07-19</time>
-        
-        (Updated: <time datetime="2025-07-22T08:44:06.782Z" class="dt-updated" itemprop="dateModified">2025-07-22</time>)
-        
-      
-    </div>
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Welcome to Reedlin2002's Page">
+  </span>
 
+  <div class="body md" itemprop="articleBody">
+    
 
-      
-
-      
-    <div class="article-tag">
-        <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/project/" rel="tag">project</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content e-content" itemprop="articleBody">
-    <h1 id="學習專案：LocalAIAgentAPI-從零開始的-AI-整合練習"><a href="#學習專案：LocalAIAgentAPI-從零開始的-AI-整合練習" class="headerlink" title="學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習"></a>學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習</h1><blockquote>
+    <h1 id="學習專案localaiagentapi-從零開始的-ai-整合練習"><a class="markdownIt-Anchor" href="#學習專案localaiagentapi-從零開始的-ai-整合練習">#</a> 學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習</h1>
+<blockquote>
 <p>這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。</p>
 </blockquote>
 <div id="gallery">
   <a href="/images/LocalAIAgentAPI_frontend.png">
-    <img src="/images/LocalAIAgentAPI_frontend.png" alt="前端頁面" style="max-width: 600px;">
+    <img data-src="/images/LocalAIAgentAPI_frontend.png" alt="前端頁面" style="max-width: 600px;">
   </a>
 </div>
-
 <hr>
-<h2 id="學習目標"><a href="#學習目標" class="headerlink" title="學習目標"></a>學習目標</h2><p>作為一個正在準備面試的開發者，我給自己設定了一個挑戰：<br>能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？</p>
+<h2 id="學習目標"><a class="markdownIt-Anchor" href="#學習目標">#</a> 學習目標</h2>
+<p>作為一個正在準備面試的開發者，我給自己設定了一個挑戰：<br>
+能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？</p>
 <p>說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有挑戰性的目標：</p>
 <ul>
 <li>練習 .NET 8 的新特性</li>
@@ -217,20 +167,29 @@
 <blockquote>
 <p>結果沒想到，這個學習過程遠比我預期的有趣。每天回家寫 code，看到專案從無到有的感覺真的很讚。</p>
 </blockquote>
-<h2 id="LocalAIAgentAPI"><a href="#LocalAIAgentAPI" class="headerlink" title="LocalAIAgentAPI"></a>LocalAIAgentAPI</h2><p>這個專案基本上就是我這週學習筆記的具現化。我想透過實作來理解一些平常只能紙上談兵的問題：</p>
+<h2 id="localaiagentapi"><a class="markdownIt-Anchor" href="#localaiagentapi">#</a> LocalAIAgentAPI</h2>
+<p>這個專案基本上就是我這週學習筆記的具現化。我想透過實作來理解一些平常只能紙上談兵的問題：</p>
 <p>怎麼在 .NET 中整合不同類型的 AI 模型？每個模型的 API 都不一樣，要怎麼設計統一的介面？REST API 的架構要怎麼設計才不會讓未來的自己想哭？前端跟後端的資料交換有哪些眉角？錯誤處理和日誌記錄該做到什麼程度？</p>
 <p>雖然是練習專案，但我還是盡量按照真實專案的標準來做。</p>
 <hr>
-<h2 id="Building"><a href="#Building" class="headerlink" title="Building"></a>Building</h2><p>這一週下來，我大概涉獵了這些領域：</p>
-<p><strong>後端架構</strong>：.NET 8 Web API、依賴注入、Middleware<br>老實說，之前對 .NET 8 的依賴注入只是停留在「知道有這個東西」的階段，實際動手做才發現它比想像中強大很多。</p>
-<p><strong>AI 整合</strong>：Ollama LLM、ONNX 圖片分類、Tesseract OCR<br>每個模型的整合方式都不太一樣，這讓我對「統一介面設計」有了更深的體會。</p>
-<p><strong>API 設計</strong>：RESTful API、輸入驗證、回應格式統一<br>如何讓不同模型的回應格式保持一致，這個問題比我想的複雜多了。</p>
-<p><strong>前端互動</strong>：簡單的 HTML&#x2F;JS、檔案上傳、即時回應<br>雖然前端不是我的強項，但現在有很多非常好用的 AI 工具 像是ChatGPT、Claude等，都協助我設計好的UI和功能。</p>
-<p><strong>測試工具</strong>：Swagger 整合、API 測試<br>Swagger 真的是開發者的好朋友，設定完就有完整的測試介面。</p>
-<p><strong>錯誤處理</strong>：全域異常處理、Timeout 機制<br>踩了不少坑，但也學到如何優雅地處理各種意外狀況。</p>
+<h2 id="building"><a class="markdownIt-Anchor" href="#building">#</a> Building</h2>
+<p>這一週下來，我大概涉獵了這些領域：</p>
+<p><strong>後端架構</strong>：.NET 8 Web API、依賴注入、Middleware<br>
+ 老實說，之前對 .NET 8 的依賴注入只是停留在「知道有這個東西」的階段，實際動手做才發現它比想像中強大很多。</p>
+<p><strong>AI 整合</strong>：Ollama LLM、ONNX 圖片分類、Tesseract OCR<br>
+ 每個模型的整合方式都不太一樣，這讓我對「統一介面設計」有了更深的體會。</p>
+<p><strong>API 設計</strong>：RESTful API、輸入驗證、回應格式統一<br>
+如何讓不同模型的回應格式保持一致，這個問題比我想的複雜多了。</p>
+<p><strong>前端互動</strong>：簡單的 HTML/JS、檔案上傳、即時回應<br>
+雖然前端不是我的強項，但現在有很多非常好用的 AI 工具 像是 ChatGPT、Claude 等，都協助我設計好的 UI 和功能。</p>
+<p><strong>測試工具</strong>：Swagger 整合、API 測試<br>
+ Swagger 真的是開發者的好朋友，設定完就有完整的測試介面。</p>
+<p><strong>錯誤處理</strong>：全域異常處理、Timeout 機制<br>
+踩了不少坑，但也學到如何優雅地處理各種意外狀況。</p>
 <hr>
-<h2 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a>Problems</h2><p>一週要整合這麼多東西，當然會遇到一些讓人頭痛的問題：</p>
-<p><strong>模型載入失敗</strong>：一開始 LLAMA2 模型老是載入不起來，debug 了半天才發現是Ollama路徑的問題。</p>
+<h2 id="problems"><a class="markdownIt-Anchor" href="#problems">#</a> Problems</h2>
+<p>一週要整合這麼多東西，當然會遇到一些讓人頭痛的問題：</p>
+<p><strong>模型載入失敗</strong>：一開始 LLAMA2 模型老是載入不起來，debug 了半天才發現是 Ollama 路徑的問題。</p>
 <p><strong>回應時間過長</strong>：某些 LLM 推理需要很長時間，一開始沒設 Timeout，結果前端就一直等等等。體驗直接崩潰。</p>
 <p><strong>資料格式轉換</strong>：不同模型的輸入輸出格式差異很大，光是設計統一的 API 介面就花了不少時間思考。</p>
 <p><strong>圖片處理</strong>：從前端上傳圖片到後端處理，編碼的部分搞了我一陣子。有些知識真的要實作過才會印象深刻。</p>
@@ -238,15 +197,19 @@
 <p>不過每解決一個問題，就覺得又成長了一點。這大概就是寫 code 最爽的地方吧。</p>
 </blockquote>
 <hr>
-<h2 id="Learning"><a href="#Learning" class="headerlink" title="Learning"></a>Learning</h2><h3 id="技術層面"><a href="#技術層面" class="headerlink" title="技術層面"></a>技術層面</h3><p>對 .NET 8 的依賴注入和 Middleware 機制有了更深入的理解。之前都是看文件學習，實際用過才知道哪些地方容易出錯。</p>
+<h2 id="learning"><a class="markdownIt-Anchor" href="#learning">#</a> Learning</h2>
+<h3 id="技術層面"><a class="markdownIt-Anchor" href="#技術層面">#</a> 技術層面</h3>
+<p>對 .NET 8 的依賴注入和 Middleware 機制有了更深入的理解。之前都是看文件學習，實際用過才知道哪些地方容易出錯。</p>
 <p>了解了不同 AI 模型的整合方式和各自的限制。每種模型都有自己的脾氣，要花時間去摸索。</p>
 <p>練習了 API 設計和錯誤處理的一些最佳實踐。雖然還不敢說做得很好，但至少知道該注意什麼。</p>
 <p>熟悉了前後端資料交換的完整流程。之前都是分別學習，這次算是串起來了。</p>
-<h3 id="軟實力"><a href="#軟實力" class="headerlink" title="軟實力"></a>軟實力</h3><p><strong>問題解決能力</strong>：遇到問題時如何有效地搜尋資料、閱讀文件、測試假設。</p>
+<h3 id="軟實力"><a class="markdownIt-Anchor" href="#軟實力">#</a> 軟實力</h3>
+<p><strong>問題解決能力</strong>：遇到問題時如何有效地搜尋資料、閱讀文件、測試假設。</p>
 <p><strong>學習方法</strong>：如何在有限時間內快速掌握新技術的核心概念。</p>
 <p><strong>架構思維</strong>：開始思考如何設計可維護、可擴展的系統架構。</p>
 <hr>
-<h3 id="這個專案"><a href="#這個專案" class="headerlink" title="這個專案"></a>這個專案</h3><p>我會誠實地說：「這是我為了學習 AI 整合和準備面試而做的練習專案。功能相對簡單，但我把重點放在架構設計和程式碼品質上。」</p>
+<h3 id="這個專案"><a class="markdownIt-Anchor" href="#這個專案">#</a> 這個專案</h3>
+<p>我會誠實地說：「這是我為了學習 AI 整合和準備面試而做的練習專案。功能相對簡單，但我把重點放在架構設計和程式碼品質上。」</p>
 <ul>
 <li>為什麼選擇這些技術組合？各有什麼優缺點？</li>
 <li>開發過程中遇到的最大挑戰是什麼？如何解決的？</li>
@@ -257,11 +220,13 @@
 <p>我覺得展現學習態度和解決問題的思路，比專案本身的完成度更重要。</p>
 </blockquote>
 <hr>
-<h2 id="Next-Week！"><a href="#Next-Week！" class="headerlink" title="Next Week！"></a>Next Week！</h2><p>這個專案讓我嚐到了甜頭，也發現了很多可以改進的地方：</p>
+<h2 id="next-week"><a class="markdownIt-Anchor" href="#next-week">#</a> Next Week！</h2>
+<p>這個專案讓我嚐到了甜頭，也發現了很多可以改進的地方：</p>
 <p><strong>程式碼重構</strong>：有些地方寫得匆忙，想練習如何重構成更乾淨的程式碼。</p>
 <p><strong>容器化部署</strong>：嘗試用 Docker 打包，體驗現代化的部署流程。</p>
 <hr>
-<h2 id="專案原始碼"><a href="#專案原始碼" class="headerlink" title="專案原始碼"></a>專案原始碼</h2><p>GitHub Repo: <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/LocalAIAgentAPI">reedlin2002&#x2F;LocalAIAgentAPI</a></p>
+<h2 id="專案原始碼"><a class="markdownIt-Anchor" href="#專案原始碼">#</a> 專案原始碼</h2>
+<p>GitHub Repo: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JlZWRsaW4yMDAyL0xvY2FsQUlBZ2VudEFQSQ==">reedlin2002/LocalAIAgentAPI</span></p>
 <p><strong>重要提醒</strong>：這是我的學習練習專案，程式碼品質可能還有很大改進空間，絕對不建議直接用在正式環境中。但如果你也在學習相關技術，歡迎參考或給我一些建議。</p>
 <p>如果發現任何問題或有改進建議，也歡迎開 Issue 讓我學習。畢竟一個人閉門造車很容易有盲點。</p>
 <hr>
@@ -281,157 +246,315 @@
     zoom: true
   });
 </script>
-  </div>
-</article>
-
-
-
-                  
-                    <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-        
-          <li><a href="/">首頁</a></li>
-        
-          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
-        
-          <li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li>
-        
-          <li><a href="/search/">seacrh</a></li>
-        
-      </ul>
-    </div>
-
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E5%B0%88%E6%A1%88%EF%BC%9ALocalAIAgentAPI-%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E7%9A%84-AI-%E6%95%B4%E5%90%88%E7%B7%B4%E7%BF%92"><span class="toc-number">1.</span> <span class="toc-text">學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text">學習目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LocalAIAgentAPI"><span class="toc-number">1.2.</span> <span class="toc-text">LocalAIAgentAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Building"><span class="toc-number">1.3.</span> <span class="toc-text">Building</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Problems"><span class="toc-number">1.4.</span> <span class="toc-text">Problems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning"><span class="toc-number">1.5.</span> <span class="toc-text">Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E5%B1%A4%E9%9D%A2"><span class="toc-number">1.5.1.</span> <span class="toc-text">技術層面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BB%9F%E5%AF%A6%E5%8A%9B"><span class="toc-number">1.5.2.</span> <span class="toc-text">軟實力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%99%E5%80%8B%E5%B0%88%E6%A1%88"><span class="toc-number">1.5.3.</span> <span class="toc-text">這個專案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Next-Week%EF%BC%81"><span class="toc-number">1.6.</span> <span class="toc-text">Next Week！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E5%8E%9F%E5%A7%8B%E7%A2%BC"><span class="toc-number">1.7.</span> <span class="toc-text">專案原始碼</span></a></li></ol></li></ol>
+      <div class="tags">
+          <a href="/tags/project/" rel="tag"><i class="ic i-tag"></i> project</a>
       </div>
-    
+  </div>
 
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&text=📍 | LocalAIAgentAPI"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&is_video=false&description=📍 | LocalAIAgentAPI"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=📍 | LocalAIAgentAPI&body=Check out this article: https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&name=📍 | LocalAIAgentAPI&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&t=📍 | LocalAIAgentAPI"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
+   <footer>
 
-    </div>
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新於</span>
+    <time title="修改時間：2025-07-22 16:44:06" itemprop="dateModified" datetime="2025-07-22T16:44:06+08:00">2025-07-22</time>
+  </span>
+</div>
 
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
-        
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
-    </div>
-
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 捐贈</button>
+  <p>請我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Jerry Lin 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Jerry Lin 支付寶">
+        <p>支付寶</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Jerry Lin PayPal">
+        <p>PayPal</p>
+      </div>
   </div>
 </div>
 
-                      
-                        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2025
-    Jerry Lin
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>作者： </strong>Jerry Lin <i class="ic i-at"><em>@</em></i>Welcome to Reedlin2002's Page
+  </li>
+  <li class="link">
+    <strong>文章連結：</strong>
+    <a href="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/" title="📍 | LocalAIAgentAPI">https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/</a>
+  </li>
+  <li class="license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">首頁</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-     --><!--
-       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-     --><!--
-       --><li><a href="/search/">seacrh</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+  
 
-            </div>
-            <!-- styles -->
+<div class="post-nav">
+    <div class="item left">
+      
 
+  <a href="/2025/07/13/singleton-pattern/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciryrr3rj20zk0m8nhk.jpg" title="單例模式 Singleton_pattern">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>單例模式 Singleton_pattern</h3>
+  </a>
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-              <!-- jquery -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
-
-
-
-
-<!-- clipboard -->
+    </div>
+    <div class="item right">
+    </div>
+</div>
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目錄">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E5%B0%88%E6%A1%88localaiagentapi-%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E7%9A%84-ai-%E6%95%B4%E5%90%88%E7%B7%B4%E7%BF%92"><span class="toc-number">1.</span> <span class="toc-text"> 學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 學習目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#localaiagentapi"><span class="toc-number">1.2.</span> <span class="toc-text"> LocalAIAgentAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#building"><span class="toc-number">1.3.</span> <span class="toc-text"> Building</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problems"><span class="toc-number">1.4.</span> <span class="toc-text"> Problems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#learning"><span class="toc-number">1.5.</span> <span class="toc-text"> Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E5%B1%A4%E9%9D%A2"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 技術層面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BB%9F%E5%AF%A6%E5%8A%9B"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 軟實力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%99%E5%80%8B%E5%B0%88%E6%A1%88"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 這個專案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#next-week"><span class="toc-number">1.6.</span> <span class="toc-text"> Next Week！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E5%8E%9F%E5%A7%8B%E7%A2%BC"><span class="toc-number">1.7.</span> <span class="toc-text"> 專案原始碼</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="本站概要">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Jerry Lin"
+      data-src="/images/https:/github.com/reedlin2002.png">
+  <p class="name" itemprop="name">Jerry Lin</p>
+  <div class="description" itemprop="description">用來記錄學習與開發的歷程</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">10</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">標籤</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JlZWRsaW4yMDAy" title="https:&#x2F;&#x2F;github.com&#x2F;reedlin2002"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
   
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
-    btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首頁</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>隨機文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/06/dailyleetcode/" title="📌 | LeetCode 學習記錄">📌 | LeetCode 學習記錄</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/05/Aboutme/" title="🧣 | GitHub">🧣 | GitHub</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/18/expenses/" title="🤖 | 記帳小管家">🤖 | 記帳小管家</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/12/design-patterns/" title="設計模式 (Software design pattern)">設計模式 (Software design pattern)</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/13/singleton-pattern/" title="單例模式 Singleton_pattern">單例模式 Singleton_pattern</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/05/UrlHealthMonitor/" title="🌐 | 網站健康監控平台">🌐 | 網站健康監控平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/09/program/" title="📕 | PDF Reader">📕 | PDF Reader</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/19/LocalAIAgentAPI/" title="📍 | LocalAIAgentAPI">📍 | LocalAIAgentAPI</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/25/ollama/" title="🧠 | 聊天機器人">🧠 | 聊天機器人</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/05/hello-world/" title="關於我">關於我</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新評論</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jerry Lin @ Reedlin2002</span>
+  </div>
+  <div class="powered-by">
+    基於 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2025/07/19/LocalAIAgentAPI/',
+    favicon: {
+      show: "（●´3｀●）復活成功",
+      hide: "(´Д｀)瀏覽器崩潰啦"
+    },
+    search : {
+      placeholder: "文章搜尋",
+      empty: "關於 「 ${query} 」 ，什麼也沒搜到",
+      stats: "${time} ms 內找到 ${hits} 條結果"
+    },
+    valine: true,fancybox: true,
+    copyright: '複製成功，轉載請遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 協議。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
       }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "複製成功！");
-      e.clearSelection();
-    })
-  })
-  </script>
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
 
 
-<script src="/js/main.js"></script>
-
-<!-- search -->
-
-<!-- Baidu Analytics -->
-
-<!-- Cloudflare Analytics -->
-
-<!-- Disqus Comments -->
-
-<!-- utterances Comments -->
 
 
-                
-
-                    <script src="/js/shoka.js"></script>
-                    <!-- 終極視覺特效腳本 -->
-                    
-<script src="/js/particle-system.js"></script>
-
-                      <!-- 游標特效（已移除以提升效能與體驗） -->
-                      <!-- <script src="/js/cursor-effects.js"></script> -->
-                      
-<script src="/js/typewriter.js"></script>
-
-    </body>
-
-    </html>
+</body>
+</html>

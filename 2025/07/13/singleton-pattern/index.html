@@ -1,203 +1,159 @@
+
+
+
+
 <!DOCTYPE html>
-<html lang=zh>
-  <head>
-  <!-- so meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="description" content="單例模式 (Singleton Pattern)為什麼需要 Singleton？在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：  Log 訊息會分散在不同的物件中，難以統一管理和追蹤 無法維持一致的設定（例如 Log 等級、輸出格式） 記憶體中會">
-<meta property="og:type" content="article">
-<meta property="og:title" content="單例模式 Singleton_pattern">
-<meta property="og:url" content="https://reedlin2002.github.io/2025/07/13/singleton-pattern/index.html">
-<meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
-<meta property="og:description" content="單例模式 (Singleton Pattern)為什麼需要 Singleton？在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：  Log 訊息會分散在不同的物件中，難以統一管理和追蹤 無法維持一致的設定（例如 Log 等級、輸出格式） 記憶體中會">
-<meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2025-07-13T08:16:17.000Z">
-<meta property="article:modified_time" content="2025-07-19T08:44:51.439Z">
-<meta property="article:author" content="Jerry Lin">
-<meta property="article:tag" content="技術筆記">
-<meta property="article:tag" content="(作者自學用)">
-<meta name="twitter:card" content="summary">
-  
-  
-    
-      
-        <link rel="shortcut icon" href="/images/favicon.ico">
-      
-    
-    
-      
-        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-      
-    
-    
-      
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-      
-    
-  
-  <!-- title -->
-  <title>單例模式 Singleton_pattern</title>
-  <!-- async scripts -->
-  <!-- Google Analytics -->
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 
-  <!-- Umami Analytics -->
+<link rel="alternate" type="application/rss+xml" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="技術筆記,(作者自學用)" />
 
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-  <!-- styles -->
-  
-<link rel="stylesheet" href="/css/style.css">
+<link rel="canonical" href="https://reedlin2002.github.io/2025/07/13/singleton-pattern/">
 
-  <!-- persian styles -->
-  
-  <!-- rss -->
-  
-  
-<!-- mathjax -->
 
+
+  <title>
+單例模式 Singleton_pattern |
+Reedlin2002 = Welcome to Reedlin2002's Page = 個人筆記與作品集</title>
 <meta name="generator" content="Hexo 7.3.0"></head>
-
-    <body class="max-width mx-auto px3 ltr">
-      <!-- 粒子特效 Canvas -->
-      <canvas id="particle-canvas"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
-
-      
-        <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">首頁</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-     --><!--
-       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-     --><!--
-       --><li><a href="/search/">seacrh</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="上一篇" href="/2025/07/19/LocalAIAgentAPI/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="下一篇" href="/2025/07/12/design-patterns/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">上一篇</span>
-      <span id="i-next" class="info" style="display:none;">下一篇</span>
-      <span id="i-top" class="info" style="display:none;">回到頁首</span>
-      <span id="i-share" class="info" style="display:none;">分享</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/07/13/singleton-pattern/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&text=單例模式 Singleton_pattern"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&is_video=false&description=單例模式 Singleton_pattern"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=單例模式 Singleton_pattern&body=Check out this article: https://reedlin2002.github.io/2025/07/13/singleton-pattern/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&name=單例模式 Singleton_pattern&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&t=單例模式 Singleton_pattern"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.</span> <span class="toc-text">單例模式 (Singleton Pattern)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-Singleton%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">為什麼需要 Singleton？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B2%92%E6%9C%89%E4%BD%BF%E7%94%A8-Singleton-%E7%9A%84%E6%83%85%E6%B3%81"><span class="toc-number">1.2.</span> <span class="toc-text">沒有使用 Singleton 的情況</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Singleton-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">使用 Singleton Pattern</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E7%B4%B0%E7%AF%80%E8%AA%AA%E6%98%8E"><span class="toc-number">1.4.</span> <span class="toc-text">實作細節說明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%A9%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="toc-number">1.5.</span> <span class="toc-text">適用場景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">1.6.</span> <span class="toc-text">注意事項</span></a></li></ol></li></ol>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
       </div>
-    
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">單例模式 Singleton_pattern
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="創建時間：2025-07-13 16:16:17">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">發表於</span>
+    <time itemprop="dateCreated datePublished" datetime="2025-07-13T16:16:17+08:00">2025-07-13</time>
   </span>
 </div>
 
-          
-            <div class="content index py4 ">
-              <header id="header">
-  <a class="u-url u-uid" href="/">
-  
-    
-      <img id="logo" alt class="u-logo" src="/images/logo.png" />
-    
-  
-    <div id="title">
-      <h1 class="p-name">Welcome to Reedlin2002&#39;s Page</h1>
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切換導航欄">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
     </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Reedlin2002</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
       </li>
-      <!--
-     --><li><a href="/">首頁</a></li><!--
-   --><!--
-     --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-   --><!--
-     --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-   --><!--
-     --><li><a href="/search/">seacrh</a></li><!--
-   -->
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
     </ul>
   </div>
-</header>
+</nav>
 
-                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicitzannuj20zk0m8b29.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclga70tsj20zk0m84mr.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipevarprfj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeybxm1pj20zk0m8niv.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeu1usa7j20zk0m8b29.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
     
-    <h1 class="posttitle p-name" itemprop="name headline">
-        單例模式 Singleton_pattern
-    </h1>
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首頁</a></span>
+</div>
 
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-TW">
+  <link itemprop="mainEntityOfPage" href="https://reedlin2002.github.io/2025/07/13/singleton-pattern/">
 
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/https:/github.com/reedlin2002.png">
+    <meta itemprop="name" content="Jerry Lin">
+    <meta itemprop="description" content="個人筆記與作品集, 用來記錄學習與開發的歷程">
+  </span>
 
-    <div class="meta">
-      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">Jerry Lin</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2025-07-13T08:16:17.000Z" class="dt-published" itemprop="datePublished">2025-07-13</time>
-        
-        (Updated: <time datetime="2025-07-19T08:44:51.439Z" class="dt-updated" itemprop="dateModified">2025-07-19</time>)
-        
-      
-    </div>
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Welcome to Reedlin2002's Page">
+  </span>
 
+  <div class="body md" itemprop="articleBody">
+    
 
-      
-
-      
-    <div class="article-tag">
-        <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" rel="tag">(作者自學用)</a>, <a class="p-category" href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" rel="tag">技術筆記</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content e-content" itemprop="articleBody">
-    <h1 id="單例模式-Singleton-Pattern"><a href="#單例模式-Singleton-Pattern" class="headerlink" title="單例模式 (Singleton Pattern)"></a>單例模式 (Singleton Pattern)</h1><h2 id="為什麼需要-Singleton？"><a href="#為什麼需要-Singleton？" class="headerlink" title="為什麼需要 Singleton？"></a>為什麼需要 Singleton？</h2><p>在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。</p>
+    <h1 id="單例模式-singleton-pattern"><a class="markdownIt-Anchor" href="#單例模式-singleton-pattern">#</a> 單例模式 (Singleton Pattern)</h1>
+<h2 id="為什麼需要-singleton"><a class="markdownIt-Anchor" href="#為什麼需要-singleton">#</a> 為什麼需要 Singleton？</h2>
+<p>在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。</p>
 <p>舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：</p>
 <ul>
 <li>Log 訊息會分散在不同的物件中，難以統一管理和追蹤</li>
@@ -206,28 +162,28 @@
 </ul>
 <p>這時候我們希望有一個全域的 Logger 管理者，所有模組都向它發送 Log 訊息。</p>
 <p><strong>Singleton 的核心思想：確保一個類別在整個系統中只有一個實例，並提供全域的存取點。</strong></p>
-<h2 id="沒有使用-Singleton-的情況"><a href="#沒有使用-Singleton-的情況" class="headerlink" title="沒有使用 Singleton 的情況"></a>沒有使用 Singleton 的情況</h2><p>來看看傳統的實作方式會產生什麼問題：</p>
+<h2 id="沒有使用-singleton-的情況"><a class="markdownIt-Anchor" href="#沒有使用-singleton-的情況">#</a> 沒有使用 Singleton 的情況</h2>
+<p>來看看傳統的實作方式會產生什麼問題：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Logger</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">log</span>(<span class="params">self, msg</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;[LOG] <span class="subst">&#123;msg&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模組 A</span></span><br><span class="line">logger_a = Logger()</span><br><span class="line">logger_a.log(<span class="string">&quot;A 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模組 B</span></span><br><span class="line">logger_b = Logger()</span><br><span class="line">logger_b.log(<span class="string">&quot;B 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;logger_a is logger_b:&quot;</span>, logger_a <span class="keyword">is</span> logger_b)</span><br></pre></td></tr></table></figure>
-
 <p>執行結果：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[LOG] A 模組初始化完成</span><br><span class="line">[LOG] B 模組初始化完成</span><br><span class="line">logger_a is logger_b: False</span><br></pre></td></tr></table></figure>
-
 <p>可以看到，每次實例化都會產生不同的物件，這違背了我們想要統一管理的初衷。</p>
-<h2 id="使用-Singleton-Pattern"><a href="#使用-Singleton-Pattern" class="headerlink" title="使用 Singleton Pattern"></a>使用 Singleton Pattern</h2><p>接下來實作 Singleton 版本：</p>
+<h2 id="使用-singleton-pattern"><a class="markdownIt-Anchor" href="#使用-singleton-pattern">#</a> 使用 Singleton Pattern</h2>
+<p>接下來實作 Singleton 版本：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SingletonLogger</span>:</span><br><span class="line">    _instance = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> cls._instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;建立 SingletonLogger 實例&quot;</span>)</span><br><span class="line">            cls._instance = <span class="built_in">super</span>().__new__(cls)</span><br><span class="line">        <span class="keyword">return</span> cls._instance</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">log</span>(<span class="params">self, msg</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;[LOG] <span class="subst">&#123;msg&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在不同模組中使用</span></span><br><span class="line">logger_a = SingletonLogger()</span><br><span class="line">logger_a.log(<span class="string">&quot;A 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line">logger_b = SingletonLogger()</span><br><span class="line">logger_b.log(<span class="string">&quot;B 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;logger_a is logger_b:&quot;</span>, logger_a <span class="keyword">is</span> logger_b)</span><br></pre></td></tr></table></figure>
-
 <p>執行結果：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">建立 SingletonLogger 實例</span><br><span class="line">[LOG] A 模組初始化完成</span><br><span class="line">[LOG] B 模組初始化完成</span><br><span class="line">logger_a is logger_b: True</span><br></pre></td></tr></table></figure>
-
 <p>可以看到，不論在哪個模組中實例化，都會得到相同的物件參考。</p>
-<h2 id="實作細節說明"><a href="#實作細節說明" class="headerlink" title="實作細節說明"></a>實作細節說明</h2><p>在這個實作中，我們重寫了 <code>__new__</code> 方法來控制物件的創建過程：</p>
+<h2 id="實作細節說明"><a class="markdownIt-Anchor" href="#實作細節說明">#</a> 實作細節說明</h2>
+<p>在這個實作中，我們重寫了  <code>__new__</code>  方法來控制物件的創建過程：</p>
 <ol>
-<li>使用類別變數 <code>_instance</code> 來儲存唯一的實例</li>
-<li>在 <code>__new__</code> 中檢查是否已經存在實例</li>
+<li>使用類別變數  <code>_instance</code>  來儲存唯一的實例</li>
+<li>在  <code>__new__</code>  中檢查是否已經存在實例</li>
 <li>如果不存在，則創建新實例；如果存在，則回傳現有實例</li>
 </ol>
 <p>這種做法確保了無論呼叫多少次建構子，都只會有一個實例存在。</p>
-<h2 id="適用場景"><a href="#適用場景" class="headerlink" title="適用場景"></a>適用場景</h2><p>Singleton 適合用於以下情況：</p>
+<h2 id="適用場景"><a class="markdownIt-Anchor" href="#適用場景">#</a> 適用場景</h2>
+<p>Singleton 適合用於以下情況：</p>
 <p><strong>建議使用：</strong></p>
 <ul>
 <li>日誌系統（Logger）</li>
@@ -242,7 +198,8 @@
 <li>需要多個不同狀態的物件</li>
 <li>會影響單元測試的情況</li>
 </ul>
-<h2 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h2><p>使用 Singleton 時需要注意：</p>
+<h2 id="注意事項"><a class="markdownIt-Anchor" href="#注意事項">#</a> 注意事項</h2>
+<p>使用 Singleton 時需要注意：</p>
 <ol>
 <li><strong>執行緒安全性</strong>：在多執行緒環境中，需要考慮同步問題</li>
 <li><strong>測試困難</strong>：Singleton 會在測試之間保持狀態，可能影響測試的獨立性</li>
@@ -251,157 +208,326 @@
 <p>Singleton 是一個有用的設計模式，但要在適當的場景下使用，避免為了使用設計模式而使用設計模式。</p>
 <hr>
 
-  </div>
-</article>
-
-
-
-                  
-                    <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-        
-          <li><a href="/">首頁</a></li>
-        
-          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
-        
-          <li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li>
-        
-          <li><a href="/search/">seacrh</a></li>
-        
-      </ul>
-    </div>
-
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-Singleton-Pattern"><span class="toc-number">1.</span> <span class="toc-text">單例模式 (Singleton Pattern)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-Singleton%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">為什麼需要 Singleton？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B2%92%E6%9C%89%E4%BD%BF%E7%94%A8-Singleton-%E7%9A%84%E6%83%85%E6%B3%81"><span class="toc-number">1.2.</span> <span class="toc-text">沒有使用 Singleton 的情況</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Singleton-Pattern"><span class="toc-number">1.3.</span> <span class="toc-text">使用 Singleton Pattern</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E7%B4%B0%E7%AF%80%E8%AA%AA%E6%98%8E"><span class="toc-number">1.4.</span> <span class="toc-text">實作細節說明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%A9%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="toc-number">1.5.</span> <span class="toc-text">適用場景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">1.6.</span> <span class="toc-text">注意事項</span></a></li></ol></li></ol>
+      <div class="tags">
+          <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" rel="tag"><i class="ic i-tag"></i> 技術筆記</a>
+          <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" rel="tag"><i class="ic i-tag"></i> (作者自學用)</a>
       </div>
-    
+  </div>
 
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/07/13/singleton-pattern/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&text=單例模式 Singleton_pattern"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&is_video=false&description=單例模式 Singleton_pattern"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=單例模式 Singleton_pattern&body=Check out this article: https://reedlin2002.github.io/2025/07/13/singleton-pattern/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&title=單例模式 Singleton_pattern"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&name=單例模式 Singleton_pattern&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/07/13/singleton-pattern/&t=單例模式 Singleton_pattern"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
+   <footer>
 
-    </div>
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新於</span>
+    <time title="修改時間：2025-07-19 16:44:51" itemprop="dateModified" datetime="2025-07-19T16:44:51+08:00">2025-07-19</time>
+  </span>
+</div>
 
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
-        
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
-    </div>
-
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 捐贈</button>
+  <p>請我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Jerry Lin 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Jerry Lin 支付寶">
+        <p>支付寶</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Jerry Lin PayPal">
+        <p>PayPal</p>
+      </div>
   </div>
 </div>
 
-                      
-                        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2025
-    Jerry Lin
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>作者： </strong>Jerry Lin <i class="ic i-at"><em>@</em></i>Welcome to Reedlin2002's Page
+  </li>
+  <li class="link">
+    <strong>文章連結：</strong>
+    <a href="https://reedlin2002.github.io/2025/07/13/singleton-pattern/" title="單例模式 Singleton_pattern">https://reedlin2002.github.io/2025/07/13/singleton-pattern/</a>
+  </li>
+  <li class="license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">首頁</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-     --><!--
-       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-     --><!--
-       --><li><a href="/search/">seacrh</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+  
 
-            </div>
-            <!-- styles -->
+<div class="post-nav">
+    <div class="item left">
+      
 
+  <a href="/2025/07/12/design-patterns/" itemprop="url" rel="prev" data-background-image="&#x2F;&#x2F;images&#x2F;design_pattern.png" title="設計模式 (Software design pattern)">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>設計模式 (Software design pattern)</h3>
+  </a>
 
+    </div>
+    <div class="item right">
+      
 
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+  <a href="/2025/07/19/LocalAIAgentAPI/" itemprop="url" rel="next" data-background-image="&#x2F;&#x2F;images&#x2F;LocalAIAgentAPI.png" title="📍 | LocalAIAgentAPI">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>📍 | LocalAIAgentAPI</h3>
+  </a>
 
-
-              <!-- jquery -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
-
-
-
-
-<!-- clipboard -->
+    </div>
+</div>
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目錄">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-singleton-pattern"><span class="toc-number">1.</span> <span class="toc-text"> 單例模式 (Singleton Pattern)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81-singleton"><span class="toc-number">1.1.</span> <span class="toc-text"> 為什麼需要 Singleton？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B2%92%E6%9C%89%E4%BD%BF%E7%94%A8-singleton-%E7%9A%84%E6%83%85%E6%B3%81"><span class="toc-number">1.2.</span> <span class="toc-text"> 沒有使用 Singleton 的情況</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-singleton-pattern"><span class="toc-number">1.3.</span> <span class="toc-text"> 使用 Singleton Pattern</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E4%BD%9C%E7%B4%B0%E7%AF%80%E8%AA%AA%E6%98%8E"><span class="toc-number">1.4.</span> <span class="toc-text"> 實作細節說明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%A9%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="toc-number">1.5.</span> <span class="toc-text"> 適用場景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">1.6.</span> <span class="toc-text"> 注意事項</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="本站概要">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Jerry Lin"
+      data-src="/images/https:/github.com/reedlin2002.png">
+  <p class="name" itemprop="name">Jerry Lin</p>
+  <div class="description" itemprop="description">用來記錄學習與開發的歷程</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">10</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">標籤</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JlZWRsaW4yMDAy" title="https:&#x2F;&#x2F;github.com&#x2F;reedlin2002"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
   
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
-    btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首頁</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2025/07/12/design-patterns/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2025/07/19/LocalAIAgentAPI/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>隨機文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/19/LocalAIAgentAPI/" title="📍 | LocalAIAgentAPI">📍 | LocalAIAgentAPI</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/12/design-patterns/" title="設計模式 (Software design pattern)">設計模式 (Software design pattern)</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/05/hello-world/" title="關於我">關於我</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/13/singleton-pattern/" title="單例模式 Singleton_pattern">單例模式 Singleton_pattern</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/06/dailyleetcode/" title="📌 | LeetCode 學習記錄">📌 | LeetCode 學習記錄</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/05/UrlHealthMonitor/" title="🌐 | 網站健康監控平台">🌐 | 網站健康監控平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/05/Aboutme/" title="🧣 | GitHub">🧣 | GitHub</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/09/program/" title="📕 | PDF Reader">📕 | PDF Reader</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/25/ollama/" title="🧠 | 聊天機器人">🧠 | 聊天機器人</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/18/expenses/" title="🤖 | 記帳小管家">🤖 | 記帳小管家</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新評論</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jerry Lin @ Reedlin2002</span>
+  </div>
+  <div class="powered-by">
+    基於 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2025/07/13/singleton-pattern/',
+    favicon: {
+      show: "（●´3｀●）復活成功",
+      hide: "(´Д｀)瀏覽器崩潰啦"
+    },
+    search : {
+      placeholder: "文章搜尋",
+      empty: "關於 「 ${query} 」 ，什麼也沒搜到",
+      stats: "${time} ms 內找到 ${hits} 條結果"
+    },
+    valine: true,fancybox: true,
+    copyright: '複製成功，轉載請遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 協議。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
       }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "複製成功！");
-      e.clearSelection();
-    })
-  })
-  </script>
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
 
 
-<script src="/js/main.js"></script>
-
-<!-- search -->
-
-<!-- Baidu Analytics -->
-
-<!-- Cloudflare Analytics -->
-
-<!-- Disqus Comments -->
-
-<!-- utterances Comments -->
 
 
-                
-
-                    <script src="/js/shoka.js"></script>
-                    <!-- 終極視覺特效腳本 -->
-                    
-<script src="/js/particle-system.js"></script>
-
-                      <!-- 游標特效（已移除以提升效能與體驗） -->
-                      <!-- <script src="/js/cursor-effects.js"></script> -->
-                      
-<script src="/js/typewriter.js"></script>
-
-    </body>
-
-    </html>
+</body>
+</html>

@@ -1,206 +1,163 @@
+
+
+
+
 <!DOCTYPE html>
-<html lang=zh>
-  <head>
-  <!-- so meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="description" content="PDF Reader 這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。   技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 SentenceTransformer 將文本轉成向量，再用 FAISS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="📕 | PDF Reader">
-<meta property="og:url" content="https://reedlin2002.github.io/2025/06/09/program/index.html">
-<meta property="og:site_name" content="Welcome to Reedlin2002&#39;s Page">
-<meta property="og:description" content="PDF Reader 這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。   技術架構 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。 使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。 使用 SentenceTransformer 將文本轉成向量，再用 FAISS">
-<meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2025-06-09T13:10:31.000Z">
-<meta property="article:modified_time" content="2025-07-05T14:22:58.065Z">
-<meta property="article:author" content="Jerry Lin">
-<meta property="article:tag" content="project">
-<meta name="twitter:card" content="summary">
-  
-  
-    
-      
-        <link rel="shortcut icon" href="/images/favicon.ico">
-      
-    
-    
-      
-        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-      
-    
-    
-      
-        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-      
-    
-  
-  <!-- title -->
-  <title>📕 | PDF Reader</title>
-  <!-- async scripts -->
-  <!-- Google Analytics -->
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
 
 
-  <!-- Umami Analytics -->
+<link rel="alternate" type="application/rss+xml" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Welcome to Reedlin2002's Page" href="https://reedlin2002.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="project" />
 
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-  <!-- styles -->
-  
-<link rel="stylesheet" href="/css/style.css">
+<link rel="canonical" href="https://reedlin2002.github.io/2025/06/09/program/">
 
-  <!-- persian styles -->
-  
-  <!-- rss -->
-  
-  
-<!-- mathjax -->
 
+
+  <title>
+📕 | PDF Reader |
+Reedlin2002 = Welcome to Reedlin2002's Page = 個人筆記與作品集</title>
 <meta name="generator" content="Hexo 7.3.0"></head>
-
-    <body class="max-width mx-auto px3 ltr">
-      <!-- 粒子特效 Canvas -->
-      <canvas id="particle-canvas"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
-
-      
-        <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">首頁</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-     --><!--
-       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-     --><!--
-       --><li><a href="/search/">seacrh</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="上一篇" href="/2025/06/18/expenses/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="下一篇" href="/2025/06/06/dailyleetcode/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">上一篇</span>
-      <span id="i-next" class="info" style="display:none;">下一篇</span>
-      <span id="i-top" class="info" style="display:none;">回到頁首</span>
-      <span id="i-share" class="info" style="display:none;">分享</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/06/09/program/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/06/09/program/&text=📕 | PDF Reader"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/06/09/program/&is_video=false&description=📕 | PDF Reader"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=📕 | PDF Reader&body=Check out this article: https://reedlin2002.github.io/2025/06/09/program/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/06/09/program/&name=📕 | PDF Reader&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/06/09/program/&t=📕 | PDF Reader"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PDF-Reader"><span class="toc-number">1.</span> <span class="toc-text">PDF Reader</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E6%9E%B6%E6%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text">技術架構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-RAG-%E6%B5%81%E7%A8%8B-%E7%B0%A1%E6%98%93"><span class="toc-number">1.2.</span> <span class="toc-text">🧩 RAG 流程 (簡易)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Retrieval%EF%BC%88%E6%AA%A2%E7%B4%A2%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. Retrieval（檢索）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Augmentation%EF%BC%88%E5%A2%9E%E5%BC%B7%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. Augmentation（增強）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Generation%EF%BC%88%E7%94%9F%E6%88%90%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. Generation（生成）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.3.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">程式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li></ol></li></ol>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
       </div>
-    
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">📕 | PDF Reader
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="創建時間：2025-06-09 21:10:31">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">發表於</span>
+    <time itemprop="dateCreated datePublished" datetime="2025-06-09T21:10:31+08:00">2025-06-09</time>
   </span>
 </div>
 
-          
-            <div class="content index py4 ">
-              <header id="header">
-  <a class="u-url u-uid" href="/">
-  
-    
-      <img id="logo" alt class="u-logo" src="/images/logo.png" />
-    
-  
-    <div id="title">
-      <h1 class="p-name">Welcome to Reedlin2002&#39;s Page</h1>
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切換導航欄">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
     </div>
-  </a>
-  <div id="nav">
-    <ul>
-      <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Reedlin2002</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
       </li>
-      <!--
-     --><li><a href="/">首頁</a></li><!--
-   --><!--
-     --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-   --><!--
-     --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-   --><!--
-     --><li><a href="/search/">seacrh</a></li><!--
-   -->
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
     </ul>
   </div>
-</header>
+</nav>
 
-                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
+      </div>
+      <div id="imgs" class="pjax">
+        <ul>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gicljgocqbj20zk0m8e81.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipexe4oykj20zk0m87ji.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1gipeyhsblkj20zk0m81kx.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclimtf7dj20zk0m8qav.jpg"></li>
+          <li class="item" data-background-image="https://tva4.sinaimg.cn/large/6833939bly1giclhnx9glj20zk0m8npd.jpg"></li>
+        </ul>
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
     
-    <h1 class="posttitle p-name" itemprop="name headline">
-        📕 | PDF Reader
-    </h1>
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首頁</a></span>
+</div>
 
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-TW">
+  <link itemprop="mainEntityOfPage" href="https://reedlin2002.github.io/2025/06/09/program/">
 
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/https:/github.com/reedlin2002.png">
+    <meta itemprop="name" content="Jerry Lin">
+    <meta itemprop="description" content="個人筆記與作品集, 用來記錄學習與開發的歷程">
+  </span>
 
-    <div class="meta">
-      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">Jerry Lin</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2025-06-09T13:10:31.000Z" class="dt-published" itemprop="datePublished">2025-06-09</time>
-        
-        (Updated: <time datetime="2025-07-05T14:22:58.065Z" class="dt-updated" itemprop="dateModified">2025-07-05</time>)
-        
-      
-    </div>
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Welcome to Reedlin2002's Page">
+  </span>
 
+  <div class="body md" itemprop="articleBody">
+    
 
-      
-
-      
-    <div class="article-tag">
-        <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/project/" rel="tag">project</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content e-content" itemprop="articleBody">
-    <h1 id="PDF-Reader"><a href="#PDF-Reader" class="headerlink" title="PDF Reader"></a>PDF Reader</h1><blockquote>
+    <h1 id="pdf-reader"><a class="markdownIt-Anchor" href="#pdf-reader">#</a> PDF Reader</h1>
+<blockquote>
 <p>這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。</p>
 </blockquote>
 <hr>
-<h2 id="技術架構"><a href="#技術架構" class="headerlink" title="技術架構"></a>技術架構</h2><ul>
+<h2 id="技術架構"><a class="markdownIt-Anchor" href="#技術架構">#</a> 技術架構</h2>
+<ul>
 <li>使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。</li>
 <li>使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。</li>
 <li>使用 SentenceTransformer 將文本轉成向量，再用 FAISS 建立向量搜尋索引。</li>
@@ -209,181 +166,354 @@
 </ul>
 <p>RAG 技術透過檢索（Retrieval）+ 增強上下文（Augmentation）+ 生成回答（Generation）三步驟，讓模型根據提供的內容產出準確的答案。</p>
 <hr>
-<h2 id="🧩-RAG-流程-簡易"><a href="#🧩-RAG-流程-簡易" class="headerlink" title="🧩 RAG 流程 (簡易)"></a>🧩 RAG 流程 (簡易)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">提問 → 檢索相關內容 → 合併為上下文 → 模型生成回答</span><br></pre></td></tr></table></figure>
-
-<h3 id="1-Retrieval（檢索）"><a href="#1-Retrieval（檢索）" class="headerlink" title="1. Retrieval（檢索）"></a>1. Retrieval（檢索）</h3><ul>
+<h2 id="rag-流程-簡易"><a class="markdownIt-Anchor" href="#rag-流程-簡易">#</a> 🧩 RAG 流程 (簡易)</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">提問 → 檢索相關內容 → 合併為上下文 → 模型生成回答</span><br></pre></td></tr></table></figure>
+<h3 id="1-retrieval檢索"><a class="markdownIt-Anchor" href="#1-retrieval檢索">#</a> 1. Retrieval（檢索）</h3>
+<ul>
 <li>將 PDF 切成段落並建立向量表示（TF-IDF 或 embedding）</li>
 <li>使用 cosine similarity 找出與問題最相關的段落</li>
 </ul>
-<h3 id="2-Augmentation（增強）"><a href="#2-Augmentation（增強）" class="headerlink" title="2. Augmentation（增強）"></a>2. Augmentation（增強）</h3><ul>
+<h3 id="2-augmentation增強"><a class="markdownIt-Anchor" href="#2-augmentation增強">#</a> 2. Augmentation（增強）</h3>
+<ul>
 <li>將相關段落合併成上下文內容</li>
 <li>與問題一起輸入給模型</li>
 </ul>
-<h3 id="3-Generation（生成）"><a href="#3-Generation（生成）" class="headerlink" title="3. Generation（生成）"></a>3. Generation（生成）</h3><ul>
+<h3 id="3-generation生成"><a class="markdownIt-Anchor" href="#3-generation生成">#</a> 3. Generation（生成）</h3>
+<ul>
 <li>使用 Hugging Face 的中文 QA 模型回答問題</li>
 </ul>
 <hr>
-<h2 id="系統流程圖"><a href="#系統流程圖" class="headerlink" title="系統流程圖"></a>系統流程圖</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[PDF 上傳] → [文字解析] → [中文分段]</span><br><span class="line">                        ↓</span><br><span class="line">           [段落向量化（TF-IDF）]</span><br><span class="line">                        ↓</span><br><span class="line">         [使用者提問 → 問題向量化]</span><br><span class="line">                        ↓</span><br><span class="line">         [計算相似度 → 取前 3 段]</span><br><span class="line">                        ↓</span><br><span class="line">        [合併上下文 + question]</span><br><span class="line">                        ↓</span><br><span class="line">         [丟進 HuggingFace QA 模型]</span><br><span class="line">                        ↓</span><br><span class="line">                 [產生回答]</span><br></pre></td></tr></table></figure>
-
+<h2 id="系統流程圖"><a class="markdownIt-Anchor" href="#系統流程圖">#</a> 系統流程圖</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[PDF 上傳] → [文字解析] → [中文分段]</span><br><span class="line">                        ↓</span><br><span class="line">           [段落向量化（TF-IDF）]</span><br><span class="line">                        ↓</span><br><span class="line">         [使用者提問 → 問題向量化]</span><br><span class="line">                        ↓</span><br><span class="line">         [計算相似度 → 取前 3 段]</span><br><span class="line">                        ↓</span><br><span class="line">        [合併上下文 + question]</span><br><span class="line">                        ↓</span><br><span class="line">         [丟進 HuggingFace QA 模型]</span><br><span class="line">                        ↓</span><br><span class="line">                 [產生回答]</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="程式"><a href="#程式" class="headerlink" title="程式"></a>程式</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立段落的 TF-IDF 向量庫</span></span><br><span class="line">chunk_vectors = vectorizer.fit_transform(chunks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 將使用者問題向量化</span></span><br><span class="line">query_vec = vectorizer.transform([user_question])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算問題與各段落相似度</span></span><br><span class="line">similarities = cosine_similarity(query_vec, chunk_vectors)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取得前三個最高相似度段落索引</span></span><br><span class="line">top_indices = similarities.argsort()[-<span class="number">3</span>:][::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 聚合成上下文</span></span><br><span class="line">top_chunks = [chunks[i] <span class="keyword">for</span> i <span class="keyword">in</span> top_indices]</span><br><span class="line">context = <span class="string">&quot;\n&quot;</span>.join(top_chunks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 丟給問答模型產生答案</span></span><br><span class="line">result = qa_pipeline(&#123;<span class="string">&quot;question&quot;</span>: user_question, <span class="string">&quot;context&quot;</span>: context&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>技術包含：<br>Python、Streamlit、PyPDF2、jieba、SentenceTransformers、FAISS、Hugging Face Transformers</p>
-<h2 id="📝-心得"><a href="#📝-心得" class="headerlink" title="📝 心得"></a>📝 心得</h2><blockquote>
+<h2 id="程式"><a class="markdownIt-Anchor" href="#程式">#</a> 程式</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立段落的 TF-IDF 向量庫</span></span><br><span class="line">chunk_vectors = vectorizer.fit_transform(chunks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 將使用者問題向量化</span></span><br><span class="line">query_vec = vectorizer.transform([user_question])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 計算問題與各段落相似度</span></span><br><span class="line">similarities = cosine_similarity(query_vec, chunk_vectors)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取得前三個最高相似度段落索引</span></span><br><span class="line">top_indices = similarities.argsort()[-<span class="number">3</span>:][::-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 聚合成上下文</span></span><br><span class="line">top_chunks = [chunks[i] <span class="keyword">for</span> i <span class="keyword">in</span> top_indices]</span><br><span class="line">context = <span class="string">&quot;\n&quot;</span>.join(top_chunks)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 丟給問答模型產生答案</span></span><br><span class="line">result = qa_pipeline(&#123;<span class="string">&quot;question&quot;</span>: user_question, <span class="string">&quot;context&quot;</span>: context&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>技術包含：<br>
+Python、Streamlit、PyPDF2、jieba、SentenceTransformers、FAISS、Hugging Face Transformers</p>
+<h2 id="心得"><a class="markdownIt-Anchor" href="#心得">#</a> 📝 心得</h2>
+<blockquote>
 <p><strong>備註</strong>：這個程式是我學習 RAG 技術的初步嘗試，所以還有很多能夠優化的地方，請多指教。</p>
 </blockquote>
 
-  </div>
-</article>
-
-
-
-                  
-                    <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-        
-          <li><a href="/">首頁</a></li>
-        
-          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
-        
-          <li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li>
-        
-          <li><a href="/search/">seacrh</a></li>
-        
-      </ul>
-    </div>
-
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#PDF-Reader"><span class="toc-number">1.</span> <span class="toc-text">PDF Reader</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E6%9E%B6%E6%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text">技術架構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A7%A9-RAG-%E6%B5%81%E7%A8%8B-%E7%B0%A1%E6%98%93"><span class="toc-number">1.2.</span> <span class="toc-text">🧩 RAG 流程 (簡易)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Retrieval%EF%BC%88%E6%AA%A2%E7%B4%A2%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. Retrieval（檢索）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Augmentation%EF%BC%88%E5%A2%9E%E5%BC%B7%EF%BC%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. Augmentation（增強）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Generation%EF%BC%88%E7%94%9F%E6%88%90%EF%BC%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">3. Generation（生成）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.3.</span> <span class="toc-text">系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text">程式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%93%9D-%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text">📝 心得</span></a></li></ol></li></ol>
+      <div class="tags">
+          <a href="/tags/project/" rel="tag"><i class="ic i-tag"></i> project</a>
       </div>
-    
+  </div>
 
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/06/09/program/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/06/09/program/&text=📕 | PDF Reader"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/06/09/program/&is_video=false&description=📕 | PDF Reader"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=📕 | PDF Reader&body=Check out this article: https://reedlin2002.github.io/2025/06/09/program/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/06/09/program/&title=📕 | PDF Reader"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/06/09/program/&name=📕 | PDF Reader&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/06/09/program/&t=📕 | PDF Reader"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
+   <footer>
 
-    </div>
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新於</span>
+    <time title="修改時間：2025-07-05 22:22:58" itemprop="dateModified" datetime="2025-07-05T22:22:58+08:00">2025-07-05</time>
+  </span>
+</div>
 
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
-        
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
-    </div>
-
+      
+<div class="reward">
+  <button><i class="ic i-heartbeat"></i> 捐贈</button>
+  <p>請我喝[茶]~(￣▽￣)~*</p>
+  <div id="qr">
+      
+      <div>
+        <img data-src="/images/wechatpay.png" alt="Jerry Lin 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/alipay.png" alt="Jerry Lin 支付寶">
+        <p>支付寶</p>
+      </div>
+      
+      <div>
+        <img data-src="/images/paypal.png" alt="Jerry Lin PayPal">
+        <p>PayPal</p>
+      </div>
   </div>
 </div>
 
-                      
-                        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
-    
-    
-    2016-2025
-    Jerry Lin
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>作者： </strong>Jerry Lin <i class="ic i-at"><em>@</em></i>Welcome to Reedlin2002's Page
+  </li>
+  <li class="link">
+    <strong>文章連結：</strong>
+    <a href="https://reedlin2002.github.io/2025/06/09/program/" title="📕 | PDF Reader">https://reedlin2002.github.io/2025/06/09/program/</a>
+  </li>
+  <li class="license">
+    <strong>版權聲明： </strong>本網誌所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 許可協議。轉載請註明出處！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">首頁</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
-     --><!--
-       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
-     --><!--
-       --><li><a href="/search/">seacrh</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+  
 
-            </div>
-            <!-- styles -->
+<div class="post-nav">
+    <div class="item left">
+      
 
+  <a href="/2025/06/06/dailyleetcode/" itemprop="url" rel="prev" data-background-image="&#x2F;&#x2F;images&#x2F;leetcode.jpg" title="📌 | LeetCode 學習記錄">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>📌 | LeetCode 學習記錄</h3>
+  </a>
 
+    </div>
+    <div class="item right">
+      
 
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+  <a href="/2025/06/18/expenses/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva4.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicitzannuj20zk0m8b29.jpg" title="🤖 | 記帳小管家">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>🤖 | 記帳小管家</h3>
+  </a>
 
-
-              <!-- jquery -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
-
-
-
-
-<!-- clipboard -->
+    </div>
+</div>
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目錄">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pdf-reader"><span class="toc-number">1.</span> <span class="toc-text"> PDF Reader</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E6%9E%B6%E6%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 技術架構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rag-%E6%B5%81%E7%A8%8B-%E7%B0%A1%E6%98%93"><span class="toc-number">1.2.</span> <span class="toc-text"> 🧩 RAG 流程 (簡易)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-retrieval%E6%AA%A2%E7%B4%A2"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 1. Retrieval（檢索）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-augmentation%E5%A2%9E%E5%BC%B7"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 2. Augmentation（增強）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-generation%E7%94%9F%E6%88%90"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 3. Generation（生成）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.3.</span> <span class="toc-text"> 系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.4.</span> <span class="toc-text"> 程式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">1.5.</span> <span class="toc-text"> 📝 心得</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+      </div>
+      <div class="overview panel" data-title="本站概要">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Jerry Lin"
+      data-src="/images/https:/github.com/reedlin2002.png">
+  <p class="name" itemprop="name">Jerry Lin</p>
+  <div class="description" itemprop="description">用來記錄學習與開發的歷程</div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">10</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">標籤</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JlZWRsaW4yMDAy" title="https:&#x2F;&#x2F;github.com&#x2F;reedlin2002"><i class="ic i-github"></i></span>
+</div>
+
+<ul class="menu">
   
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
-    btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首頁</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/2025/06/06/dailyleetcode/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/2025/06/18/expenses/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>隨機文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/05/hello-world/" title="關於我">關於我</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/19/LocalAIAgentAPI/" title="📍 | LocalAIAgentAPI">📍 | LocalAIAgentAPI</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/18/expenses/" title="🤖 | 記帳小管家">🤖 | 記帳小管家</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/05/Aboutme/" title="🧣 | GitHub">🧣 | GitHub</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/06/dailyleetcode/" title="📌 | LeetCode 學習記錄">📌 | LeetCode 學習記錄</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/25/ollama/" title="🧠 | 聊天機器人">🧠 | 聊天機器人</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/06/09/program/" title="📕 | PDF Reader">📕 | PDF Reader</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/05/UrlHealthMonitor/" title="🌐 | 網站健康監控平台">🌐 | 網站健康監控平台</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/13/singleton-pattern/" title="單例模式 Singleton_pattern">單例模式 Singleton_pattern</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/07/12/design-patterns/" title="設計模式 (Software design pattern)">設計模式 (Software design pattern)</a></span>
+  </li>
+
+  </ul>
+</div>
+<div>
+  <h2>最新評論</h2>
+  <ul class="leancloud-recent-comment"></ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2010 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Jerry Lin @ Reedlin2002</span>
+  </div>
+  <div class="powered-by">
+    基於 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: '2025/06/09/program/',
+    favicon: {
+      show: "（●´3｀●）復活成功",
+      hide: "(´Д｀)瀏覽器崩潰啦"
+    },
+    search : {
+      placeholder: "文章搜尋",
+      empty: "關於 「 ${query} 」 ，什麼也沒搜到",
+      stats: "${time} ms 內找到 ${hits} 條結果"
+    },
+    valine: true,fancybox: true,
+    copyright: '複製成功，轉載請遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 協議。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
       }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "複製成功！");
-      e.clearSelection();
-    })
-  })
-  </script>
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
 
 
-<script src="/js/main.js"></script>
-
-<!-- search -->
-
-<!-- Baidu Analytics -->
-
-<!-- Cloudflare Analytics -->
-
-<!-- Disqus Comments -->
-
-<!-- utterances Comments -->
 
 
-                
-
-                    <script src="/js/shoka.js"></script>
-                    <!-- 終極視覺特效腳本 -->
-                    
-<script src="/js/particle-system.js"></script>
-
-                      <!-- 游標特效（已移除以提升效能與體驗） -->
-                      <!-- <script src="/js/cursor-effects.js"></script> -->
-                      
-<script src="/js/typewriter.js"></script>
-
-    </body>
-
-    </html>
+</body>
+</html>

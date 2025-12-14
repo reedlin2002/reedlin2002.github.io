@@ -1,0 +1,334 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://reedlin2002.github.io</id>
+    <title>Welcome to Reedlin2002&#39;s Page • Posts by &#34;daily&#34; tag</title>
+    <link href="https://reedlin2002.github.io" />
+    <updated>2025-06-06T02:42:24.000Z</updated>
+    <category term="myself" />
+    <category term="leetcode" />
+    <category term="Daily" />
+    <category term="project" />
+    <category term="技術筆記" />
+    <category term="(作者自學用)" />
+    <entry>
+        <id>https://reedlin2002.github.io/2025/06/06/dailyleetcode/</id>
+        <title>📌 | LeetCode 學習記錄</title>
+        <link rel="alternate" href="https://reedlin2002.github.io/2025/06/06/dailyleetcode/"/>
+        <content type="html">&lt;p&gt;程式能力的提升離不開持續的練習。我會在這裡分享：&lt;/p&gt;
+&lt;p&gt;每日筆記 - 自己對題目的理解與應用&lt;br&gt;
+心得分享 - 刷題過程中的進度與收穫&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;✅&lt;/th&gt;
+&lt;th&gt;🉑&lt;/th&gt;
+&lt;th&gt;🚫&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;了解並寫出&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;寫出但不清楚&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;寫不出來&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;📌 &lt;strong&gt;LeetCode 記錄&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;D1&lt;/strong&gt; 🉑  #1  Two Sum &lt;em&gt;(GPT)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D2&lt;/strong&gt; 🉑  #9  Palindrome Number &lt;em&gt;(GPT)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D3&lt;/strong&gt; ✅  #13 Roman to Integer &lt;em&gt;(GPT)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D4&lt;/strong&gt; ✅  #1  Two Sum&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D5&lt;/strong&gt; ☕ &lt;strong&gt;休息&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D6&lt;/strong&gt; ✅  #9  Palindrome
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;[::-1]&lt;/code&gt;  ← Python 能用來順序相反&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D7&lt;/strong&gt; 🉑  #14 Longest Common Prefix
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;startswith(prefix)&lt;/code&gt;  ← 檢查字串是否「以 prefix 開頭」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D8&lt;/strong&gt; 🉑  #14 Longest Common Prefix
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;if not 某東西:&lt;/code&gt;  ← 檢查 “某東西” 是否為空，如果是就執行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D9&lt;/strong&gt; 🉑  #14 Longest Common Prefix
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;while not 某東西:&lt;/code&gt;  ← 檢查 “某東西” 為 True/False，如果為 False 就執行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D10&lt;/strong&gt; ✅  #14 Longest Common Prefix&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D11&lt;/strong&gt; ✅  #14 Longest Common Prefix &lt;em&gt;(複習)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D12&lt;/strong&gt; 🚫  #20 Valid Parentheses&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D13&lt;/strong&gt; 🚫  #20 Valid Parentheses
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;#123;&amp;quot;)&amp;quot;: &amp;quot;(&amp;quot;, &amp;quot;]&amp;quot;: &amp;quot;[&amp;quot;, &amp;quot;&amp;#125;&amp;quot;: &amp;quot;&amp;#123;&amp;quot;&amp;#125;&lt;/code&gt;  ← 嘗試理解 mapping 對應關係&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D14&lt;/strong&gt; ☕ &lt;strong&gt;休息&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D15&lt;/strong&gt; 🚫  #20 Valid Parentheses
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;#123;&amp;quot;)&amp;quot;: &amp;quot;(&amp;quot;, &amp;quot;]&amp;quot;: &amp;quot;[&amp;quot;, &amp;quot;&amp;#125;&amp;quot;: &amp;quot;&amp;#123;&amp;quot;&amp;#125;&lt;/code&gt;  ← 嘗試理解 mapping 對應關係&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D16&lt;/strong&gt; 🚫  #20 Valid Parentheses
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;for i in s:&lt;/code&gt;  ← 直接遍歷字串中的每個字元&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D17&lt;/strong&gt; 🚫  #20 Valid Parentheses
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;if i in mapping:&lt;/code&gt;  ← 檢查 i 是否是右括號（ &lt;code&gt;)&lt;/code&gt; , &lt;code&gt;]&lt;/code&gt; ,  &lt;code&gt;&amp;#125;&lt;/code&gt; ）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mapping[&amp;quot;)&amp;quot;]&lt;/code&gt;   ← 會得到  &lt;code&gt;(&lt;/code&gt; (從 mapping 這個對應關係中)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stack[-1]&lt;/code&gt;  意思是 stack 的堆疊的最上層 EX:  &lt;code&gt;x=[ 10, 20, 30] x[-1]=30 x[-2]=20 x[-3]=10&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D18&lt;/strong&gt; 🉑  #20 Valid Parentheses&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D19&lt;/strong&gt; 🉑  #20 Valid Parentheses
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;stack.append&lt;/code&gt;   ← 將資料放入堆疊頂端&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stack.pop&lt;/code&gt;      ← 將堆疊頂端資料移除&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D20&lt;/strong&gt; 🉑  #20 Valid Parentheses&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D21&lt;/strong&gt; 🉑  #20 Valid Parentheses&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D22&lt;/strong&gt; ✅  #20 Valid Parentheses&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D23&lt;/strong&gt; 🚫  #21 Merge Two Sorted Lists
+&lt;ul&gt;
+&lt;li&gt;2025/05/07 回歸繼續寫
+&lt;blockquote&gt;
+&lt;p&gt;self.val = val        # 節點的數值，例如 1、2、3&lt;br&gt;
+self.next = next      # 指向下一個節點的指標&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D24&lt;/strong&gt; 🚫  #21 Merge Two Sorted Lists
+&lt;ul&gt;
+&lt;li&gt;ListNode(1) -&amp;gt; ListNode(3) -&amp;gt; ListNode(5)
+&lt;blockquote&gt;
+&lt;p&gt;每個節點 (ListNode) 裡面都有：&lt;br&gt;
+.val：存放數值（1、3、5）&lt;br&gt;
+.next：指向下一個節點（或 None 表示結尾）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D25&lt;/strong&gt; 🚫  #21 Merge Two Sorted Lists
+&lt;ul&gt;
+&lt;li&gt;list1 = 1 -&amp;gt; 3 -&amp;gt; 5、list2 = 2 -&amp;gt; 4 -&amp;gt; 6
+&lt;blockquote&gt;
+&lt;p&gt;比較 1 和 2 → 接 1 → list1 向前 → 結果：1&lt;br&gt;
+ 比較 3 和 2 → 接 2 → list2 向前 → 結果：1 → 2&lt;br&gt;
+ 比較 3 和 4 → 接 3 → …&lt;br&gt;
+ 一直到兩邊都走完 → 合併完成&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D26&lt;/strong&gt; 🚫  #21 Merge Two Sorted Lists
+&lt;ul&gt;
+&lt;li&gt;🔚 dummy 是儲存「整條串列的起點」&lt;br&gt;&lt;br&gt;
+🔧 current.next 是「不斷接節點的位置」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D27&lt;/strong&gt; 🚫  #21 Merge Two Sorted Lists
+&lt;ul&gt;
+&lt;li&gt;✔️ dummy 是假節點，current 是用來構建新串列的指標&lt;/li&gt;
+&lt;li&gt;✔️ while 迴圈比較 list1 和 list2：
+&lt;blockquote&gt;
+&lt;p&gt;每次比較 .val，把比較小的節點接到 current.next&lt;br&gt;
+ 然後那邊的 list 移動到下一個節點（list1 = list1.next），再讓 current 自己也往前移（current = current.next）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;✔️ 接剩下沒比完的節點，最後 return dummy.next 而不是 dummy&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D28&lt;/strong&gt; 🉑  #21 Merge Two Sorted Lists&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D29&lt;/strong&gt; ✅  #21 Merge Two Sorted Lists&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D30&lt;/strong&gt; ✅  #21 Merge Two Sorted Lists (review)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D31&lt;/strong&gt; ✅  #75 Sort Colors (Daily Question)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D32&lt;/strong&gt; 🚫  #26 Remove Duplicates from Sorted Array
+&lt;ul&gt;
+&lt;li&gt;目標為輸出不重複結果 (應該是用 i、j 解決)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D33&lt;/strong&gt; 🚫  #26 Remove Duplicates from Sorted Array
+&lt;ul&gt;
+&lt;li&gt;找出不重複的元素&lt;/li&gt;
+&lt;li&gt;for j in range(1, len(nums)):
+&lt;blockquote&gt;
+&lt;p&gt;從第二個元素開始找 j 是掃描指標&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;if nums[j] != nums[i]:
+&lt;blockquote&gt;
+&lt;p&gt;比較當前掃描到的 nums [j] 跟上次保留的 nums [i]&lt;br&gt;
+ 如果不一樣 → 代表找到一個 新的不重複元素&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;i += 1&lt;br&gt;
+nums[i] = nums[j]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;把這個新元素「放到前面」來取代舊的重複元素&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D34&lt;/strong&gt; 🉑  #26 Remove Duplicates from Sorted Array&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D35&lt;/strong&gt; 🉑  #26 Remove Duplicates from Sorted Array
+&lt;ul&gt;
+&lt;li&gt;邊掃描、邊把不重複的元素往前搬
+&lt;blockquote&gt;
+&lt;p&gt;nums [0] 到 nums [i] 是 不重複且排序好的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D36&lt;/strong&gt; ✅  #26 Remove Duplicates from Sorted Array&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D37&lt;/strong&gt; 🚫  #27 Remove Element&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D38&lt;/strong&gt; 🉑  #27 Remove Element
+&lt;ul&gt;
+&lt;li&gt;就地 (in-place) 移除所有等於 val 的元素，並回傳「移除後的陣列長度」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D39&lt;/strong&gt; ✅  #27 Remove Element&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D40&lt;/strong&gt; 🚫  #28 Find the Index of the First Occurrence in a String
+&lt;ul&gt;
+&lt;li&gt;找出一段小字串，第一次在大字串中出現的位置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D41&lt;/strong&gt; 🉑  #28 Find the Index of the First Occurrence in a String
+&lt;ul&gt;
+&lt;li&gt;判斷
+&lt;blockquote&gt;
+&lt;p&gt;haystack = “TCodeLee”&lt;br&gt;
+haystack [0:3] → 取第 0、1、2 的字 → “TCo”&lt;br&gt;
+haystack [1:4] → 取第 1、2、3 的字 → “Cod”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D42&lt;/strong&gt; 🉑  #28 Find the Index of the First Occurrence in a String
+&lt;ul&gt;
+&lt;li&gt;假設 hatstack:LeetCode , needle:Lee
+&lt;blockquote&gt;
+&lt;p&gt;for i in range(len(haystack) - len(needle) + 1):&lt;br&gt;
+len(haystack) - len(needle) + 1 = 8 - 3 + 1 = 6&lt;br&gt;
+i=0 → haystack[i : i + 3] → haystack[0:3]&lt;br&gt;
+ haystack [0:3] → “Lee” 符合！立刻 return 0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D43&lt;/strong&gt; ✅  #28 Find the Index of the First Occurrence in a String&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D44&lt;/strong&gt; 🚫  #35 Search Insert Position
+&lt;ul&gt;
+&lt;li&gt;找出 target 是不是出現在 nums 裡？如果有，回傳它的 index；&lt;br&gt;
+如果沒有，就回傳它應該被插入的位置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D45&lt;/strong&gt; 🚫  #35 Search Insert Position
+&lt;ul&gt;
+&lt;li&gt;經典的「二分搜尋（Binary Search）」應用，時間複雜度是 O (log n)
+&lt;blockquote&gt;
+&lt;p&gt;用來在「已排序的陣列」中找出某個數字&lt;br&gt;
+每次都只看一半，時間複雜度 O (log n)（非常快）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D46&lt;/strong&gt; 🚫  #35 Search Insert Position
+&lt;ul&gt;
+&lt;li&gt;公式 ↓
+&lt;blockquote&gt;
+&lt;p&gt;nums = [1, 3, 5, 6, 9, 12, 15] , target = 9&lt;br&gt;
+ 設定 left = 0，right = 6（因為陣列長度是 7）&lt;br&gt;
+計算 mid = (left + right) // 2&lt;br&gt;
+ (0 + 6) // 2 = 3 , 看 nums [3] = 6 → 6 &amp;lt; 9, 表示 9 在右邊 → 所以更新 left = mid + 1 = 4&lt;br&gt;
+ 再算新的 mid = (4 + 6) // 2 = 5 → nums [5] = 12 → 12 &amp;gt; 9，表示 9 在左邊 → 所以更新 right = mid - 1 = 4&lt;br&gt;
+ 再算新的 mid = (4 + 4) // 2 = 4 → nums [4] = 9 ✅ 找到了！回傳 index 4！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D47&lt;/strong&gt; 🉑  #35 Search Insert Position&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D48&lt;/strong&gt; 🉑  #35 Search Insert Position&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D49&lt;/strong&gt; ✅  #35 Search Insert Position&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D50&lt;/strong&gt; 🚫  #58 Length of Last Word
+&lt;ul&gt;
+&lt;li&gt;目標：找出最後一個單字的長度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D51&lt;/strong&gt; 🚫  #58 Length of Last Word
+&lt;ul&gt;
+&lt;li&gt;研究：.strip () /.split ()
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;.strip()&lt;/code&gt;  是把 開頭和結尾 的空白全部去掉&lt;br&gt;
+ &lt;code&gt;.split()&lt;/code&gt;  預設是根據「空白」把句子切開成單字&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D52&lt;/strong&gt; 🉑  #58 Length of Last Word
+&lt;ul&gt;
+&lt;li&gt;
+&lt;ol&gt;
+&lt;li&gt;清除左右空白&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;用空白分割句子成單字陣列&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;取出最後一個單字，計算長度&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D53&lt;/strong&gt; ✅  #58 Length of Last Word&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D54&lt;/strong&gt; ✅  #66 Plus One
+&lt;ul&gt;
+&lt;li&gt;解題：每位數字被分開存在一個 list 中，回傳 加 1 之後 的結果 (List)
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;for i in range(x, -1, -1)&lt;/code&gt;  → 從最後一個位置往前走，每次走一步，直到第一個元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D55&lt;/strong&gt; ✅  #3423 Maximum Difference Between Adjacent Elements in a Circular Array
+&lt;ul&gt;
+&lt;li&gt;解題：求任意兩個相鄰元素之間的最大差值。
+&lt;blockquote&gt;
+&lt;p&gt;取出當前元素  &lt;code&gt;nums[i]&lt;/code&gt;  和下一個元素  &lt;code&gt;nums[(i + 1) % n]&lt;/code&gt; &lt;br&gt;
+ 計算絕對值  &lt;code&gt;abs()&lt;/code&gt;  , 然後用  &lt;code&gt;max()&lt;/code&gt;  找最大的。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D56&lt;/strong&gt; 🚫  #67 Add Binary
+&lt;ul&gt;
+&lt;li&gt;解題：求兩個二進位字串輸出它們相加的結果（二進位格式）。
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;int(n, 2)&lt;/code&gt;   ➜ 二進位字串  &lt;code&gt;n&lt;/code&gt;  轉成 十進位整數&lt;br&gt;
+ &lt;code&gt;bin(m)&lt;/code&gt;      ➜ 把十進位整數  &lt;code&gt;m&lt;/code&gt;  轉成 二進位字串&lt;br&gt;
+ &lt;code&gt;(Python 的 bin() 會加上 0b 作為前綴。)&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D57&lt;/strong&gt; 🉑  #67 Add Binary&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D58&lt;/strong&gt; ✅  #67 Add Binary&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;D59&lt;/strong&gt; ✅  #1  Two Sum &lt;strong&gt;(review)&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="leetcode" />
+        <category term="Daily" />
+        <updated>2025-06-06T02:42:24.000Z</updated>
+    </entry>
+</feed>
