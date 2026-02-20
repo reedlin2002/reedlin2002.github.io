@@ -29,6 +29,15 @@
   box-shadow: 0 6px 20px var(--grey-9-a1);
 }
 
+.music-player .music-toggle-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+  margin: 0 auto;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .music-player .music-panel {
   pointer-events: auto;
   width: 320px;
