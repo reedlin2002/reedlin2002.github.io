@@ -1,6 +1,11 @@
 (function () {
   var apInstance = null;
 
+  function musicUrl(filename) {
+    var root = (window.CONFIG && CONFIG.root ? CONFIG.root : '/');
+    return root + 'music/' + encodeURIComponent(filename);
+  }
+
   function initMusicPlayer() {
     var root = document.getElementById('music-player');
     if (!root) return;
@@ -33,15 +38,15 @@
       listMaxHeight: 180,
       audio: [
         {
-          name: 'Sample Track 1',
+          name: '一難',
           artist: 'Reedlin2002',
-          url: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'music/track-1.mp3',
+          url: musicUrl('一難.mp3'),
           cover: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'images/avatar.png'
         },
         {
-          name: 'Sample Track 2',
+          name: '私が選んだもの  ユイカMV',
           artist: 'Reedlin2002',
-          url: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'music/track-2.mp3',
+          url: musicUrl('私が選んだもの  ユイカMV.mp3'),
           cover: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'images/avatar.png'
         }
       ]
