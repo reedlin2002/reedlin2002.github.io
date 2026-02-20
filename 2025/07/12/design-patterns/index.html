@@ -27,6 +27,8 @@
 
 <link rel="stylesheet" href="/css/app.css?v=0.2.5">
 
+<link rel="stylesheet" href="/css/music.css?v=0.2.5">
+
   
   <meta name="keywords" content="技術筆記,(作者自學用)" />
 
@@ -362,7 +364,7 @@ Python（OOP 與 Design Pattern）、VS Code（Python Extension）、互動式 C
     <div class="item right">
       
 
-  <a href="/2025/07/13/singleton-pattern/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giclfw2t96j20zk0m8x6p.jpg" title="單例模式 Singleton_pattern">
+  <a href="/2025/07/13/singleton-pattern/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;tva3.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1giciszlczyj20zk0m816d.jpg" title="單例模式 Singleton_pattern">
   <span class="type">下一篇</span>
   <span class="category"><i class="ic i-flag"></i> </span>
   <h3>單例模式 Singleton_pattern</h3>
@@ -489,6 +491,19 @@ Python（OOP 與 Design Pattern）、VS Code（Python Extension）、互動式 C
       </div>
     </footer>
   </div>
+
+  <div id="music-player" class="music-player">
+  <button class="music-toggle" type="button" aria-label="Toggle music player">
+    <i class="ic i-music"></i>
+  </button>
+  <div class="music-panel">
+    <div id="aplayer" class="aplayer"></div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+
 <script data-config type="text/javascript">
   var LOCAL = {
     path: '2025/07/12/design-patterns/',
@@ -519,6 +534,8 @@ Python（OOP 與 Design Pattern）、VS Code（Python Extension）、互動式 C
 <script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
 
 <script src="/js/app.js?v=0.2.5"></script>
+
+<script src="/js/music.js?v=0.2.5"></script>
 
 
 
