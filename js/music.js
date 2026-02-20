@@ -1,4 +1,6 @@
 (function () {
+  var apInstance = null;
+
   function initMusicPlayer() {
     var root = document.getElementById('music-player');
     if (!root) return;
@@ -15,10 +17,9 @@
     var el = document.getElementById('aplayer');
     if (!el) return;
 
-    if (el.__inited) return;
-    el.__inited = true;
+    if (apInstance) return;
 
-    var ap = new APlayer({
+    apInstance = new APlayer({
       container: el,
       fixed: false,
       mini: false,
@@ -34,13 +35,13 @@
         {
           name: 'Sample Track 1',
           artist: 'Reedlin2002',
-          url: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'audio/sample-1.mp3',
+          url: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'music/track-1.mp3',
           cover: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'images/avatar.png'
         },
         {
           name: 'Sample Track 2',
           artist: 'Reedlin2002',
-          url: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'audio/sample-2.mp3',
+          url: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'music/track-2.mp3',
           cover: (window.CONFIG && CONFIG.root ? CONFIG.root : '/') + 'images/avatar.png'
         }
       ]
@@ -53,11 +54,12 @@
     });
 
     // Do NOT lock page scroll.
-    ap.on('play', function () {
+    apInstance.on('play', function () {
       document.body && (document.body.style.overflow = '');
     });
   }
 
   window.addEventListener('DOMContentLoaded', initMusicPlayer);
   window.addEventListener('pjax:success', initMusicPlayer);
+  document.addEventListener('pjax:complete', initMusicPlayer);
 })();
