@@ -2183,6 +2183,7 @@ const algoliaSearch = function(pjax) {
   });
   $('.close-btn').addEventListener('click', onPopupClose);
   window.addEventListener('pjax:success', onPopupClose);
+  window.addEventListener('beforeunload', onPopupClose);
   window.addEventListener('keyup', function(event) {
     if (event.key === 'Escape') {
       onPopupClose();
