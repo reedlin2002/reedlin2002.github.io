@@ -1304,7 +1304,27 @@ const scrollHandle = function (event) {
   siteNav.toggleClass('show', SHOW);
   toolBtn.toggleClass('affix', startScroll);
   siteBrand.toggleClass('affix', startScroll);
-  siteBrand.display(startScroll ? 'none' : '');
+  if(startScroll) {
+    siteBrand.style.setProperty('display', 'none', 'important');
+    var brandTitle = siteBrand.child('.title')
+    if(brandTitle) {
+      brandTitle.style.setProperty('display', 'none', 'important');
+    }
+    var brandMeta = siteBrand.child('.meta')
+    if(brandMeta) {
+      brandMeta.style.setProperty('display', 'none', 'important');
+    }
+  } else {
+    siteBrand.style.removeProperty('display');
+    var brandTitle = siteBrand.child('.title')
+    if(brandTitle) {
+      brandTitle.style.removeProperty('display');
+    }
+    var brandMeta = siteBrand.child('.meta')
+    if(brandMeta) {
+      brandMeta.style.removeProperty('display');
+    }
+  }
   sideBar.toggleClass('affix', window.pageYOffset > headerHight && document.body.offsetWidth > 991);
 
   if (typeof scrollAction.y == 'undefined') {
