@@ -1,0 +1,68 @@
+#brand {
+  position: fixed;
+}
+main > .inner {
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+}
+html {
+  scroll-padding-top: 76px;
+}
+.md h1,
+.md h2,
+.md h3 {
+  scroll-margin-top: 76px;
+}
+#main {
+  margin: 0;
+  width: auto;
+  max-width: none;
+}
+#sidebar {
+  margin: 0;
+}
+.segments > .item.no-cover .info {
+  width: 100%;
+  padding-left: 1.5rem;
+}
+@media (max-width: 767px) {
+  .segments > .item.no-cover .info {
+    height: auto;
+  }
+}
+.highlight {
+  background: #1e1e1e;
+}
+.code-container td:first-child {
+  width: 3rem;
+  padding-right: 1.25rem;
+}
+.code-container td:nth-child(2) {
+  padding-left: 3.75rem;
+}
+pre,
+code,
+.code-container {
+  font-family: Monaco, Consolas, 'Courier New', monospace;
+}
+.overview .author .image {
+  box-shadow: 0 10px 30px var(--body-bg-shadow);
+}
+.overview .menu {
+  padding: 1rem;
+}
+.overview .menu .item a {
+  line-height: 2.4;
+  font-size: 0.98rem;
+}
+#main .wrap {
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 767px) {
+  #main .wrap {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

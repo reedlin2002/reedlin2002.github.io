@@ -1304,6 +1304,7 @@ const scrollHandle = function (event) {
   siteNav.toggleClass('show', SHOW);
   toolBtn.toggleClass('affix', startScroll);
   siteBrand.toggleClass('affix', startScroll);
+  siteBrand.display(startScroll ? 'none' : '');
   sideBar.toggleClass('affix', window.pageYOffset > headerHight && document.body.offsetWidth > 991);
 
   if (typeof scrollAction.y == 'undefined') {
