@@ -5300,22 +5300,31 @@ span.label {
 .audio.playing .cover .disc {
   animation-play-state: running;
 }
-main {
-  padding-top: 50vh;
+#brand {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+}
+#header {
+  position: relative;
+  height: 50vh;
   min-height: 10rem;
 }
 @media (max-width: 767px) {
-  main {
-    padding-top: 10rem;
+  #header {
+    height: 10rem;
+    min-height: 10rem;
   }
+}
+main {
+  padding-top: 0;
 }
 main > .inner {
   justify-content: space-between;
   margin-left: auto;
   margin-right: auto;
-}
-#brand {
-  position: fixed;
 }
 html {
   scroll-padding-top: 76px;
