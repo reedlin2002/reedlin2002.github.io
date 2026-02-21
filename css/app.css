@@ -5320,11 +5320,13 @@ span.label {
 }
 main {
   padding-top: 0;
+  text-align: center;
 }
 main > .inner {
-  justify-content: space-between;
+  justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
 }
 html {
   scroll-padding-top: 76px;
@@ -5335,13 +5337,16 @@ html {
   scroll-margin-top: 76px;
 }
 #main {
-  margin: 0;
+  margin: 0 auto;
   width: auto;
   max-width: none;
+  text-align: center;
 }
 #main .wrap {
   margin-left: auto;
   margin-right: auto;
+  text-align: left;
+  max-width: 100%;
 }
 @media (max-width: 767px) {
   #main .wrap {
@@ -5351,6 +5356,37 @@ html {
 }
 #sidebar {
   margin: 0;
+}
+@media (min-width: 992px) {
+  main > .inner {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  main > .inner #main {
+    margin: 0;
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+  main > .inner #sidebar {
+    flex: 0 0 auto;
+    margin: 0;
+  }
+}
+#main .wrap,
+article,
+.index .wrap {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.index .wrap,
+.segments,
+.cards {
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
 }
 .segments > .item.no-cover .info {
   width: 100%;
