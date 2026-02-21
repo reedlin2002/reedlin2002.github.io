@@ -1,6 +1,11 @@
 #brand {
   position: fixed;
 }
+@media (min-width: 768px) {
+  #nav .menu .item.title {
+    display: none;
+  }
+}
 main > .inner {
   justify-content: space-between;
   margin-left: auto;
