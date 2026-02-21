@@ -1790,9 +1790,13 @@ main >.inner {
   width: 100%;
   height: 50vh;
   min-height: 10rem;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 #brand.affix {
   z-index: -1;
+  opacity: 0;
+  pointer-events: none;
 }
 #brand,
 #brand .pjax {

@@ -2195,6 +2195,13 @@ const domInit = function() {
     siteNav.child('.menu').appendChild(el.cloneNode(true));
   })
 
+  const toolVisibility = function() {
+    if(!toolBtn)
+      return
+    var isHome = !!$('.index.wrap')
+    toolBtn.display(isHome ? 'none' : '')
+  }
+
   loadCat.addEventListener('click', Loader.vanish);
   menuToggle.addEventListener('click', navMenuToggleHandle);
   $('.dimmer').addEventListener('click', sideBarToggleHandle);
@@ -2208,6 +2215,8 @@ const domInit = function() {
       innerHTML: '<div class="item player"></div><div class="item contents"><i class="ic i-list-ol"></i></div><div class="item chat"><i class="ic i-comments"></i></div><div class="item back-to-top"><i class="ic i-arrow-up"></i><span>0%</span></div>'
     });
   }
+
+  toolVisibility()
 
   toolPlayer = toolBtn.child('.player');
   backToTop = toolBtn.child('.back-to-top');
@@ -2281,6 +2290,11 @@ const siteRefresh = function (reload) {
   tabFormat()
 
   toolPlayer.player.load(LOCAL.audio || CONFIG.audio || {})
+
+  if(toolBtn) {
+    var isHome = !!$('.index.wrap')
+    toolBtn.display(isHome ? 'none' : '')
+  }
 
   Loader.hide()
 

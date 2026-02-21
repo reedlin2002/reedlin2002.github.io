@@ -9,10 +9,10 @@
         <lastBuildDate>Sun, 13 Jul 2025 16:16:17 +0800</lastBuildDate>
         <category>myself</category>
         <category>project</category>
-        <category>leetcode</category>
-        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2025/07/13/singleton-pattern/</guid>
             <title>單例模式 Singleton_pattern</title>
