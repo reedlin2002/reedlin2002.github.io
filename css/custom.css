@@ -62,12 +62,52 @@ code,
   font-size: 0.98rem;
 }
 #main .wrap {
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
+  max-width: 860px;
 }
 @media (max-width: 767px) {
   #main .wrap {
     padding-left: 16px;
     padding-right: 16px;
   }
+}
+/* ─── Post Nav (上下篇) ─── */
+/* 沒有封面圖時，給予有質感的漸層背景 */
+.post-nav .item a {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  color: #fff !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+/* 左側（上一篇）：藍紫色漸層 */
+.post-nav .item.left a {
+  background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b) !important;
+}
+/* 右側（下一篇）：青綠色漸層 */
+.post-nav .item.right a {
+  background: linear-gradient(135deg, #0f3460, #16213e, #533483) !important;
+}
+/* 懸停效果：稍微亮一點 */
+.post-nav .item a:hover {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+/* 隱藏原本的 ::before 偽元素（避免跟新背景衝突） */
+.post-nav .item a::before {
+  display: none !important;
+}
+/* span 標籤（上一篇 / 下一篇 文字）稍微透明 */
+.post-nav .item span {
+  opacity: 0.85;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+/* h3 標題加粗 */
+.post-nav .item h3 {
+  font-weight: 700;
+  margin-top: 0.5rem;
 }

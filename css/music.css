@@ -1,9 +1,18 @@
 :root {
-  --music-bg: var(--grey-1-a7);
-  --music-border: var(--grey-3);
-  --music-accent: var(--color-aqua);
+  --music-bg: rgba(253, 253, 253, 0.85);
+  --music-border: rgba(200, 200, 210, 0.5);
+  --music-accent: #a78bfa;
+  --music-accent2: #60a5fa;
+  --music-shadow: rgba(100, 80, 160, 0.18);
 }
 
+[data-theme="dark"] {
+  --music-bg: rgba(30, 30, 40, 0.88);
+  --music-border: rgba(80, 80, 100, 0.5);
+  --music-shadow: rgba(0, 0, 0, 0.35);
+}
+
+/* ─── 整體容器 ─── */
 .music-player {
   position: fixed;
   right: 20px;
@@ -12,56 +21,160 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 8px;
+  gap: 10px;
   pointer-events: none;
 }
 
+/* ─── 切換按鈕（收起/展開） ─── */
 .music-player .music-toggle {
   pointer-events: auto;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid var(--music-border);
-  background: var(--music-bg);
-  backdrop-filter: blur(10px);
-  color: var(--text-color);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--music-accent), var(--music-accent2));
+  color: #fff;
   cursor: pointer;
-  box-shadow: 0 6px 20px var(--grey-9-a1);
+  box-shadow: 0 4px 16px var(--music-shadow);
+  transition: transform .25s cubic-bezier(.34, 1.56, .64, 1),
+              box-shadow .25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-player .music-toggle:hover {
+  transform: scale(1.12);
+  box-shadow: 0 8px 28px var(--music-shadow);
 }
 
 .music-player .music-toggle-icon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   display: block;
-  margin: 0 auto;
   -o-object-fit: contain;
      object-fit: contain;
+  filter: brightness(10);
 }
 
+/* ─── 展開面板 ─── */
 .music-player .music-panel {
   pointer-events: auto;
-  width: 320px;
+  width: 300px;
   max-width: calc(100vw - 40px);
   border: 1px solid var(--music-border);
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
   background: var(--music-bg);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 30px var(--grey-9-a1);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 12px 40px var(--music-shadow);
+  animation: musicPanelIn .25s cubic-bezier(.34, 1.56, .64, 1);
+  transform-origin: bottom right;
 }
 
+@keyframes musicPanelIn {
+  from { opacity: 0; transform: scale(.88) translateY(10px); }
+  to   { opacity: 1; transform: scale(1)  translateY(0);     }
+}
+
+/* 收起時隱藏 */
 .music-player.is-collapsed .music-panel {
   display: none;
 }
 
+/* ─── APlayer 本體 ─── */
 .music-player .aplayer {
   margin: 0;
-  background: transparent;
-  box-shadow: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0;
 }
 
+/* 頂部資訊區 */
 .music-player .aplayer .aplayer-info {
   border-bottom: 1px solid var(--music-border);
+  padding: 12px 14px 8px;
+}
+
+/* 歌曲標題 */
+.music-player .aplayer .aplayer-title {
+  font-size: .92rem;
+  font-weight: 600;
+}
+
+/* 作者 */
+.music-player .aplayer .aplayer-author {
+  font-size: .78rem;
+  opacity: .65;
+}
+
+/* 封面圖 */
+.music-player .aplayer .aplayer-pic {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* 播放進度條 */
+.music-player .aplayer .aplayer-bar {
+  border-radius: 999px;
+  height: 3px;
+}
+
+/* 時間顯示 */
+.music-player .aplayer .aplayer-time {
+  font-size: .75rem;
+  opacity: .7;
+}
+
+/* ─── 播放清單 ─── */
+.music-player .aplayer .aplayer-list {
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.music-player .aplayer .aplayer-list::-webkit-scrollbar {
+  width: 4px;
+}
+.music-player .aplayer .aplayer-list::-webkit-scrollbar-thumb {
+  background: var(--music-accent);
+  border-radius: 4px;
+}
+
+.music-player .aplayer .aplayer-list ol {
+  padding: 6px 0;
+  margin: 0;
+}
+
+.music-player .aplayer .aplayer-list ol li {
+  padding: 8px 14px;
+  font-size: .82rem;
+  border-radius: 6px;
+  transition: background .15s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.music-player .aplayer .aplayer-list ol li:hover {
+  background: rgba(167, 139, 250, 0.12);
+}
+
+.music-player .aplayer .aplayer-list ol .aplayer-list-cur {
+  background: rgba(167, 139, 250, 0.18) !important;
+  color: var(--music-accent);
+  font-weight: 600;
+}
+
+/* 清單中作者名字 */
+.music-player .aplayer .aplayer-list-author {
+  opacity: .55;
+  font-size: .75rem;
+  margin-left: 8px;
+  white-space: nowrap;
 }
 
 @media (max-width: 600px) {
@@ -70,6 +183,6 @@
     bottom: 12px;
   }
   .music-player .music-panel {
-    width: 280px;
+    width: 270px;
   }
 }
