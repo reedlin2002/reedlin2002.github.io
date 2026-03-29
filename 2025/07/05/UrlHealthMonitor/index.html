@@ -407,10 +407,15 @@ Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
   </div>
 
   <div id="music-player" class="music-player">
-  <button class="music-toggle" type="button" aria-label="Toggle music player">
-    <img class="music-toggle-icon" src="/images/play_disc.png" alt="Music" />
+  <button class="music-toggle" type="button" aria-label="開啟或收合背景音樂播放器" title="背景音樂">
+    <span class="music-toggle-label" aria-hidden="true">音樂</span>
+    <img class="music-toggle-icon" src="/images/play_disc.png" alt="" width="22" height="22" />
   </button>
   <div class="music-panel">
+    <div class="music-panel-header">
+      <span class="music-panel-title">背景音樂</span>
+      <span class="music-panel-hint">網站內嵌播放清單</span>
+    </div>
     <div id="aplayer" class="aplayer"></div>
   </div>
 </div>

@@ -94,12 +94,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipeyvx1d4j20zk0m8hdt.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicitspjpbj20zk0m81ky.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gipevo9j1jj20zk0m8e81.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1giciundwu5j20zk0m8n9e.jpg"></li>
-          <li class="item" data-background-image="https://tva2.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicliierfjj20zk0m8npd.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giph4wqtg4j20zk0m8x6p.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gipesng5oej20zk0m87d4.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclh5u05ej20zk0m87df.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1giclhpw3lwj20zk0m8gvw.jpg"></li>
+          <li class="item" data-background-image="https://tva1.sinaimg.cn/large/6833939bly1gicm07ih54j20zk0m84qp.jpg"></li>
         </ul>
       </div>
     </header>
@@ -260,10 +260,15 @@
   </div>
 
   <div id="music-player" class="music-player">
-  <button class="music-toggle" type="button" aria-label="Toggle music player">
-    <img class="music-toggle-icon" src="/images/play_disc.png" alt="Music" />
+  <button class="music-toggle" type="button" aria-label="開啟或收合背景音樂播放器" title="背景音樂">
+    <span class="music-toggle-label" aria-hidden="true">音樂</span>
+    <img class="music-toggle-icon" src="/images/play_disc.png" alt="" width="22" height="22" />
   </button>
   <div class="music-panel">
+    <div class="music-panel-header">
+      <span class="music-panel-title">背景音樂</span>
+      <span class="music-panel-hint">網站內嵌播放清單</span>
+    </div>
     <div id="aplayer" class="aplayer"></div>
   </div>
 </div>

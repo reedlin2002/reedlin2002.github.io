@@ -29,12 +29,12 @@
       fixed: false,
       mini: false,
       autoplay: false,
-      theme: '#72cecf',
+      theme: '#3e999f',
       loop: 'all',
       order: 'list',
       preload: 'none',
       volume: 0.7,
-      listFolded: false,
+      listFolded: true,
       listMaxHeight: 180,
       audio: [
         {
