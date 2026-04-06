@@ -85,7 +85,7 @@ class TypewriterOnScroll {
 
     init() {
         // 使用 Intersection Observer
-        this.observer = new Intersection Observer((entries) => {
+        this.observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !this.typedElements.has(entry.target)) {
                     this.typedElements.add(entry.target);

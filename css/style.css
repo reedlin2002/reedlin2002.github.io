@@ -475,9 +475,13 @@ html {
 }
 #header nav a {
   position: relative;
+  display: inline-flex;
+  align-items: center;
   transition: color 0.25s ease, background 0.25s ease;
-  padding: 6px 14px;
+  padding: 10px 14px; /* min touch height ≈ 42px → pass Lighthouse */
+  min-height: 44px;
   border-radius: 6px;
+  box-sizing: border-box;
 }
 #header nav a::before {
   content: '';
