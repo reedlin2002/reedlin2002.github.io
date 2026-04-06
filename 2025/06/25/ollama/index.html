@@ -1,155 +1,207 @@
-
-
-
-
 <!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#FFF">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/images/favicon.svg">
-
-<link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
-<link rel="icon" type="image/x-icon" sizes="32x32" href="/images/favicon.ico">
-<link rel="icon" type="image/x-icon" sizes="16x16" href="/images/favicon.ico">
-  <link rel="mask-icon" href="/images/images/favicon.svg" color="">
-  <meta http-equiv="Cache-Control" content="no-transform">
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-<link rel="alternate" type="application/rss+xml" title="Reedlin2002" href="https://reedlin2002.github.io/rss.xml" />
-<link rel="alternate" type="application/atom+xml" title="Reedlin2002" href="https://reedlin2002.github.io/atom.xml" />
-<link rel="alternate" type="application/json" title="Reedlin2002" href="https://reedlin2002.github.io/feed.json" />
-
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-
-<link rel="stylesheet" href="/css/app.css?v=0.2.5">
-
-<link rel="stylesheet" href="/css/music.css?v=0.2.5">
-
+<html lang=zh>
+  <head>
+  <!-- so meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="description" content="# 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）  這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。   # 🔧 專案目標  ✫️ 建立一個 AI 助手系統，具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="🧠 | 聊天機器人">
+<meta property="og:url" content="https://reedlin2002.github.io/2025/06/25/ollama/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="# 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）  這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。   # 🔧 專案目標  ✫️ 建立一個 AI 助手系統，具">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://reedlin2002.github.io/images/ollama-Taipei.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/ollama-KAO.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/ollama-math.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/ollama-RAG.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/ollama-LLM.png">
+<meta property="article:published_time" content="2025-06-25T15:43:59.000Z">
+<meta property="article:modified_time" content="2025-07-05T14:36:23.706Z">
+<meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="project">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://reedlin2002.github.io/images/ollama-Taipei.png">
   
-  <meta name="keywords" content="project" />
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+  <!-- title -->
+  <title>🧠 | 聊天機器人</title>
+  <!-- async scripts -->
+  <!-- Google Analytics -->
 
 
-<link rel="canonical" href="https://reedlin2002.github.io/2025/06/25/ollama/">
+  <!-- Umami Analytics -->
 
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <!-- styles -->
+  
+<link rel="stylesheet" href="/css/style.css">
 
-  <title>
-🧠 | 聊天機器人 |
-Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
+  <!-- persian styles -->
+  
+  <!-- rss -->
+  
+  
+<!-- mathjax -->
+
 <meta name="generator" content="Hexo 7.3.0"></head>
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div id="loading">
-    <div class="cat">
-      <div class="body"></div>
-      <div class="head">
-        <div class="face"></div>
-      </div>
-      <div class="foot">
-        <div class="tummy-end"></div>
-        <div class="bottom"></div>
-        <div class="legs left"></div>
-        <div class="legs right"></div>
-      </div>
-      <div class="paw">
-        <div class="hands left"></div>
-        <div class="hands right"></div>
-      </div>
-    </div>
-  </div>
-  <div id="container">
-    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="inner">
-        <div id="brand">
-          <div class="pjax">
-          
-  <h1 itemprop="name headline">🧠 | 聊天機器人
-  </h1>
-  
-<div class="meta">
-  <span class="item" title="創建時間：2025-06-25 23:43:59">
-    <span class="icon">
-      <i class="ic i-calendar"></i>
+
+    <body class="max-width mx-auto px3 ltr">
+      <!-- 粒子特效 Canvas -->
+      <canvas id="particle-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
     </span>
-    <span class="text">發表於</span>
-    <time itemprop="dateCreated datePublished" datetime="2025-06-25T23:43:59+08:00">2025-06-25</time>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2025/07/05/UrlHealthMonitor/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2025/06/18/expenses/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/06/25/ollama/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/06/25/ollama/&text=🧠 | 聊天機器人"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/06/25/ollama/&is_video=false&description=🧠 | 聊天機器人"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🧠 | 聊天機器人&body=Check out this article: https://reedlin2002.github.io/2025/06/25/ollama/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/06/25/ollama/&name=🧠 | 聊天機器人&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/06/25/ollama/&t=🧠 | 聊天機器人"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-ollama-langchain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-ai-%E5%B7%A5%E5%85%B7%E5%9E%8B-agent%E5%90%AB-rag-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94"><span class="toc-number">1.</span> <span class="toc-text"> 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text"> 系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text"> 套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-tool-%E8%88%87-agent"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text"> 測試</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%E5%8F%B0%E5%8C%97"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 查詢天氣：台北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%E9%AB%98%E9%9B%84"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 查詢天氣：高雄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B8%E5%AD%B8%E9%81%8B%E7%AE%97"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 數學運算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%95%8F%E6%96%87%E4%BB%B6%E5%85%A7%E5%AE%B9"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 問文件內容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E5%B0%8D%E8%A9%B1"><span class="toc-number">1.4.5.</span> <span class="toc-text"> 自然對話</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E6%A7%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 📁 結構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">1.6.</span> <span class="toc-text"> 📝 心得</span></a></li></ol></li></ol>
+      </div>
+    
   </span>
 </div>
 
-
-          </div>
-        </div>
-        <nav id="nav">
-  <div class="inner">
-    <div class="toggle">
-      <div class="lines" aria-label="切換導航欄">
-        <span class="line"></span>
-        <span class="line"></span>
-        <span class="line"></span>
-      </div>
+          
+            <div class="content index py4 ">
+              <header id="header">
+  <a class="u-url u-uid" href="/">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" />
+    
+  
+    <div id="title">
+      <h1 class="p-name">Reedlin2002</h1>
     </div>
-    <ul class="menu">
-      <li class="item title"><a href="/" rel="start">Reedlin2002</a></li>
-    </ul>
-    <ul class="right">
-      <li class="item theme">
-        <i class="ic i-sun"></i>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
       </li>
-      <li class="item search">
-        <i class="ic i-search"></i>
-      </li>
+      <!--
+     --><li><a href="/">首頁</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+   --><!--
+     --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+   --><!--
+     --><li><a href="/search/">seacrh</a></li><!--
+   -->
     </ul>
   </div>
-</nav>
+</header>
 
-      </div>
-      <div id="imgs" class="pjax">
-          <img src="//images/ollama.png">
-      </div>
-    </header>
-    <div id="waves">
-      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-        <defs>
-          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-        </defs>
-        <g class="parallax">
-          <use xlink:href="#gentle-wave" x="48" y="0" />
-          <use xlink:href="#gentle-wave" x="48" y="3" />
-          <use xlink:href="#gentle-wave" x="48" y="5" />
-          <use xlink:href="#gentle-wave" x="48" y="7" />
-        </g>
-      </svg>
+                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        🧠 | 聊天機器人
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Jerry Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-06-25T15:43:59.000Z" class="dt-published" itemprop="datePublished">2025-06-25</time>
+        
+        (Updated: <time datetime="2025-07-05T14:36:23.706Z" class="dt-updated" itemprop="dateModified">2025-07-05</time>)
+        
+      
     </div>
-    <main>
-      <div class="inner">
-        <div id="main" class="pjax">
-          
-  <div class="article wrap">
-    
-<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
-<i class="ic i-home"></i>
-<span><a href="/">首頁</a></span>
-</div>
 
-    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-TW">
-  <link itemprop="mainEntityOfPage" href="https://reedlin2002.github.io/2025/06/25/ollama/">
 
-  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="image" content="/images/images/avatar.png">
-    <meta itemprop="name" content="Jerry Lin">
-    <meta itemprop="description" content="個人筆記與作品集, 用來記錄學習與開發的歷程">
-  </span>
+      
 
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Reedlin2002">
-  </span>
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/project/" rel="tag">project</a>
+    </div>
 
-  <div class="body md" itemprop="articleBody">
-    
 
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
     <h1 id="用-ollama-langchain-打造本地-ai-工具型-agent含-rag-文件問答"><a class="markdownIt-Anchor" href="#用-ollama-langchain-打造本地-ai-工具型-agent含-rag-文件問答">#</a> 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</h1>
 <blockquote>
 <p>這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。</p>
@@ -178,11 +230,11 @@ Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
 </thead>
 <tbody>
 <tr>
-<td><span class="exturl" data-url="aHR0cHM6Ly93d3cubGFuZ2NoYWluLmNvbS8=">LangChain</span></td>
+<td><a target="_blank" rel="noopener" href="https://www.langchain.com/">LangChain</a></td>
 <td>組合 Agent 與工具</td>
 </tr>
 <tr>
-<td><span class="exturl" data-url="aHR0cHM6Ly9vbGxhbWEuY29tLw==">Ollama</span> (Mistral)</td>
+<td><a target="_blank" rel="noopener" href="https://ollama.com/">Ollama</a> (Mistral)</td>
 <td>本地執行的大語言模型</td>
 </tr>
 <tr>
@@ -218,7 +270,7 @@ Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：查台北天氣</span><br><span class="line">🧩 使用 [Agent] 處理中...</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;Taipei&#x27;</span></span><br><span class="line">Observation: 晴天，30 度</span><br><span class="line">Final Answer: 晴天，30 度</span><br></pre></td></tr></table></figure>
 <div id="gallery1">
   <a href="/images/ollama-Taipei.png">
-    <img data-src="/images/ollama-Taipei.png" alt="查詢天氣：台北" style="max-width: 600px;">
+    <img src="/images/ollama-Taipei.png" alt="查詢天氣：台北" style="max-width: 600px;">
   </a>
 </div>
 <hr>
@@ -226,7 +278,7 @@ Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：高雄幾度</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;高雄&#x27;</span></span><br><span class="line">Observation: 小雨，27 度</span><br><span class="line">Final Answer: 高雄今天是小雨且27度。</span><br></pre></td></tr></table></figure>
 <div id="gallery2">
   <a href="/images/ollama-KAO.png">
-    <img data-src="/images/ollama-KAO.png" alt="查詢天氣：高雄" style="max-width: 600px;">
+    <img src="/images/ollama-KAO.png" alt="查詢天氣：高雄" style="max-width: 600px;">
   </a>
 </div>
 <hr>
@@ -234,7 +286,7 @@ Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：12 * 3 + 5 是多少？</span><br><span class="line"></span><br><span class="line">Action: calculator</span><br><span class="line">Action Input: <span class="string">&#x27;12 * 3 + 5&#x27;</span></span><br><span class="line">Observation: 45</span><br><span class="line">Final Answer: 結果為45。</span><br></pre></td></tr></table></figure>
 <div id="gallery3">
   <a href="/images/ollama-math.png">
-    <img data-src="/images/ollama-math.png" alt="數學運算" style="max-width: 600px;">
+    <img src="/images/ollama-math.png" alt="數學運算" style="max-width: 600px;">
   </a>
 </div>
 <hr>
@@ -242,7 +294,7 @@ Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：文件內容有提到什麼？</span><br><span class="line"></span><br><span class="line">Action: rag_tool</span><br><span class="line">Observation: 文件提到了台灣、台北、自然風景、語言（台語、閩南語、客家話）、夜市與珍珠奶茶等。</span><br><span class="line">Final Answer: 這份文件提到了台灣、台北、自然風景、文化與語言、以及夜市文化。</span><br></pre></td></tr></table></figure>
 <div id="gallery4">
   <a href="/images/ollama-RAG.png">
-    <img data-src="/images/ollama-RAG.png" alt="問文件內容" style="max-width: 600px;">
+    <img src="/images/ollama-RAG.png" alt="問文件內容" style="max-width: 600px;">
   </a>
 </div>
 <hr>
@@ -250,7 +302,7 @@ Reedlin2002 = Reedlin2002 = 個人筆記與作品集</title>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：你好</span><br><span class="line"></span><br><span class="line">💬 使用 LLM 直接回答...</span><br><span class="line">🤖 回答：您好！讓我有幸為您提供服務。如果您有任何問題，請隨時告知，我會盡力幫助您解決。</span><br></pre></td></tr></table></figure>
 <div id="gallery5">
   <a href="/images/ollama-LLM.png">
-    <img data-src="/images/ollama-LLM.png" alt="自然對話" style="max-width: 600px;">
+    <img src="/images/ollama-LLM.png" alt="自然對話" style="max-width: 600px;">
   </a>
 </div>
 <hr>
@@ -302,224 +354,157 @@ Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、
     zoom: true
     });
 </script>
-      <div class="tags">
-          <a href="/tags/project/" rel="tag"><i class="ic i-tag"></i> project</a>
-      </div>
   </div>
-
-   <footer>
-
-    <div class="meta">
-  <span class="item">
-    <span class="icon">
-      <i class="ic i-calendar-check"></i>
-    </span>
-    <span class="text">更新於</span>
-    <time title="修改時間：2025-07-05 22:36:23" itemprop="dateModified" datetime="2025-07-05T22:36:23+08:00">2025-07-05</time>
-  </span>
-</div>
-
-  </footer>
-
 </article>
 
-  </div>
-  
 
-<div class="post-nav">
-    <div class="item left">
-      
 
-  <a href="/2025/06/18/expenses/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;tva1.sinaimg.cn&#x2F;mw690&#x2F;6833939bly1gicivghyooj20zk0m8dir.jpg" title="🤖 | 記帳小管家">
-  <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>🤖 | 記帳小管家</h3>
-  </a>
+                  
+                    <div id="footer-post-container">
+  <div id="footer-post">
 
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
+        
+          <li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li>
+        
+          <li><a href="/search/">seacrh</a></li>
+        
+      </ul>
     </div>
-    <div class="item right">
-      
 
-  <a href="/2025/07/05/UrlHealthMonitor/" itemprop="url" rel="next" data-background-image="&#x2F;&#x2F;images&#x2F;monitor.png" title="🌐 | 網站健康監控平台">
-  <span class="type">下一篇</span>
-  <span class="category"><i class="ic i-flag"></i> </span>
-  <h3>🌐 | 網站健康監控平台</h3>
-  </a>
-
-    </div>
-</div>
-
-  
-  <div class="wrap" id="comments"></div>
-
-
-        </div>
-        <div id="sidebar">
-          
-
-<div class="inner">
-
-  <div class="panels">
-    <div class="inner">
-      <div class="contents panel pjax" data-title="文章目錄">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-ollama-langchain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-ai-%E5%B7%A5%E5%85%B7%E5%9E%8B-agent%E5%90%AB-rag-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94"><span class="toc-number">1.</span> <span class="toc-text"> 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text"> 系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text"> 套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-tool-%E8%88%87-agent"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text"> 測試</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%E5%8F%B0%E5%8C%97"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 查詢天氣：台北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%E9%AB%98%E9%9B%84"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 查詢天氣：高雄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B8%E5%AD%B8%E9%81%8B%E7%AE%97"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 數學運算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%95%8F%E6%96%87%E4%BB%B6%E5%85%A7%E5%AE%B9"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 問文件內容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E5%B0%8D%E8%A9%B1"><span class="toc-number">1.4.5.</span> <span class="toc-text"> 自然對話</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E6%A7%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 📁 結構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">1.6.</span> <span class="toc-text"> 📝 心得</span></a></li></ol></li></ol>
-      </div>
-      <div class="related panel pjax" data-title="系列文章">
-      </div>
-      <div class="overview panel" data-title="本站概要">
-        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <img class="image" itemprop="image" alt="Jerry Lin"
-      data-src="/images/images/avatar.png">
-  <p class="name" itemprop="name">Jerry Lin</p>
-  <div class="description" itemprop="description">用來記錄學習與開發的歷程</div>
-</div>
-
-<nav class="state">
-    <div class="item posts">
-      <a href="/archives/">
-        <span class="count">9</span>
-        <span class="name">文章</span>
-      </a>
-    </div>
-    <div class="item tags">
-      <a href="/tags/">
-        <span class="count">6</span>
-        <span class="name">標籤</span>
-      </a>
-    </div>
-</nav>
-
-<div class="social">
-      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JlZWRsaW4yMDAy" title="https:&#x2F;&#x2F;github.com&#x2F;reedlin2002"><i class="ic i-github"></i></span>
-</div>
-
-<ul class="menu">
-  
     
-  <li class="item">
-    <a href="/" rel="section"><i class="ic i-home"></i>首頁</a>
-  </li>
-
-        
-  <li class="item dropdown">
-      <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>文章</a>
-    <ul class="submenu">
-
-        
-  <li class="item">
-    <a href="/categories/" rel="section"><i class="ic i-th"></i>分類</a>
-  </li>
-
-        
-  <li class="item">
-    <a href="/tags/" rel="section"><i class="ic i-tags"></i>標籤</a>
-  </li>
-
-  </ul>
     
-  <li class="item">
-    <a href="/about/" rel="section"><i class="ic i-user"></i>關於</a>
-  </li>
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-ollama-langchain-%E6%89%93%E9%80%A0%E6%9C%AC%E5%9C%B0-ai-%E5%B7%A5%E5%85%B7%E5%9E%8B-agent%E5%90%AB-rag-%E6%96%87%E4%BB%B6%E5%95%8F%E7%AD%94"><span class="toc-number">1.</span> <span class="toc-text"> 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 🔧 專案目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%B5%B1%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.2.</span> <span class="toc-text"> 系統流程圖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A5%97%E4%BB%B6%E8%88%87%E6%8A%80%E8%A1%93"><span class="toc-number">1.3.</span> <span class="toc-text"> 套件與技術</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 核心程式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-tool-%E8%88%87-agent"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 整合 Tool 與 Agent</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6"><span class="toc-number">1.4.</span> <span class="toc-text"> 測試</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%E5%8F%B0%E5%8C%97"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 查詢天氣：台北</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E8%A9%A2%E5%A4%A9%E6%B0%A3%E9%AB%98%E9%9B%84"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 查詢天氣：高雄</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B8%E5%AD%B8%E9%81%8B%E7%AE%97"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 數學運算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%95%8F%E6%96%87%E4%BB%B6%E5%85%A7%E5%AE%B9"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 問文件內容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E5%B0%8D%E8%A9%B1"><span class="toc-number">1.4.5.</span> <span class="toc-text"> 自然對話</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E6%A7%8B"><span class="toc-number">1.5.</span> <span class="toc-text"> 📁 結構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">1.6.</span> <span class="toc-text"> 📝 心得</span></a></li></ol></li></ol>
+      </div>
+    
 
-
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/06/25/ollama/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/06/25/ollama/&text=🧠 | 聊天機器人"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/06/25/ollama/&is_video=false&description=🧠 | 聊天機器人"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=🧠 | 聊天機器人&body=Check out this article: https://reedlin2002.github.io/2025/06/25/ollama/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/06/25/ollama/&title=🧠 | 聊天機器人"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/06/25/ollama/&name=🧠 | 聊天機器人&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/06/25/ollama/&t=🧠 | 聊天機器人"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
-      </div>
     </div>
-  </div>
 
-  <ul id="quick">
-    <li class="prev pjax">
-        <a href="/2025/06/18/expenses/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
-    </li>
-    <li class="up"><i class="ic i-arrow-up"></i></li>
-    <li class="down"><i class="ic i-arrow-down"></i></li>
-    <li class="next pjax">
-        <a href="/2025/07/05/UrlHealthMonitor/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
-    </li>
-    <li class="percent"></li>
-  </ul>
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
 </div>
 
-
-        </div>
-        <div class="dimmer"></div>
-      </div>
-    </main>
-    <footer id="footer">
-      <div class="inner">
-        <div class="widgets">
-          
-
-        </div>
-        <div class="status">
-  <div class="copyright">
+                      
+                        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-    &copy; 2025 – 
-    <span itemprop="copyrightYear">2026</span>
-    <span class="with-love">
-      <i class="ic i-sakura rotate"></i>
-    </span>
-    <span class="author" itemprop="copyrightHolder">Jerry Lin @ Reedlin2002</span>
+    
+    2016-2026
+    Jerry Lin
   </div>
-</div>
-
-      </div>
-    </footer>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首頁</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><!--
+       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><!--
+       --><li><a href="/search/">seacrh</a></li><!--
+     -->
+      </ul>
+    </nav>
   </div>
+</footer>
 
-  <div id="music-player" class="music-player">
-  <button class="music-toggle" type="button" aria-label="開啟或收合背景音樂播放器" title="背景音樂">
-    <span class="music-toggle-label" aria-hidden="true">音樂</span>
-    <img class="music-toggle-icon" src="/images/play_disc.png" alt="" width="22" height="22" />
-  </button>
-  <div class="music-panel">
-    <div class="music-panel-header">
-      <span class="music-panel-title">背景音樂</span>
-      <span class="music-panel-hint">網站內嵌播放清單</span>
-    </div>
-    <div id="aplayer" class="aplayer"></div>
-  </div>
-</div>
+            </div>
+            <!-- styles -->
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
 
-<script data-config type="text/javascript">
-  var LOCAL = {
-    path: '2025/06/25/ollama/',
-    favicon: {
-      show: "（●´3｀●）復活成功",
-      hide: "(´Д｀)瀏覽器崩潰啦"
-    },
-    search : {
-      placeholder: "文章搜尋",
-      empty: "關於 「 ${query} 」 ，什麼也沒搜到",
-      stats: "${time} ms 內找到 ${hits} 條結果"
-    },
-    valine: true,fancybox: true,
-    copyright: '複製成功，轉載請遵守 <i class="ic i-creative-commons"></i> 協議。',
-    ignores : [
-      function(uri) {
-        return uri.includes('#');
-      },
-      function(uri) {
-        return new RegExp(LOCAL.path+"$").test(uri);
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
       }
-    ]
-  };
-</script>
-
-<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
-
-<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
-
-<script src="/js/app.js?v=0.2.5"></script>
-
-<script src="/js/music.js?v=0.2.5"></script>
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "複製成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
 
 
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
 
 
-</body>
-</html>
+                
+
+                    <script src="/js/shoka.js"></script>
+                    <!-- 終極視覺特效腳本 -->
+                    
+<script src="/js/particle-system.js"></script>
+
+                      <!-- 游標特效（已移除以提升效能與體驗） -->
+                      <!-- <script src="/js/cursor-effects.js"></script> -->
+                      
+<script src="/js/typewriter.js"></script>
+
+    </body>
+
+    </html>
