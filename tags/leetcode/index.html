@@ -1,21 +1,54 @@
 <!DOCTYPE html>
 <html lang=zh>
   <head>
-  <!-- so meta -->
+  <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="description" content="用來記錄學習與開發的歷程">
+  <meta name="theme-color" content="#0a0f1e">
+
+  <!-- ── Title ── -->
+  <title>標籤: leetcode</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  <meta name="keywords" content="Jerry Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
+  <meta name="author" content="Jerry Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reedlin2002">
 <meta property="og:url" content="https://reedlin2002.github.io/tags/leetcode/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="用來記錄學習與開發的歷程">
+<meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="Jerry Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
 <meta name="twitter:card" content="summary">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reedlin2002">
+  <meta name="twitter:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
   
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+
+  <!-- ── Favicon ── -->
   
     
       
@@ -33,28 +66,39 @@
       
     
   
-  <!-- title -->
-  <title>標籤: leetcode</title>
-  <!-- async scripts -->
+
+  <!-- ── Analytics ── -->
   <!-- Google Analytics -->
 
 
   <!-- Umami Analytics -->
 
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-  <!-- styles -->
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
   
 <link rel="stylesheet" href="/css/style.css">
 
-  <!-- persian styles -->
   
-  <!-- rss -->
-  
-  
-<!-- mathjax -->
 
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
 <meta name="generator" content="Hexo 7.3.0"></head>
 
     <body class="max-width mx-auto px3 ltr">
@@ -85,9 +129,9 @@
    --><!--
      --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
    --><!--
-     --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+     --><li><a href="https://reedlin2002.github.io/tags/project/">專案</a></li><!--
    --><!--
-     --><li><a href="/search/">seacrh</a></li><!--
+     --><li><a href="/search/">搜尋</a></li><!--
    -->
     </ul>
   </div>
@@ -147,9 +191,9 @@
      --><!--
        --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
      --><!--
-       --><li><a href="https://reedlin2002.github.io/tags/project/">項目</a></li><!--
+       --><li><a href="https://reedlin2002.github.io/tags/project/">專案</a></li><!--
      --><!--
-       --><li><a href="/search/">seacrh</a></li><!--
+       --><li><a href="/search/">搜尋</a></li><!--
      -->
       </ul>
     </nav>
@@ -175,6 +219,202 @@
 
 
 <script src="/js/main.js"></script>
+
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+(function() {
+  'use strict';
+
+  /* ① Navbar Glassmorphism scroll toggle */
+  var header = document.getElementById('header');
+  if (header) {
+    var onScroll = function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // 初始執行一次
+  }
+
+  /* ② 卡片 staggered 進場動畫（IntersectionObserver） */
+  var cards = document.querySelectorAll('.shoka-card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    var cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      cardObserver.observe(card);
+    });
+  }
+
+  /* ③ 文章內頁 H2/H3 自動加 anchor 連結 */
+  if (document.querySelector('#post .content')) {
+    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
+    headings.forEach(function(h) {
+      if (h.id) {
+        var anchor = document.createElement('a');
+        anchor.className = 'heading-anchor';
+        anchor.href = '#' + h.id;
+        anchor.innerHTML = '<i class="fa-solid fa-link" style="font-size:0.6em;opacity:0.4;margin-left:8px;vertical-align:middle;"></i>';
+        anchor.style.textDecoration = 'none';
+        h.appendChild(anchor);
+      }
+    });
+  }
+
+})();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<script type="text/javascript">
+(function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight');
+  highlights.forEach(function(block) {
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      navigator.clipboard.writeText(text.trim()).then(function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 2000);
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② TOC IntersectionObserver：追蹤當前章節並高亮
+     ═══════════════════════════════════════════════════ */
+  var toc = document.getElementById('toc');
+  if (toc) {
+    // 樣式設定：讓 TOC 連結有 active class
+    var tocLinks = toc.querySelectorAll('a');
+    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
+
+    if (headings.length > 0 && tocLinks.length > 0) {
+      var activeId = null;
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+          }
+        });
+        // 更新 TOC active 狀態
+        tocLinks.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (href === '#' + activeId) {
+            link.classList.add('toc-active');
+          } else {
+            link.classList.remove('toc-active');
+          }
+        });
+      }, {
+        rootMargin: '-80px 0px -60% 0px',  // 觸發區：頂部扣除 navbar 高度
+        threshold: 0
+      });
+
+      headings.forEach(function(h) {
+        if (h.id) observer.observe(h);
+      });
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  var navMenu = document.querySelector('#nav ul');
+  var menuIconLinks = document.querySelectorAll('#menu-icon, #menu-icon-tablet');
+
+  if (navMenu) {
+    // 點擊 header 外部時自動關閉 nav（若已展開）
+    document.addEventListener('click', function(e) {
+      var header = document.getElementById('header');
+      if (header && !header.contains(e.target)) {
+        // Cactus 主題的 nav 用 display 控制，透過 jQuery toggle
+        if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+          $('#nav ul').slideUp(200);
+        }
+      }
+    });
+
+    // Escape 鍵關閉
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && typeof $ !== 'undefined') {
+        $('#nav ul').slideUp(200);
+      }
+    });
+  }
+
+})();
+</script>
 
 <!-- search -->
 
