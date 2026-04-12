@@ -107,7 +107,7 @@
         style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
 
       
-            <div class="content index py4 ">
+            <main class="content index py4 " role="main">
               <header id="header">
   <a class="u-url u-uid" href="/">
   
@@ -296,7 +296,7 @@
   </div>
 </footer>
 
-            </div>
+            </main>
             <!-- styles -->
 
 
@@ -507,6 +507,26 @@
         $('#nav ul').slideUp(200);
       }
     });
+
+    // Mobile 手勢滑動關閉 (Touch Swipe)
+    var touchStartX = 0;
+    var touchStartY = 0;
+    document.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, {passive: true});
+
+    document.addEventListener('touchend', function(e) {
+      if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+        var touchEndX = e.changedTouches[0].screenX;
+        var touchEndY = e.changedTouches[0].screenY;
+        
+        // 判斷滑動方向 (Swipe Up 或是 Swipe Left)
+        if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+          $('#nav ul').slideUp(200);
+        }
+      }
+    }, {passive: true});
   }
 
 })();

@@ -478,8 +478,8 @@ html {
   display: inline-flex;
   align-items: center;
   transition: color 0.25s ease, background 0.25s ease;
-  padding: 10px 14px; /* min touch height ≈ 42px → pass Lighthouse */
-  min-height: 44px;
+  padding: 12px 14px; /* 48px height */
+  min-height: 48px;
   border-radius: 6px;
   box-sizing: border-box;
 }
