@@ -181,17 +181,17 @@
           
             <main class="content index py4 " role="main">
               <header id="header">
-  <a class="u-url u-uid" href="/">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
   
     
-      <img id="logo" alt class="u-logo" src="/images/logo.png" />
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
     
   
-    <div id="title">
+    <div id="title" style="margin: 0;">
       <h1 class="p-name">Reedlin2002</h1>
     </div>
   </a>
-  <div id="nav">
+  <div id="nav" style="display: flex; align-items: center; gap: 20px;">
     <ul>
       <li class="icon">
         <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
@@ -659,9 +659,130 @@
 <!-- utterances Comments -->
 
 
-                
+                <!-- 極簡音樂播放器 Widget -->
+<div id="shoka-music-player" class="music-player">
+  <div class="player-controls">
+    <button id="mp-prev" aria-label="Previous"><i class="fa-solid fa-backward-step"></i></button>
+    <button id="mp-play" aria-label="Play/Pause"><i class="fa-solid fa-play"></i></button>
+    <button id="mp-next" aria-label="Next"><i class="fa-solid fa-forward-step"></i></button>
+  </div>
+  <div class="player-info" title="Scroll to adjust volume">
+    <span id="mp-title" class="mp-title-text">-</span>
+  </div>
+  <div class="player-progress-container" id="mp-progress-container">
+    <div class="player-progress" id="mp-progress"></div>
+  </div>
+  <div class="player-volume">
+    <i class="fa-solid fa-volume-high" id="mp-vol-icon"></i>
+    <div class="player-vol-container" id="mp-vol-container">
+      <div class="player-vol-bar" id="mp-vol-bar"></div>
+    </div>
+  </div>
+  <audio id="mp-audio" preload="none"></audio>
+</div>
+
+<style>
+  .music-player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 1rem;
+    padding: 8px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    height: 40px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+  }
+  .player-controls button {
+    background: transparent;
+    border: none;
+    color: var(--shoka-color-text-2, #94a3b8);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 6px;
+    transition: color 0.2s;
+  }
+  .player-controls button:hover, .player-volume i:hover {
+    color: var(--shoka-color-primary, #22d3ee);
+  }
+  .player-info {
+    max-width: 120px;
+    margin: 0 4px;
+    font-size: 13px;
+    color: var(--shoka-color-text, #f1f5f9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  .player-progress-container {
+    width: 80px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+  }
+  .player-progress {
+    height: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    width: 0%;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: width 0.1s linear;
+  }
+  .player-volume {
+    color: var(--shoka-color-text-2, #94a3b8);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .player-vol-container {
+    height: 0;
+    width: 4px;
+    opacity: 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: height 0.3s ease, opacity 0.3s ease;
+  }
+  .player-vol-container.show {
+    height: 60px;
+    opacity: 1;
+  }
+  .player-vol-bar {
+    width: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: height 0.1s linear;
+  }
+
+  @media (max-width: 768px) {
+    .music-player {
+      display: none; /* Mobile 版本不顯示或簡化，在此先隱藏避免版面擁擠 */
+    }
+  }
+</style>
+
 
                     <script src="/js/shoka.js"></script>
+                    <script src="/js/music-player.js"></script>
                     <!-- 終極視覺特效腳本 -->
                     
 <script src="/js/particle-system.js"></script>
