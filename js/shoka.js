@@ -3,33 +3,44 @@
  * 互動特效腳本：Parallax Hero, Sticky Navbar
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+window.initShokaJS = function() {
     const header = document.getElementById('header');
     const herobg = document.getElementById('hero-bg');
     const heroContent = document.getElementById('hero-content');
 
-    // Sticky Navbar Logic
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+    // 避免重複綁定 scroll 事件
+    if (window._shokaScrollListener) {
+        window.removeEventListener('scroll', window._shokaScrollListener);
+    }
+
+    window._shokaScrollListener = () => {
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         }
 
         // Hero Parallax
         if (herobg && heroContent) {
             let scroll = window.scrollY;
-            if (scroll < 1000) { // Optimize: stop calc if far down
+            if (scroll < 1000) { 
                 herobg.style.transform = `translateY(${scroll * 0.5}px)`;
                 heroContent.style.opacity = 1 - scroll / 700;
                 heroContent.style.transform = `translateY(${scroll * 0.3}px)`;
             }
         }
-    });
+    };
+
+    window.addEventListener('scroll', window._shokaScrollListener);
+    window._shokaScrollListener(); // 執行一次初始狀態
 
     // Smooth Scroll for "Scroll Down" button
+    // 避免重複綁定 click 事件
     const scrollBtn = document.getElementById('scroll-down');
-    if (scrollBtn) {
+    if (scrollBtn && !scrollBtn.hasAttribute('data-has-click')) {
+        scrollBtn.setAttribute('data-has-click', 'true');
         scrollBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: window.innerHeight,
@@ -37,4 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.initShokaJS();
 });
