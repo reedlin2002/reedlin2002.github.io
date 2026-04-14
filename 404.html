@@ -580,17 +580,20 @@ window.initSprint3JS();
     display: flex;
     align-items: center;
     gap: 12px;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(10px);
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(71, 85, 105, 0.4);
     border-radius: 1rem;
     padding: 8px 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(34, 211, 238, 0.08);
     height: 40px;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 9999;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1100;
+    isolation: isolate;        /* 建立獨立 stacking context */
+    transform: translateZ(0);  /* GPU layer 強制提升 */
   }
   .player-controls button {
     background: transparent;
