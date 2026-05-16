@@ -2,6 +2,7 @@
 title: 🧣 | GitHub
 date: 2025-06-05 15:03:00
 tags: [myself]
+cover: https://images.unsplash.com/photo-1620641788421-7f1c338e448c?q=80&w=800
 ---
 🧣 About me
 ======

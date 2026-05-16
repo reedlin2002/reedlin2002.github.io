@@ -3,6 +3,7 @@ title: 單例模式 Singleton_pattern
 date: 2025-07-13 16:16:17
 tags: [技術筆記,(作者自學用)]
 hidden: true
+cover: https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800
 ---
 # 單例模式 (Singleton Pattern)
 

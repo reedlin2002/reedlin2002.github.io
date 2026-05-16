@@ -2,6 +2,7 @@
 title: 🤖 | 記帳小管家
 date: 2025-06-18 12:10:35
 tags: [project]
+cover: /images/expenses_1.png
 ---
 # 一個結合 React 前端與 Flask 後端的個人記帳專案
 > 基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。

@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Welcome to Reedlin2002's Page
+title: Reedlin2002
 subtitle: 個人筆記與作品集
-description: 用來記錄學習與開發的歷程
-keywords:
+description: Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程
+keywords: Jerry Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程
 author: Jerry Lin
 language: zh-TW
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://reedlin2002.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -104,4 +104,10 @@ deploy:
   type: git
   repo: https://github.com/reedlin2002/reedlin2002.github.io.git
   branch: main
+
+# Search
+search:
+  path: search.xml
+  field: post
+  content: true
 

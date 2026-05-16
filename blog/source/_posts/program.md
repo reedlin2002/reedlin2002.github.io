@@ -2,6 +2,7 @@
 title: 📕 | PDF Reader
 date: 2025-06-09 21:10:31
 tags: [project]
+cover: https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800
 ---
 
 # PDF Reader
