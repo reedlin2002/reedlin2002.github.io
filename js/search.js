@@ -52,7 +52,19 @@ var searchFunc = function(path, searchId, contentId) {
   $.ajax({
     url: path,
     dataType: "xml",
+    beforeSend: function() {
+      var noResult = document.querySelector(".search-no-result");
+      if (noResult) {
+        noResult.innerHTML = "<i class='fas fa-spinner fa-spin'></i> 載入索引庫中...";
+        noResult.style.display = "block";
+      }
+    },
     success: function(xmlResponse) {
+      var noResultInit = document.querySelector(".search-no-result");
+      if (noResultInit) {
+        noResultInit.style.display = "none";
+        noResultInit.innerHTML = "找不到相關內容";
+      }
       // get the contents from search data
       var datas = $("entry", xmlResponse).map(function() {
         return {
@@ -72,6 +84,8 @@ var searchFunc = function(path, searchId, contentId) {
           .sort(function(a,b) { return b.split(" ").length - a.split(" ").length; });
         $resultContent.innerHTML = "";
         if (this.value.trim().length <= 0) {
+          var nr = document.querySelector(".search-no-result");
+          if (nr) nr.style.display = "none";
           return;
         }
         // perform local searching

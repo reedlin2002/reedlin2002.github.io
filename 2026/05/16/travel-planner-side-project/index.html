@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head>
+  <!-- ── Core Meta ── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="theme-color" content="#0a0f1e">
+
+  <!-- ── Title ── -->
+  <title>用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  <meta name="keywords" content="side project, React, TypeScript, AI">
+  <meta name="author" content="Jerry Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="# 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得  這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。   # 專案簡介 travel_frontend 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得">
+<meta property="og:url" content="https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="# 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得  這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。   # 專案簡介 travel_frontend 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-05-16T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-16T13:58:28.705Z">
+<meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="side project">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得">
+  <meta name="twitter:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得",
+    "description": "Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
+    "url": "https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/",
+    "datePublished": "2026-05-16T12:00:00.000Z",
+    "dateModified": "2026-05-16T13:58:28.705Z",
+    "author": {
+      "@type": "Person",
+      "name": "Jerry Lin",
+      "url": "https://reedlin2002.github.io"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Jerry Lin",
+      "url": "https://reedlin2002.github.io"
+    }
+    
+  }
+  </script>
+  
+
+  <!-- ── Favicon ── -->
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+
+  <!-- ── Analytics ── -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="max-width mx-auto px3 ltr">
+      <!-- 粒子特效 Canvas -->
+      <canvas id="particle-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2025/07/19/LocalAIAgentAPI/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&text=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&is_video=false&description=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得&body=Check out this article: https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&name=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&t=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-ai-%E5%B9%AB%E4%BD%A0%E8%A6%8F%E5%8A%83%E6%97%85%E7%A8%8B-travel-planner-side-project-%E9%96%8B%E7%99%BC%E5%BF%83%E5%BE%97"><span class="toc-number">1.</span> <span class="toc-text"> 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 專案簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%A8%AD%E8%A8%88%E7%9A%84%E6%80%9D%E8%80%83%E9%81%8E%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 功能設計的思考過程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%BF%B4%E5%9C%88%E8%BC%B8%E5%85%A5-ai-%E5%9C%B0%E5%9C%96"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 核心迴圈：輸入 → AI → 地圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ai-%E6%95%B4%E5%90%88gemini-%E7%9A%84-api-%E9%85%8D%E9%A1%8D%E5%95%8F%E9%A1%8C"><span class="toc-number">1.2.2.</span> <span class="toc-text"> AI 整合：Gemini 的 API 配額問題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9C%96%E6%95%B4%E5%90%88google-maps-%E7%9A%84%E5%9D%91"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 地圖整合：Google Maps 的坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%80%E6%85%8B%E7%AE%A1%E7%90%86context-api-%E7%9A%84%E9%82%8A%E7%95%8C"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 狀態管理：Context API 的邊界</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%BC%83%E6%9C%89%E8%B6%A3%E7%9A%84%E6%8A%80%E8%A1%93%E7%B4%B0%E7%AF%80"><span class="toc-number">1.3.</span> <span class="toc-text"> 比較有趣的技術細節</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dnd-kit-%E6%8B%96%E6%8B%89%E6%8E%92%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> dnd-kit 拖拉排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i18n%E4%B8%AD%E8%8B%B1%E6%96%87%E9%9B%99%E8%AA%9E"><span class="toc-number">1.3.2.</span> <span class="toc-text"> i18n：中英文雙語</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#design-system-tokens"><span class="toc-number">1.3.3.</span> <span class="toc-text"> Design System Tokens</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%88%B0%E7%9A%84%E5%9D%91%E8%88%87%E5%8F%8D%E6%80%9D"><span class="toc-number">1.4.</span> <span class="toc-text"> 踩到的坑與反思</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E7%8B%80%E6%85%8B%E8%88%87%E5%BE%8C%E7%BA%8C%E8%A6%8F%E5%8A%83"><span class="toc-number">1.5.</span> <span class="toc-text"> 目前狀態與後續規劃</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">1.6.</span> <span class="toc-text"> 小結</span></a></li></ol></li></ol>
+      </div>
+    
+</div>
+
+          
+            <main class="content index py4 " role="main">
+              <header id="header">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
+    
+  
+    <div id="title" style="margin: 0;">
+      <h1 class="p-name">Reedlin2002</h1>
+    </div>
+  </a>
+  <div id="nav" style="display: flex; align-items: center; gap: 20px;">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">首頁</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+   --><!--
+     --><li><a href="https://reedlin2002.github.io/tags/project/">專案</a></li><!--
+   --><!--
+     --><li><a href="/search/">搜尋</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Jerry Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-05-16T12:00:00.000Z" class="dt-published" itemprop="datePublished">2026-05-16</time>
+        
+        (Updated: <time datetime="2026-05-16T13:58:28.705Z" class="dt-updated" itemprop="dateModified">2026-05-16</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/AI/" rel="tag">AI</a>, <a class="p-category" href="/tags/React/" rel="tag">React</a>, <a class="p-category" href="/tags/TypeScript/" rel="tag">TypeScript</a>, <a class="p-category" href="/tags/side-project/" rel="tag">side project</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="用-ai-幫你規劃旅程-travel-planner-side-project-開發心得"><a class="markdownIt-Anchor" href="#用-ai-幫你規劃旅程-travel-planner-side-project-開發心得">#</a> 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</h1>
+<blockquote>
+<p>這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。</p>
+</blockquote>
+<hr>
+<h2 id="專案簡介"><a class="markdownIt-Anchor" href="#專案簡介">#</a> 專案簡介</h2>
+<p><strong>travel_frontend</strong> 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份完整的旅遊行程表，並且在地圖上可視化路線。</p>
+<p>整個前端技術棧：</p>
+<ul>
+<li><strong>React 18 + TypeScript</strong> — 型別安全優先，Props 和 State 全部嚴格定義</li>
+<li><strong>Vite</strong> — 開發體驗快，HMR 幾乎即時</li>
+<li><strong>Google Maps API</strong> — 地點選擇、路線繪製</li>
+<li><strong>Google Gemini API</strong> — AI 行程生成核心</li>
+<li><strong>Apollo Client + GraphQL</strong> — 與後端溝通的資料層</li>
+<li><strong>dnd-kit</strong> — 拖拉排序行程項目</li>
+<li><strong>Framer Motion</strong> — 頁面切換與微互動動畫</li>
+<li><strong>i18next</strong> — 中英文雙語支援</li>
+</ul>
+<hr>
+<h2 id="功能設計的思考過程"><a class="markdownIt-Anchor" href="#功能設計的思考過程">#</a> 功能設計的思考過程</h2>
+<h3 id="核心迴圈輸入-ai-地圖"><a class="markdownIt-Anchor" href="#核心迴圈輸入-ai-地圖">#</a> 核心迴圈：輸入 → AI → 地圖</h3>
+<p>最初的 MVP 設計非常直觀：</p>
+<ol>
+<li>使用者在地圖上<strong>點選起點與終點</strong></li>
+<li>填入<strong>天數（1-7 天）、人數（1-10 人）、交通方式、旅遊主題</strong></li>
+<li>點擊「生成行程」，AI 回傳帶有時間、地點、停留時長的行程</li>
+<li>行程清單與路線同時在地圖上呈現</li>
+</ol>
+<p>聽起來很簡單，但實際開發過程中每個環節都有坑。</p>
+<h3 id="ai-整合gemini-的-api-配額問題"><a class="markdownIt-Anchor" href="#ai-整合gemini-的-api-配額問題">#</a> AI 整合：Gemini 的 API 配額問題</h3>
+<p>AI 這塊是最核心也最棘手的部分。我選用了 Google 的 Gemini API，主要是因為有免費額度可以做 MVP 測試。</p>
+<p>遇到的第一個問題是 <strong>429 Rate Limit</strong>。Gemini 免費版的配額非常有限，為此實作了一套 <strong>Model Fallback 機制</strong>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">MODEL_CONFIGS</span> = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-1.5-flash&#x27;</span> &#125;,       <span class="comment">// 主力，配額壓力較低</span></span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-1.5-flash-8b&#x27;</span> &#125;,    <span class="comment">// 備援</span></span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-2.0-flash-lite&#x27;</span> &#125;,  <span class="comment">// 備援</span></span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-2.0-flash&#x27;</span> &#125;,       <span class="comment">// 備援</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>依序嘗試，遇到 429 或 404 就自動切換下一個模型。這個設計讓開發階段幾乎不用擔心配額耗盡的問題。</p>
+<p>第二個問題是讓 AI <strong>穩定輸出結構化 JSON</strong>。最初直接使用  <code>responseMimeType: 'application/json'</code> ，但發現不同模型版本的行為不一致，最後改成在 Prompt 裡明確要求 JSON 格式並加上嚴格的欄位規範，搭配前端的 Retry 與驗證邏輯，才讓輸出穩定下來。</p>
+<h3 id="地圖整合google-maps-的坑"><a class="markdownIt-Anchor" href="#地圖整合google-maps-的坑">#</a> 地圖整合：Google Maps 的坑</h3>
+<p>地圖這塊主要靠  <code>@react-google-maps/api</code>  這個 React wrapper。</p>
+<p>比較有趣的設計決策是 <strong>地圖的雙重模式</strong>：</p>
+<ul>
+<li>行程生成前：顯示「位置選擇地圖」，讓使用者點選起終點</li>
+<li>行程生成後：切換成「路線可視化地圖」，用有序的 Polyline 把所有景點連起來</li>
+</ul>
+<p>這個切換邏輯放在  <code>App.tsx</code>  裡，根據  <code>state.itinerary.itinerary</code>  是否存在來決定要渲染哪個地圖元件，簡單明瞭。</p>
+<h3 id="狀態管理context-api-的邊界"><a class="markdownIt-Anchor" href="#狀態管理context-api-的邊界">#</a> 狀態管理：Context API 的邊界</h3>
+<p>這個專案的狀態管理選擇了 React 原生的 Context API，而不是 Zustand 或 Redux。</p>
+<p>核心的  <code>PlanningContext</code>  管理著所有規劃參數與行程狀態：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">startLocation / destinationLocation</span><br><span class="line">days / numberOfPeople / transportationMode / travelTheme</span><br><span class="line">itinerary: &#123; isGenerating, itinerary, error &#125;</span><br></pre></td></tr></table></figure>
+<p>以 MVP 規模來說這樣夠用，但如果之後功能繼續擴充（例如多行程管理、協作編輯），Context 的 re-render 問題可能需要認真面對。</p>
+<hr>
+<h2 id="比較有趣的技術細節"><a class="markdownIt-Anchor" href="#比較有趣的技術細節">#</a> 比較有趣的技術細節</h2>
+<h3 id="dnd-kit-拖拉排序"><a class="markdownIt-Anchor" href="#dnd-kit-拖拉排序">#</a> dnd-kit 拖拉排序</h3>
+<p>行程生成後，使用者可以手動拖拉調整景點順序。這個功能用  <code>@dnd-kit/sortable</code>  實作，搭配虛擬列表  <code>@tanstack/react-virtual</code>  來處理長行程的效能問題。</p>
+<p>dnd-kit 的設計哲學是「無頭（headless）」，樣式完全自定義，比 react-beautiful-dnd 靈活很多，但上手成本稍高，需要自己組合  <code>DndContext</code> 、 <code>SortableContext</code> 、 <code>useSortable</code>  等 Hook。</p>
+<h3 id="i18n中英文雙語"><a class="markdownIt-Anchor" href="#i18n中英文雙語">#</a> i18n：中英文雙語</h3>
+<p>一開始沒預期要做多語言，但考慮到之後可能分享給外國朋友用，就順手加了  <code>i18next</code> 。語言檔放在  <code>src/i18n/locales/</code>  下，分為  <code>zh-TW.json</code>  和  <code>en.json</code> ，搭配  <code>i18next-browser-languagedetector</code>  自動偵測瀏覽器語言設定。</p>
+<h3 id="design-system-tokens"><a class="markdownIt-Anchor" href="#design-system-tokens">#</a> Design System Tokens</h3>
+<p>雖然這只是個人 Side Project，但還是花時間建了一套簡單的 Design Token：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">src/design-system/tokens/</span><br><span class="line">  colors.ts</span><br><span class="line">  typography.ts</span><br><span class="line">  spacing.ts</span><br><span class="line">  shadows.ts</span><br><span class="line">  borderRadius.ts</span><br><span class="line">  animation.ts</span><br></pre></td></tr></table></figure>
+<p>這讓後來調整視覺風格時省了很多力，不用滿專案找散落的顏色值。</p>
+<hr>
+<h2 id="踩到的坑與反思"><a class="markdownIt-Anchor" href="#踩到的坑與反思">#</a> 踩到的坑與反思</h2>
+<p><strong>Prompt 工程比想像中重要</strong></p>
+<p>讓 Gemini 穩定輸出符合預期格式的 JSON，花的時間遠比串接 API 本身多。Prompt 裡要明確說明輸出格式、每個欄位的型別與意義，以及各種邊界情況的處理方式。這讓我意識到，AI Feature 的品質上限很大程度取決於 Prompt 的品質。</p>
+<p><strong>型別安全帶來的摩擦值得</strong></p>
+<p>全程嚴格使用 TypeScript，初期定義 Interface 確實費時，但在後來改動 API Response 結構時，TypeScript 的編譯錯誤直接幫我找到所有受影響的地方。這個投資在中後期完全值回票價。</p>
+<p><strong>過早優化的誘惑</strong></p>
+<p>中途有一段時間很想把 Context 換成 Zustand、把 CSS-in-JS 換成 Tailwind，但最後還是忍住了，專注在把核心功能做穩。Side Project 最容易死在「一直重構、一直換技術」這個迴圈裡。</p>
+<hr>
+<h2 id="目前狀態與後續規劃"><a class="markdownIt-Anchor" href="#目前狀態與後續規劃">#</a> 目前狀態與後續規劃</h2>
+<p>MVP 的核心功能基本完成：</p>
+<ul class="task-list">
+<li class="task-list-item"><input type="checkbox" id="cbx_0" checked="true" disabled="true"><label for="cbx_0"> Google Maps 起終點選擇</label></li>
+<li class="task-list-item"><input type="checkbox" id="cbx_1" checked="true" disabled="true"><label for="cbx_1"> AI 行程生成（Gemini）</label></li>
+<li class="task-list-item"><input type="checkbox" id="cbx_2" checked="true" disabled="true"><label for="cbx_2"> 路線可視化</label></li>
+<li class="task-list-item"><input type="checkbox" id="cbx_3" checked="true" disabled="true"><label for="cbx_3"> 行程拖拉排序</label></li>
+<li class="task-list-item"><input type="checkbox" id="cbx_4" checked="true" disabled="true"><label for="cbx_4"> 行程歷史紀錄</label></li>
+<li class="task-list-item"><input type="checkbox" id="cbx_5" checked="true" disabled="true"><label for="cbx_5"> QR Code 分享</label></li>
+<li class="task-list-item"><input type="checkbox" id="cbx_6" checked="true" disabled="true"><label for="cbx_6"> 中英文雙語</label></li>
+</ul>
+<p>後續想加的功能：</p>
+<ul>
+<li>行程匯出成 PDF / 圖片</li>
+<li>多日行程的天數切換視圖</li>
+<li>真實景點的開放時間與票價資訊整合</li>
+</ul>
+<hr>
+<h2 id="小結"><a class="markdownIt-Anchor" href="#小結">#</a> 小結</h2>
+<p>做這個 Side Project 的過程讓我對 AI API 整合有了更實際的認識 —— 它不只是呼叫一個 API 那麼簡單，背後的 Prompt 設計、錯誤處理、Fallback 策略，才是讓功能真正可靠的關鍵。</p>
+<p>如果你也有「這個工具怎麼還沒人做」的想法，就動手吧。從零到可以用，沒有想像中那麼遠。</p>
+<hr>
+<p><em>技術棧：React 18 / TypeScript / Vite / Google Maps API / Gemini API / Apollo Client / GraphQL /dnd-kit/ Framer Motion /i18next</em></p>
+
+  </div>
+</article>
+
+
+
+                  
+                    <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li>
+        
+          <li><a href="https://reedlin2002.github.io/tags/project/">專案</a></li>
+        
+          <li><a href="/search/">搜尋</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-ai-%E5%B9%AB%E4%BD%A0%E8%A6%8F%E5%8A%83%E6%97%85%E7%A8%8B-travel-planner-side-project-%E9%96%8B%E7%99%BC%E5%BF%83%E5%BE%97"><span class="toc-number">1.</span> <span class="toc-text"> 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 專案簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%A8%AD%E8%A8%88%E7%9A%84%E6%80%9D%E8%80%83%E9%81%8E%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 功能設計的思考過程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%BF%B4%E5%9C%88%E8%BC%B8%E5%85%A5-ai-%E5%9C%B0%E5%9C%96"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 核心迴圈：輸入 → AI → 地圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ai-%E6%95%B4%E5%90%88gemini-%E7%9A%84-api-%E9%85%8D%E9%A1%8D%E5%95%8F%E9%A1%8C"><span class="toc-number">1.2.2.</span> <span class="toc-text"> AI 整合：Gemini 的 API 配額問題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9C%96%E6%95%B4%E5%90%88google-maps-%E7%9A%84%E5%9D%91"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 地圖整合：Google Maps 的坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%80%E6%85%8B%E7%AE%A1%E7%90%86context-api-%E7%9A%84%E9%82%8A%E7%95%8C"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 狀態管理：Context API 的邊界</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%BC%83%E6%9C%89%E8%B6%A3%E7%9A%84%E6%8A%80%E8%A1%93%E7%B4%B0%E7%AF%80"><span class="toc-number">1.3.</span> <span class="toc-text"> 比較有趣的技術細節</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dnd-kit-%E6%8B%96%E6%8B%89%E6%8E%92%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> dnd-kit 拖拉排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i18n%E4%B8%AD%E8%8B%B1%E6%96%87%E9%9B%99%E8%AA%9E"><span class="toc-number">1.3.2.</span> <span class="toc-text"> i18n：中英文雙語</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#design-system-tokens"><span class="toc-number">1.3.3.</span> <span class="toc-text"> Design System Tokens</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%88%B0%E7%9A%84%E5%9D%91%E8%88%87%E5%8F%8D%E6%80%9D"><span class="toc-number">1.4.</span> <span class="toc-text"> 踩到的坑與反思</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E7%8B%80%E6%85%8B%E8%88%87%E5%BE%8C%E7%BA%8C%E8%A6%8F%E5%8A%83"><span class="toc-number">1.5.</span> <span class="toc-text"> 目前狀態與後續規劃</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">1.6.</span> <span class="toc-text"> 小結</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&text=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&is_video=false&description=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得&body=Check out this article: https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&title=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&name=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/&t=用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+                      
+                        <!-- ═══════════════════════════════════════════════
+     相關鏈結 / LINK SECTION
+     ═══════════════════════════════════════════════ -->
+<section id="link-section" aria-label="相關鏈結">
+  <div class="link-section-inner">
+
+    <!-- 裝飾標題 -->
+    <div class="link-section-header">
+      <div class="link-header-deco">
+        <span class="deco-line"></span>
+        <span class="deco-diamonds">◆◇◆</span>
+        <span class="deco-line"></span>
+      </div>
+      <h2 class="link-section-title">相關鏈結 <span class="title-en">/ LINK</span></h2>
+      <div class="link-header-deco">
+        <span class="deco-line"></span>
+        <span class="deco-diamonds">◆◇◆</span>
+        <span class="deco-line"></span>
+      </div>
+    </div>
+
+    <!-- 橫幅格狀陣列 -->
+    <div class="link-banner-grid">
+
+      <a class="link-banner-item" href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=github.com" alt="GitHub" loading="lazy">
+        <span class="banner-label">GitHub</span>
+      </a>
+
+      <a class="link-banner-item" href="https://developer.mozilla.org" target="_blank" rel="noopener" aria-label="MDN Web Docs">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=developer.mozilla.org" alt="MDN" loading="lazy">
+        <span class="banner-label">MDN Docs</span>
+      </a>
+
+      <a class="link-banner-item" href="https://leetcode.com" target="_blank" rel="noopener" aria-label="LeetCode">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=leetcode.com" alt="LeetCode" loading="lazy">
+        <span class="banner-label">LeetCode</span>
+      </a>
+
+      <a class="link-banner-item" href="https://archlinux.org" target="_blank" rel="noopener" aria-label="Arch Linux">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=archlinux.org" alt="Arch Linux" loading="lazy">
+        <span class="banner-label">Arch Linux</span>
+      </a>
+
+      <a class="link-banner-item" href="https://hexo.io" target="_blank" rel="noopener" aria-label="Hexo">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=hexo.io" alt="Hexo" loading="lazy">
+        <span class="banner-label">Hexo</span>
+      </a>
+
+      <a class="link-banner-item" href="https://hub.docker.com" target="_blank" rel="noopener" aria-label="Docker Hub">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=hub.docker.com" alt="Docker Hub" loading="lazy">
+        <span class="banner-label">Docker Hub</span>
+      </a>
+
+      <a class="link-banner-item" href="https://stackoverflow.com" target="_blank" rel="noopener" aria-label="Stack Overflow">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=stackoverflow.com" alt="Stack Overflow" loading="lazy">
+        <span class="banner-label">Stack Overflow</span>
+      </a>
+
+      <a class="link-banner-item" href="https://www.linux.org" target="_blank" rel="noopener" aria-label="Linux.org">
+        <img src="https://www.google.com/s2/favicons?sz=64&domain=linux.org" alt="Linux" loading="lazy">
+        <span class="banner-label">Linux.org</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     多欄位 FOOTER
+     ═══════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-inner">
+
+    <!-- 多欄位導覽 -->
+    <nav class="footer-nav-grid" aria-label="頁尾導覽">
+
+      <!-- 欄 1：站內指南 -->
+      <div class="footer-col">
+        <h3 class="footer-col-title">站內指南</h3>
+        <ul class="footer-link-list">
+          <li><a href="/">首頁</a></li>
+          <li><a href="/search/">搜尋文章</a></li>
+          <li><a href="/archives/">文章歸檔</a></li>
+          <li><a href="/tags/">標籤總覽</a></li>
+        </ul>
+      </div>
+
+      <!-- 欄 2：推薦專案 -->
+      <div class="footer-col">
+        <h3 class="footer-col-title">推薦專案</h3>
+        <ul class="footer-link-list">
+          <li><a href="https://github.com/reedlin2002" target="_blank" rel="noopener">我的 GitHub</a></li>
+          <li><a href="/tags/project/">所有專案</a></li>
+        </ul>
+      </div>
+
+      <!-- 欄 3：社交媒體 -->
+      <div class="footer-col">
+        <h3 class="footer-col-title">聯絡方式</h3>
+        <ul class="footer-link-list">
+          <li><a href="https://github.com/reedlin2002" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> GitHub
+          </a></li>
+          <li><a href="mailto:reedlin2002@gmail.com">
+            <i class="fas fa-envelope"></i> Email
+          </a></li>
+        </ul>
+      </div>
+
+    </nav>
+
+    <!-- 右側 CTA 按鈕 -->
+    <div class="footer-cta">
+      <a href="mailto:reedlin2002@gmail.com" class="footer-cta-btn btn-contact" id="footer-contact-btn">
+        <i class="fas fa-paper-plane"></i>
+        <span>聯絡我</span>
+      </a>
+      <a href="https://github.com/reedlin2002/reedlin2002.github.io/releases" class="footer-cta-btn btn-rss" target="_blank" rel="noopener" id="footer-rss-btn">
+        <i class="fas fa-code-branch"></i>
+        <span>Releases</span>
+      </a>
+      <a href="/archives/" class="footer-cta-btn btn-archive" id="footer-archive-btn">
+        <i class="fas fa-book-open"></i>
+        <span>文章庫</span>
+      </a>
+    </div>
+
+  </div><!-- /.footer-inner -->
+
+  <!-- 版權列 -->
+  <div class="footer-copyright">
+    <span class="copyright-text">
+      Copyright &copy;
+      
+      
+      2016–2026
+      <strong>Jerry Lin</strong>
+    </span>
+    <span class="copyright-sep">·</span>
+    <span class="powered-by">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> &amp; Cactus Theme</span>
+  </div>
+
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     返回頂部按鈕
+     ═══════════════════════════════════════════════ -->
+<button id="back-to-top" aria-label="返回頂部" title="返回頂部">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+            </main>
+            <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "複製成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+window.initSprint2JS = function() {
+  'use strict';
+
+  /* ① Navbar Glassmorphism scroll toggle */
+  var header = document.getElementById('header');
+  if (header) {
+    if (window._navbarScrollListener) {
+      window.removeEventListener('scroll', window._navbarScrollListener);
+    }
+    window._navbarScrollListener = function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', window._navbarScrollListener, { passive: true });
+    window._navbarScrollListener(); // 初始執行一次
+  }
+
+  /* ② 卡片 staggered 進場動畫（IntersectionObserver） */
+  var cards = document.querySelectorAll('.shoka-card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    if (window.cardObserver) {
+      window.cardObserver.disconnect();
+    }
+    window.cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          window.cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      window.cardObserver.observe(card);
+    });
+  }
+
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
+};
+window.initSprint2JS();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<script type="text/javascript">
+window.initSprint3JS = function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight:not(.has-copy-btn)');
+  highlights.forEach(function(block) {
+    block.classList.add('has-copy-btn');
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight' && c !== 'has-copy-btn';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      navigator.clipboard.writeText(text.trim()).then(function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 2000);
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② TOC IntersectionObserver：追蹤當前章節並高亮
+     ═══════════════════════════════════════════════════ */
+  var toc = document.getElementById('toc');
+  if (toc) {
+    if (window.tocObserver) {
+        window.tocObserver.disconnect();
+    }
+    // 樣式設定：讓 TOC 連結有 active class
+    var tocLinks = toc.querySelectorAll('a');
+    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
+
+    if (headings.length > 0 && tocLinks.length > 0) {
+      var activeId = null;
+
+      window.tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+          }
+        });
+        // 更新 TOC active 狀態
+        tocLinks.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (href === '#' + activeId) {
+            link.classList.add('toc-active');
+          } else {
+            link.classList.remove('toc-active');
+          }
+        });
+      }, {
+        rootMargin: '-80px 0px -60% 0px',  // 觸發區：頂部扣除 navbar 高度
+        threshold: 0
+      });
+
+      headings.forEach(function(h) {
+        if (h.id) window.tocObserver.observe(h);
+      });
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  // We use standard named events to avoid duplication if we just use document.addEventListener
+  if (window._mobileNavHandlersBound) return;
+  window._mobileNavHandlersBound = true;
+
+  document.addEventListener('click', function(e) {
+    var navMenu = document.querySelector('#nav ul');
+    var header = document.getElementById('header');
+    if (navMenu && header && !header.contains(e.target)) {
+      if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+        $('#nav ul').slideUp(200);
+      }
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && typeof $ !== 'undefined') {
+      $('#nav ul').slideUp(200);
+    }
+  });
+
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive: true});
+
+  document.addEventListener('touchend', function(e) {
+    if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+      var touchEndX = e.changedTouches[0].screenX;
+      var touchEndY = e.changedTouches[0].screenY;
+      if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+        $('#nav ul').slideUp(200);
+      }
+    }
+  }, {passive: true});
+
+};
+window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(pct, 100).toFixed(2) + '%';
+    /* Fade out when fully read */
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
+</script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+
+                <!-- 極簡音樂播放器 Widget -->
+<div id="shoka-music-player" class="music-player">
+  <div class="player-controls">
+    <button id="mp-prev" aria-label="Previous"><i class="fa-solid fa-backward-step"></i></button>
+    <button id="mp-play" aria-label="Play/Pause"><i class="fa-solid fa-play"></i></button>
+    <button id="mp-next" aria-label="Next"><i class="fa-solid fa-forward-step"></i></button>
+  </div>
+  <div class="player-info" title="Scroll to adjust volume">
+    <span id="mp-title" class="mp-title-text">-</span>
+  </div>
+  <div class="player-progress-container" id="mp-progress-container">
+    <div class="player-progress" id="mp-progress"></div>
+  </div>
+  <div class="player-volume">
+    <i class="fa-solid fa-volume-high" id="mp-vol-icon"></i>
+    <div class="player-vol-container" id="mp-vol-container">
+      <div class="player-vol-bar" id="mp-vol-bar"></div>
+    </div>
+  </div>
+  <audio id="mp-audio" preload="none"></audio>
+</div>
+
+<style>
+  .music-player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 1rem;
+    padding: 8px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(34, 211, 238, 0.08);
+    height: 40px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1100;
+    isolation: isolate;        /* 建立獨立 stacking context */
+    transform: translateZ(0);  /* GPU layer 強制提升 */
+  }
+  .player-controls button {
+    background: transparent;
+    border: none;
+    color: var(--shoka-color-text-2, #94a3b8);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 6px;
+    transition: color 0.2s;
+  }
+  .player-controls button:hover, .player-volume i:hover {
+    color: var(--shoka-color-primary, #22d3ee);
+  }
+  .player-info {
+    max-width: 120px;
+    margin: 0 4px;
+    font-size: 13px;
+    color: var(--shoka-color-text, #f1f5f9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  .player-progress-container {
+    width: 80px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+  }
+  .player-progress {
+    height: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    width: 0%;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: width 0.1s linear;
+  }
+  .player-volume {
+    color: var(--shoka-color-text-2, #94a3b8);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .player-vol-container {
+    height: 0;
+    width: 4px;
+    opacity: 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: height 0.3s ease, opacity 0.3s ease;
+  }
+  .player-vol-container.show {
+    height: 60px;
+    opacity: 1;
+  }
+  .player-vol-bar {
+    width: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: height 0.1s linear;
+  }
+
+  @media (max-width: 768px) {
+    .music-player {
+      display: none; /* Mobile 版本不顯示或簡化，在此先隱藏避免版面擁擠 */
+    }
+  }
+</style>
+
+
+                    <script src="/js/shoka.js"></script>
+                    <script src="/js/music-player.js"></script>
+                    <!-- 終極視覺特效腳本 -->
+                    
+<script src="/js/particle-system.js"></script>
+
+                      <!-- 游標特效（已移除以提升效能與體驗） -->
+                      <!-- <script src="/js/cursor-effects.js"></script> -->
+                      
+<script src="/js/typewriter.js"></script>
+
+                      
+                      <!-- PJAX 架構與進度條 -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+                      
+<script src="/js/pjax-init.js"></script>
+
+    </body>
+
+    </html>

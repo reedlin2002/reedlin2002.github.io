@@ -393,21 +393,7 @@ window.initSprint2JS = function() {
     });
   }
 
-  /* ③ 文章內頁 H2/H3 自動加 anchor 連結 */
-  if (document.querySelector('#post .content')) {
-    var headings = document.querySelectorAll('#post .content h2:not(.has-anchor), #post .content h3:not(.has-anchor)');
-    headings.forEach(function(h) {
-      if (h.id) {
-        h.classList.add('has-anchor');
-        var anchor = document.createElement('a');
-        anchor.className = 'heading-anchor';
-        anchor.href = '#' + h.id;
-        anchor.innerHTML = '<i class="fa-solid fa-link" style="font-size:0.6em;opacity:0.4;margin-left:8px;vertical-align:middle;"></i>';
-        anchor.style.textDecoration = 'none';
-        h.appendChild(anchor);
-      }
-    });
-  }
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
 };
 window.initSprint2JS();
 </script>
@@ -567,6 +553,48 @@ window.initSprint3JS = function() {
 
 };
 window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(pct, 100).toFixed(2) + '%';
+    /* Fade out when fully read */
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
 </script>
 
 <!-- search -->

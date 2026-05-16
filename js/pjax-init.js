@@ -125,6 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.initSprint3JS();
       }
 
+      // Reading progress bar
+      if (typeof window.initReadingProgress === 'function') {
+        window.initReadingProgress();
+      }
+
       // Back-to-Top 重新初始化（PJAX 換頁後 scroll 位置重置）
       initAboutScroll();
       initBackToTop();

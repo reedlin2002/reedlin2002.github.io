@@ -217,6 +217,48 @@
                       <div class="shoka-card">
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
                           <img class="shoka-card-cover"
+                            src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy"
+                            alt="用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得">
+                        </div>
+                        <div class="shoka-card-body">
+                          <h2 class="shoka-card-title">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</a>
+                          </h2>
+                          <div class="shoka-card-excerpt">
+                            用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
+
+這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。
+
+
+專案簡介
+travelfrontend 是一個 AI 智慧行程規劃工具，使用...
+                          </div>
+                          
+                            <div class="shoka-card-tags">
+                              
+                                <a href="/tags/side%20project" class="shoka-tag">#side project</a>
+                                
+                                <a href="/tags/React" class="shoka-tag">#React</a>
+                                
+                                <a href="/tags/TypeScript" class="shoka-tag">#TypeScript</a>
+                                
+                                <a href="/tags/AI" class="shoka-tag">#AI</a>
+                                
+                            </div>
+                            
+                              <div class="shoka-card-sub">
+                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2026-05-16</span>
+                                
+                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 12 min</span>
+                              </div>
+                        </div>
+                      </div>
+                      
+                    
+                      <div class="shoka-card">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                          <img class="shoka-card-cover"
                             src="/images/LocalAIAgentAPI.png" loading="lazy"
                             alt="📍 | LocalAIAgentAPI">
                         </div>
@@ -827,21 +869,7 @@ window.initSprint2JS = function() {
     });
   }
 
-  /* ③ 文章內頁 H2/H3 自動加 anchor 連結 */
-  if (document.querySelector('#post .content')) {
-    var headings = document.querySelectorAll('#post .content h2:not(.has-anchor), #post .content h3:not(.has-anchor)');
-    headings.forEach(function(h) {
-      if (h.id) {
-        h.classList.add('has-anchor');
-        var anchor = document.createElement('a');
-        anchor.className = 'heading-anchor';
-        anchor.href = '#' + h.id;
-        anchor.innerHTML = '<i class="fa-solid fa-link" style="font-size:0.6em;opacity:0.4;margin-left:8px;vertical-align:middle;"></i>';
-        anchor.style.textDecoration = 'none';
-        h.appendChild(anchor);
-      }
-    });
-  }
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
 };
 window.initSprint2JS();
 </script>
@@ -1001,6 +1029,48 @@ window.initSprint3JS = function() {
 
 };
 window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(pct, 100).toFixed(2) + '%';
+    /* Fade out when fully read */
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
 </script>
 
 <!-- search -->
