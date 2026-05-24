@@ -95,14 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
       timeout: 5000
     });
   
-    // 開始換頁時：顯示進度條
+    // 開始換頁時：顯示進度條 + 淡出
     document.addEventListener("pjax:send", function() {
       NProgress.start();
+      var main = document.querySelector('main.content');
+      if (main) main.classList.add('pjax-loading');
     });
-  
-    // 換頁結束時：重新初始化腳本
+
+    // 換頁結束時：淡入 + 重新初始化腳本
     document.addEventListener("pjax:complete", function() {
       NProgress.done();
+      var main = document.querySelector('main.content');
+      if (main) {
+        main.classList.remove('pjax-loading');
+      }
       
       // 確保 window 已經存在要重新觸發的函式
       if (typeof window.initMainJS === 'function') {

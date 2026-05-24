@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang=zh>
   <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t;})();</script>
+
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -174,6 +177,7 @@
     
     
       <div id="toc">
+        <p class="toc-header">目錄 <span>/ CONTENTS</span></p>
         <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E5%B0%88%E6%A1%88localaiagentapi-%E5%BE%9E%E9%9B%B6%E9%96%8B%E5%A7%8B%E7%9A%84-ai-%E6%95%B4%E5%90%88%E7%B7%B4%E7%BF%92"><span class="toc-number">1.</span> <span class="toc-text"> 學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%B8%E7%BF%92%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 學習目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#localaiagentapi"><span class="toc-number">1.2.</span> <span class="toc-text"> LocalAIAgentAPI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#building"><span class="toc-number">1.3.</span> <span class="toc-text"> Building</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#problems"><span class="toc-number">1.4.</span> <span class="toc-text"> Problems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#learning"><span class="toc-number">1.5.</span> <span class="toc-text"> Learning</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E5%B1%A4%E9%9D%A2"><span class="toc-number">1.5.1.</span> <span class="toc-text"> 技術層面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BB%9F%E5%AF%A6%E5%8A%9B"><span class="toc-number">1.5.2.</span> <span class="toc-text"> 軟實力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%99%E5%80%8B%E5%B0%88%E6%A1%88"><span class="toc-number">1.5.3.</span> <span class="toc-text"> 這個專案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#next-week"><span class="toc-number">1.6.</span> <span class="toc-text"> Next Week！</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E5%8E%9F%E5%A7%8B%E7%A2%BC"><span class="toc-number">1.7.</span> <span class="toc-text"> 專案原始碼</span></a></li></ol></li></ol>
       </div>
     
@@ -192,7 +196,11 @@
       <h1 class="p-name">Reedlin2002</h1>
     </div>
   </a>
-  <div id="nav" style="display: flex; align-items: center; gap: 20px;">
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
     <ul>
       <li class="icon">
         <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
@@ -243,6 +251,8 @@
     </div>
 
 
+      
+      <span class="post-read-time"><i class="fa-regular fa-clock"></i> 8 min read</span>
     </div>
   </header>
   
@@ -747,24 +757,54 @@ window.initSprint3JS = function() {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             activeId = entry.target.id;
+            /* Heading entrance animation */
+            if (!entry.target.classList.contains('heading-entered')) {
+              entry.target.classList.add('heading-entered');
+            }
           }
         });
         // 更新 TOC active 狀態
+        var activeLink = null;
         tocLinks.forEach(function(link) {
           var href = link.getAttribute('href');
           if (href === '#' + activeId) {
             link.classList.add('toc-active');
+            activeLink = link;
           } else {
             link.classList.remove('toc-active');
           }
         });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
       }, {
-        rootMargin: '-80px 0px -60% 0px',  // 觸發區：頂部扣除 navbar 高度
+        rootMargin: '-80px 0px -60% 0px',
         threshold: 0
       });
 
       headings.forEach(function(h) {
         if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
   }
@@ -834,10 +874,20 @@ window.initReadingProgress = function() {
 
   function updateProgress() {
     var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = Math.min(pct, 100).toFixed(2) + '%';
-    /* Fade out when fully read */
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
     if (pct >= 99.5) {
       bar.classList.add('hidden');
     } else {

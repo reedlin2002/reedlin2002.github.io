@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang=zh>
   <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t;})();</script>
+
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -174,6 +177,7 @@
     
     
       <div id="toc">
+        <p class="toc-header">目錄 <span>/ CONTENTS</span></p>
         <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E5%80%8B%E7%B5%90%E5%90%88-react-%E5%89%8D%E7%AB%AF%E8%88%87-flask-%E5%BE%8C%E7%AB%AF%E7%9A%84%E5%80%8B%E4%BA%BA%E8%A8%98%E5%B8%B3%E5%B0%88%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text"> 一個結合 React 前端與 Flask 後端的個人記帳專案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%B7%E8%A1%8C%E7%9B%AE%E6%A8%99"><span class="toc-number">1.1.</span> <span class="toc-text"> 執行目標</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E8%A1%93%E4%BD%BF%E7%94%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 技術使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#flask-%E5%BE%8C%E7%AB%AF"><span class="toc-number">1.2.1.</span> <span class="toc-text"> Flask 後端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF-html-react"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 前端 HTML + React</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F-core"><span class="toc-number">1.3.</span> <span class="toc-text"> React 應用程式 core</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%84%B2%E5%AD%98%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 資料儲存方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%B6%E6%A7%8B%E8%A8%AD%E8%A8%88"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 架構設計</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">1.4.</span> <span class="toc-text"> 📝 心得</span></a></li></ol></li></ol>
       </div>
     
@@ -192,7 +196,11 @@
       <h1 class="p-name">Reedlin2002</h1>
     </div>
   </a>
-  <div id="nav" style="display: flex; align-items: center; gap: 20px;">
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
     <ul>
       <li class="icon">
         <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
@@ -243,6 +251,8 @@
     </div>
 
 
+      
+      <span class="post-read-time"><i class="fa-regular fa-clock"></i> 8 min read</span>
     </div>
   </header>
   
@@ -733,24 +743,54 @@ window.initSprint3JS = function() {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             activeId = entry.target.id;
+            /* Heading entrance animation */
+            if (!entry.target.classList.contains('heading-entered')) {
+              entry.target.classList.add('heading-entered');
+            }
           }
         });
         // 更新 TOC active 狀態
+        var activeLink = null;
         tocLinks.forEach(function(link) {
           var href = link.getAttribute('href');
           if (href === '#' + activeId) {
             link.classList.add('toc-active');
+            activeLink = link;
           } else {
             link.classList.remove('toc-active');
           }
         });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
       }, {
-        rootMargin: '-80px 0px -60% 0px',  // 觸發區：頂部扣除 navbar 高度
+        rootMargin: '-80px 0px -60% 0px',
         threshold: 0
       });
 
       headings.forEach(function(h) {
         if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
   }
@@ -820,10 +860,20 @@ window.initReadingProgress = function() {
 
   function updateProgress() {
     var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = Math.min(pct, 100).toFixed(2) + '%';
-    /* Fade out when fully read */
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
     if (pct >= 99.5) {
       bar.classList.add('hidden');
     } else {

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang=zh>
   <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t;})();</script>
+
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -173,6 +176,7 @@
     
     
       <div id="toc">
+        <p class="toc-header">目錄 <span>/ CONTENTS</span></p>
         <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#python-%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text"> Python 設計模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%96%AE%E4%BE%8B%E6%A8%A1%E5%BC%8F-singleton-pattern"><span class="toc-number">1.1.</span> <span class="toc-text"> 🟢 單例模式 Singleton Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83"><span class="toc-number">1.1.2.</span> <span class="toc-text"> 使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text"> 範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E5%BB%A0%E6%A8%A1%E5%BC%8F-factory-pattern"><span class="toc-number">1.2.</span> <span class="toc-text"> 🟢 工廠模式 Factory Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-2"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-2"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F-strategy-pattern"><span class="toc-number">1.3.</span> <span class="toc-text"> 🟢 策略模式 Strategy Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-3"><span class="toc-number">1.3.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-3"><span class="toc-number">1.3.2.</span> <span class="toc-text"> 使用情境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%80%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F-observer-pattern"><span class="toc-number">1.4.</span> <span class="toc-text"> 🟢 觀察者模式 Observer Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-4"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%83%85%E5%A2%83-4"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 使用情境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E7%A2%BC-3"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 範例程式碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">1.5.</span> <span class="toc-text"> ✨ 小結</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">1.6.</span> <span class="toc-text"> 📝心得：</span></a></li></ol></li></ol>
       </div>
     
@@ -191,7 +195,11 @@
       <h1 class="p-name">Reedlin2002</h1>
     </div>
   </a>
-  <div id="nav" style="display: flex; align-items: center; gap: 20px;">
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
     <ul>
       <li class="icon">
         <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
@@ -242,6 +250,8 @@
     </div>
 
 
+      
+      <span class="post-read-time"><i class="fa-regular fa-clock"></i> 17 min read</span>
     </div>
   </header>
   
@@ -819,24 +829,54 @@ window.initSprint3JS = function() {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             activeId = entry.target.id;
+            /* Heading entrance animation */
+            if (!entry.target.classList.contains('heading-entered')) {
+              entry.target.classList.add('heading-entered');
+            }
           }
         });
         // 更新 TOC active 狀態
+        var activeLink = null;
         tocLinks.forEach(function(link) {
           var href = link.getAttribute('href');
           if (href === '#' + activeId) {
             link.classList.add('toc-active');
+            activeLink = link;
           } else {
             link.classList.remove('toc-active');
           }
         });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
       }, {
-        rootMargin: '-80px 0px -60% 0px',  // 觸發區：頂部扣除 navbar 高度
+        rootMargin: '-80px 0px -60% 0px',
         threshold: 0
       });
 
       headings.forEach(function(h) {
         if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
   }
@@ -906,10 +946,20 @@ window.initReadingProgress = function() {
 
   function updateProgress() {
     var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = Math.min(pct, 100).toFixed(2) + '%';
-    /* Fade out when fully read */
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
     if (pct >= 99.5) {
       bar.classList.add('hidden');
     } else {

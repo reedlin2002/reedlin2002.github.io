@@ -12,6 +12,24 @@ window.initMainJS = function() {
   }
 
   /**
+   * Dark / Light theme toggle.
+   */
+  var themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle && !themeToggle.hasAttribute('data-theme-bound')) {
+    themeToggle.setAttribute('data-theme-bound', '1');
+    themeToggle.addEventListener('click', function() {
+      var html = document.documentElement;
+      var current = html.dataset.theme || 'dark';
+      var next = current === 'dark' ? 'light' : 'dark';
+      html.dataset.theme = next;
+      localStorage.setItem('theme', next);
+      // Update NProgress colour to match new theme
+      var npBar = document.querySelector('#nprogress .bar');
+      if (npBar) npBar.style.background = next === 'light' ? '#4f46e5' : '#22d3ee';
+    });
+  }
+
+  /**
    * Shows the responsive navigation menu on mobile.
    */
   $("#header > #nav > ul > .icon").off('click').on('click', function() {

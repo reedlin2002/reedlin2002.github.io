@@ -7,6 +7,7 @@ window.initShokaJS = function() {
     const header = document.getElementById('header');
     const herobg = document.getElementById('hero-bg');
     const heroContent = document.getElementById('hero-content');
+    const heroIssueNum = document.getElementById('hero-issue-num');
 
     // 避免重複綁定 scroll 事件
     if (window._shokaScrollListener) {
@@ -22,18 +23,22 @@ window.initShokaJS = function() {
             }
         }
 
-        // Hero Parallax
+        // Hero Parallax — magazine-style multi-layer depth
         if (herobg && heroContent) {
             let scroll = window.scrollY;
-            if (scroll < 1000) { 
+            if (scroll < 1200) {
                 herobg.style.transform = `translateY(${scroll * 0.5}px)`;
-                heroContent.style.opacity = 1 - scroll / 700;
-                heroContent.style.transform = `translateY(${scroll * 0.3}px)`;
+                heroContent.style.opacity = 1 - scroll / 600;
+                heroContent.style.transform = `translateY(${scroll * 0.4}px)`;
+                // Issue number moves slower = deeper parallax layer
+                if (heroIssueNum) {
+                    heroIssueNum.style.transform = `translateY(${scroll * 0.2}px)`;
+                }
             }
         }
     };
 
-    window.addEventListener('scroll', window._shokaScrollListener);
+    window.addEventListener('scroll', window._shokaScrollListener, { passive: true });
     window._shokaScrollListener(); // 執行一次初始狀態
 
     // Smooth Scroll for "Scroll Down" button

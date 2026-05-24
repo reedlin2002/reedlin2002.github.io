@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang=zh>
   <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t;})();</script>
+
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -141,7 +144,11 @@
       <h1 class="p-name">Reedlin2002</h1>
     </div>
   </a>
-  <div id="nav" style="display: flex; align-items: center; gap: 20px;">
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
     <ul>
       <li class="icon">
         <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
@@ -159,7 +166,27 @@
   </div>
 </header>
 
-                <section id="about" class="p-note">
+                <!-- ── Hero Section — 日系雜誌風 ── -->
+<section id="hero" aria-label="Hero">
+  <img id="hero-bg"
+    src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=1920&auto=format"
+    alt="" aria-hidden="true" loading="eager">
+  <div id="hero-content">
+    <span id="hero-issue-num" aria-hidden="true">01</span>
+    <div id="hero-text-group">
+      <h1 id="hero-title">Reedlin2002</h1>
+      
+      <p id="hero-subtitle">Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程</p>
+      
+    </div>
+  </div>
+  <div id="hero-rule" aria-hidden="true"></div>
+  <a id="scroll-down" href="#writing" aria-label="向下捲動至文章">
+    <i class="fa-solid fa-chevron-down"></i>
+  </a>
+</section>
+
+<section id="about" class="p-note">
   
     <p>Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程</p>
 
@@ -214,11 +241,12 @@
 
                   
                     
-                      <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                      <div class="shoka-card shoka-card--featured">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy"
                             alt="用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得">
+                          <span class="card-issue-num" aria-hidden="true">01</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -256,11 +284,12 @@ travelfrontend 是一個 AI 智慧行程規劃工具，使用...
                       </div>
                       
                     
-                      <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                      <div class="shoka-card shoka-card--featured">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/LocalAIAgentAPI.png" loading="lazy"
                             alt="📍 | LocalAIAgentAPI">
+                          <span class="card-issue-num" aria-hidden="true">02</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -299,10 +328,11 @@ travelfrontend 是一個 AI 智慧行程規劃工具，使用...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800" loading="lazy"
                             alt="單例模式 Singleton_pattern">
+                          <span class="card-issue-num" aria-hidden="true">03</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -336,10 +366,11 @@ Log...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/design_pattern.png" loading="lazy"
                             alt="設計模式 (Software design pattern)">
+                          <span class="card-issue-num" aria-hidden="true">04</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -380,10 +411,11 @@ Log...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/monitor.png" loading="lazy"
                             alt="🌐 | 網站健康監控平台">
+                          <span class="card-issue-num" aria-hidden="true">05</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -417,10 +449,11 @@ Log...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/ollama.png" loading="lazy"
                             alt="🧠 | 聊天機器人">
+                          <span class="card-issue-num" aria-hidden="true">06</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -449,10 +482,11 @@ Log...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/expenses_1.png" loading="lazy"
                             alt="🤖 | 記帳小管家">
+                          <span class="card-issue-num" aria-hidden="true">07</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -493,10 +527,11 @@ Log...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800" loading="lazy"
                             alt="📕 | PDF Reader">
+                          <span class="card-issue-num" aria-hidden="true">08</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -531,10 +566,11 @@ Log...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/leetcode.jpg" loading="lazy"
                             alt="📌 | LeetCode 學習記錄">
+                          <span class="card-issue-num" aria-hidden="true">09</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -585,10 +621,11 @@ D2 🉑  ...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden;">
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="https://images.unsplash.com/photo-1620641788421-7f1c338e448c?q=80&w=800" loading="lazy"
                             alt="🧣 | GitHub">
+                          <span class="card-issue-num" aria-hidden="true">10</span>
                         </div>
                         <div class="shoka-card-body">
                           <h2 class="shoka-card-title">
@@ -965,24 +1002,54 @@ window.initSprint3JS = function() {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             activeId = entry.target.id;
+            /* Heading entrance animation */
+            if (!entry.target.classList.contains('heading-entered')) {
+              entry.target.classList.add('heading-entered');
+            }
           }
         });
         // 更新 TOC active 狀態
+        var activeLink = null;
         tocLinks.forEach(function(link) {
           var href = link.getAttribute('href');
           if (href === '#' + activeId) {
             link.classList.add('toc-active');
+            activeLink = link;
           } else {
             link.classList.remove('toc-active');
           }
         });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
       }, {
-        rootMargin: '-80px 0px -60% 0px',  // 觸發區：頂部扣除 navbar 高度
+        rootMargin: '-80px 0px -60% 0px',
         threshold: 0
       });
 
       headings.forEach(function(h) {
         if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
   }
@@ -1052,10 +1119,20 @@ window.initReadingProgress = function() {
 
   function updateProgress() {
     var scrollTop = window.scrollY || document.documentElement.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = Math.min(pct, 100).toFixed(2) + '%';
-    /* Fade out when fully read */
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
     if (pct >= 99.5) {
       bar.classList.add('hidden');
     } else {
