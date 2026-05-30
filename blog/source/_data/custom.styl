@@ -26,9 +26,9 @@ body
   transition: color 0.2s ease, background 0.2s ease
 
 #nav ul li a:hover
-  background: rgba(34, 211, 238, 0.1)
+  background: rgba(168, 85, 247, 0.1)
   border-radius: 4px
-  color: #22d3ee
+  color: #a855f7
 
 // ── 4. Button touch targets ──
 button,
@@ -59,12 +59,12 @@ button,
 // ── 5. Colour / Contrast improvements ──
 // Inline code (light pop against dark bg)
 code:not(.highlight code)
-  background: rgba(34, 211, 238, 0.10) !important
-  color: #22d3ee !important
+  background: rgba(168, 85, 247, 0.10) !important
+  color: #a855f7 !important
   padding: 0.15em 0.45em
   border-radius: 4px
   font-size: 0.875em
-  border: 1px solid rgba(34, 211, 238, 0.2)
+  border: 1px solid rgba(168, 85, 247, 0.2)
   font-family: 'JetBrains Mono', 'Courier New', monospace
 
 // Meta / time contrast fix
@@ -91,23 +91,23 @@ article .meta
 
 // ── 7. Focus ring (keyboard accessibility) ──
 *:focus-visible
-  outline: 2px solid #22d3ee
+  outline: 2px solid #a855f7
   outline-offset: 2px
   border-radius: 3px
 
 // ── 8. Text selection colour ──
 ::selection
-  background: rgba(34, 211, 238, 0.3)
+  background: rgba(168, 85, 247, 0.3)
   color: #f1f5f9
 
 ::-moz-selection
-  background: rgba(34, 211, 238, 0.3)
+  background: rgba(168, 85, 247, 0.3)
   color: #f1f5f9
 
 // ── 9. Blockquote ──
 blockquote
   background: rgba(30, 41, 59, 0.55) !important
-  border-left: 3px solid #22d3ee !important
+  border-left: 3px solid #a855f7 !important
   border-radius: 0 8px 8px 0
   padding: 1rem 1.25rem !important
   margin: 1.5rem 0 !important
@@ -124,7 +124,7 @@ blockquote
   border: 1px solid rgba(71, 85, 105, 0.4)
 
 .md table thead
-  background: rgba(34, 211, 238, 0.12)
+  background: rgba(168, 85, 247, 0.12)
 
 .md table th,
 .md table td
@@ -135,7 +135,7 @@ blockquote
 .md table th
   font-weight: 700
   color: #e2e8f0
-  border-bottom: 2px solid rgba(34, 211, 238, 0.3)
+  border-bottom: 2px solid rgba(168, 85, 247, 0.3)
 
 .md table tr:nth-child(even)
   background: rgba(30, 41, 59, 0.25)
@@ -145,7 +145,7 @@ blockquote
   margin: 2.5rem 0
   border: none
   height: 1px
-  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.4), transparent)
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.4), transparent)
 
 // ── 12. Post-nav (Prev / Next) ──
 .post-nav
@@ -194,11 +194,11 @@ blockquote
       line-height: 1.45 !important
 
     &:hover
-      background-color: rgba(34, 211, 238, 0.12) !important
-      border-color: #22d3ee !important
+      background-color: rgba(168, 85, 247, 0.12) !important
+      border-color: #a855f7 !important
       color: #fff !important
       transform: translateY(-2px)
-      box-shadow: 0 6px 20px rgba(34, 211, 238, 0.2) !important
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.2) !important
 
       span.type,
       span.category
@@ -208,7 +208,7 @@ blockquote
         color: #fff !important
 
     &:focus-visible
-      outline: 3px solid #22d3ee !important
+      outline: 3px solid #a855f7 !important
       outline-offset: 3px !important
 
   .item.left a
@@ -243,6 +243,50 @@ blockquote
     padding: 0.875rem
     font-size: 0.9em
     overflow-x: auto
+
+// ── 14. Article reading width ──
+#post .content
+  max-width: 720px
+  margin-left: auto
+  margin-right: auto
+
+// ── 15. Code block readability ──
+.highlight
+  border-radius: 8px !important
+  overflow: hidden
+
+.highlight pre
+  line-height: 1.65
+
+// ── 16. Search hint text ──
+.search-hint
+  color: #94a3b8
+  font-size: 0.9rem
+  margin-bottom: 1rem
+
+// ── 17. Footer CTA button consistency ──
+.footer-cta-btn
+  display: inline-flex !important
+  align-items: center
+  gap: 6px
+  padding: 0.55rem 1.1rem !important
+  border-radius: 8px !important
+  font-size: 0.875rem
+  font-weight: 600
+  text-decoration: none
+  min-height: 40px
+  box-sizing: border-box
+  transition: transform 0.2s ease, box-shadow 0.2s ease
+
+.footer-cta-btn:hover
+  transform: translateY(-2px)
+
+// ── 18. Responsive font & spacing micro-adjustments ──
+@media (max-width: 600px)
+  #hero-title
+    font-size: clamp(1.4rem, 8vw, 2rem) !important
+  #hero-content
+    padding: 0 5vw !important
 
 // ── 14. Spotify Widget (if used) ──
 #spotify-widget
