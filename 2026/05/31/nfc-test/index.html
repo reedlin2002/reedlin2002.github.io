@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.dataset.theme=t;})();</script>
+
+  <!-- ── Core Meta ── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="theme-color" content="#0a0005">
+
+  <!-- ── Title ── -->
+  <title>📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  <meta name="keywords" content="side project, React, NFC, Web API">
+  <meta name="author" content="Jerry Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io/2026/05/31/nfc-test/">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="# 📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記  不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專案的起點就這麼簡單。   # 🎯 專案動機 有時候你想分享一個連結給旁邊的人，最懶的方法是什麼？  用 LINE &#x2F; Messenger 傳 → 還要等對方打開 app 截圖 QR Code → 對方還得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記">
+<meta property="og:url" content="https://reedlin2002.github.io/2026/05/31/nfc-test/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="# 📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記  不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專案的起點就這麼簡單。   # 🎯 專案動機 有時候你想分享一個連結給旁邊的人，最懶的方法是什麼？  用 LINE &#x2F; Messenger 傳 → 還要等對方打開 app 截圖 QR Code → 對方還得">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://reedlin2002.github.io/images/nfc-test-main.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/nfc-test-success.png">
+<meta property="article:published_time" content="2026-05-31T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-31T13:17:58.192Z">
+<meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="side project">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="NFC">
+<meta property="article:tag" content="Web API">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://reedlin2002.github.io/images/nfc-test-main.png">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記">
+  <meta name="twitter:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記",
+    "description": "Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
+    "url": "https://reedlin2002.github.io/2026/05/31/nfc-test/",
+    "datePublished": "2026-05-31T12:00:00.000Z",
+    "dateModified": "2026-05-31T13:17:58.192Z",
+    "author": {
+      "@type": "Person",
+      "name": "Jerry Lin",
+      "url": "https://reedlin2002.github.io"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Jerry Lin",
+      "url": "https://reedlin2002.github.io"
+    }
+    
+  }
+  </script>
+  
+
+  <!-- ── Favicon ── -->
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+
+  <!-- ── Analytics ── -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="max-width mx-auto px3 ltr">
+      <!-- 粒子特效 Canvas -->
+      <canvas id="particle-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+      
+        <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="頂部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2026/05/16/travel-planner-side-project/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/05/31/nfc-test/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&text=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&is_video=false&description=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記&body=Check out this article: https://reedlin2002.github.io/2026/05/31/nfc-test/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&name=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/05/31/nfc-test/&t=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <p class="toc-header">目錄 <span>/ CONTENTS</span></p>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-nfc-%E8%AE%93%E5%88%A5%E4%BA%BA%E6%8E%83%E4%BD%A0%E7%9A%84%E6%89%8B%E6%A9%9F%E9%96%8B%E5%95%9F%E9%80%A3%E7%B5%90-nfc-test-%E9%96%8B%E7%99%BC%E7%AD%86%E8%A8%98"><span class="toc-number">1.</span> <span class="toc-text"> 📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E5%8B%95%E6%A9%9F"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 專案動機</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-nfc-api-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="toc-number">1.2.</span> <span class="toc-text"> 🔬 Web NFC API 是什麼</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%90%E5%88%B6%E8%A6%81%E5%85%88%E7%9F%A5%E9%81%93"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 限制要先知道</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%B8%8F-%E6%8A%80%E8%A1%93%E6%A3%A7"><span class="toc-number">1.3.</span> <span class="toc-text"> 🛠️ 技術棧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%B8%8F-%E6%A0%B8%E5%BF%83%E5%AF%A6%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text"> ⚙️ 核心實作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%9D%E6%88%90-custom-hook"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 封裝成 Custom Hook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E7%95%AB%E9%9D%A2%E5%85%83%E4%BB%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 主畫面元件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 流程圖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-number">1.5.</span> <span class="toc-text"> 📸 Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="toc-number">1.6.</span> <span class="toc-text"> 🪲 遇到的問題</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-https-%E6%89%8D%E8%83%BD%E7%94%A8"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 1. HTTPS 才能用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BF%85%E9%A0%88%E7%AD%89%E4%BD%BF%E7%94%A8%E8%80%85%E9%BB%9E%E6%93%8A%E6%89%8D%E8%83%BD%E5%91%BC%E5%8F%AB"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 2. 必須等使用者點擊才能呼叫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ios-%E5%AE%8C%E5%85%A8%E4%B8%8D%E6%94%AF%E6%8F%B4"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 3. iOS 完全不支援</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nfc-%E9%82%84%E8%83%BD%E6%8B%BF%E4%BE%86%E5%81%9A%E4%BB%80%E9%BA%BC"><span class="toc-number">1.7.</span> <span class="toc-text"> 💡 NFC 還能拿來做什麼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">1.8.</span> <span class="toc-text"> 📌 小結</span></a></li></ol></li></ol>
+      </div>
+    
+</div>
+
+          
+            <main class="content index py4 " role="main">
+              <header id="header">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
+    
+  
+    <div id="title" style="margin: 0;">
+      <h1 class="p-name">Reedlin2002</h1>
+    </div>
+  </a>
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">首頁</a></li><!--
+   --><!--
+     --><li><a href="/about/">關於</a></li><!--
+   --><!--
+     --><li><a href="/categories/">分類</a></li><!--
+   --><!--
+     --><li><a href="/tags/">標籤</a></li><!--
+   --><!--
+     --><li><a href="/archives/">歸檔</a></li><!--
+   --><!--
+     --><li><a href="/search/">搜尋</a></li><!--
+   -->
+    </ul>
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
+  </div>
+</header>
+
+                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Jerry Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-05-31T12:00:00.000Z" class="dt-published" itemprop="datePublished">2026-05-31</time>
+        
+        (Updated: <time datetime="2026-05-31T13:17:58.192Z" class="dt-updated" itemprop="dateModified">2026-05-31</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/NFC/" rel="tag">NFC</a>, <a class="p-category" href="/tags/React/" rel="tag">React</a>, <a class="p-category" href="/tags/Web-API/" rel="tag">Web API</a>, <a class="p-category" href="/tags/side-project/" rel="tag">side project</a>
+    </div>
+
+
+      
+      <span class="post-read-time"><i class="fa-regular fa-clock"></i> 16 min read</span>
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="用-nfc-讓別人掃你的手機開啟連結-nfc-test-開發筆記"><a class="markdownIt-Anchor" href="#用-nfc-讓別人掃你的手機開啟連結-nfc-test-開發筆記">#</a> 📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</h1>
+<blockquote>
+<p>不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專案的起點就這麼簡單。</p>
+</blockquote>
+<hr>
+<h2 id="專案動機"><a class="markdownIt-Anchor" href="#專案動機">#</a> 🎯 專案動機</h2>
+<p>有時候你想分享一個連結給旁邊的人，最懶的方法是什麼？</p>
+<ul>
+<li>用 LINE / Messenger 傳 → 還要等對方打開 app</li>
+<li>截圖 QR Code → 對方還得掃</li>
+<li>口頭說網址 → 開玩笑嗎</li>
+</ul>
+<p><strong>NFC 才是最懶的方式。</strong> 手機湊近，振動一下，連結直接在對方手機上開啟。</p>
+<p>NFC-test 就是這個想法的實驗場：用 React 打造一個 Web App，讓使用者可以輸入任意連結，然後透過 NFC 傳出去，讓旁邊的人掃一下就能開啟。</p>
+<hr>
+<h2 id="web-nfc-api-是什麼"><a class="markdownIt-Anchor" href="#web-nfc-api-是什麼">#</a> 🔬 Web NFC API 是什麼</h2>
+<p>在做這個之前，我以為 NFC 一定要寫 Native App（Android /iOS）才能用。</p>
+<p>查了一下才發現有個叫 <strong>Web NFC API</strong> 的東西 —— 直接在瀏覽器裡讀寫 NFC，不需要任何 Native 程式碼。</p>
+<p>Web NFC API 提供兩個核心類別：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NDEFReader</code></td>
+<td>讀取 NFC tag 的資料</td>
+</tr>
+<tr>
+<td><code>NDEFWriter</code></td>
+<td>寫入資料到 NFC tag（舊 API，已合併進 NDEFReader）</td>
+</tr>
+</tbody>
+</table>
+<p>現在的標準是用  <code>NDEFReader</code>  同時處理讀寫：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ndef = <span class="keyword">new</span> <span class="title class_">NDEFReader</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 讀取</span></span><br><span class="line"><span class="keyword">await</span> ndef.<span class="title function_">scan</span>();</span><br><span class="line">ndef.<span class="title function_">addEventListener</span>(<span class="string">&quot;reading&quot;</span>, <span class="function">(<span class="params">&#123; message &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> record <span class="keyword">of</span> message.<span class="property">records</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(record.<span class="property">recordType</span>, record.<span class="property">data</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 寫入</span></span><br><span class="line"><span class="keyword">await</span> ndef.<span class="title function_">write</span>(&#123;</span><br><span class="line">  <span class="attr">records</span>: [&#123; <span class="attr">recordType</span>: <span class="string">&quot;url&quot;</span>, <span class="attr">data</span>: <span class="string">&quot;https://your-link.com&quot;</span> &#125;]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="限制要先知道"><a class="markdownIt-Anchor" href="#限制要先知道">#</a> 限制要先知道</h3>
+<p>Web NFC API <strong>不是所有瀏覽器都支援</strong>，使用前要有心理準備：</p>
+<ul>
+<li>✅ <strong>Android Chrome</strong> — 支援</li>
+<li>❌ <strong>iOS Safari / Chrome for iOS</strong> — 不支援（Apple 沒開放）</li>
+<li>❌ <strong>桌機瀏覽器</strong> — 不支援</li>
+<li>⚠️ <strong>需要 HTTPS</strong> — HTTP 環境下 API 直接不存在</li>
+<li>⚠️ <strong>需要使用者手勢觸發</strong> — 不能在頁面載入時自動執行，必須在 click event 內呼叫</li>
+</ul>
+<hr>
+<h2 id="️-技術棧"><a class="markdownIt-Anchor" href="#️-技術棧">#</a> 🛠️ 技術棧</h2>
+<p>專案架構刻意保持簡單，就是個小工具：</p>
+<ul>
+<li><strong>React</strong> — 前端框架</li>
+<li><strong>Web NFC API</strong> — 瀏覽器原生，零套件依賴</li>
+<li><strong>Vite</strong> — 開發環境</li>
+</ul>
+<hr>
+<h2 id="️-核心實作"><a class="markdownIt-Anchor" href="#️-核心實作">#</a> ⚙️ 核心實作</h2>
+<h3 id="封裝成-custom-hook"><a class="markdownIt-Anchor" href="#封裝成-custom-hook">#</a> 封裝成 Custom Hook</h3>
+<p>把 NFC 邏輯抽出來，讓元件保持乾淨：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">useNFC</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [status, setStatus] = <span class="title function_">useState</span>(<span class="string">&quot;idle&quot;</span>); <span class="comment">// idle | writing | success | error</span></span><br><span class="line">  <span class="keyword">const</span> [errorMsg, setErrorMsg] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> isSupported = <span class="string">&quot;NDEFReader&quot;</span> <span class="keyword">in</span> <span class="variable language_">window</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">writeURL</span> = <span class="keyword">async</span> (<span class="params">url</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (!isSupported) &#123;</span><br><span class="line">      <span class="title function_">setErrorMsg</span>(<span class="string">&quot;此瀏覽器不支援 Web NFC，請使用 Android Chrome&quot;</span>);</span><br><span class="line">      <span class="title function_">setStatus</span>(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="title function_">setStatus</span>(<span class="string">&quot;writing&quot;</span>);</span><br><span class="line">      <span class="keyword">const</span> ndef = <span class="keyword">new</span> <span class="title class_">NDEFReader</span>();</span><br><span class="line">      <span class="keyword">await</span> ndef.<span class="title function_">write</span>(&#123;</span><br><span class="line">        <span class="attr">records</span>: [&#123; <span class="attr">recordType</span>: <span class="string">&quot;url&quot;</span>, <span class="attr">data</span>: url &#125;],</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="title function_">setStatus</span>(<span class="string">&quot;success&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="title function_">setErrorMsg</span>(err.<span class="property">message</span>);</span><br><span class="line">      <span class="title function_">setStatus</span>(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; writeURL, status, errorMsg, isSupported &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="主畫面元件"><a class="markdownIt-Anchor" href="#主畫面元件">#</a> 主畫面元件</h3>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> [url, setUrl] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123; writeURL, status, errorMsg, isSupported &#125; = <span class="title function_">useNFC</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>📱 NFC 連結分享<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      &#123;!isSupported &amp;&amp; (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">&quot;warning&quot;</span>&gt;</span>⚠️ 請使用 Android Chrome 開啟此頁面<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">input</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">type</span>=<span class="string">&quot;url&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">placeholder</span>=<span class="string">&quot;輸入你要分享的連結&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">value</span>=<span class="string">&#123;url&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onChange</span>=<span class="string">&#123;(e)</span> =&gt;</span> setUrl(e.target.value)&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> writeURL(url)&#125; disabled=&#123;status === &quot;writing&quot;&#125;&gt;</span></span><br><span class="line"><span class="language-xml">        &#123;status === &quot;writing&quot; ? &quot;請將手機靠近 NFC tag...&quot; : &quot;寫入 NFC&quot;&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">      &#123;status === &quot;success&quot; &amp;&amp; <span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">&quot;success&quot;</span>&gt;</span>✅ 寫入成功！<span class="tag">&lt;/<span class="name">p</span>&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">      &#123;status === &quot;error&quot; &amp;&amp; <span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">&quot;error&quot;</span>&gt;</span>❌ &#123;errorMsg&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="流程圖"><a class="markdownIt-Anchor" href="#流程圖">#</a> 流程圖</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">使用者輸入 URL</span><br><span class="line">      ↓</span><br><span class="line">點擊「寫入 NFC」按鈕</span><br><span class="line">      ↓</span><br><span class="line">NDEFReader.write() 呼叫</span><br><span class="line">      ↓</span><br><span class="line">手機靠近 NFC tag（貼紙/卡片）</span><br><span class="line">      ↓</span><br><span class="line">寫入成功 → 對方掃 tag → 自動開啟連結</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="demo"><a class="markdownIt-Anchor" href="#demo">#</a> 📸 Demo</h2>
+<!-- TODO: 將截圖放到 source/images/ 並替換下方路徑 -->
+<!-- 建議命名：nfc-test-main.png、nfc-test-success.png -->
+<p><img src="/images/nfc-test-main.png" alt="NFC-test 主畫面"></p>
+<p><img src="/images/nfc-test-success.png" alt="寫入成功畫面"></p>
+<hr>
+<h2 id="遇到的問題"><a class="markdownIt-Anchor" href="#遇到的問題">#</a> 🪲 遇到的問題</h2>
+<h3 id="1-https-才能用"><a class="markdownIt-Anchor" href="#1-https-才能用">#</a> 1. HTTPS 才能用</h3>
+<p>本機開發時用  <code>http://localhost</code>  沒問題，但一旦要在真機測試就必須是 HTTPS。</p>
+<p>用 Vite 的話，在  <code>vite.config.js</code>  開啟 HTTPS 模式，或是直接部署到 GitHub Pages / Netlify 這類有 HTTPS 的平台測試。</p>
+<h3 id="2-必須等使用者點擊才能呼叫"><a class="markdownIt-Anchor" href="#2-必須等使用者點擊才能呼叫">#</a> 2. 必須等使用者點擊才能呼叫</h3>
+<p>這個限制最一開始沒注意到，寫了個頁面載入後自動呼叫  <code>ndef.write()</code>  的邏輯，結果一直丟  <code>SecurityError</code> 。</p>
+<p>Web NFC API 要求 <strong>User Activation</strong>，也就是一定要在使用者觸發的事件（click、touchstart 等）的 call stack 裡面才能呼叫。改成  <code>onClick</code>  之後就正常了。</p>
+<h3 id="3-ios-完全不支援"><a class="markdownIt-Anchor" href="#3-ios-完全不支援">#</a> 3. iOS 完全不支援</h3>
+<p>沒有辦法，Apple 就是不開放 Web NFC。如果要支援 iOS，只能轉向 React Native +  <code>react-native-nfc-manager</code> ，或是用 QR Code 作為備援。</p>
+<p>目前的 workaround：偵測  <code>&quot;NDEFReader&quot; in window</code> ，iOS 使用者顯示提示說「請用 Android Chrome」或提供 QR Code 替代。</p>
+<hr>
+<h2 id="nfc-還能拿來做什麼"><a class="markdownIt-Anchor" href="#nfc-還能拿來做什麼">#</a> 💡 NFC 還能拿來做什麼</h2>
+<p>做完這個小工具，腦子裡開始跑各種應用場景：</p>
+<ul>
+<li><strong>名片 NFC 化</strong> — 把個人網站 / LinkedIn 寫進 NFC tag，附在名片上</li>
+<li><strong>桌遊活動簽到</strong> — 每個座位貼一張 NFC tag，坐下來掃一下自動簽到</li>
+<li><strong>實體店促銷</strong> — 貼紙放在產品旁邊，掃了跳到優惠頁</li>
+<li><strong>家裡的自動化捷徑</strong> — 玄關貼一張 tag，進門掃一下觸發 Home Automation</li>
+</ul>
+<p>NFC tag 貼紙超便宜（一張幾塊錢），加上 Web NFC 不需要 Native App，進入門檻比想像中低很多。</p>
+<hr>
+<h2 id="小結"><a class="markdownIt-Anchor" href="#小結">#</a> 📌 小結</h2>
+<p>這個專案出發點很小，就是「想讓手機湊近就能分享連結」。但做的過程讓我對 Web NFC API 的能力與限制有了第一手認識。</p>
+<p>幾個值得記住的點：</p>
+<ol>
+<li><strong>Web NFC = Android Chrome Only</strong>，iOS 繞不過去</li>
+<li><strong>必須 HTTPS + User Gesture</strong>，這兩個是硬限制</li>
+<li><strong>NDEFReader 可同時讀寫</strong>，API 設計比想像中直覺</li>
+<li><strong>NFC tag 很便宜</strong>，玩起來成本很低</li>
+</ol>
+<p>如果你也對「實體世界 ×  Web」的互動有興趣，Web NFC 是個很值得玩的 API。</p>
+<hr>
+<p>► 「 <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/NFC-test">GITHUB</a> 」</p>
+<hr>
+<p><em>技術棧：React / Vite / Web NFC API (NDEFReader)</em></p>
+
+  </div>
+</article>
+
+
+
+                  
+                    <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a href="/about/">關於</a></li>
+        
+          <li><a href="/categories/">分類</a></li>
+        
+          <li><a href="/tags/">標籤</a></li>
+        
+          <li><a href="/archives/">歸檔</a></li>
+        
+          <li><a href="/search/">搜尋</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-nfc-%E8%AE%93%E5%88%A5%E4%BA%BA%E6%8E%83%E4%BD%A0%E7%9A%84%E6%89%8B%E6%A9%9F%E9%96%8B%E5%95%9F%E9%80%A3%E7%B5%90-nfc-test-%E9%96%8B%E7%99%BC%E7%AD%86%E8%A8%98"><span class="toc-number">1.</span> <span class="toc-text"> 📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E5%8B%95%E6%A9%9F"><span class="toc-number">1.1.</span> <span class="toc-text"> 🎯 專案動機</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web-nfc-api-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="toc-number">1.2.</span> <span class="toc-text"> 🔬 Web NFC API 是什麼</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%90%E5%88%B6%E8%A6%81%E5%85%88%E7%9F%A5%E9%81%93"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 限制要先知道</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%B8%8F-%E6%8A%80%E8%A1%93%E6%A3%A7"><span class="toc-number">1.3.</span> <span class="toc-text"> 🛠️ 技術棧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%EF%B8%8F-%E6%A0%B8%E5%BF%83%E5%AF%A6%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text"> ⚙️ 核心實作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%81%E8%A3%9D%E6%88%90-custom-hook"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 封裝成 Custom Hook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E7%95%AB%E9%9D%A2%E5%85%83%E4%BB%B6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 主畫面元件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E5%9C%96"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 流程圖</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#demo"><span class="toc-number">1.5.</span> <span class="toc-text"> 📸 Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="toc-number">1.6.</span> <span class="toc-text"> 🪲 遇到的問題</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-https-%E6%89%8D%E8%83%BD%E7%94%A8"><span class="toc-number">1.6.1.</span> <span class="toc-text"> 1. HTTPS 才能用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%BF%85%E9%A0%88%E7%AD%89%E4%BD%BF%E7%94%A8%E8%80%85%E9%BB%9E%E6%93%8A%E6%89%8D%E8%83%BD%E5%91%BC%E5%8F%AB"><span class="toc-number">1.6.2.</span> <span class="toc-text"> 2. 必須等使用者點擊才能呼叫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ios-%E5%AE%8C%E5%85%A8%E4%B8%8D%E6%94%AF%E6%8F%B4"><span class="toc-number">1.6.3.</span> <span class="toc-text"> 3. iOS 完全不支援</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nfc-%E9%82%84%E8%83%BD%E6%8B%BF%E4%BE%86%E5%81%9A%E4%BB%80%E9%BA%BC"><span class="toc-number">1.7.</span> <span class="toc-text"> 💡 NFC 還能拿來做什麼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">1.8.</span> <span class="toc-text"> 📌 小結</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/05/31/nfc-test/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&text=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&is_video=false&description=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記&body=Check out this article: https://reedlin2002.github.io/2026/05/31/nfc-test/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&title=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/05/31/nfc-test/&name=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/05/31/nfc-test/&t=📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+                      
+                        <!-- ═══════════════════════════════════════════════
+     FOOTER — Monogatari minimal single-bar
+     ═══════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-mono-bar">
+    <span class="footer-mono-diamond">◇</span>
+
+    <span class="footer-mono-name">
+      <strong>Jerry Lin</strong>
+    </span>
+
+    <span class="footer-mono-sep">·</span>
+
+    
+    
+    <span class="footer-mono-year">2016–2026</span>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="https://github.com/reedlin2002" target="_blank" rel="noopener" class="footer-mono-link">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <span class="footer-mono-powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener" class="footer-mono-link">Hexo</a></span>
+
+    <span class="footer-mono-diamond">◇</span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     返回頂部按鈕
+     ═══════════════════════════════════════════════ -->
+<button id="back-to-top" aria-label="返回頂部" title="返回頂部">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+            </main>
+            <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"複製到剪貼簿！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "複製成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+window.initSprint2JS = function() {
+  'use strict';
+
+  /* ① Navbar Glassmorphism scroll toggle */
+  var header = document.getElementById('header');
+  if (header) {
+    if (window._navbarScrollListener) {
+      window.removeEventListener('scroll', window._navbarScrollListener);
+    }
+    window._navbarScrollListener = function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', window._navbarScrollListener, { passive: true });
+    window._navbarScrollListener(); // 初始執行一次
+  }
+
+  /* ② 卡片 staggered 進場動畫（IntersectionObserver） */
+  var cards = document.querySelectorAll('.shoka-card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    if (window.cardObserver) {
+      window.cardObserver.disconnect();
+    }
+    window.cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          window.cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      window.cardObserver.observe(card);
+    });
+  }
+
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
+};
+window.initSprint2JS();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<script type="text/javascript">
+window.initSprint3JS = function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight:not(.has-copy-btn)');
+  highlights.forEach(function(block) {
+    block.classList.add('has-copy-btn');
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight' && c !== 'has-copy-btn';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      navigator.clipboard.writeText(text.trim()).then(function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 2000);
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② TOC IntersectionObserver：追蹤當前章節並高亮
+     ═══════════════════════════════════════════════════ */
+  var toc = document.getElementById('toc');
+  if (toc) {
+    if (window.tocObserver) {
+        window.tocObserver.disconnect();
+    }
+    // 樣式設定：讓 TOC 連結有 active class
+    var tocLinks = toc.querySelectorAll('a');
+    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
+
+    if (headings.length > 0 && tocLinks.length > 0) {
+      var activeId = null;
+
+      window.tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+            /* Heading entrance animation */
+            if (!entry.target.classList.contains('heading-entered')) {
+              entry.target.classList.add('heading-entered');
+            }
+          }
+        });
+        // 更新 TOC active 狀態
+        var activeLink = null;
+        tocLinks.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (href === '#' + activeId) {
+            link.classList.add('toc-active');
+            activeLink = link;
+          } else {
+            link.classList.remove('toc-active');
+          }
+        });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
+      }, {
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0
+      });
+
+      headings.forEach(function(h) {
+        if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  // We use standard named events to avoid duplication if we just use document.addEventListener
+  if (window._mobileNavHandlersBound) return;
+  window._mobileNavHandlersBound = true;
+
+  document.addEventListener('click', function(e) {
+    var navMenu = document.querySelector('#nav ul');
+    var header = document.getElementById('header');
+    if (navMenu && header && !header.contains(e.target)) {
+      if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+        $('#nav ul').slideUp(200);
+      }
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && typeof $ !== 'undefined') {
+      $('#nav ul').slideUp(200);
+    }
+  });
+
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive: true});
+
+  document.addEventListener('touchend', function(e) {
+    if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+      var touchEndX = e.changedTouches[0].screenX;
+      var touchEndY = e.changedTouches[0].screenY;
+      if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+        $('#nav ul').slideUp(200);
+      }
+    }
+  }, {passive: true});
+
+};
+window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
+</script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+
+                <!-- 極簡音樂播放器 Widget -->
+<div id="shoka-music-player" class="music-player">
+  <div class="player-controls">
+    <button id="mp-prev" aria-label="Previous"><i class="fa-solid fa-backward-step"></i></button>
+    <button id="mp-play" aria-label="Play/Pause"><i class="fa-solid fa-play"></i></button>
+    <button id="mp-next" aria-label="Next"><i class="fa-solid fa-forward-step"></i></button>
+  </div>
+  <div class="player-info" title="Scroll to adjust volume">
+    <span id="mp-title" class="mp-title-text">-</span>
+  </div>
+  <div class="player-progress-container" id="mp-progress-container">
+    <div class="player-progress" id="mp-progress"></div>
+  </div>
+  <div class="player-volume">
+    <i class="fa-solid fa-volume-xmark" id="mp-vol-icon"></i>
+    <div class="player-vol-container" id="mp-vol-container">
+      <div class="player-vol-bar" id="mp-vol-bar"></div>
+    </div>
+  </div>
+  <button id="mp-close" aria-label="關閉播放器" title="關閉播放器">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <audio id="mp-audio" preload="none"></audio>
+</div>
+
+<style>
+  .music-player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 1rem;
+    padding: 8px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(34, 211, 238, 0.08);
+    height: 40px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1100;
+    isolation: isolate;        /* 建立獨立 stacking context */
+    transform: translateZ(0);  /* GPU layer 強制提升 */
+  }
+  .player-controls button {
+    background: transparent;
+    border: none;
+    color: var(--shoka-color-text-2, #94a3b8);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 6px;
+    transition: color 0.2s;
+  }
+  .player-controls button:hover, .player-volume i:hover {
+    color: var(--shoka-color-primary, #22d3ee);
+  }
+  .player-info {
+    max-width: 120px;
+    margin: 0 4px;
+    font-size: 13px;
+    color: var(--shoka-color-text, #f1f5f9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  .player-progress-container {
+    width: 80px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+  }
+  .player-progress {
+    height: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    width: 0%;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: width 0.1s linear;
+  }
+  .player-volume {
+    color: var(--shoka-color-text-2, #94a3b8);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .player-vol-container {
+    height: 0;
+    width: 4px;
+    opacity: 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: height 0.3s ease, opacity 0.3s ease;
+  }
+  .player-vol-container.show {
+    height: 60px;
+    opacity: 1;
+  }
+  .player-vol-bar {
+    width: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: height 0.1s linear;
+  }
+
+  #mp-close {
+    background: transparent;
+    border: none;
+    color: var(--shoka-color-text-2, #94a3b8);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    margin-left: 4px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  #mp-close:hover {
+    color: #f87171;
+  }
+  .music-player.dismissed {
+    display: none;
+  }
+
+  /* Light mode */
+  html[data-theme="light"] .music-player {
+    background: rgba(245, 241, 235, 0.96);
+    border-color: rgba(180, 170, 160, 0.45);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(79, 70, 229, 0.06);
+  }
+  html[data-theme="light"] .player-controls button,
+  html[data-theme="light"] .player-info,
+  html[data-theme="light"] #mp-vol-icon,
+  html[data-theme="light"] #mp-close {
+    color: #4a4a4a;
+  }
+  html[data-theme="light"] .player-controls button:hover,
+  html[data-theme="light"] #mp-vol-icon:hover,
+  html[data-theme="light"] #mp-close:hover {
+    color: #4f46e5;
+  }
+  html[data-theme="light"] .player-progress-container {
+    background: rgba(0, 0, 0, 0.10);
+  }
+  html[data-theme="light"] .player-progress {
+    background: #4f46e5;
+  }
+
+  @media (max-width: 768px) {
+    .music-player {
+      display: none;
+    }
+  }
+</style>
+
+
+                    <script src="/js/shoka.js"></script>
+                    <script src="/js/music-player.js"></script>
+                    <!-- 終極視覺特效腳本 -->
+                    
+<script src="/js/particle-system.js"></script>
+
+                      <!-- 游標特效（已移除以提升效能與體驗） -->
+                      <!-- <script src="/js/cursor-effects.js"></script> -->
+                      
+<script src="/js/typewriter.js"></script>
+
+                      
+                      <!-- PJAX 架構與進度條 -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+                      
+<script src="/js/pjax-init.js"></script>
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":135,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+
+    </html>

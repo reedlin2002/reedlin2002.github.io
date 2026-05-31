@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.dataset.theme=t;})();</script>
+
+  <!-- ── Core Meta ── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="theme-color" content="#0a0005">
+
+  <!-- ── Title ── -->
+  <title>文章</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  <meta name="keywords" content="Jerry Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
+  <meta name="author" content="Jerry Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reedlin2002">
+<meta property="og:url" content="https://reedlin2002.github.io/archives/page/2/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="Jerry Lin">
+<meta property="article:tag" content="Jerry Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
+<meta name="twitter:card" content="summary">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reedlin2002">
+  <meta name="twitter:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+
+  <!-- ── Favicon ── -->
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+
+  <!-- ── Analytics ── -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="max-width mx-auto px3 ltr">
+      <!-- 粒子特效 Canvas -->
+      <canvas id="particle-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
+
+      
+            <main class="content index py4 " role="main">
+              <header id="header">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
+    
+  
+    <div id="title" style="margin: 0;">
+      <h1 class="p-name">Reedlin2002</h1>
+    </div>
+  </a>
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">首頁</a></li><!--
+   --><!--
+     --><li><a href="/about/">關於</a></li><!--
+   --><!--
+     --><li><a href="/categories/">分類</a></li><!--
+   --><!--
+     --><li><a href="/tags/">標籤</a></li><!--
+   --><!--
+     --><li><a href="/archives/">歸檔</a></li><!--
+   --><!--
+     --><li><a href="/search/">搜尋</a></li><!--
+   -->
+    </ul>
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
+  </div>
+</header>
+
+                <div id="archive">
+  <ul class="post-list">
+    
+    
+    
+    
+      
+      
+      
+      
+        <li class="post-year"><h2>2025</h2></li>
+      
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2025-06-05T07:03:00.000Z" class="dt-published" itemprop="datePublished">2025-06-05</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2025/06/05/Aboutme/">🧣 | GitHub</a>
+    
+
+
+</span>
+      </li>
+    
+  </ul>
+  
+    <div class="pagination">
+        
+            <a href="/archives/"><i class="fa-solid fa-angle-left"></i></a>
+        
+        <span class="page-number">第 2 頁，共 2 頁</span>
+        
+    </div>
+
+
+</div>
+
+                  
+                        <!-- ═══════════════════════════════════════════════
+     FOOTER — Monogatari minimal single-bar
+     ═══════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-mono-bar">
+    <span class="footer-mono-diamond">◇</span>
+
+    <span class="footer-mono-name">
+      <strong>Jerry Lin</strong>
+    </span>
+
+    <span class="footer-mono-sep">·</span>
+
+    
+    
+    <span class="footer-mono-year">2016–2026</span>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="https://github.com/reedlin2002" target="_blank" rel="noopener" class="footer-mono-link">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <span class="footer-mono-powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener" class="footer-mono-link">Hexo</a></span>
+
+    <span class="footer-mono-diamond">◇</span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     返回頂部按鈕
+     ═══════════════════════════════════════════════ -->
+<button id="back-to-top" aria-label="返回頂部" title="返回頂部">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+            </main>
+            <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+
+<script src="/js/main.js"></script>
+
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+window.initSprint2JS = function() {
+  'use strict';
+
+  /* ① Navbar Glassmorphism scroll toggle */
+  var header = document.getElementById('header');
+  if (header) {
+    if (window._navbarScrollListener) {
+      window.removeEventListener('scroll', window._navbarScrollListener);
+    }
+    window._navbarScrollListener = function() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', window._navbarScrollListener, { passive: true });
+    window._navbarScrollListener(); // 初始執行一次
+  }
+
+  /* ② 卡片 staggered 進場動畫（IntersectionObserver） */
+  var cards = document.querySelectorAll('.shoka-card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    if (window.cardObserver) {
+      window.cardObserver.disconnect();
+    }
+    window.cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          window.cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      window.cardObserver.observe(card);
+    });
+  }
+
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
+};
+window.initSprint2JS();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<script type="text/javascript">
+window.initSprint3JS = function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight:not(.has-copy-btn)');
+  highlights.forEach(function(block) {
+    block.classList.add('has-copy-btn');
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight' && c !== 'has-copy-btn';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      navigator.clipboard.writeText(text.trim()).then(function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 2000);
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② TOC IntersectionObserver：追蹤當前章節並高亮
+     ═══════════════════════════════════════════════════ */
+  var toc = document.getElementById('toc');
+  if (toc) {
+    if (window.tocObserver) {
+        window.tocObserver.disconnect();
+    }
+    // 樣式設定：讓 TOC 連結有 active class
+    var tocLinks = toc.querySelectorAll('a');
+    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
+
+    if (headings.length > 0 && tocLinks.length > 0) {
+      var activeId = null;
+
+      window.tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+            /* Heading entrance animation */
+            if (!entry.target.classList.contains('heading-entered')) {
+              entry.target.classList.add('heading-entered');
+            }
+          }
+        });
+        // 更新 TOC active 狀態
+        var activeLink = null;
+        tocLinks.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (href === '#' + activeId) {
+            link.classList.add('toc-active');
+            activeLink = link;
+          } else {
+            link.classList.remove('toc-active');
+          }
+        });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+        }
+      }, {
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0
+      });
+
+      headings.forEach(function(h) {
+        if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  // We use standard named events to avoid duplication if we just use document.addEventListener
+  if (window._mobileNavHandlersBound) return;
+  window._mobileNavHandlersBound = true;
+
+  document.addEventListener('click', function(e) {
+    var navMenu = document.querySelector('#nav ul');
+    var header = document.getElementById('header');
+    if (navMenu && header && !header.contains(e.target)) {
+      if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+        $('#nav ul').slideUp(200);
+      }
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && typeof $ !== 'undefined') {
+      $('#nav ul').slideUp(200);
+    }
+  });
+
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive: true});
+
+  document.addEventListener('touchend', function(e) {
+    if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+      var touchEndX = e.changedTouches[0].screenX;
+      var touchEndY = e.changedTouches[0].screenY;
+      if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+        $('#nav ul').slideUp(200);
+      }
+    }
+  }, {passive: true});
+
+};
+window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
+</script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+
+                <!-- 極簡音樂播放器 Widget -->
+<div id="shoka-music-player" class="music-player">
+  <div class="player-controls">
+    <button id="mp-prev" aria-label="Previous"><i class="fa-solid fa-backward-step"></i></button>
+    <button id="mp-play" aria-label="Play/Pause"><i class="fa-solid fa-play"></i></button>
+    <button id="mp-next" aria-label="Next"><i class="fa-solid fa-forward-step"></i></button>
+  </div>
+  <div class="player-info" title="Scroll to adjust volume">
+    <span id="mp-title" class="mp-title-text">-</span>
+  </div>
+  <div class="player-progress-container" id="mp-progress-container">
+    <div class="player-progress" id="mp-progress"></div>
+  </div>
+  <div class="player-volume">
+    <i class="fa-solid fa-volume-xmark" id="mp-vol-icon"></i>
+    <div class="player-vol-container" id="mp-vol-container">
+      <div class="player-vol-bar" id="mp-vol-bar"></div>
+    </div>
+  </div>
+  <button id="mp-close" aria-label="關閉播放器" title="關閉播放器">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <audio id="mp-audio" preload="none"></audio>
+</div>
+
+<style>
+  .music-player {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(71, 85, 105, 0.4);
+    border-radius: 1rem;
+    padding: 8px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(34, 211, 238, 0.08);
+    height: 40px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1100;
+    isolation: isolate;        /* 建立獨立 stacking context */
+    transform: translateZ(0);  /* GPU layer 強制提升 */
+  }
+  .player-controls button {
+    background: transparent;
+    border: none;
+    color: var(--shoka-color-text-2, #94a3b8);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 6px;
+    transition: color 0.2s;
+  }
+  .player-controls button:hover, .player-volume i:hover {
+    color: var(--shoka-color-primary, #22d3ee);
+  }
+  .player-info {
+    max-width: 120px;
+    margin: 0 4px;
+    font-size: 13px;
+    color: var(--shoka-color-text, #f1f5f9);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  .player-progress-container {
+    width: 80px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+  }
+  .player-progress {
+    height: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    width: 0%;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: width 0.1s linear;
+  }
+  .player-volume {
+    color: var(--shoka-color-text-2, #94a3b8);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .player-vol-container {
+    height: 0;
+    width: 4px;
+    opacity: 0;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: height 0.3s ease, opacity 0.3s ease;
+  }
+  .player-vol-container.show {
+    height: 60px;
+    opacity: 1;
+  }
+  .player-vol-bar {
+    width: 100%;
+    background: var(--shoka-color-primary, #22d3ee);
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+    pointer-events: none;
+    transition: height 0.1s linear;
+  }
+
+  #mp-close {
+    background: transparent;
+    border: none;
+    color: var(--shoka-color-text-2, #94a3b8);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    margin-left: 4px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  #mp-close:hover {
+    color: #f87171;
+  }
+  .music-player.dismissed {
+    display: none;
+  }
+
+  /* Light mode */
+  html[data-theme="light"] .music-player {
+    background: rgba(245, 241, 235, 0.96);
+    border-color: rgba(180, 170, 160, 0.45);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(79, 70, 229, 0.06);
+  }
+  html[data-theme="light"] .player-controls button,
+  html[data-theme="light"] .player-info,
+  html[data-theme="light"] #mp-vol-icon,
+  html[data-theme="light"] #mp-close {
+    color: #4a4a4a;
+  }
+  html[data-theme="light"] .player-controls button:hover,
+  html[data-theme="light"] #mp-vol-icon:hover,
+  html[data-theme="light"] #mp-close:hover {
+    color: #4f46e5;
+  }
+  html[data-theme="light"] .player-progress-container {
+    background: rgba(0, 0, 0, 0.10);
+  }
+  html[data-theme="light"] .player-progress {
+    background: #4f46e5;
+  }
+
+  @media (max-width: 768px) {
+    .music-player {
+      display: none;
+    }
+  }
+</style>
+
+
+                    <script src="/js/shoka.js"></script>
+                    <script src="/js/music-player.js"></script>
+                    <!-- 終極視覺特效腳本 -->
+                    
+<script src="/js/particle-system.js"></script>
+
+                      <!-- 游標特效（已移除以提升效能與體驗） -->
+                      <!-- <script src="/js/cursor-effects.js"></script> -->
+                      
+<script src="/js/typewriter.js"></script>
+
+                      
+                      <!-- PJAX 架構與進度條 -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+                      
+<script src="/js/pjax-init.js"></script>
+
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":135,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+
+    </html>

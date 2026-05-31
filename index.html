@@ -229,12 +229,14 @@
       
         
         
-          <a class="icon u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002" aria-label="github" title="github"><i class="fa-brands fa-github"></i></a>
+        
+          <a class="icon u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002" aria-label="github" title="github"><i class="fa-brands fa-github"></i><span class="icon-label">Github</span></a>
         
       
         
         
-          <a class="icon u-email" target="_blank" rel="noopener" href="mailto:reedlin2002@gmail.com" aria-label="mail" title="mail"><i class="fa-solid fa-envelope"></i></a>
+        
+          <a class="icon u-email" target="_blank" rel="noopener" href="mailto:reedlin2002@gmail.com" aria-label="mail" title="mail"><i class="fa-solid fa-envelope"></i><span class="icon-label">Mail</span></a>
         
       
     </div>
@@ -246,10 +248,12 @@
 
 
   <section id="writing">
-    <div style="text-align:center; margin-bottom: 40px;">
-      <span class="h1"><a href="/"><i class="fa-solid fa-feather-pointed"></i>
-          文章
-        </a></span>
+    <div class="mono-section-wrap">
+      <a href="/" class="mono-section-title">
+        <span class="mono-diamond">◇</span>
+        文章
+        <span class="mono-diamond">◇</span>
+      </a>
     </div>
 
     <div class="shoka-grid">
@@ -262,6 +266,56 @@
                     
                       <div class="shoka-card shoka-card--featured">
                         <div class="shoka-card-index">01</div>
+                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
+                          <img class="shoka-card-cover"
+                            src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" loading="lazy"
+                            alt="📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記">
+                        </div>
+                        <div class="shoka-card-body">
+                          <h2 class="shoka-card-title">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <a href="/2026/05/31/nfc-test/">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</a>
+                          </h2>
+                          <div class="shoka-card-excerpt">
+                            📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
+
+不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專案的起點就這麼簡單。
+
+
+🎯 專案動機
+有時候你想分享一個連結給旁邊的人，最懶的方法是什麼？
+
+用 LINE / Messenger 傳 → 還要等對方打開 app
+截圖 QR Code → 對方還得掃
+口頭說網址 → 開玩笑嗎
+
+NFC 才是最懶的方式。 手機湊近，振動一下，連結直接在對方手機上開啟。
+NFC-test 就是這個想法的實驗場：用 React ...
+                          </div>
+                          
+                            <div class="shoka-card-tags">
+                              
+                                <a href="/tags/side%20project" class="shoka-tag">#side project</a>
+                                
+                                <a href="/tags/React" class="shoka-tag">#React</a>
+                                
+                                <a href="/tags/NFC" class="shoka-tag">#NFC</a>
+                                
+                                <a href="/tags/Web%20API" class="shoka-tag">#Web API</a>
+                                
+                            </div>
+                            
+                              <div class="shoka-card-sub">
+                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2026-05-31</span>
+                                
+                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 16 min</span>
+                              </div>
+                        </div>
+                      </div>
+                      
+                    
+                      <div class="shoka-card shoka-card--featured">
+                        <div class="shoka-card-index">02</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy"
@@ -306,8 +360,8 @@ React 18 + TypeScript — 型別安全優先，Props 和 State 全部嚴格定..
                       </div>
                       
                     
-                      <div class="shoka-card shoka-card--featured">
-                        <div class="shoka-card-index">02</div>
+                      <div class="shoka-card">
+                        <div class="shoka-card-index">03</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/LocalAIAgentAPI.png" loading="lazy"
@@ -356,7 +410,7 @@ React 18 + TypeScript — 型別安全優先，Props 和 State 全部嚴格定..
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-index">03</div>
+                        <div class="shoka-card-index">04</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800" loading="lazy"
@@ -399,7 +453,7 @@ Singleton 的核...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-index">04</div>
+                        <div class="shoka-card-index">05</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/design_pattern.png" loading="lazy"
@@ -454,7 +508,7 @@ Singleton 的核...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-index">05</div>
+                        <div class="shoka-card-index">06</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/monitor.png" loading="lazy"
@@ -496,7 +550,7 @@ Singleton 的核...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-index">06</div>
+                        <div class="shoka-card-index">07</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/ollama.png" loading="lazy"
@@ -539,7 +593,7 @@ Singleton 的核...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-index">07</div>
+                        <div class="shoka-card-index">08</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/expenses_1.png" loading="lazy"
@@ -594,7 +648,7 @@ B...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-index">08</div>
+                        <div class="shoka-card-index">09</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800" loading="lazy"
@@ -638,7 +692,7 @@ RAG 技術透過檢...
                       
                     
                       <div class="shoka-card">
-                        <div class="shoka-card-index">09</div>
+                        <div class="shoka-card-index">10</div>
                         <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
                           <img class="shoka-card-cover"
                             src="/images/leetcode.jpg" loading="lazy"
@@ -697,71 +751,33 @@ D6 ✅  #9  Palindrome
                         </div>
                       </div>
                       
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">10</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="https://images.unsplash.com/photo-1620641788421-7f1c338e448c?q=80&w=800" loading="lazy"
-                            alt="🧣 | GitHub">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/06/05/Aboutme/">🧣 | GitHub</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            🧣 About me
-My Desc
-My Blog  (2025/06/19 轉為 Hexo + Github Pages)
-主要寫 Python，偶爾碰 JavaScript 和 C#
-正研究 RAG 到 LangChain (解決模型依賴和執行錯誤問題，並用 Streamlit 做了簡易的離線問答介面。)
-🛠️ Skills
-
-  
-    
-      程式語言
-       
-        
-         
-        
-        
-      
-    
-    
-      人工智慧/機器學習
-       
-  ...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/myself" class="shoka-tag">#myself</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-06-05</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 2 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
     </div>
 
 
     
       
+    <div class="pagination">
+        
+        <span class="page-number">第 1 頁，共 2 頁</span>
+        
+            <a href="/page/2/"><i class="fa-solid fa-angle-right"></i>
+            </a>
+        
+    </div>
+
 
         
   </section>
 
   
     <section id="projects">
-      <span class="h1"><a href="https://reedlin2002.github.io/tags/project/">
+      <div class="mono-section-wrap" style="padding-top: 32px;">
+        <a href="https://reedlin2002.github.io/tags/project/" class="mono-section-title">
+          <span class="mono-diamond">◇</span>
           項目
-        </a></span>
+          <span class="mono-diamond">◇</span>
+        </a>
+      </div>
       <ul class="project-list">
         
           <li class="project-item">
@@ -783,80 +799,40 @@ My Blog  (2025/06/19 轉為 Hexo + Github Pages)
     
                   
                         <!-- ═══════════════════════════════════════════════
-     多欄位 FOOTER
+     FOOTER — Monogatari minimal single-bar
      ═══════════════════════════════════════════════ -->
 <footer id="footer" role="contentinfo">
-  <div class="footer-inner">
+  <div class="footer-mono-bar">
+    <span class="footer-mono-diamond">◇</span>
 
-    <!-- 多欄位導覽 -->
-    <nav class="footer-nav-grid" aria-label="頁尾導覽">
-
-      <!-- 欄 1：站內指南 -->
-      <div class="footer-col">
-        <h3 class="footer-col-title">站內指南</h3>
-        <ul class="footer-link-list">
-          <li><a href="/">首頁</a></li>
-          <li><a href="/search/">搜尋文章</a></li>
-          <li><a href="/archives/">文章歸檔</a></li>
-          <li><a href="/tags/">標籤總覽</a></li>
-        </ul>
-      </div>
-
-      <!-- 欄 2：推薦專案 -->
-      <div class="footer-col">
-        <h3 class="footer-col-title">推薦專案</h3>
-        <ul class="footer-link-list">
-          <li><a href="https://github.com/reedlin2002" target="_blank" rel="noopener">我的 GitHub</a></li>
-          <li><a href="/tags/project/">所有專案</a></li>
-        </ul>
-      </div>
-
-      <!-- 欄 3：社交媒體 -->
-      <div class="footer-col">
-        <h3 class="footer-col-title">聯絡方式</h3>
-        <ul class="footer-link-list">
-          <li><a href="https://github.com/reedlin2002" target="_blank" rel="noopener">
-            <i class="fab fa-github"></i> GitHub
-          </a></li>
-          <li><a href="mailto:reedlin2002@gmail.com">
-            <i class="fas fa-envelope"></i> Email
-          </a></li>
-        </ul>
-      </div>
-
-    </nav>
-
-    <!-- 右側 CTA 按鈕 -->
-    <div class="footer-cta">
-      <a href="mailto:reedlin2002@gmail.com" class="footer-cta-btn btn-contact" id="footer-contact-btn">
-        <i class="fas fa-paper-plane"></i>
-        <span>聯絡我</span>
-      </a>
-      <a href="https://github.com/reedlin2002/reedlin2002.github.io/releases" class="footer-cta-btn btn-rss" target="_blank" rel="noopener" id="footer-rss-btn">
-        <i class="fas fa-code-branch"></i>
-        <span>Releases</span>
-      </a>
-      <a href="/archives/" class="footer-cta-btn btn-archive" id="footer-archive-btn">
-        <i class="fas fa-book-open"></i>
-        <span>文章庫</span>
-      </a>
-    </div>
-
-  </div><!-- /.footer-inner -->
-
-  <!-- 版權列 -->
-  <div class="footer-copyright">
-    <span class="copyright-text">
-      Copyright &copy;
-      
-      
-      2016–2026
+    <span class="footer-mono-name">
       <strong>Jerry Lin</strong>
     </span>
-    <span class="copyright-sep">·</span>
-    <span class="powered-by">Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> &amp; Cactus Theme</span>
-  </div>
 
+    <span class="footer-mono-sep">·</span>
+
+    
+    
+    <span class="footer-mono-year">2016–2026</span>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="https://github.com/reedlin2002" target="_blank" rel="noopener" class="footer-mono-link">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <span class="footer-mono-powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener" class="footer-mono-link">Hexo</a></span>
+
+    <span class="footer-mono-diamond">◇</span>
+  </div>
 </footer>
 
 <!-- ═══════════════════════════════════════════════
