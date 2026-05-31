@@ -21,11 +21,33 @@ window.initMainJS = function() {
       var html = document.documentElement;
       var current = html.dataset.theme || 'dark';
       var next = current === 'dark' ? 'light' : 'dark';
-      html.dataset.theme = next;
-      localStorage.setItem('theme', next);
-      // Update NProgress colour to match new theme
-      var npBar = document.querySelector('#nprogress .bar');
-      if (npBar) npBar.style.background = next === 'light' ? '#4f46e5' : '#22d3ee';
+
+      // Violet flash overlay
+      var overlay = document.createElement('div');
+      overlay.style.cssText = [
+        'position:fixed', 'inset:0', 'z-index:9998', 'pointer-events:none',
+        'background:rgba(196,30,58,0.14)', 'opacity:0',
+        'transition:opacity 0.22s ease', 'mix-blend-mode:screen'
+      ].join(';');
+      document.body.appendChild(overlay);
+
+      // Enable cross-fade transitions on all elements
+      html.classList.add('theme-transitioning');
+
+      requestAnimationFrame(function() {
+        overlay.style.opacity = '1';
+        setTimeout(function() {
+          html.dataset.theme = next;
+          localStorage.setItem('theme', next);
+          var npBar = document.querySelector('#nprogress .bar');
+          if (npBar) npBar.style.background = '#C41E3A';
+          overlay.style.opacity = '0';
+          setTimeout(function() {
+            overlay.remove();
+            html.classList.remove('theme-transitioning');
+          }, 500);
+        }, 180);
+      });
     });
   }
 

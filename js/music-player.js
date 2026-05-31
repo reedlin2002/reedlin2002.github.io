@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const volBar = document.getElementById("mp-vol-bar");
   const titleEl = document.getElementById("mp-title");
   const player = document.getElementById("shoka-music-player");
+  const closeBtn = document.getElementById("mp-close");
+
+  // 預設靜音
+  audio.muted = true;
+  audio.volume = 0;
+  if (volBar) volBar.style.height = "0%";
 
   // 音樂清單 (對應 .deploy_git/music 下的檔案)
   const playlist = [
@@ -141,6 +147,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     setVolume(vol);
   }, { passive: false });
+
+  // 關閉播放器
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      audio.pause();
+      if (player) player.classList.add("dismissed");
+    });
+  }
 
   // 初始化
   loadSong(currentIdx);

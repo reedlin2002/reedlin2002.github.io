@@ -2,36 +2,8 @@
  * 初始化 PJAX 與切換邏輯
  */
 
-/* ──────────────────────────────────────
-   About Section 捲動顯示/隱藏
-   向下捲動 → 隱藏；向上捲動 → 顯示
-   ────────────────────────────────────── */
 function initAboutScroll() {
-  const about = document.getElementById('about');
-  if (!about) return;
-
-  if (window._aboutScrollHandler) {
-    window.removeEventListener('scroll', window._aboutScrollHandler);
-  }
-
-  let lastScrollY = window.scrollY;
-
-  window._aboutScrollHandler = function () {
-    const currentY = window.scrollY;
-    // 超過 80px 才觸發，避免微小抖動
-    if (currentY > lastScrollY && currentY > 80) {
-      // 向下捲動 → 隱藏
-      about.classList.add('about-hidden');
-    } else {
-      // 向上捲動 → 顯示
-      about.classList.remove('about-hidden');
-    }
-    lastScrollY = currentY;
-  };
-
-  window.addEventListener('scroll', window._aboutScrollHandler, { passive: true });
-  // 初始狀態：頁面頂部就顯示
-  about.classList.remove('about-hidden');
+  // about section stays visible — no hide-on-scroll behavior
 }
 
 /* ──────────────────────────────────────
@@ -71,15 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const style = document.createElement('style');
     style.innerHTML = `
       #nprogress .bar {
-        background: #22d3ee !important;
+        background: #C41E3A !important;
         height: 3px !important;
       }
       #nprogress .peg {
-        box-shadow: 0 0 10px #22d3ee, 0 0 5px #22d3ee !important;
+        box-shadow: 0 0 10px #C41E3A, 0 0 5px rgba(220,50,70,0.6) !important;
       }
       #nprogress .spinner-icon {
-        border-top-color: #22d3ee !important;
-        border-left-color: #22d3ee !important;
+        border-top-color: #C41E3A !important;
+        border-left-color: #C41E3A !important;
       }
     `;
     document.head.appendChild(style);

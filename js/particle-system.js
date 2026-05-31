@@ -23,7 +23,7 @@ class ParticleStarfield {
             particleSpeed: { min: 0.05, max: 0.15 },
             particleOpacity: { min: 0.1, max: 0.6 },
             shootingStarFrequency: options.shootingStarFrequency || 0.0005,
-            colors: options.colors || ['#06b6d4', '#22d3ee', '#67e8f9', '#ffffff'],
+            colors: options.colors || ['#C41E3A', '#E07878', '#D4AF37', '#f0e6d3', '#ffffff'],
             twinkleSpeed: 0.01
         };
 

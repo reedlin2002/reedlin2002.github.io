@@ -2,14 +2,14 @@
 <html lang=zh>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.dataset.theme=t;})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="theme-color" content="#0a0f1e">
+  <meta name="theme-color" content="#0a0005">
 
   <!-- ── Title ── -->
   <title>標籤: myself</title>
@@ -85,9 +85,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </noscript>
 
   <!-- ── Styles ── -->
@@ -123,10 +123,6 @@
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
-    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
-      <i class="fa-solid fa-sun icon-sun"></i>
-      <i class="fa-solid fa-moon icon-moon"></i>
-    </button>
     <ul>
       <li class="icon">
         <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
@@ -134,13 +130,21 @@
       <!--
      --><li><a href="/">首頁</a></li><!--
    --><!--
-     --><li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/reedlin2002">關於</a></li><!--
+     --><li><a href="/about/">關於</a></li><!--
    --><!--
-     --><li><a href="https://reedlin2002.github.io/tags/project/">專案</a></li><!--
+     --><li><a href="/categories/">分類</a></li><!--
+   --><!--
+     --><li><a href="/tags/">標籤</a></li><!--
+   --><!--
+     --><li><a href="/archives/">歸檔</a></li><!--
    --><!--
      --><li><a href="/search/">搜尋</a></li><!--
    -->
     </ul>
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
   </div>
 </header>
 
@@ -183,74 +187,6 @@
 
                   
                         <!-- ═══════════════════════════════════════════════
-     相關鏈結 / LINK SECTION
-     ═══════════════════════════════════════════════ -->
-<section id="link-section" aria-label="相關鏈結">
-  <div class="link-section-inner">
-
-    <!-- 裝飾標題 -->
-    <div class="link-section-header">
-      <div class="link-header-deco">
-        <span class="deco-line"></span>
-        <span class="deco-diamonds">◆◇◆</span>
-        <span class="deco-line"></span>
-      </div>
-      <h2 class="link-section-title">相關鏈結 <span class="title-en">/ LINK</span></h2>
-      <div class="link-header-deco">
-        <span class="deco-line"></span>
-        <span class="deco-diamonds">◆◇◆</span>
-        <span class="deco-line"></span>
-      </div>
-    </div>
-
-    <!-- 橫幅格狀陣列 -->
-    <div class="link-banner-grid">
-
-      <a class="link-banner-item" href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=github.com" alt="GitHub" loading="lazy">
-        <span class="banner-label">GitHub</span>
-      </a>
-
-      <a class="link-banner-item" href="https://developer.mozilla.org" target="_blank" rel="noopener" aria-label="MDN Web Docs">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=developer.mozilla.org" alt="MDN" loading="lazy">
-        <span class="banner-label">MDN Docs</span>
-      </a>
-
-      <a class="link-banner-item" href="https://leetcode.com" target="_blank" rel="noopener" aria-label="LeetCode">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=leetcode.com" alt="LeetCode" loading="lazy">
-        <span class="banner-label">LeetCode</span>
-      </a>
-
-      <a class="link-banner-item" href="https://archlinux.org" target="_blank" rel="noopener" aria-label="Arch Linux">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=archlinux.org" alt="Arch Linux" loading="lazy">
-        <span class="banner-label">Arch Linux</span>
-      </a>
-
-      <a class="link-banner-item" href="https://hexo.io" target="_blank" rel="noopener" aria-label="Hexo">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=hexo.io" alt="Hexo" loading="lazy">
-        <span class="banner-label">Hexo</span>
-      </a>
-
-      <a class="link-banner-item" href="https://hub.docker.com" target="_blank" rel="noopener" aria-label="Docker Hub">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=hub.docker.com" alt="Docker Hub" loading="lazy">
-        <span class="banner-label">Docker Hub</span>
-      </a>
-
-      <a class="link-banner-item" href="https://stackoverflow.com" target="_blank" rel="noopener" aria-label="Stack Overflow">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=stackoverflow.com" alt="Stack Overflow" loading="lazy">
-        <span class="banner-label">Stack Overflow</span>
-      </a>
-
-      <a class="link-banner-item" href="https://www.linux.org" target="_blank" rel="noopener" aria-label="Linux.org">
-        <img src="https://www.google.com/s2/favicons?sz=64&domain=linux.org" alt="Linux" loading="lazy">
-        <span class="banner-label">Linux.org</span>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════
      多欄位 FOOTER
      ═══════════════════════════════════════════════ -->
 <footer id="footer" role="contentinfo">
@@ -669,11 +605,14 @@ window.initReadingProgress();
     <div class="player-progress" id="mp-progress"></div>
   </div>
   <div class="player-volume">
-    <i class="fa-solid fa-volume-high" id="mp-vol-icon"></i>
+    <i class="fa-solid fa-volume-xmark" id="mp-vol-icon"></i>
     <div class="player-vol-container" id="mp-vol-container">
       <div class="player-vol-bar" id="mp-vol-bar"></div>
     </div>
   </div>
+  <button id="mp-close" aria-label="關閉播放器" title="關閉播放器">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
   <audio id="mp-audio" preload="none"></audio>
 </div>
 
@@ -772,9 +711,51 @@ window.initReadingProgress();
     transition: height 0.1s linear;
   }
 
+  #mp-close {
+    background: transparent;
+    border: none;
+    color: var(--shoka-color-text-2, #94a3b8);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0 4px;
+    margin-left: 4px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  #mp-close:hover {
+    color: #f87171;
+  }
+  .music-player.dismissed {
+    display: none;
+  }
+
+  /* Light mode */
+  html[data-theme="light"] .music-player {
+    background: rgba(245, 241, 235, 0.96);
+    border-color: rgba(180, 170, 160, 0.45);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(79, 70, 229, 0.06);
+  }
+  html[data-theme="light"] .player-controls button,
+  html[data-theme="light"] .player-info,
+  html[data-theme="light"] #mp-vol-icon,
+  html[data-theme="light"] #mp-close {
+    color: #4a4a4a;
+  }
+  html[data-theme="light"] .player-controls button:hover,
+  html[data-theme="light"] #mp-vol-icon:hover,
+  html[data-theme="light"] #mp-close:hover {
+    color: #4f46e5;
+  }
+  html[data-theme="light"] .player-progress-container {
+    background: rgba(0, 0, 0, 0.10);
+  }
+  html[data-theme="light"] .player-progress {
+    background: #4f46e5;
+  }
+
   @media (max-width: 768px) {
     .music-player {
-      display: none; /* Mobile 版本不顯示或簡化，在此先隱藏避免版面擁擠 */
+      display: none;
     }
   }
 </style>
@@ -799,6 +780,6 @@ window.initReadingProgress();
                       
 <script src="/js/pjax-init.js"></script>
 
-    </body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":135,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
 
     </html>
