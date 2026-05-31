@@ -291,11 +291,11 @@ html
 .shoka-card-excerpt
   min-height: 3.4rem
 
-// ── 20. Projects section visual distinction ──
+// ── 20. Projects section — Monogatari crimson, colour-mode aware ──
 #projects
   margin-top: 56px
   padding-top: 40px
-  border-top: 1px solid rgba(212, 175, 55, 0.25)
+  border-top: 1px solid rgba(196, 30, 58, 0.20)
 
 .project-list
   list-style: none
@@ -307,14 +307,26 @@ html
 
 .project-item
   padding: 14px 18px
-  border-left: 3px solid rgba(212, 175, 55, 0.55)
-  background: rgba(212, 175, 55, 0.04)
+  border-left: 2px solid rgba(196, 30, 58, 0.40)
+  background: rgba(196, 30, 58, 0.04)
   border-radius: 0 8px 8px 0
   transition: border-color 0.2s ease, background 0.2s ease
 
 .project-item:hover
-  border-left-color: #D4AF37
-  background: rgba(212, 175, 55, 0.09)
+  border-left-color: rgba(196, 30, 58, 0.75)
+  background: rgba(196, 30, 58, 0.08)
+
+// Light mode: stronger contrast on parchment
+html[data-theme="light"] .project-item
+  border-left-color: rgba(155, 27, 45, 0.45)
+  background: rgba(155, 27, 45, 0.04)
+
+html[data-theme="light"] .project-item:hover
+  border-left-color: rgba(155, 27, 45, 0.80)
+  background: rgba(155, 27, 45, 0.08)
+
+html[data-theme="light"] #projects
+  border-top-color: rgba(155, 27, 45, 0.18)
 
 // ── 14. Spotify Widget (if used) ──
 #spotify-widget
