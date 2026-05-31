@@ -264,22 +264,18 @@ blockquote
   font-size: 0.9rem
   margin-bottom: 1rem
 
-// ── 17. Footer CTA button consistency ──
-.footer-cta-btn
-  display: inline-flex !important
-  align-items: center
-  gap: 6px
-  padding: 0.55rem 1.1rem !important
-  border-radius: 8px !important
-  font-size: 0.875rem
-  font-weight: 600
-  text-decoration: none
-  min-height: 40px
-  box-sizing: border-box
-  transition: transform 0.2s ease, box-shadow 0.2s ease
+// ── 17. Monogatari accent colour override ──
+// Warmer, more vibrant red closer to Monogatari logo
+$mono-red = #D91A30
 
-.footer-cta-btn:hover
-  transform: translateY(-2px)
+// Top-page border accent line uses new red
+html
+  box-shadow: 0 3px 10px rgba(217, 26, 48, 0.28)
+
+// back-to-top button mobile — keep diamond visible
+@media (max-width: 480px)
+  #back-to-top.visible
+    transform: rotate(45deg) scale(1) !important
 
 // ── 18. Responsive font & spacing micro-adjustments ──
 @media (max-width: 600px)
