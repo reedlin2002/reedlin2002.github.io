@@ -1,7 +1,7 @@
-# Touhou 紅魔鄉 (Gothic Crimson Night) Blog Redesign
+# Blog 大改版：Editorial 雜誌風 + 亮色系乾淨二次元風 + 創意細節精緻化
 
 ## Scope
-全站主題從紫色科技風改為紅魔鄉風格：深緋紅/金色調、Playfair Display 字型、CSS 紅月、粒子星空系統色彩更新，並加入 Live2D 看板娘。
+全站主題從紫色科技風改為紅魔鄉風格：深緋紅/金色調、Playfair Display 字型、粒子星空、亮色 hero 重做、並加入 5 個 editorial 精緻細節（頂部彩色線、卡片色條、About pull-quote、副標題斜體、卡片入場動畫）。
 
 ## Files Impacted
 - `themes/cactus/source/css/_shoka.styl` — 全域色彩 token 替換 (20+ replace_all)
@@ -30,5 +30,5 @@ none
 - [x] In Progress
 - [x] Code Done
 - [x] Docs Updated
-- [ ] SDD Updated
+- [x] SDD Updated
 - [x] Review Ready
