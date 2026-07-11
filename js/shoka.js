@@ -5,7 +5,7 @@
 
 window.initShokaJS = function() {
     const header = document.getElementById('header');
-    const herobg = document.getElementById('hero-bg');
+    const herobg = document.getElementById('hero-carousel') || document.getElementById('hero-bg');
     const heroContent = document.getElementById('hero-content');
     const heroIssueNum = document.getElementById('hero-issue-num');
 

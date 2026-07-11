@@ -108,6 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
         window.initReadingProgress();
       }
 
+      // Hero 輪播（首頁進出都要重算；init 內會自清 timer）
+      if (typeof window.initHeroCarousel === 'function') {
+        window.initHeroCarousel();
+      }
+
+      // 圖片燈箱（medium-zoom，init 內會先 detach 舊實例）
+      if (typeof window.initLightbox === 'function') {
+        window.initLightbox();
+      }
+
       // Back-to-Top 重新初始化（PJAX 換頁後 scroll 位置重置）
       initAboutScroll();
       initBackToTop();

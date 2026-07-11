@@ -9,42 +9,42 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="theme-color" content="#0a0005">
+  <meta name="theme-color" content="#ffffff">
 
   <!-- ── Title ── -->
   <title>Reedlin2002</title>
 
   <!-- ── SEO: Description + Keywords ── -->
   
-  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
   
-  <meta name="keywords" content="Jerry Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
-  <meta name="author" content="Jerry Lin">
+  <meta name="keywords" content="Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
+  <meta name="author" content="Lin">
   <meta name="robots" content="index, follow">
 
   <!-- ── Canonical URL ── -->
   <link rel="canonical" href="https://reedlin2002.github.io">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reedlin2002">
 <meta property="og:url" content="https://reedlin2002.github.io/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+<meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:author" content="Jerry Lin">
-<meta property="article:tag" content="Jerry Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
+<meta property="article:author" content="Lin">
+<meta property="article:tag" content="Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
 <meta name="twitter:card" content="summary">
   <!-- OG 補強：確保 description 有值 -->
-  <meta property="og:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
   <meta property="og:site_name" content="Reedlin2002">
   <meta property="og:locale" content="zh_TW">
 
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Reedlin2002">
-  <meta name="twitter:description" content="Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta name="twitter:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
   
   
 
@@ -55,11 +55,11 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Reedlin2002",
-    "description": "Jerry Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
+    "description": "Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
     "url": "https://reedlin2002.github.io",
     "author": {
       "@type": "Person",
-      "name": "Jerry Lin"
+      "name": "Lin"
     },
     "potentialAction": {
       "@type": "SearchAction",
@@ -107,10 +107,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </noscript>
+
+  <!-- ── Hero 輪播首圖 preload（首頁 LCP）── -->
+  
+  <link rel="preload" as="image" href="/images/hero/01.jpg" fetchpriority="high">
+  
 
   <!-- ── Styles ── -->
   
@@ -127,10 +132,6 @@
 <meta name="generator" content="Hexo 7.3.0"></head>
 
     <body class="max-width mx-auto px3 ltr">
-      <!-- 粒子特效 Canvas -->
-      <canvas id="particle-canvas"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
-
       
             <main class="content index py4 h-card" role="main">
               <header id="header">
@@ -170,114 +171,100 @@
   </div>
 </header>
 
-                <!-- ── Hero Section ── -->
-<section id="hero" aria-label="Hero">
-  <img id="hero-bg"
-    src="https://images.unsplash.com/photo-1689443111130-6e9c7dfd8f9e?q=80&w=1920&auto=format"
-    alt="" aria-hidden="true" loading="eager">
-  <div id="hero-content">
-    <div id="hero-text-group">
-      <div id="hero-role-badge">SOFTWARE DESIGN ENG &middot; AI BUILDER &middot; SYSTEM THINKER</div>
-      <h1 id="hero-title">Reedlin2002</h1>
-      <p id="hero-subtitle">用 React 搭介面，用 LLM 打破邊界，<br>再用系統思維找回秩序。</p>
-    </div>
+                <!-- ── 頂部橫幅輪播（Mizuki 式 38vh）── -->
+
+
+<div id="hero-carousel" data-interval="6000" aria-hidden="true">
+  
+  <img class="hero-slide active"
+    src="/images/hero/01.jpg" alt=""
+    loading="eager"
+    fetchpriority=&#34;high&#34;>
+  
+  <img class="hero-slide"
+    src="/images/hero/02.jpg" alt=""
+    loading="lazy"
+    >
+  
+  <img class="hero-slide"
+    src="/images/hero/03.jpg" alt=""
+    loading="lazy"
+    >
+  
+  <img class="hero-slide"
+    src="/images/hero/04.jpg" alt=""
+    loading="lazy"
+    >
+  
+</div>
+
+
+<!-- ── 文字 Hero（自介合併於此）── -->
+<section id="hero-min" class="p-note">
+  <h1 class="hero-min-name">Reedlin2002</h1>
+  <p class="hero-min-tagline">
+    你好，我是 <strong>Lin</strong>，軟體設計工程師，專注於 AI 應用整合與系統設計。<br>
+    平常開發 Web 與跨平台 App，也在研究怎麼讓 AI 真正進入軟體開發流程。<br>
+    這裡記錄技術踩坑、開發方法，以及好奇心驅動的實驗與 side projects。
+
+  </p>
+  <div class="hero-min-chips">
+    
+    
+    <span class="hero-min-chip">React</span>
+    
+    <span class="hero-min-chip">TypeScript</span>
+    
+    <span class="hero-min-chip">Python</span>
+    
+    <span class="hero-min-chip">Capacitor</span>
+    
+    <span class="hero-min-chip">RAG</span>
+    
+    <span class="hero-min-chip">System Design</span>
+    
+    <span class="hero-min-chip">Computer Vision</span>
+    
+    <span class="hero-min-chip">PyTorch / OpenCV</span>
+    
   </div>
-  <div id="hero-rule" aria-hidden="true"></div>
-  <a id="scroll-down" href="#writing" aria-label="向下捲動至文章">
-    <i class="fa-solid fa-chevron-down"></i>
-  </a>
+  
+  <div class="hero-min-links">
+    
+      
+      
+      
+        <a class="u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002" aria-label="github"><i class="fa-brands fa-github"></i>Github</a>
+      
+    
+      
+      
+      
+        <a class="u-email" href="mailto:reedlin2002@gmail.com" aria-label="mail"><i class="fa-solid fa-envelope"></i>Mail</a>
+      
+    
+  </div>
+  
 </section>
 
-<!-- ── Personal Identity Card ── -->
-<section id="about" class="p-note">
-  <div class="about-card">
+<!-- ── Medium 式文章列表 ── -->
+<section id="writing">
+  <a href="/archives/" class="section-title">文章</a>
 
-    <div class="about-bio">
-      <p class="about-intro">
-        你好，我是 <strong>Jerry Lin</strong>。軟體設計工程師，專注於 AI 應用整合與系統設計。
-        平常用 React 和 TypeScript 做介面，Python 跑 LLM 實驗——有時候是認真的 side project，有時候只是好奇心作祟。
-      </p>
-
-      <div class="about-stack">
-        
-        
-          <span class="stack-chip">React</span>
-        
-          <span class="stack-chip">TypeScript</span>
-        
-          <span class="stack-chip">Python</span>
-        
-          <span class="stack-chip">LLM / RAG</span>
-        
-          <span class="stack-chip">System Design</span>
-        
-          <span class="stack-chip">Docker</span>
-        
-          <span class="stack-chip">Prompt Engineering</span>
-        
-      </div>
-
-      <div class="about-meta">
-        <span class="about-badge"><i class="fa-solid fa-briefcase"></i> Software Design Engineer</span>
-        <span class="about-badge"><i class="fa-solid fa-location-dot"></i> Taipei, Taiwan</span>
-        <span class="about-badge open"><i class="fa-solid fa-circle"></i> Building in public</span>
-      </div>
-    </div>
-
+  <div class="post-list">
     
-    <div class="about-links">
+    
       
-        
-        
-        
-          <a class="icon u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002" aria-label="github" title="github"><i class="fa-brands fa-github"></i><span class="icon-label">Github</span></a>
-        
-      
-        
-        
-        
-          <a class="icon u-email" target="_blank" rel="noopener" href="mailto:reedlin2002@gmail.com" aria-label="mail" title="mail"><i class="fa-solid fa-envelope"></i><span class="icon-label">Mail</span></a>
-        
-      
-    </div>
     
 
-  </div>
-</section>
-
-
-
-  <section id="writing">
-    <div class="mono-section-wrap">
-      <a href="/" class="mono-section-title">
-        <span class="mono-diamond">◇</span>
-        文章
-        <span class="mono-diamond">◇</span>
-      </a>
-    </div>
-
-    <div class="shoka-grid">
+    
       
-        
-          
-            
-
-                  
-                    
-                      <div class="shoka-card shoka-card--featured">
-                        <div class="shoka-card-index">01</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" loading="lazy"
-                            alt="📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2026/05/31/nfc-test/">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2026/05/31/nfc-test/">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</a>
+          </h2>
+          <p class="post-row-excerpt">📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
 
 不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專案的起點就這麼簡單。
 
@@ -285,95 +272,73 @@
 🎯 專案動機
 有時候你想分享一個連結給旁邊的人，最懶的方法是什麼？
 
-用 LINE / Messenger 傳 → 還要等對方打開 app
-截圖 QR Code → 對方還得掃
-口頭說網址 → 開玩笑嗎
-
-NFC 才是最懶的方式。 手機湊近，振動一下，連結直接在對方手機上開啟。
-NFC-test 就是這個想法的實驗場：用 React ...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/side%20project" class="shoka-tag">#side project</a>
-                                
-                                <a href="/tags/React" class="shoka-tag">#React</a>
-                                
-                                <a href="/tags/NFC" class="shoka-tag">#NFC</a>
-                                
-                                <a href="/tags/Web%20API" class="shoka-tag">#Web API</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2026-05-31</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 16 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card shoka-card--featured">
-                        <div class="shoka-card-index">02</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy"
-                            alt="用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
+用 LIN…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2026-05-31</span>
+            <span><i class="fa-regular fa-clock"></i>5 min</span>
+            
+              
+              <a href="/tags/side%20project" class="post-row-tag">#side project</a>
+              
+              <a href="/tags/React" class="post-row-tag">#React</a>
+              
+              <a href="/tags/NFC" class="post-row-tag">#NFC</a>
+              
+              <a href="/tags/Web%20API" class="post-row-tag">#Web API</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2026/05/31/nfc-test/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</a>
+          </h2>
+          <p class="post-row-excerpt">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
 
 這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。
 
 
 專案簡介
-travelfrontend 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份完整的旅遊行程表，並且在地圖上可視化路線。
-整個前端技術棧：
-
-React 18 + TypeScript — 型別安全優先，Props 和 State 全部嚴格定...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/side%20project" class="shoka-tag">#side project</a>
-                                
-                                <a href="/tags/React" class="shoka-tag">#React</a>
-                                
-                                <a href="/tags/TypeScript" class="shoka-tag">#TypeScript</a>
-                                
-                                <a href="/tags/AI" class="shoka-tag">#AI</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2026-05-16</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 12 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">03</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="/images/LocalAIAgentAPI.png" loading="lazy"
-                            alt="📍 | LocalAIAgentAPI">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/07/19/LocalAIAgentAPI/">📍 | LocalAIAgentAPI</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習
+travelfrontend 是一個 AI 智慧行程規劃工具，使用者只…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2026-05-16</span>
+            <span><i class="fa-regular fa-clock"></i>5 min</span>
+            
+              
+              <a href="/tags/side%20project" class="post-row-tag">#side project</a>
+              
+              <a href="/tags/React" class="post-row-tag">#React</a>
+              
+              <a href="/tags/TypeScript" class="post-row-tag">#TypeScript</a>
+              
+              <a href="/tags/AI" class="post-row-tag">#AI</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2026/05/16/travel-planner-side-project/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/07/19/LocalAIAgentAPI/">📍 | LocalAIAgentAPI</a>
+          </h2>
+          <p class="post-row-excerpt">學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習
 
 這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。
 
@@ -385,87 +350,62 @@ React 18 + TypeScript — 型別安全優先，Props 和 State 全部嚴格定..
 
 學習目標
 作為一個正在準備面試的開發者，我給自己設定了一個挑戰：
-能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？
-說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有挑戰性的目標：
-
-練習 .NET 8 的新特性
-熟悉 AI 模型整合的流程，這應該是未來的趨勢
-為面試準備一些能拿出手的作品
-順便踩踩坑，累積一些真實...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/project" class="shoka-tag">#project</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-07-19</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 8 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">04</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800" loading="lazy"
-                            alt="單例模式 Singleton_pattern">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/07/13/singleton-pattern/">單例模式 Singleton_pattern</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            單例模式 (Singleton Pattern)
+能不能在一週內整合多種 …</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-07-19</span>
+            <span><i class="fa-regular fa-clock"></i>4 min</span>
+            
+              
+              <a href="/tags/project" class="post-row-tag">#project</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/07/19/LocalAIAgentAPI/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="/images/LocalAIAgentAPI.png" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/07/13/singleton-pattern/">單例模式 Singleton_pattern</a>
+          </h2>
+          <p class="post-row-excerpt">單例模式 (Singleton Pattern)
 為什麼需要 Singleton？
 在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。
 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：
 
-Log 訊息會分散在不同的物件中，難以統一管理和追蹤
-無法維持一致的設定（例如 Log 等級、輸出格式）
-記憶體中會存在多個相同功能的物件，造成資源浪費
-
-這時候我們希望有一個全域的 Logger 管理者，所有模組都向它發送 Log 訊息。
-Singleton 的核...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="shoka-tag">#技術筆記</a>
-                                
-                                <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="shoka-tag">#(作者自學用)</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-07-13</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 7 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">05</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="/images/design_pattern.png" loading="lazy"
-                            alt="設計模式 (Software design pattern)">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/07/12/design-patterns/">設計模式 (Software design pattern)</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            Python 設計模式
+Log 訊…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-07-13</span>
+            <span><i class="fa-regular fa-clock"></i>2 min</span>
+            
+              
+              <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
+              
+              <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="post-row-tag">#(作者自學用)</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/07/13/singleton-pattern/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/07/12/design-patterns/">設計模式 (Software design pattern)</a>
+          </h2>
+          <p class="post-row-excerpt">Python 設計模式
 這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。
 
 四種模式
@@ -477,135 +417,90 @@ Singleton 的核...
 
 
 
-🟢 單例模式 Singleton Pattern
-概念
-確保一個類別在全程只存在唯一一個實例。
-使用情境
-
-設定檔管理
-資源共用 (e.g., 日誌 Logger)
-全域狀態控制
-
-範例程式碼
-12345678910111213141516class SingletonLogger:    i...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="shoka-tag">#技術筆記</a>
-                                
-                                <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="shoka-tag">#(作者自學用)</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-07-12</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 17 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">06</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="/images/monitor.png" loading="lazy"
-                            alt="🌐 | 網站健康監控平台">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/07/05/UrlHealthMonitor/">🌐 | 網站健康監控平台</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務
+🟢 單例模式 Singleton Pa…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-07-12</span>
+            <span><i class="fa-regular fa-clock"></i>6 min</span>
+            
+              
+              <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
+              
+              <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="post-row-tag">#(作者自學用)</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/07/12/design-patterns/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="/images/design_pattern.png" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/07/05/UrlHealthMonitor/">🌐 | 網站健康監控平台</a>
+          </h2>
+          <p class="post-row-excerpt">🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務
 
 這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。
 
 ►  「 GITHUB 」
 
 💡 專案緣起
-在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本專案希望：
+在現代化的網站運維中，服務的可用…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-07-05</span>
+            <span><i class="fa-regular fa-clock"></i>2 min</span>
+            
+              
+              <a href="/tags/project" class="post-row-tag">#project</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/07/05/UrlHealthMonitor/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="/images/monitor.png" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/06/25/ollama/">🧠 | 聊天機器人</a>
+          </h2>
+          <p class="post-row-excerpt">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）
 
-自動化監控：每 30 秒自動檢查所有註冊的 URL
-視覺化儀表板：以簡易 Web UI 呈現最近監控結果
-簡易管理：CLI 指令快速管理監控清...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/project" class="shoka-tag">#project</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-07-05</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 6 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">07</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="/images/ollama.png" loading="lazy"
-                            alt="🧠 | 聊天機器人">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/06/25/ollama/">🧠 | 聊天機器人</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）
-
-這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。
-
-
-🔧 專案目標
-
-✫️ 建立一個 AI 助手系統，具備：
-
-
-多工具整合能力（如計算器、天氣查詢）
-基於本地文字檔的知識問答功能（RAG）
-使用自己裝好模型的 Ollama + LangChain Agent 結構...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/project" class="shoka-tag">#project</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-06-25</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 13 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">08</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="/images/expenses_1.png" loading="lazy"
-                            alt="🤖 | 記帳小管家">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/06/18/expenses/">🤖 | 記帳小管家</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            一個結合 React 前端與 Flask 後端的個人記帳專案
+這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-06-25</span>
+            <span><i class="fa-regular fa-clock"></i>3 min</span>
+            
+              
+              <a href="/tags/project" class="post-row-tag">#project</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/06/25/ollama/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="/images/ollama.png" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/06/18/expenses/">🤖 | 記帳小管家</a>
+          </h2>
+          <p class="post-row-excerpt">一個結合 React 前端與 Flask 後端的個人記帳專案
 
 基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。
 
@@ -619,48 +514,31 @@ Singleton 的核...
 希望做出一款簡單的記帳小工具，具有以下功能：
 
 支援每日紀錄多筆支出
-直覺的欄位輸入介面
-統計支出、圖表呈現
-可依週切換檢視區間
-支援本地儲存（localStorage）
-無須登入註冊，輕量、單機可用
-
-技術使用
-
-Flask: Python 後端 Web Framework
-HTML + React (CDN): 前端創建主畫面
-B...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/project" class="shoka-tag">#project</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-06-18</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 8 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">09</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800" loading="lazy"
-                            alt="📕 | PDF Reader">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/06/09/program/">📕 | PDF Reader</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            PDF Reader
+直覺的欄位…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-06-18</span>
+            <span><i class="fa-regular fa-clock"></i>2 min</span>
+            
+              
+              <a href="/tags/project" class="post-row-tag">#project</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/06/18/expenses/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="/images/expenses_1.png" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/06/09/program/">📕 | PDF Reader</a>
+          </h2>
+          <p class="post-row-excerpt">PDF Reader
 
 這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。
 
@@ -668,43 +546,31 @@ B...
 技術架構
 
 使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。
-使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。
-使用 SentenceTransformer 將文本轉成向量，再用 FAISS 建立向量搜尋索引。
-利用 Hugging Face 中文問答模型，從搜尋到的相關段落中找答案。
-將答案與參考段落顯示給使用者。
-
-RAG 技術透過檢...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/project" class="shoka-tag">#project</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-06-09</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 6 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-                    
-                      <div class="shoka-card">
-                        <div class="shoka-card-index">10</div>
-                        <div class="shoka-card-cover-wrap" style="height: 200px; overflow: hidden; position: relative;">
-                          <img class="shoka-card-cover"
-                            src="/images/leetcode.jpg" loading="lazy"
-                            alt="📌 | LeetCode 學習記錄">
-                        </div>
-                        <div class="shoka-card-body">
-                          <h2 class="shoka-card-title">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <a href="/2025/06/06/dailyleetcode/">📌 | LeetCode 學習記錄</a>
-                          </h2>
-                          <div class="shoka-card-excerpt">
-                            程式能力的提升離不開持續的練習。我會在這裡分享：
+使用 PyPDF2 讀取 PDF 內…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-06-09</span>
+            <span><i class="fa-regular fa-clock"></i>2 min</span>
+            
+              
+              <a href="/tags/project" class="post-row-tag">#project</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/06/09/program/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800" loading="lazy" alt="">
+        </a>
+        
+      </article>
+    
+      
+      <article class="post-row">
+        <div class="post-row-body">
+          <h2 class="post-row-title">
+            <a href="/2025/06/06/dailyleetcode/">📌 | LeetCode 學習記錄</a>
+          </h2>
+          <p class="post-row-excerpt">程式能力的提升離不開持續的練習。我會在這裡分享：
 每日筆記 - 自己對題目的理解與應用
 心得分享 - 刷題過程中的進度與收穫
 
@@ -726,36 +592,30 @@ RAG 技術透過檢...
 📌 LeetCode 記錄
 
 D1 🉑  #1  Two Sum (GPT)
-D2 🉑  #9  Palindrome Number (GPT)
-D3 ✅  #13 Roman to Integer (GPT)
-D4 ✅  #1  Two Sum
-D5 ☕ 休息
-D6 ✅  #9  Palindrome
-
-[::-1]  ← Python 能用來順...
-                          </div>
-                          
-                            <div class="shoka-card-tags">
-                              
-                                <a href="/tags/leetcode" class="shoka-tag">#leetcode</a>
-                                
-                                <a href="/tags/Daily" class="shoka-tag">#Daily</a>
-                                
-                            </div>
-                            
-                              <div class="shoka-card-sub">
-                                <span class="shoka-card-date"><i class="fa-regular fa-calendar"></i> 2025-06-06</span>
-                                
-                                    <span class="shoka-card-read-time"><i class="fa-regular fa-clock"></i> 18 min</span>
-                              </div>
-                        </div>
-                      </div>
-                      
-    </div>
-
-
+D2 🉑  #9…</p>
+          <div class="post-row-meta">
+            <span><i class="fa-regular fa-calendar"></i>2025-06-06</span>
+            <span><i class="fa-regular fa-clock"></i>6 min</span>
+            
+              
+              <a href="/tags/leetcode" class="post-row-tag">#leetcode</a>
+              
+              <a href="/tags/Daily" class="post-row-tag">#Daily</a>
+              
+            
+          </div>
+        </div>
+        
+        <a class="post-row-thumb-wrap" href="/2025/06/06/dailyleetcode/" tabindex="-1" aria-hidden="true">
+          <img class="post-row-thumb" src="/images/leetcode.jpg" loading="lazy" alt="">
+        </a>
+        
+      </article>
     
-      
+  </div>
+
+  
+    
     <div class="pagination">
         
         <span class="page-number">第 1 頁，共 2 頁</span>
@@ -766,47 +626,98 @@ D6 ✅  #9  Palindrome
     </div>
 
 
-        
-  </section>
-
   
-    <section id="projects">
-      <div class="mono-section-wrap" style="padding-top: 32px;">
-        <a href="https://reedlin2002.github.io/tags/project/" class="mono-section-title">
-          <span class="mono-diamond">◇</span>
-          項目
-          <span class="mono-diamond">◇</span>
-        </a>
-      </div>
-      <ul class="project-list">
+</section>
+
+<!-- ── 站點導覽：標籤 / 分類 / 統計 ── -->
+<section id="site-nav">
+  <span class="section-title">站點導覽</span>
+  <div class="site-nav-grid">
+
+    <div class="site-nav-block">
+      <span class="site-nav-block-title"><i class="fa-solid fa-tags"></i>標籤</span>
+      <div class="site-nav-tags">
         
-          <li class="project-item">
-            <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/processing-portfolio">
-              多媒體小作品 
-            </a>: <p>結合程式創作和人機互動的一些專案</p>
+        <a href="/tags/project/" class="shoka-tag">#project <sup>5</sup></a>
+        
+        <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" class="shoka-tag">#技術筆記 <sup>2</sup></a>
+        
+        <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" class="shoka-tag">#(作者自學用) <sup>2</sup></a>
+        
+        <a href="/tags/side-project/" class="shoka-tag">#side project <sup>2</sup></a>
+        
+        <a href="/tags/React/" class="shoka-tag">#React <sup>2</sup></a>
+        
+        <a href="/tags/myself/" class="shoka-tag">#myself <sup>1</sup></a>
+        
+        <a href="/tags/leetcode/" class="shoka-tag">#leetcode <sup>1</sup></a>
+        
+        <a href="/tags/Daily/" class="shoka-tag">#Daily <sup>1</sup></a>
+        
+        <a href="/tags/NFC/" class="shoka-tag">#NFC <sup>1</sup></a>
+        
+        <a href="/tags/Web-API/" class="shoka-tag">#Web API <sup>1</sup></a>
+        
+        <a href="/tags/TypeScript/" class="shoka-tag">#TypeScript <sup>1</sup></a>
+        
+        <a href="/tags/AI/" class="shoka-tag">#AI <sup>1</sup></a>
+        
+      </div>
+    </div>
 
-          </li>
-          
-          <li class="project-item">
-            <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/web-portfolio">
-              網頁類小作品 
-            </a>: <p>做的一些 HTML 和 PHP 專案</p>
-
-          </li>
-          
-      </ul>
-    </section>
     
+
+    <div class="site-nav-block">
+      <span class="site-nav-block-title"><i class="fa-solid fa-chart-simple"></i>統計</span>
+      <div class="site-nav-stats">
+        <div class="site-nav-stat">
+          <span class="site-nav-stat-num">11</span>
+          <span class="site-nav-stat-label">文章</span>
+        </div>
+        
+        <div class="site-nav-stat">
+          <span class="site-nav-stat-num">12</span>
+          <span class="site-nav-stat-label">標籤</span>
+        </div>
+        
+        <div class="site-nav-stat">
+          <span class="site-nav-stat-num">12.0k</span>
+          <span class="site-nav-stat-label">總字數</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── 專案 ── -->
+
+<section id="projects">
+  <a href="https://reedlin2002.github.io/tags/project/" class="section-title">項目</a>
+  <ul class="project-list">
+    
+    <li class="project-item">
+      <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/processing-portfolio">多媒體小作品 </a>: <p>結合程式創作和人機互動的一些專案</p>
+
+    </li>
+    
+    <li class="project-item">
+      <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/web-portfolio">網頁類小作品 </a>: <p>做的一些 HTML 和 PHP 專案</p>
+
+    </li>
+    
+  </ul>
+</section>
+
+
                   
                         <!-- ═══════════════════════════════════════════════
      FOOTER — Monogatari minimal single-bar
      ═══════════════════════════════════════════════ -->
 <footer id="footer" role="contentinfo">
   <div class="footer-mono-bar">
-    <span class="footer-mono-diamond">◇</span>
-
     <span class="footer-mono-name">
-      <strong>Jerry Lin</strong>
+      <strong>Lin</strong>
     </span>
 
     <span class="footer-mono-sep">·</span>
@@ -830,8 +741,6 @@ D6 ✅  #9  Palindrome
     <span class="footer-mono-sep">·</span>
 
     <span class="footer-mono-powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener" class="footer-mono-link">Hexo</a></span>
-
-    <span class="footer-mono-diamond">◇</span>
   </div>
 </footer>
 
@@ -857,11 +766,34 @@ D6 ✅  #9  Palindrome
 
 
 
-<!-- clipboard -->
-
+<!-- 舊版 ClipboardJS 複製按鈕已移除 — Sprint 3 的 .copy-btn 為唯一實作 -->
 
 <script src="/js/main.js"></script>
 
+
+<!-- ── 圖片燈箱（medium-zoom）── -->
+
+<script src="/lib/medium-zoom/medium-zoom.min.js"></script>
+
+<script type="text/javascript">
+window.initLightbox = function() {
+  'use strict';
+  if (typeof mediumZoom !== 'function') return;
+  // PJAX 重入：先解除舊綁定
+  if (window._mzoom) {
+    window._mzoom.detach();
+    window._mzoom = null;
+  }
+  var selector = 'article.post .content img:not(.no-zoom)';
+  if (document.querySelector(selector)) {
+    window._mzoom = mediumZoom(selector, {
+      background: 'rgba(15, 17, 20, 0.92)',
+      margin: 24
+    });
+  }
+};
+window.initLightbox();
+</script>
 
 <!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
 <script type="text/javascript">
@@ -885,8 +817,8 @@ window.initSprint2JS = function() {
     window._navbarScrollListener(); // 初始執行一次
   }
 
-  /* ② 卡片 staggered 進場動畫（IntersectionObserver） */
-  var cards = document.querySelectorAll('.shoka-card');
+  /* ② 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card');
   if (cards.length > 0 && 'IntersectionObserver' in window) {
     if (window.cardObserver) {
       window.cardObserver.disconnect();
@@ -1163,188 +1095,39 @@ window.initReadingProgress();
 <!-- utterances Comments -->
 
 
-                <!-- 極簡音樂播放器 Widget -->
-<div id="shoka-music-player" class="music-player">
-  <div class="player-controls">
-    <button id="mp-prev" aria-label="Previous"><i class="fa-solid fa-backward-step"></i></button>
-    <button id="mp-play" aria-label="Play/Pause"><i class="fa-solid fa-play"></i></button>
-    <button id="mp-next" aria-label="Next"><i class="fa-solid fa-forward-step"></i></button>
-  </div>
-  <div class="player-info" title="Scroll to adjust volume">
-    <span id="mp-title" class="mp-title-text">-</span>
-  </div>
-  <div class="player-progress-container" id="mp-progress-container">
-    <div class="player-progress" id="mp-progress"></div>
-  </div>
-  <div class="player-volume">
-    <i class="fa-solid fa-volume-xmark" id="mp-vol-icon"></i>
-    <div class="player-vol-container" id="mp-vol-container">
-      <div class="player-vol-bar" id="mp-vol-bar"></div>
-    </div>
-  </div>
-  <button id="mp-close" aria-label="關閉播放器" title="關閉播放器">
-    <i class="fa-solid fa-xmark"></i>
-  </button>
-  <audio id="mp-audio" preload="none"></audio>
-</div>
+                <!-- 懸浮音樂播放器（APlayer）— 位於 main.content 外，PJAX 換頁音樂不中斷 -->
 
-<style>
-  .music-player {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(15, 23, 42, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(71, 85, 105, 0.4);
-    border-radius: 1rem;
-    padding: 8px 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(34, 211, 238, 0.08);
-    height: 40px;
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 1100;
-    isolation: isolate;        /* 建立獨立 stacking context */
-    transform: translateZ(0);  /* GPU layer 強制提升 */
-  }
-  .player-controls button {
-    background: transparent;
-    border: none;
-    color: var(--shoka-color-text-2, #94a3b8);
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0 6px;
-    transition: color 0.2s;
-  }
-  .player-controls button:hover, .player-volume i:hover {
-    color: var(--shoka-color-primary, #22d3ee);
-  }
-  .player-info {
-    max-width: 120px;
-    margin: 0 4px;
-    font-size: 13px;
-    color: var(--shoka-color-text, #f1f5f9);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: 500;
-  }
-  .player-progress-container {
-    width: 80px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    cursor: pointer;
-    position: relative;
-  }
-  .player-progress {
-    height: 100%;
-    background: var(--shoka-color-primary, #22d3ee);
-    width: 0%;
-    border-radius: 2px;
-    pointer-events: none;
-    transition: width 0.1s linear;
-  }
-  .player-volume {
-    color: var(--shoka-color-text-2, #94a3b8);
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  .player-vol-container {
-    height: 0;
-    width: 4px;
-    opacity: 0;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 2px;
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: height 0.3s ease, opacity 0.3s ease;
-  }
-  .player-vol-container.show {
-    height: 60px;
-    opacity: 1;
-  }
-  .player-vol-bar {
-    width: 100%;
-    background: var(--shoka-color-primary, #22d3ee);
-    height: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-radius: 2px;
-    pointer-events: none;
-    transition: height 0.1s linear;
-  }
+<link rel="stylesheet" href="/lib/aplayer/APlayer.min.css">
+<div id="aplayer"></div>
+<script src="/lib/aplayer/APlayer.min.js"></script>
+<script type="text/javascript">
+(function () {
+  'use strict';
+  var audio = [{"name":"一難","artist":"","url":"/music/一難.mp3"},{"name":"私が選んだもの","artist":"ユイカ","url":"/music/私が選んだもの  ユイカMV.mp3"}];
+  audio = audio.map(function (t) { t.url = encodeURI(t.url); return t; });
 
-  #mp-close {
-    background: transparent;
-    border: none;
-    color: var(--shoka-color-text-2, #94a3b8);
-    cursor: pointer;
-    font-size: 14px;
-    padding: 0 4px;
-    margin-left: 4px;
-    transition: color 0.2s;
-    flex-shrink: 0;
-  }
-  #mp-close:hover {
-    color: #f87171;
-  }
-  .music-player.dismissed {
-    display: none;
-  }
-
-  /* Light mode */
-  html[data-theme="light"] .music-player {
-    background: rgba(245, 241, 235, 0.96);
-    border-color: rgba(180, 170, 160, 0.45);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(79, 70, 229, 0.06);
-  }
-  html[data-theme="light"] .player-controls button,
-  html[data-theme="light"] .player-info,
-  html[data-theme="light"] #mp-vol-icon,
-  html[data-theme="light"] #mp-close {
-    color: #4a4a4a;
-  }
-  html[data-theme="light"] .player-controls button:hover,
-  html[data-theme="light"] #mp-vol-icon:hover,
-  html[data-theme="light"] #mp-close:hover {
-    color: #4f46e5;
-  }
-  html[data-theme="light"] .player-progress-container {
-    background: rgba(0, 0, 0, 0.10);
-  }
-  html[data-theme="light"] .player-progress {
-    background: #4f46e5;
-  }
-
-  @media (max-width: 768px) {
-    .music-player {
-      display: none;
-    }
-  }
-</style>
+  window._aplayer = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    mini: true,
+    autoplay: false,
+    volume: 0.4,
+    loop: 'all',
+    order: 'list',
+    theme: '#8B5CF6',
+    preload: 'none',
+    lrcType: 0,
+    audio: audio
+  });
+  document.body.classList.add('aplayer-active');
+})();
+</script>
 
 
-                    <script src="/js/shoka.js"></script>
-                    <script src="/js/music-player.js"></script>
-                    <!-- 終極視覺特效腳本 -->
+
                     
-<script src="/js/particle-system.js"></script>
+<script src="/js/hero-carousel.js"></script>
 
-                      <!-- 游標特效（已移除以提升效能與體驗） -->
-                      <!-- <script src="/js/cursor-effects.js"></script> -->
-                      
-<script src="/js/typewriter.js"></script>
-
-                      
                       <!-- PJAX 架構與進度條 -->
                       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
                       <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
@@ -1352,6 +1135,6 @@ window.initReadingProgress();
                       
 <script src="/js/pjax-init.js"></script>
 
-    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":135,"height":300,"hOffset":0,"vOffset":-20},"mobile":{"show":false},"react":{"opacity":0.9},"log":false});</script></body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":80,"height":160,"hOffset":70,"vOffset":0},"mobile":{"show":false},"react":{"opacity":0.65},"log":false});</script></body>
 
     </html>
