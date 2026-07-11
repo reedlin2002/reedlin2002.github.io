@@ -6,8 +6,9 @@
 
 ## Files Impacted
 - `themes/cactus/layout/_partial/header.ejs` (nav dividers)
-- `themes/cactus/source/css/_modern-enhancements.styl` (nav >, back-to-top diamond)
-- `themes/cactus/source/css/_shoka.styl` (section headers, card borders)
+- `themes/cactus/source/css/_modern-enhancements.styl` (nav >, back-to-top diamond; fixed `#header nav` → `#header #nav` selector bug)
+- `themes/cactus/source/css/_partial/header.styl` (removed dotted li borders; cream-ivory nav link color; light mode hamburger + dropdown)
+- `themes/cactus/source/css/_shoka.styl` (section headers, card borders, scrolled light-mode fix)
 - `themes/cactus/layout/index.ejs` (section header HTML)
 - `themes/cactus/source/css/_typography.styl` (H2/H3 ◇, post title)
 - `themes/cactus/layout/_partial/footer.ejs` (minimal footer)
