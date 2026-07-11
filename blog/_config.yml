@@ -123,13 +123,13 @@ live2d:
   model:
     use: live2d-widget-model-hibiki
   display:
-    position: right
-    width: 135
-    height: 300
-    hOffset: 0
-    vOffset: -20
+    position: left
+    width: 80
+    height: 160
+    hOffset: 70
+    vOffset: 0
   mobile:
     show: false
   react:
-    opacity: 0.9
+    opacity: 0.65
 
