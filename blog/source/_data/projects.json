@@ -1,12 +1,26 @@
 [
     {
-       "name":"多媒體小作品 ",
-       "url":"https://github.com/reedlin2002/processing-portfolio",
-       "desc":"結合程式創作和人機互動的一些專案"
+       "name": "LocalAIAgentAPI",
+       "desc": "本地部署的 AI 推理平台：圖像分類、OCR 文字辨識、圖像描述與 LLM 文字生成，全程離線、高隱私。",
+       "tags": [".NET 8", "ONNX Runtime", "Tesseract OCR", "LLM"],
+       "url": "https://github.com/reedlin2002/Local_API_AI"
     },
     {
-       "name":"網頁類小作品 ",
-       "url":"https://github.com/reedlin2002/web-portfolio",
-       "desc":"做的一些 HTML 和 PHP 專案"
+       "name": "UrlHealthMonitor",
+       "desc": "網站可用性與回應時間監控服務，含單元測試與 Docker 容器化部署。",
+       "tags": [".NET", "Docker", "xUnit"],
+       "url": "https://github.com/reedlin2002/UrlHealthMonitor"
+    },
+    {
+       "name": "my-ollama",
+       "desc": "以 Ollama + LangChain 打造的本地 LLM Agent，支援天氣、計算、文件問答等工具呼叫。",
+       "tags": ["Python", "LangChain", "Ollama"],
+       "url": "https://github.com/reedlin2002"
+    },
+    {
+       "name": "HTTP Status Checker",
+       "desc": "批次檢測網址 HTTP 狀態的小工具，快速盤點連結健康度。",
+       "tags": ["C#", ".NET"],
+       "url": "https://github.com/reedlin2002"
     }
 ]
