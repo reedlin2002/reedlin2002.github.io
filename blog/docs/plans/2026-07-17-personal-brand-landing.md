@@ -29,10 +29,18 @@ none（純靜態網站主題層）
 
 ## Story Status
 - [x] In Progress
-- [ ] Code Done
-- [ ] Docs Updated
-- [ ] SDD Updated (N/A)
-- [ ] Review Ready
+- [x] Code Done
+- [x] Docs Updated
+- [x] SDD Updated (N/A)
+- [x] Review Ready
+
+## 驗證記錄（2026-07-18，hexo server + Chrome DevTools）
+- Build：每階段 `hexo clean && hexo generate` 通過；Phase A 刪 9 個死檔後 `public/css/style.css` SHA-256 與基準完全一致（e2adee79…）
+- 視口矩陣：1440×900 / 375×667 / 844×390（橫向）× 亮/暗模式 × 首頁、archives、文章內頁——版面正常、Aurora 依模式調色
+- 行動抽屜：開（面板圓角+陰影+滑降動畫）/ 外部點擊關 / Esc 關均正常——此抽屜樣式修復前從未生效（Stylus 巢狀選擇器錯誤）
+- PJAX 巡迴：archives→首頁→文章，split-text 重跑（3 chars）、spotlight 重綁、閱讀進度條/相關文章×3/版權塊/APlayer 均正常
+- Console：主題層零錯誤；僅文章內容缺圖 nfc-test-*.png 404（既有內容問題）
+- 過程中額外修復：#theme-toggle 被 #header backdrop-filter 劫持 fixed containing block（改為 header 流內）；$base-style 給 h3 的底線蓋掉；抽屜面板改 absolute 定位
 
 ## 決策參照
 - docs/decisions/2026-07-17-vanilla-js-over-react-for-landing-effects.md
