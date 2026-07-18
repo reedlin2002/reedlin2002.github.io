@@ -42,6 +42,9 @@ none（純靜態網站主題層）
 - Console：主題層零錯誤；僅文章內容缺圖 nfc-test-*.png 404（既有內容問題）
 - 過程中額外修復：#theme-toggle 被 #header backdrop-filter 劫持 fixed containing block（改為 header 流內）；$base-style 給 h3 的底線蓋掉；抽屜面板改 absolute 定位
 
+## 程式碼區塊重製（2026-07-18）
+使用者反映文章內程式碼難看。根因：`$font-family-mono` 竟是 "Nunito"（圓體 sans-serif）、`$color-background-code #f6f8fa` 淺底蓋掉 monokai 深底（style.styl 的 .highlight 規則在 import 之後）、`.content table` 框線滲入 highlight 表格。重製為終端機視窗風：`#0d1117` 深底（亮暗模式皆深）、38px header bar + 紅黃綠三燈、語言徽章與複製鈕移入 bar、JetBrains Mono、行號淡化、表格邊框全滅、`display:block + overflow-x` 處理長行捲動。
+
 ## 視覺二版（2026-07-18）
 首版 Aurora 柔和風被使用者退回（「太 common」），改為 Dev/Terminal 暗色優先：近黑底 + 點陣紋理、電光青單一 accent、終端 kicker、巨型掃光字、skills 跑馬燈、mono `//` 區段標題、`[tag]` 括號卡片。詳見 decisions/2026-07-18-dev-terminal-visual-language.md。已重新驗證：亮暗兩模式、行動單欄、console 零錯誤。
 
