@@ -133,19 +133,6 @@
 <meta name="generator" content="Hexo 7.3.0"></head>
 
     <body class="max-width mx-auto px3 ltr">
-      
-        <div id="header-post">
-  
-  
-  
-    <div id="toc">
-      <p class="toc-header">目錄</p>
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-ai-%E5%B9%AB%E4%BD%A0%E8%A6%8F%E5%8A%83%E6%97%85%E7%A8%8B-travel-planner-side-project-%E9%96%8B%E7%99%BC%E5%BF%83%E5%BE%97"><span class="toc-number">1.</span> <span class="toc-text"> 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 專案簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%A8%AD%E8%A8%88%E7%9A%84%E6%80%9D%E8%80%83%E9%81%8E%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 功能設計的思考過程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%BF%B4%E5%9C%88%E8%BC%B8%E5%85%A5-ai-%E5%9C%B0%E5%9C%96"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 核心迴圈：輸入 → AI → 地圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ai-%E6%95%B4%E5%90%88gemini-%E7%9A%84-api-%E9%85%8D%E9%A1%8D%E5%95%8F%E9%A1%8C"><span class="toc-number">1.2.2.</span> <span class="toc-text"> AI 整合：Gemini 的 API 配額問題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9C%96%E6%95%B4%E5%90%88google-maps-%E7%9A%84%E5%9D%91"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 地圖整合：Google Maps 的坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%80%E6%85%8B%E7%AE%A1%E7%90%86context-api-%E7%9A%84%E9%82%8A%E7%95%8C"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 狀態管理：Context API 的邊界</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%BC%83%E6%9C%89%E8%B6%A3%E7%9A%84%E6%8A%80%E8%A1%93%E7%B4%B0%E7%AF%80"><span class="toc-number">1.3.</span> <span class="toc-text"> 比較有趣的技術細節</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dnd-kit-%E6%8B%96%E6%8B%89%E6%8E%92%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> dnd-kit 拖拉排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i18n%E4%B8%AD%E8%8B%B1%E6%96%87%E9%9B%99%E8%AA%9E"><span class="toc-number">1.3.2.</span> <span class="toc-text"> i18n：中英文雙語</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#design-system-tokens"><span class="toc-number">1.3.3.</span> <span class="toc-text"> Design System Tokens</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%88%B0%E7%9A%84%E5%9D%91%E8%88%87%E5%8F%8D%E6%80%9D"><span class="toc-number">1.4.</span> <span class="toc-text"> 踩到的坑與反思</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E7%8B%80%E6%85%8B%E8%88%87%E5%BE%8C%E7%BA%8C%E8%A6%8F%E5%8A%83"><span class="toc-number">1.5.</span> <span class="toc-text"> 目前狀態與後續規劃</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">1.6.</span> <span class="toc-text"> 小結</span></a></li></ol></li></ol>
-    </div>
-  
-</div>
-
-          
             <main class="content index py4 " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -411,13 +398,6 @@
       </ul>
     </div>
 
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%A8-ai-%E5%B9%AB%E4%BD%A0%E8%A6%8F%E5%8A%83%E6%97%85%E7%A8%8B-travel-planner-side-project-%E9%96%8B%E7%99%BC%E5%BF%83%E5%BE%97"><span class="toc-number">1.</span> <span class="toc-text"> 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%88%E6%A1%88%E7%B0%A1%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 專案簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%A8%AD%E8%A8%88%E7%9A%84%E6%80%9D%E8%80%83%E9%81%8E%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 功能設計的思考過程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E8%BF%B4%E5%9C%88%E8%BC%B8%E5%85%A5-ai-%E5%9C%B0%E5%9C%96"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 核心迴圈：輸入 → AI → 地圖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ai-%E6%95%B4%E5%90%88gemini-%E7%9A%84-api-%E9%85%8D%E9%A1%8D%E5%95%8F%E9%A1%8C"><span class="toc-number">1.2.2.</span> <span class="toc-text"> AI 整合：Gemini 的 API 配額問題</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9C%96%E6%95%B4%E5%90%88google-maps-%E7%9A%84%E5%9D%91"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 地圖整合：Google Maps 的坑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8B%80%E6%85%8B%E7%AE%A1%E7%90%86context-api-%E7%9A%84%E9%82%8A%E7%95%8C"><span class="toc-number">1.2.4.</span> <span class="toc-text"> 狀態管理：Context API 的邊界</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%BC%83%E6%9C%89%E8%B6%A3%E7%9A%84%E6%8A%80%E8%A1%93%E7%B4%B0%E7%AF%80"><span class="toc-number">1.3.</span> <span class="toc-text"> 比較有趣的技術細節</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#dnd-kit-%E6%8B%96%E6%8B%89%E6%8E%92%E5%BA%8F"><span class="toc-number">1.3.1.</span> <span class="toc-text"> dnd-kit 拖拉排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i18n%E4%B8%AD%E8%8B%B1%E6%96%87%E9%9B%99%E8%AA%9E"><span class="toc-number">1.3.2.</span> <span class="toc-text"> i18n：中英文雙語</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#design-system-tokens"><span class="toc-number">1.3.3.</span> <span class="toc-text"> Design System Tokens</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%88%B0%E7%9A%84%E5%9D%91%E8%88%87%E5%8F%8D%E6%80%9D"><span class="toc-number">1.4.</span> <span class="toc-text"> 踩到的坑與反思</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%89%8D%E7%8B%80%E6%85%8B%E8%88%87%E5%BE%8C%E7%BA%8C%E8%A6%8F%E5%8A%83"><span class="toc-number">1.5.</span> <span class="toc-text"> 目前狀態與後續規劃</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">1.6.</span> <span class="toc-text"> 小結</span></a></li></ol></li></ol>
-      </div>
-    
-
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
@@ -437,9 +417,6 @@
 
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
-        
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
         <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
@@ -571,7 +548,7 @@ window.initSprint2JS = function() {
 window.initSprint2JS();
 </script>
 
-<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<!-- ── Sprint 3: Code Block Enhancement + Mobile Nav ── -->
 <script type="text/javascript">
 window.initSprint3JS = function() {
   'use strict';
@@ -644,78 +621,7 @@ window.initSprint3JS = function() {
   });
 
   /* ═══════════════════════════════════════════════════
-     ② TOC IntersectionObserver：追蹤當前章節並高亮
-     ═══════════════════════════════════════════════════ */
-  var toc = document.getElementById('toc');
-  if (toc) {
-    if (window.tocObserver) {
-        window.tocObserver.disconnect();
-    }
-    // 樣式設定：讓 TOC 連結有 active class
-    var tocLinks = toc.querySelectorAll('a');
-    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
-
-    if (headings.length > 0 && tocLinks.length > 0) {
-      var activeId = null;
-
-      window.tocObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            activeId = entry.target.id;
-          }
-        });
-        // 更新 TOC active 狀態
-        var activeLink = null;
-        tocLinks.forEach(function(link) {
-          var href = link.getAttribute('href');
-          if (href === '#' + activeId) {
-            link.classList.add('toc-active');
-            activeLink = link;
-          } else {
-            link.classList.remove('toc-active');
-          }
-        });
-        /* Auto-scroll TOC so active item stays visible */
-        if (activeLink && toc.scrollHeight > toc.clientHeight) {
-          var linkTop = activeLink.offsetTop;
-          var tocHeight = toc.clientHeight;
-          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
-          var reduce = window.prefersReducedMotion && window.prefersReducedMotion();
-          toc.scrollTo({ top: scrollTarget, behavior: reduce ? 'auto' : 'smooth' });
-        }
-      }, {
-        rootMargin: '-80px 0px -60% 0px',
-        threshold: 0
-      });
-
-      headings.forEach(function(h) {
-        if (h.id) window.tocObserver.observe(h);
-      });
-    }
-
-    /* ── j/k keyboard navigation between headings ── */
-    if (headings.length > 0 && !window._jkNavBound) {
-      window._jkNavBound = true;
-      document.addEventListener('keydown', function(e) {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-        if (e.key !== 'j' && e.key !== 'k') return;
-        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
-        if (!ids.length) return;
-        var currentIdx = ids.indexOf(activeId);
-        var nextIdx = e.key === 'j'
-          ? Math.min(currentIdx + 1, ids.length - 1)
-          : Math.max(currentIdx - 1, 0);
-        var target = document.getElementById(ids[nextIdx]);
-        if (target) {
-          var jkReduce = window.prefersReducedMotion && window.prefersReducedMotion();
-          target.scrollIntoView({ behavior: jkReduce ? 'auto' : 'smooth', block: 'start' });
-        }
-      });
-    }
-  }
-
-  /* ═══════════════════════════════════════════════════
-     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ② Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
      ═══════════════════════════════════════════════════ */
   // We use standard named events to avoid duplication if we just use document.addEventListener
   if (window._mobileNavHandlersBound) return;

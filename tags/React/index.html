@@ -105,7 +105,6 @@
 <meta name="generator" content="Hexo 7.3.0"></head>
 
     <body class="max-width mx-auto px3 ltr">
-      
             <main class="content index py4 " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -436,7 +435,7 @@ window.initSprint2JS = function() {
 window.initSprint2JS();
 </script>
 
-<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<!-- ── Sprint 3: Code Block Enhancement + Mobile Nav ── -->
 <script type="text/javascript">
 window.initSprint3JS = function() {
   'use strict';
@@ -509,78 +508,7 @@ window.initSprint3JS = function() {
   });
 
   /* ═══════════════════════════════════════════════════
-     ② TOC IntersectionObserver：追蹤當前章節並高亮
-     ═══════════════════════════════════════════════════ */
-  var toc = document.getElementById('toc');
-  if (toc) {
-    if (window.tocObserver) {
-        window.tocObserver.disconnect();
-    }
-    // 樣式設定：讓 TOC 連結有 active class
-    var tocLinks = toc.querySelectorAll('a');
-    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
-
-    if (headings.length > 0 && tocLinks.length > 0) {
-      var activeId = null;
-
-      window.tocObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            activeId = entry.target.id;
-          }
-        });
-        // 更新 TOC active 狀態
-        var activeLink = null;
-        tocLinks.forEach(function(link) {
-          var href = link.getAttribute('href');
-          if (href === '#' + activeId) {
-            link.classList.add('toc-active');
-            activeLink = link;
-          } else {
-            link.classList.remove('toc-active');
-          }
-        });
-        /* Auto-scroll TOC so active item stays visible */
-        if (activeLink && toc.scrollHeight > toc.clientHeight) {
-          var linkTop = activeLink.offsetTop;
-          var tocHeight = toc.clientHeight;
-          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
-          var reduce = window.prefersReducedMotion && window.prefersReducedMotion();
-          toc.scrollTo({ top: scrollTarget, behavior: reduce ? 'auto' : 'smooth' });
-        }
-      }, {
-        rootMargin: '-80px 0px -60% 0px',
-        threshold: 0
-      });
-
-      headings.forEach(function(h) {
-        if (h.id) window.tocObserver.observe(h);
-      });
-    }
-
-    /* ── j/k keyboard navigation between headings ── */
-    if (headings.length > 0 && !window._jkNavBound) {
-      window._jkNavBound = true;
-      document.addEventListener('keydown', function(e) {
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-        if (e.key !== 'j' && e.key !== 'k') return;
-        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
-        if (!ids.length) return;
-        var currentIdx = ids.indexOf(activeId);
-        var nextIdx = e.key === 'j'
-          ? Math.min(currentIdx + 1, ids.length - 1)
-          : Math.max(currentIdx - 1, 0);
-        var target = document.getElementById(ids[nextIdx]);
-        if (target) {
-          var jkReduce = window.prefersReducedMotion && window.prefersReducedMotion();
-          target.scrollIntoView({ behavior: jkReduce ? 'auto' : 'smooth', block: 'start' });
-        }
-      });
-    }
-  }
-
-  /* ═══════════════════════════════════════════════════
-     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ② Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
      ═══════════════════════════════════════════════════ */
   // We use standard named events to avoid duplication if we just use document.addEventListener
   if (window._mobileNavHandlersBound) return;

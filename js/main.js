@@ -144,7 +144,6 @@ window.initMainJS = function() {
 
         // close all submenu's on scroll
         $("#nav-footer").hide();
-        $("#toc-footer").hide();
         $("#share-footer").hide();
 
         // show a "navigation" icon when close to the top of the page, 
