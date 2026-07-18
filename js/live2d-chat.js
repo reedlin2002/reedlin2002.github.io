@@ -174,6 +174,29 @@
   }
 
   /* ── 對話視窗與可及性 ────────────────────────── */
+  /* 只把符合 permalink 格式的站內相對路徑轉成連結,其餘一律純文字(防注入) */
+  var SITE_PATH_RE = /\/20\d{2}\/\d{2}\/\d{2}\/[^\s，。、；：！？)）」』〉>"'…]+/g;
+
+  function appendRichText(container, text) {
+    var last = 0;
+    var match;
+    SITE_PATH_RE.lastIndex = 0;
+    while ((match = SITE_PATH_RE.exec(text))) {
+      if (match.index > last) {
+        container.appendChild(document.createTextNode(text.slice(last, match.index)));
+      }
+      var a = document.createElement('a');
+      a.className = 'waifu-link';
+      a.href = match[0];
+      a.textContent = match[0];
+      container.appendChild(a);
+      last = match.index + match[0].length;
+    }
+    if (last < text.length) {
+      container.appendChild(document.createTextNode(text.slice(last)));
+    }
+  }
+
   function addLog(role, text) {
     var div = document.createElement('div');
     div.className = 'waifu-msg waifu-msg-' + role;
@@ -181,7 +204,11 @@
     name.className = 'waifu-msg-name';
     name.textContent = role === 'assistant' ? CHAR_NAME : 'YOU';
     div.appendChild(name);
-    div.appendChild(document.createTextNode(text));
+    if (role === 'assistant') {
+      appendRichText(div, text);
+    } else {
+      div.appendChild(document.createTextNode(text));
+    }
     log.appendChild(div);
     while (log.children.length > 14) log.removeChild(log.firstChild);
     log.scrollTop = log.scrollHeight;
@@ -236,6 +263,12 @@
   });
   scrim.addEventListener('click', function () { closeChat(); });
   root.querySelector('.waifu-btn-close').addEventListener('click', function () { closeChat(); });
+
+  /* 點推薦連結導向新文章:先收合聊天,PJAX 導航後由 syncPage 重置對話 */
+  log.addEventListener('click', function (event) {
+    var link = event.target.closest && event.target.closest('a.waifu-link');
+    if (link) closeChat(false);
+  });
 
   document.addEventListener('click', function (event) {
     var mobileAction = event.target.closest && event.target.closest('.waifu-mobile-action');

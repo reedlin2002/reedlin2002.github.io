@@ -3548,6 +3548,15 @@ body.waifu-chat-open #live2d-widget {
   align-self: flex-end;
   color: #b8a7ff;
 }
+.waifu-msg a.waifu-link {
+  color: #72ddff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+.waifu-msg a.waifu-link:hover {
+  color: #a7ecff;
+}
 .waifu-typing {
   color: rgba(232,239,255,0.56);
   animation: waifuBlink 1s ease-in-out infinite;
