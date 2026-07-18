@@ -63,7 +63,15 @@ export default {
       return new Response(JSON.stringify({ error: 'no user message' }), { status: 400, headers: cors });
     }
 
-    const persona = env.SYSTEM_PROMPT || DEFAULT_PERSONA;
+    // 選填：訪客當前閱讀的文章（前端已裁切，這裡再設上限防灌爆）
+    let pageBlock = '';
+    if (body.page && typeof body.page.text === 'string' && body.page.text.trim()) {
+      const pTitle = String(body.page.title || '').slice(0, 100);
+      const pText = body.page.text.slice(0, 6000);
+      pageBlock = `\n\n[訪客目前正在閱讀的文章]\n標題：${pTitle}\n內容節錄：${pText}\n[/文章結束]\n訪客若問「這篇」「這段」「總結」等，即指上面這篇文章；回答文章問題時可以稍微超過字數限制（最多 200 字）。`;
+    }
+
+    const persona = (env.SYSTEM_PROMPT || DEFAULT_PERSONA) + pageBlock;
     const chain = [...new Set([env.MODEL, ...FALLBACK_MODELS].filter(Boolean))];
     let lastError = 'no model available';
 
