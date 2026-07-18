@@ -2,14 +2,14 @@
 <html lang=zh>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#08090d">
 
   <!-- ── Title ── -->
   <title>標籤: myself</title>
@@ -90,9 +90,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- ── Hero 輪播首圖 preload（首頁 LCP）── -->
-  
-
   <!-- ── Styles ── -->
   
 <link rel="stylesheet" href="/css/style.css">
@@ -129,15 +126,11 @@
       <!--
      --><li><a href="/">首頁</a></li><!--
    --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a href="/#projects">專案</a></li><!--
+   --><!--
      --><li><a href="/about/">關於</a></li><!--
-   --><!--
-     --><li><a href="/categories/">分類</a></li><!--
-   --><!--
-     --><li><a href="/tags/">標籤</a></li><!--
-   --><!--
-     --><li><a href="/archives/">歸檔</a></li><!--
-   --><!--
-     --><li><a href="/search/">搜尋</a></li><!--
    -->
     </ul>
     <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
@@ -148,39 +141,114 @@
 </header>
 
                 <div id="archive">
-  <ul class="post-list">
-    
-    
-    
-    
+
+  <!-- ── 站點導覽（自首頁遷入：標籤 / 分類 / 統計）── -->
+  <section id="site-nav">
+    <span class="section-title">站點導覽</span>
+    <div class="site-nav-grid">
+
+      <div class="site-nav-block">
+        <span class="site-nav-block-title"><i class="fa-solid fa-tags"></i>標籤</span>
+        <div class="site-nav-tags">
+          
+          <a href="/tags/project/" class="shoka-tag">#project <sup>5</sup></a>
+          
+          <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" class="shoka-tag">#技術筆記 <sup>2</sup></a>
+          
+          <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" class="shoka-tag">#(作者自學用) <sup>2</sup></a>
+          
+          <a href="/tags/side-project/" class="shoka-tag">#side project <sup>2</sup></a>
+          
+          <a href="/tags/React/" class="shoka-tag">#React <sup>2</sup></a>
+          
+          <a href="/tags/myself/" class="shoka-tag">#myself <sup>1</sup></a>
+          
+          <a href="/tags/leetcode/" class="shoka-tag">#leetcode <sup>1</sup></a>
+          
+          <a href="/tags/Daily/" class="shoka-tag">#Daily <sup>1</sup></a>
+          
+          <a href="/tags/NFC/" class="shoka-tag">#NFC <sup>1</sup></a>
+          
+          <a href="/tags/Web-API/" class="shoka-tag">#Web API <sup>1</sup></a>
+          
+          <a href="/tags/TypeScript/" class="shoka-tag">#TypeScript <sup>1</sup></a>
+          
+          <a href="/tags/AI/" class="shoka-tag">#AI <sup>1</sup></a>
+          
+        </div>
+      </div>
+
+      
+
+      <div class="site-nav-block">
+        <span class="site-nav-block-title"><i class="fa-solid fa-chart-simple"></i>統計</span>
+        <div class="site-nav-stats">
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">11</span>
+            <span class="site-nav-stat-label">文章</span>
+          </div>
+          
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">12</span>
+            <span class="site-nav-stat-label">標籤</span>
+          </div>
+          
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">12.0k</span>
+            <span class="site-nav-stat-label">總字數</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 依年份分組的完整文章列表（同首頁卡片樣式）── -->
+  <section class="archive-list">
+    <span class="section-title">全部文章</span>
+    <div class="post-list">
       
       
       
       
-        <li class="post-year"><h2>2025</h2></li>
-      
-      <li class="post-item">
         
-    <div class="meta">
+        
+        
+        
+          <h2 class="archive-year">2025</h2>
+        
+        
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/06/05/Aboutme/">🧣 | GitHub</a>
+    </h2>
+    <p class="post-row-excerpt">🧣 About me
+My Blog
+目前主要使用 React、TypeScript 與 Capacitor 開發 Web、Android 與 iOS 跨平台應用，並負責 API 串接、跨平台整合、技術方案分析與功能驗證。
+持續研究 AI 應用落地與 AI-assisted Developmen…</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-06-05</span>
+      <span><i class="fa-regular fa-clock"></i>1 min</span>
       
         
-          <time datetime="2025-06-05T07:03:00.000Z" class="dt-published" itemprop="datePublished">2025-06-05</time>
+        <a href="/tags/myself" class="post-row-tag">#myself</a>
         
       
     </div>
-
-
-        <span>
-    
-        <a class="" href="/2025/06/05/Aboutme/">🧣 | GitHub</a>
-    
-
-
-</span>
-      </li>
-    
-  </ul>
+  </div>
   
+  <a class="post-row-thumb-wrap" href="/2025/06/05/Aboutme/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/81781977_p0.png" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+      
+    </div>
+    
+
+  </section>
 
 </div>
 
@@ -210,6 +278,12 @@
 
     <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
       <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="/search/" class="footer-mono-link">
+      <i class="fas fa-magnifying-glass"></i> 搜尋
     </a>
 
     <span class="footer-mono-sep">·</span>
@@ -274,25 +348,8 @@ window.initLightbox();
 window.initSprint2JS = function() {
   'use strict';
 
-  /* ① Navbar Glassmorphism scroll toggle */
-  var header = document.getElementById('header');
-  if (header) {
-    if (window._navbarScrollListener) {
-      window.removeEventListener('scroll', window._navbarScrollListener);
-    }
-    window._navbarScrollListener = function() {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    };
-    window.addEventListener('scroll', window._navbarScrollListener, { passive: true });
-    window._navbarScrollListener(); // 初始執行一次
-  }
-
-  /* ② 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
-  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card');
+  /* 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card, .project-card');
   if (cards.length > 0 && 'IntersectionObserver' in window) {
     if (window.cardObserver) {
       window.cardObserver.disconnect();
@@ -410,10 +467,6 @@ window.initSprint3JS = function() {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             activeId = entry.target.id;
-            /* Heading entrance animation */
-            if (!entry.target.classList.contains('heading-entered')) {
-              entry.target.classList.add('heading-entered');
-            }
           }
         });
         // 更新 TOC active 狀態
@@ -432,7 +485,8 @@ window.initSprint3JS = function() {
           var linkTop = activeLink.offsetTop;
           var tocHeight = toc.clientHeight;
           var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
-          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+          var reduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          toc.scrollTo({ top: scrollTarget, behavior: reduce ? 'auto' : 'smooth' });
         }
       }, {
         rootMargin: '-80px 0px -60% 0px',
@@ -457,7 +511,10 @@ window.initSprint3JS = function() {
           ? Math.min(currentIdx + 1, ids.length - 1)
           : Math.max(currentIdx - 1, 0);
         var target = document.getElementById(ids[nextIdx]);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+          var jkReduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          target.scrollIntoView({ behavior: jkReduce ? 'auto' : 'smooth', block: 'start' });
+        }
       });
     }
   }
@@ -469,20 +526,19 @@ window.initSprint3JS = function() {
   if (window._mobileNavHandlersBound) return;
   window._mobileNavHandlersBound = true;
 
+  /* 關閉 = 移除 .responsive class（開關同一機制，不用 jQuery 動 inline display）*/
+  function closeMobileNav() {
+    var navMenu = document.querySelector('#header #nav > ul.responsive');
+    if (navMenu) navMenu.classList.remove('responsive');
+  }
+
   document.addEventListener('click', function(e) {
-    var navMenu = document.querySelector('#nav ul');
     var header = document.getElementById('header');
-    if (navMenu && header && !header.contains(e.target)) {
-      if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
-        $('#nav ul').slideUp(200);
-      }
-    }
+    if (header && !header.contains(e.target)) closeMobileNav();
   });
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && typeof $ !== 'undefined') {
-      $('#nav ul').slideUp(200);
-    }
+    if (e.key === 'Escape') closeMobileNav();
   });
 
   var touchStartX = 0;
@@ -493,11 +549,11 @@ window.initSprint3JS = function() {
   }, {passive: true});
 
   document.addEventListener('touchend', function(e) {
-    if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+    if (document.querySelector('#header #nav > ul.responsive')) {
       var touchEndX = e.changedTouches[0].screenX;
       var touchEndY = e.changedTouches[0].screenY;
       if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
-        $('#nav ul').slideUp(200);
+        closeMobileNav();
       }
     }
   }, {passive: true});
@@ -593,14 +649,13 @@ window.initReadingProgress();
     lrcType: 0,
     audio: audio
   });
-  document.body.classList.add('aplayer-active');
 })();
 </script>
 
 
 
                     
-<script src="/js/hero-carousel.js"></script>
+<script src="/js/landing.js"></script>
 
                       <!-- PJAX 架構與進度條 -->
                       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">

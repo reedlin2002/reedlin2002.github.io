@@ -2,14 +2,14 @@
 <html lang=zh>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#08090d">
 
   <!-- ── Title ── -->
   <title>標籤: project</title>
@@ -90,9 +90,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- ── Hero 輪播首圖 preload（首頁 LCP）── -->
-  
-
   <!-- ── Styles ── -->
   
 <link rel="stylesheet" href="/css/style.css">
@@ -129,15 +126,11 @@
       <!--
      --><li><a href="/">首頁</a></li><!--
    --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a href="/#projects">專案</a></li><!--
+   --><!--
      --><li><a href="/about/">關於</a></li><!--
-   --><!--
-     --><li><a href="/categories/">分類</a></li><!--
-   --><!--
-     --><li><a href="/tags/">標籤</a></li><!--
-   --><!--
-     --><li><a href="/archives/">歸檔</a></li><!--
-   --><!--
-     --><li><a href="/search/">搜尋</a></li><!--
    -->
     </ul>
     <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
@@ -148,135 +141,270 @@
 </header>
 
                 <div id="archive">
-  <ul class="post-list">
-    
-    
-    
-    
+
+  <!-- ── 站點導覽（自首頁遷入：標籤 / 分類 / 統計）── -->
+  <section id="site-nav">
+    <span class="section-title">站點導覽</span>
+    <div class="site-nav-grid">
+
+      <div class="site-nav-block">
+        <span class="site-nav-block-title"><i class="fa-solid fa-tags"></i>標籤</span>
+        <div class="site-nav-tags">
+          
+          <a href="/tags/project/" class="shoka-tag">#project <sup>5</sup></a>
+          
+          <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" class="shoka-tag">#技術筆記 <sup>2</sup></a>
+          
+          <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" class="shoka-tag">#(作者自學用) <sup>2</sup></a>
+          
+          <a href="/tags/side-project/" class="shoka-tag">#side project <sup>2</sup></a>
+          
+          <a href="/tags/React/" class="shoka-tag">#React <sup>2</sup></a>
+          
+          <a href="/tags/myself/" class="shoka-tag">#myself <sup>1</sup></a>
+          
+          <a href="/tags/leetcode/" class="shoka-tag">#leetcode <sup>1</sup></a>
+          
+          <a href="/tags/Daily/" class="shoka-tag">#Daily <sup>1</sup></a>
+          
+          <a href="/tags/NFC/" class="shoka-tag">#NFC <sup>1</sup></a>
+          
+          <a href="/tags/Web-API/" class="shoka-tag">#Web API <sup>1</sup></a>
+          
+          <a href="/tags/TypeScript/" class="shoka-tag">#TypeScript <sup>1</sup></a>
+          
+          <a href="/tags/AI/" class="shoka-tag">#AI <sup>1</sup></a>
+          
+        </div>
+      </div>
+
       
-      
-      
-      
-        <li class="post-year"><h2>2025</h2></li>
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2025-07-19T07:34:20.000Z" class="dt-published" itemprop="datePublished">2025-07-19</time>
-        
-      
+
+      <div class="site-nav-block">
+        <span class="site-nav-block-title"><i class="fa-solid fa-chart-simple"></i>統計</span>
+        <div class="site-nav-stats">
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">11</span>
+            <span class="site-nav-stat-label">文章</span>
+          </div>
+          
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">12</span>
+            <span class="site-nav-stat-label">標籤</span>
+          </div>
+          
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">12.0k</span>
+            <span class="site-nav-stat-label">總字數</span>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </section>
 
-
-        <span>
-    
-        <a class="" href="/2025/07/19/LocalAIAgentAPI/">📍 | LocalAIAgentAPI</a>
-    
-
-
-</span>
-      </li>
-    
+  <!-- ── 依年份分組的完整文章列表（同首頁卡片樣式）── -->
+  <section class="archive-list">
+    <span class="section-title">全部文章</span>
+    <div class="post-list">
       
       
       
-      
-      <li class="post-item">
-        
-    <div class="meta">
       
         
-          <time datetime="2025-07-05T13:44:35.000Z" class="dt-published" itemprop="datePublished">2025-07-05</time>
         
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2025/07/05/UrlHealthMonitor/">🌐 | 網站健康監控平台</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
         
-    <div class="meta">
-      
         
-          <time datetime="2025-06-25T15:43:59.000Z" class="dt-published" itemprop="datePublished">2025-06-25</time>
+          <h2 class="archive-year">2025</h2>
         
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2025/06/25/ollama/">🧠 | 聊天機器人</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
         
-    <div class="meta">
-      
-        
-          <time datetime="2025-06-18T04:10:35.000Z" class="dt-published" itemprop="datePublished">2025-06-18</time>
-        
-      
-    </div>
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/07/19/LocalAIAgentAPI/">📍 | LocalAIAgentAPI</a>
+    </h2>
+    <p class="post-row-excerpt">學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習
+
+這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。
 
 
-        <span>
-    
-        <a class="" href="/2025/06/18/expenses/">🤖 | 記帳小管家</a>
-    
-
-
-</span>
-      </li>
-    
-      
-      
-      
-      
-      <li class="post-item">
-        
-    <div class="meta">
-      
-        
-          <time datetime="2025-06-09T13:10:31.000Z" class="dt-published" itemprop="datePublished">2025-06-09</time>
-        
-      
-    </div>
-
-
-        <span>
-    
-        <a class="" href="/2025/06/09/program/">📕 | PDF Reader</a>
-    
-
-
-</span>
-      </li>
-    
-  </ul>
   
+    
+  
+
+
+學習目標
+作為一個正在準備面試的開發者，我給自己設定了一個挑戰：
+能不能在一週內整合多種 …</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-07-19</span>
+      <span><i class="fa-regular fa-clock"></i>4 min</span>
+      
+        
+        <a href="/tags/project" class="post-row-tag">#project</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/07/19/LocalAIAgentAPI/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/LocalAIAgentAPI.png" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+      
+        
+        
+        
+        
+        
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/07/05/UrlHealthMonitor/">🌐 | 網站健康監控平台</a>
+    </h2>
+    <p class="post-row-excerpt">🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務
+
+這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。
+
+►  「 GITHUB 」
+
+💡 專案緣起
+在現代化的網站運維中，服務的可用…</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-07-05</span>
+      <span><i class="fa-regular fa-clock"></i>2 min</span>
+      
+        
+        <a href="/tags/project" class="post-row-tag">#project</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/07/05/UrlHealthMonitor/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/monitor.png" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+      
+        
+        
+        
+        
+        
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/06/25/ollama/">🧠 | 聊天機器人</a>
+    </h2>
+    <p class="post-row-excerpt">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）
+
+這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數…</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-06-25</span>
+      <span><i class="fa-regular fa-clock"></i>3 min</span>
+      
+        
+        <a href="/tags/project" class="post-row-tag">#project</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/06/25/ollama/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/ollama.png" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+      
+        
+        
+        
+        
+        
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/06/18/expenses/">🤖 | 記帳小管家</a>
+    </h2>
+    <p class="post-row-excerpt">一個結合 React 前端與 Flask 後端的個人記帳專案
+
+基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。
+
+
+  
+    
+  
+
+
+執行目標
+希望做出一款簡單的記帳小工具，具有以下功能：
+
+支援每日紀錄多筆支出
+直覺的欄位…</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-06-18</span>
+      <span><i class="fa-regular fa-clock"></i>2 min</span>
+      
+        
+        <a href="/tags/project" class="post-row-tag">#project</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/06/18/expenses/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/expenses_1.png" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+      
+        
+        
+        
+        
+        
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/06/09/program/">📕 | PDF Reader</a>
+    </h2>
+    <p class="post-row-excerpt">PDF Reader
+
+這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。
+
+
+技術架構
+
+使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。
+使用 PyPDF2 讀取 PDF 內…</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-06-09</span>
+      <span><i class="fa-regular fa-clock"></i>2 min</span>
+      
+        
+        <a href="/tags/project" class="post-row-tag">#project</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/06/09/program/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+      
+    </div>
+    
+
+  </section>
 
 </div>
 
@@ -306,6 +434,12 @@
 
     <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
       <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="/search/" class="footer-mono-link">
+      <i class="fas fa-magnifying-glass"></i> 搜尋
     </a>
 
     <span class="footer-mono-sep">·</span>
@@ -370,25 +504,8 @@ window.initLightbox();
 window.initSprint2JS = function() {
   'use strict';
 
-  /* ① Navbar Glassmorphism scroll toggle */
-  var header = document.getElementById('header');
-  if (header) {
-    if (window._navbarScrollListener) {
-      window.removeEventListener('scroll', window._navbarScrollListener);
-    }
-    window._navbarScrollListener = function() {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    };
-    window.addEventListener('scroll', window._navbarScrollListener, { passive: true });
-    window._navbarScrollListener(); // 初始執行一次
-  }
-
-  /* ② 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
-  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card');
+  /* 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card, .project-card');
   if (cards.length > 0 && 'IntersectionObserver' in window) {
     if (window.cardObserver) {
       window.cardObserver.disconnect();
@@ -506,10 +623,6 @@ window.initSprint3JS = function() {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             activeId = entry.target.id;
-            /* Heading entrance animation */
-            if (!entry.target.classList.contains('heading-entered')) {
-              entry.target.classList.add('heading-entered');
-            }
           }
         });
         // 更新 TOC active 狀態
@@ -528,7 +641,8 @@ window.initSprint3JS = function() {
           var linkTop = activeLink.offsetTop;
           var tocHeight = toc.clientHeight;
           var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
-          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+          var reduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          toc.scrollTo({ top: scrollTarget, behavior: reduce ? 'auto' : 'smooth' });
         }
       }, {
         rootMargin: '-80px 0px -60% 0px',
@@ -553,7 +667,10 @@ window.initSprint3JS = function() {
           ? Math.min(currentIdx + 1, ids.length - 1)
           : Math.max(currentIdx - 1, 0);
         var target = document.getElementById(ids[nextIdx]);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+          var jkReduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          target.scrollIntoView({ behavior: jkReduce ? 'auto' : 'smooth', block: 'start' });
+        }
       });
     }
   }
@@ -565,20 +682,19 @@ window.initSprint3JS = function() {
   if (window._mobileNavHandlersBound) return;
   window._mobileNavHandlersBound = true;
 
+  /* 關閉 = 移除 .responsive class（開關同一機制，不用 jQuery 動 inline display）*/
+  function closeMobileNav() {
+    var navMenu = document.querySelector('#header #nav > ul.responsive');
+    if (navMenu) navMenu.classList.remove('responsive');
+  }
+
   document.addEventListener('click', function(e) {
-    var navMenu = document.querySelector('#nav ul');
     var header = document.getElementById('header');
-    if (navMenu && header && !header.contains(e.target)) {
-      if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
-        $('#nav ul').slideUp(200);
-      }
-    }
+    if (header && !header.contains(e.target)) closeMobileNav();
   });
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && typeof $ !== 'undefined') {
-      $('#nav ul').slideUp(200);
-    }
+    if (e.key === 'Escape') closeMobileNav();
   });
 
   var touchStartX = 0;
@@ -589,11 +705,11 @@ window.initSprint3JS = function() {
   }, {passive: true});
 
   document.addEventListener('touchend', function(e) {
-    if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+    if (document.querySelector('#header #nav > ul.responsive')) {
       var touchEndX = e.changedTouches[0].screenX;
       var touchEndY = e.changedTouches[0].screenY;
       if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
-        $('#nav ul').slideUp(200);
+        closeMobileNav();
       }
     }
   }, {passive: true});
@@ -689,14 +805,13 @@ window.initReadingProgress();
     lrcType: 0,
     audio: audio
   });
-  document.body.classList.add('aplayer-active');
 })();
 </script>
 
 
 
                     
-<script src="/js/hero-carousel.js"></script>
+<script src="/js/landing.js"></script>
 
                       <!-- PJAX 架構與進度條 -->
                       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">

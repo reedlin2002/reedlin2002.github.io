@@ -2,14 +2,14 @@
 <html lang=zh>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#08090d">
 
   <!-- ── Title ── -->
   <title>Reedlin2002</title>
@@ -112,11 +112,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- ── Hero 輪播首圖 preload（首頁 LCP）── -->
-  
-  <link rel="preload" as="image" href="/images/hero/01.jpg" fetchpriority="high">
-  
-
   <!-- ── Styles ── -->
   
 <link rel="stylesheet" href="/css/style.css">
@@ -151,17 +146,13 @@
         <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
       </li>
       <!--
-     --><li><a href="/">首頁</a></li><!--
+     --><li><a href="/" aria-current="page">首頁</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a href="/#projects">專案</a></li><!--
    --><!--
      --><li><a href="/about/">關於</a></li><!--
-   --><!--
-     --><li><a href="/categories/">分類</a></li><!--
-   --><!--
-     --><li><a href="/tags/">標籤</a></li><!--
-   --><!--
-     --><li><a href="/archives/">歸檔</a></li><!--
-   --><!--
-     --><li><a href="/search/">搜尋</a></li><!--
    -->
     </ul>
     <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
@@ -171,100 +162,134 @@
   </div>
 </header>
 
-                <!-- ── 頂部橫幅輪播（Mizuki 式 38vh）── -->
+                <!-- ══ 品牌 Landing：Dev/Terminal Hero ══ -->
 
+<section class="landing-hero">
+  <div class="hero-backdrop" aria-hidden="true"></div>
 
-<div id="hero-carousel" data-interval="6000" aria-hidden="true">
-  
-  <img class="hero-slide active"
-    src="/images/hero/01.jpg" alt=""
-    loading="eager"
-    fetchpriority=&#34;high&#34;>
-  
-  <img class="hero-slide"
-    src="/images/hero/02.jpg" alt=""
-    loading="lazy"
-    >
-  
-  <img class="hero-slide"
-    src="/images/hero/03.jpg" alt=""
-    loading="lazy"
-    >
-  
-  <img class="hero-slide"
-    src="/images/hero/04.jpg" alt=""
-    loading="lazy"
-    >
-  
-</div>
+  <noscript><style>.landing-hero-inner .hero-kicker, .landing-hero-inner .hero-title-line, .landing-hero-inner .hero-tagline, .landing-hero-inner .skills-marquee, .landing-hero-inner .hero-cta, .landing-hero-inner .hero-links { opacity: 1 !important; transform: none !important; }</style></noscript>
 
-
-<!-- ── 文字 Hero（自介合併於此）── -->
-<section id="hero-min" class="p-note">
-  <h1 class="hero-min-name">Reedlin2002</h1>
-  <p class="hero-min-tagline">
-    你好，我是 <strong>Lin</strong>，軟體設計工程師，專注於 AI 應用整合與系統設計。<br>
-    平常開發 Web 與跨平台 App，也在研究怎麼讓 AI 真正進入軟體開發流程。<br>
-    這裡記錄技術踩坑、開發方法，以及好奇心驅動的實驗與 side projects。
-
-  </p>
-  <div class="hero-min-chips">
+  <div class="landing-hero-inner p-note">
+    <p class="hero-kicker"><span class="kicker-path">~/lin</span> $ whoami<span class="kicker-cursor" aria-hidden="true"></span></p>
+    <h1 class="hero-name" data-split>Lin</h1>
+    <p class="hero-title-line">軟體設計工程師｜AI 應用整合 × 系統設計</p>
+    
+    <p class="hero-tagline">平常開發 Web 與跨平台 App，也在研究怎麼讓 AI 真正進入軟體開發流程。 這裡記錄技術踩坑、開發方法，以及好奇心驅動的實驗與 side projects。</p>
     
     
-    <span class="hero-min-chip">React</span>
+    <div class="skills-marquee">
+      <div class="marquee-inner">
+        <span class="marquee-track"><span>React</span><span>TypeScript</span><span>Python</span><span>Capacitor</span><span>RAG</span><span>System Design</span><span>Computer Vision</span><span>PyTorch / OpenCV</span></span>
+        <span class="marquee-track" aria-hidden="true"><span>React</span><span>TypeScript</span><span>Python</span><span>Capacitor</span><span>RAG</span><span>System Design</span><span>Computer Vision</span><span>PyTorch / OpenCV</span></span>
+      </div>
+    </div>
     
-    <span class="hero-min-chip">TypeScript</span>
+    <div class="hero-cta">
+      <a class="hero-btn hero-btn-primary" href="#projects"><i class="fa-solid fa-cubes"></i>精選專案</a>
+      <a class="hero-btn hero-btn-ghost" href="/archives/"><i class="fa-solid fa-book-open"></i>全部文章</a>
+    </div>
     
-    <span class="hero-min-chip">Python</span>
-    
-    <span class="hero-min-chip">Capacitor</span>
-    
-    <span class="hero-min-chip">RAG</span>
-    
-    <span class="hero-min-chip">System Design</span>
-    
-    <span class="hero-min-chip">Computer Vision</span>
-    
-    <span class="hero-min-chip">PyTorch / OpenCV</span>
+    <div class="hero-links">
+      
+        
+        
+        
+          <a class="u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002" aria-label="github"><i class="fa-brands fa-github"></i>Github</a>
+        
+      
+        
+        
+        
+          <a class="u-email" href="mailto:reedlin2002@gmail.com" aria-label="mail"><i class="fa-solid fa-envelope"></i>Mail</a>
+        
+      
+    </div>
     
   </div>
-  
-  <div class="hero-min-links">
-    
-      
-      
-      
-        <a class="u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002" aria-label="github"><i class="fa-brands fa-github"></i>Github</a>
-      
-    
-      
-      
-      
-        <a class="u-email" href="mailto:reedlin2002@gmail.com" aria-label="mail"><i class="fa-solid fa-envelope"></i>Mail</a>
-      
-    
-  </div>
-  
+
+  <a class="scroll-hint" href="#projects" aria-label="往下捲動">scroll ↓</a>
 </section>
 
-<!-- ── Medium 式文章列表 ── -->
-<section id="writing">
-  <a href="/archives/" class="section-title">文章</a>
+<!-- ══ 精選專案（Spotlight + Tilt 卡片）══ -->
 
+<section id="projects" class="landing-section">
+  <h2 class="section-title">精選專案</h2>
+  <div class="project-grid">
+    
+    <a class="project-card" href="https://github.com/reedlin2002/Local_API_AI" target="_blank" rel="noopener">
+      <div class="project-card-head">
+        <span class="project-card-idx">01</span>
+        <span class="project-card-ext">↗</span>
+      </div>
+      <h3 class="project-card-name">LocalAIAgentAPI</h3>
+      <p class="project-card-desc">本地部署的 AI 推理平台：圖像分類、OCR 文字辨識、圖像描述與 LLM 文字生成，全程離線、高隱私。</p>
+      
+      <div class="project-card-tags">
+        <span class="project-card-tag">.NET 8</span><span class="project-card-tag">ONNX Runtime</span><span class="project-card-tag">Tesseract OCR</span><span class="project-card-tag">LLM</span>
+      </div>
+      
+    </a>
+    
+    <a class="project-card" href="https://github.com/reedlin2002/UrlHealthMonitor" target="_blank" rel="noopener">
+      <div class="project-card-head">
+        <span class="project-card-idx">02</span>
+        <span class="project-card-ext">↗</span>
+      </div>
+      <h3 class="project-card-name">UrlHealthMonitor</h3>
+      <p class="project-card-desc">網站可用性與回應時間監控服務，含單元測試與 Docker 容器化部署。</p>
+      
+      <div class="project-card-tags">
+        <span class="project-card-tag">.NET</span><span class="project-card-tag">Docker</span><span class="project-card-tag">xUnit</span>
+      </div>
+      
+    </a>
+    
+    <a class="project-card" href="https://github.com/reedlin2002" target="_blank" rel="noopener">
+      <div class="project-card-head">
+        <span class="project-card-idx">03</span>
+        <span class="project-card-ext">↗</span>
+      </div>
+      <h3 class="project-card-name">my-ollama</h3>
+      <p class="project-card-desc">以 Ollama + LangChain 打造的本地 LLM Agent，支援天氣、計算、文件問答等工具呼叫。</p>
+      
+      <div class="project-card-tags">
+        <span class="project-card-tag">Python</span><span class="project-card-tag">LangChain</span><span class="project-card-tag">Ollama</span>
+      </div>
+      
+    </a>
+    
+    <a class="project-card" href="https://github.com/reedlin2002" target="_blank" rel="noopener">
+      <div class="project-card-head">
+        <span class="project-card-idx">04</span>
+        <span class="project-card-ext">↗</span>
+      </div>
+      <h3 class="project-card-name">HTTP Status Checker</h3>
+      <p class="project-card-desc">批次檢測網址 HTTP 狀態的小工具，快速盤點連結健康度。</p>
+      
+      <div class="project-card-tags">
+        <span class="project-card-tag">C#</span><span class="project-card-tag">.NET</span>
+      </div>
+      
+    </a>
+    
+  </div>
+</section>
+
+
+<!-- ══ 最新文章 ══ -->
+<section id="writing" class="landing-section">
+  <h2 class="section-title">最新文章</h2>
   <div class="post-list">
     
     
-      
-    
-
     
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2026/05/31/nfc-test/">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</a>
-          </h2>
-          <p class="post-row-excerpt">📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2026/05/31/nfc-test/">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</a>
+    </h2>
+    <p class="post-row-excerpt">📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
 
 不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專案的起點就這麼簡單。
 
@@ -273,72 +298,74 @@
 有時候你想分享一個連結給旁邊的人，最懶的方法是什麼？
 
 用 LIN…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2026-05-31</span>
-            <span><i class="fa-regular fa-clock"></i>5 min</span>
-            
-              
-              <a href="/tags/side%20project" class="post-row-tag">#side project</a>
-              
-              <a href="/tags/React" class="post-row-tag">#React</a>
-              
-              <a href="/tags/NFC" class="post-row-tag">#NFC</a>
-              
-              <a href="/tags/Web%20API" class="post-row-tag">#Web API</a>
-              
-            
-          </div>
-        </div>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2026-05-31</span>
+      <span><i class="fa-regular fa-clock"></i>5 min</span>
+      
         
-        <a class="post-row-thumb-wrap" href="/2026/05/31/nfc-test/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" loading="lazy" alt="">
-        </a>
+        <a href="/tags/side%20project" class="post-row-tag">#side project</a>
         
-      </article>
+        <a href="/tags/React" class="post-row-tag">#React</a>
+        
+        <a href="/tags/NFC" class="post-row-tag">#NFC</a>
+        
+        <a href="/tags/Web%20API" class="post-row-tag">#Web API</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2026/05/31/nfc-test/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" loading="lazy" alt="">
+  </a>
+  
+</article>
+
     
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</a>
-          </h2>
-          <p class="post-row-excerpt">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</a>
+    </h2>
+    <p class="post-row-excerpt">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
 
 這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。
 
 
 專案簡介
 travelfrontend 是一個 AI 智慧行程規劃工具，使用者只…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2026-05-16</span>
-            <span><i class="fa-regular fa-clock"></i>5 min</span>
-            
-              
-              <a href="/tags/side%20project" class="post-row-tag">#side project</a>
-              
-              <a href="/tags/React" class="post-row-tag">#React</a>
-              
-              <a href="/tags/TypeScript" class="post-row-tag">#TypeScript</a>
-              
-              <a href="/tags/AI" class="post-row-tag">#AI</a>
-              
-            
-          </div>
-        </div>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2026-05-16</span>
+      <span><i class="fa-regular fa-clock"></i>5 min</span>
+      
         
-        <a class="post-row-thumb-wrap" href="/2026/05/16/travel-planner-side-project/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy" alt="">
-        </a>
+        <a href="/tags/side%20project" class="post-row-tag">#side project</a>
         
-      </article>
+        <a href="/tags/React" class="post-row-tag">#React</a>
+        
+        <a href="/tags/TypeScript" class="post-row-tag">#TypeScript</a>
+        
+        <a href="/tags/AI" class="post-row-tag">#AI</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2026/05/16/travel-planner-side-project/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy" alt="">
+  </a>
+  
+</article>
+
     
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/07/19/LocalAIAgentAPI/">📍 | LocalAIAgentAPI</a>
-          </h2>
-          <p class="post-row-excerpt">學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/07/19/LocalAIAgentAPI/">📍 | LocalAIAgentAPI</a>
+    </h2>
+    <p class="post-row-excerpt">學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習
 
 這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。
 
@@ -351,61 +378,63 @@ travelfrontend 是一個 AI 智慧行程規劃工具，使用者只…</p>
 學習目標
 作為一個正在準備面試的開發者，我給自己設定了一個挑戰：
 能不能在一週內整合多種 …</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-07-19</span>
-            <span><i class="fa-regular fa-clock"></i>4 min</span>
-            
-              
-              <a href="/tags/project" class="post-row-tag">#project</a>
-              
-            
-          </div>
-        </div>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-07-19</span>
+      <span><i class="fa-regular fa-clock"></i>4 min</span>
+      
         
-        <a class="post-row-thumb-wrap" href="/2025/07/19/LocalAIAgentAPI/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="/images/LocalAIAgentAPI.png" loading="lazy" alt="">
-        </a>
+        <a href="/tags/project" class="post-row-tag">#project</a>
         
-      </article>
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/07/19/LocalAIAgentAPI/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/LocalAIAgentAPI.png" loading="lazy" alt="">
+  </a>
+  
+</article>
+
     
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/07/13/singleton-pattern/">單例模式 Singleton_pattern</a>
-          </h2>
-          <p class="post-row-excerpt">單例模式 (Singleton Pattern)
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/07/13/singleton-pattern/">單例模式 Singleton_pattern</a>
+    </h2>
+    <p class="post-row-excerpt">單例模式 (Singleton Pattern)
 為什麼需要 Singleton？
 在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。
 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：
 
 Log 訊…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-07-13</span>
-            <span><i class="fa-regular fa-clock"></i>2 min</span>
-            
-              
-              <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
-              
-              <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="post-row-tag">#(作者自學用)</a>
-              
-            
-          </div>
-        </div>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-07-13</span>
+      <span><i class="fa-regular fa-clock"></i>2 min</span>
+      
         
-        <a class="post-row-thumb-wrap" href="/2025/07/13/singleton-pattern/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800" loading="lazy" alt="">
-        </a>
+        <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
         
-      </article>
+        <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="post-row-tag">#(作者自學用)</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/07/13/singleton-pattern/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?q=80&w=800" loading="lazy" alt="">
+  </a>
+  
+</article>
+
     
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/07/12/design-patterns/">設計模式 (Software design pattern)</a>
-          </h2>
-          <p class="post-row-excerpt">Python 設計模式
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/07/12/design-patterns/">設計模式 (Software design pattern)</a>
+    </h2>
+    <p class="post-row-excerpt">Python 設計模式
 這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。
 
 四種模式
@@ -418,32 +447,33 @@ Log 訊…</p>
 
 
 🟢 單例模式 Singleton Pa…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-07-12</span>
-            <span><i class="fa-regular fa-clock"></i>6 min</span>
-            
-              
-              <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
-              
-              <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="post-row-tag">#(作者自學用)</a>
-              
-            
-          </div>
-        </div>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-07-12</span>
+      <span><i class="fa-regular fa-clock"></i>6 min</span>
+      
         
-        <a class="post-row-thumb-wrap" href="/2025/07/12/design-patterns/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="/images/design_pattern.png" loading="lazy" alt="">
-        </a>
+        <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
         
-      </article>
+        <a href="/tags/(%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8)" class="post-row-tag">#(作者自學用)</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2025/07/12/design-patterns/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/design_pattern.png" loading="lazy" alt="">
+  </a>
+  
+</article>
+
     
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/07/05/UrlHealthMonitor/">🌐 | 網站健康監控平台</a>
-          </h2>
-          <p class="post-row-excerpt">🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2025/07/05/UrlHealthMonitor/">🌐 | 網站健康監控平台</a>
+    </h2>
+    <p class="post-row-excerpt">🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務
 
 這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。
 
@@ -451,264 +481,48 @@ Log 訊…</p>
 
 💡 專案緣起
 在現代化的網站運維中，服務的可用…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-07-05</span>
-            <span><i class="fa-regular fa-clock"></i>2 min</span>
-            
-              
-              <a href="/tags/project" class="post-row-tag">#project</a>
-              
-            
-          </div>
-        </div>
-        
-        <a class="post-row-thumb-wrap" href="/2025/07/05/UrlHealthMonitor/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="/images/monitor.png" loading="lazy" alt="">
-        </a>
-        
-      </article>
-    
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2025-07-05</span>
+      <span><i class="fa-regular fa-clock"></i>2 min</span>
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/06/25/ollama/">🧠 | 聊天機器人</a>
-          </h2>
-          <p class="post-row-excerpt">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）
-
-這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-06-25</span>
-            <span><i class="fa-regular fa-clock"></i>3 min</span>
-            
-              
-              <a href="/tags/project" class="post-row-tag">#project</a>
-              
-            
-          </div>
-        </div>
         
-        <a class="post-row-thumb-wrap" href="/2025/06/25/ollama/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="/images/ollama.png" loading="lazy" alt="">
-        </a>
+        <a href="/tags/project" class="post-row-tag">#project</a>
         
-      </article>
-    
       
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/06/18/expenses/">🤖 | 記帳小管家</a>
-          </h2>
-          <p class="post-row-excerpt">一個結合 React 前端與 Flask 後端的個人記帳專案
-
-基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。
-
-
+    </div>
+  </div>
   
-    
+  <a class="post-row-thumb-wrap" href="/2025/07/05/UrlHealthMonitor/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/monitor.png" loading="lazy" alt="">
+  </a>
   
+</article>
 
-
-執行目標
-希望做出一款簡單的記帳小工具，具有以下功能：
-
-支援每日紀錄多筆支出
-直覺的欄位…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-06-18</span>
-            <span><i class="fa-regular fa-clock"></i>2 min</span>
-            
-              
-              <a href="/tags/project" class="post-row-tag">#project</a>
-              
-            
-          </div>
-        </div>
-        
-        <a class="post-row-thumb-wrap" href="/2025/06/18/expenses/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="/images/expenses_1.png" loading="lazy" alt="">
-        </a>
-        
-      </article>
-    
-      
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/06/09/program/">📕 | PDF Reader</a>
-          </h2>
-          <p class="post-row-excerpt">PDF Reader
-
-這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。
-
-
-技術架構
-
-使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。
-使用 PyPDF2 讀取 PDF 內…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-06-09</span>
-            <span><i class="fa-regular fa-clock"></i>2 min</span>
-            
-              
-              <a href="/tags/project" class="post-row-tag">#project</a>
-              
-            
-          </div>
-        </div>
-        
-        <a class="post-row-thumb-wrap" href="/2025/06/09/program/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800" loading="lazy" alt="">
-        </a>
-        
-      </article>
-    
-      
-      <article class="post-row">
-        <div class="post-row-body">
-          <h2 class="post-row-title">
-            <a href="/2025/06/06/dailyleetcode/">📌 | LeetCode 學習記錄</a>
-          </h2>
-          <p class="post-row-excerpt">程式能力的提升離不開持續的練習。我會在這裡分享：
-每日筆記 - 自己對題目的理解與應用
-心得分享 - 刷題過程中的進度與收穫
-
-
-
-✅
-🉑
-🚫
-
-
-
-
-了解並寫出
-寫出但不清楚
-寫不出來
-
-
-
-📌 LeetCode 記錄
-
-D1 🉑  #1  Two Sum (GPT)
-D2 🉑  #9…</p>
-          <div class="post-row-meta">
-            <span><i class="fa-regular fa-calendar"></i>2025-06-06</span>
-            <span><i class="fa-regular fa-clock"></i>6 min</span>
-            
-              
-              <a href="/tags/leetcode" class="post-row-tag">#leetcode</a>
-              
-              <a href="/tags/Daily" class="post-row-tag">#Daily</a>
-              
-            
-          </div>
-        </div>
-        
-        <a class="post-row-thumb-wrap" href="/2025/06/06/dailyleetcode/" tabindex="-1" aria-hidden="true">
-          <img class="post-row-thumb" src="/images/leetcode.jpg" loading="lazy" alt="">
-        </a>
-        
-      </article>
     
   </div>
-
-  
-    
-    <div class="pagination">
-        
-        <span class="page-number">第 1 頁，共 2 頁</span>
-        
-            <a href="/page/2/"><i class="fa-solid fa-angle-right"></i>
-            </a>
-        
-    </div>
-
-
-  
+  <a class="view-all" href="/archives/">全部文章<i class="fa-solid fa-arrow-right"></i></a>
 </section>
 
-<!-- ── 站點導覽：標籤 / 分類 / 統計 ── -->
-<section id="site-nav">
-  <span class="section-title">站點導覽</span>
-  <div class="site-nav-grid">
-
-    <div class="site-nav-block">
-      <span class="site-nav-block-title"><i class="fa-solid fa-tags"></i>標籤</span>
-      <div class="site-nav-tags">
-        
-        <a href="/tags/project/" class="shoka-tag">#project <sup>5</sup></a>
-        
-        <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" class="shoka-tag">#技術筆記 <sup>2</sup></a>
-        
-        <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" class="shoka-tag">#(作者自學用) <sup>2</sup></a>
-        
-        <a href="/tags/side-project/" class="shoka-tag">#side project <sup>2</sup></a>
-        
-        <a href="/tags/React/" class="shoka-tag">#React <sup>2</sup></a>
-        
-        <a href="/tags/myself/" class="shoka-tag">#myself <sup>1</sup></a>
-        
-        <a href="/tags/leetcode/" class="shoka-tag">#leetcode <sup>1</sup></a>
-        
-        <a href="/tags/Daily/" class="shoka-tag">#Daily <sup>1</sup></a>
-        
-        <a href="/tags/NFC/" class="shoka-tag">#NFC <sup>1</sup></a>
-        
-        <a href="/tags/Web-API/" class="shoka-tag">#Web API <sup>1</sup></a>
-        
-        <a href="/tags/TypeScript/" class="shoka-tag">#TypeScript <sup>1</sup></a>
-        
-        <a href="/tags/AI/" class="shoka-tag">#AI <sup>1</sup></a>
-        
-      </div>
-    </div>
-
+<!-- ══ Contact ══ -->
+<section id="contact" class="landing-section landing-contact">
+  <h2 class="landing-contact-title">聯絡我</h2>
+  <p class="landing-contact-line">對專案或文章有想法？歡迎來信交流。</p>
+  <div class="hero-cta">
     
-
-    <div class="site-nav-block">
-      <span class="site-nav-block-title"><i class="fa-solid fa-chart-simple"></i>統計</span>
-      <div class="site-nav-stats">
-        <div class="site-nav-stat">
-          <span class="site-nav-stat-num">11</span>
-          <span class="site-nav-stat-label">文章</span>
-        </div>
-        
-        <div class="site-nav-stat">
-          <span class="site-nav-stat-num">12</span>
-          <span class="site-nav-stat-label">標籤</span>
-        </div>
-        
-        <div class="site-nav-stat">
-          <span class="site-nav-stat-num">12.0k</span>
-          <span class="site-nav-stat-label">總字數</span>
-        </div>
-      </div>
-    </div>
-
+      
+      
+      
+        <a class="hero-btn hero-btn-ghost" target="_blank" rel="noopener me" href="https://github.com/reedlin2002"><i class="fa-brands fa-github"></i>Github</a>
+      
+    
+      
+      
+      
+        <a class="hero-btn hero-btn-primary" href="mailto:reedlin2002@gmail.com"><i class="fa-solid fa-envelope"></i>Email</a>
+      
+    
   </div>
 </section>
-
-<!-- ── 專案 ── -->
-
-<section id="projects">
-  <a href="https://reedlin2002.github.io/tags/project/" class="section-title">項目</a>
-  <ul class="project-list">
-    
-    <li class="project-item">
-      <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/processing-portfolio">多媒體小作品 </a>: <p>結合程式創作和人機互動的一些專案</p>
-
-    </li>
-    
-    <li class="project-item">
-      <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/web-portfolio">網頁類小作品 </a>: <p>做的一些 HTML 和 PHP 專案</p>
-
-    </li>
-    
-  </ul>
-</section>
-
 
                   
                         <!-- ═══════════════════════════════════════════════
@@ -736,6 +550,12 @@ D2 🉑  #9…</p>
 
     <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
       <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="/search/" class="footer-mono-link">
+      <i class="fas fa-magnifying-glass"></i> 搜尋
     </a>
 
     <span class="footer-mono-sep">·</span>
@@ -800,25 +620,8 @@ window.initLightbox();
 window.initSprint2JS = function() {
   'use strict';
 
-  /* ① Navbar Glassmorphism scroll toggle */
-  var header = document.getElementById('header');
-  if (header) {
-    if (window._navbarScrollListener) {
-      window.removeEventListener('scroll', window._navbarScrollListener);
-    }
-    window._navbarScrollListener = function() {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    };
-    window.addEventListener('scroll', window._navbarScrollListener, { passive: true });
-    window._navbarScrollListener(); // 初始執行一次
-  }
-
-  /* ② 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
-  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card');
+  /* 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card, .project-card');
   if (cards.length > 0 && 'IntersectionObserver' in window) {
     if (window.cardObserver) {
       window.cardObserver.disconnect();
@@ -936,10 +739,6 @@ window.initSprint3JS = function() {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
             activeId = entry.target.id;
-            /* Heading entrance animation */
-            if (!entry.target.classList.contains('heading-entered')) {
-              entry.target.classList.add('heading-entered');
-            }
           }
         });
         // 更新 TOC active 狀態
@@ -958,7 +757,8 @@ window.initSprint3JS = function() {
           var linkTop = activeLink.offsetTop;
           var tocHeight = toc.clientHeight;
           var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
-          toc.scrollTo({ top: scrollTarget, behavior: 'smooth' });
+          var reduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          toc.scrollTo({ top: scrollTarget, behavior: reduce ? 'auto' : 'smooth' });
         }
       }, {
         rootMargin: '-80px 0px -60% 0px',
@@ -983,7 +783,10 @@ window.initSprint3JS = function() {
           ? Math.min(currentIdx + 1, ids.length - 1)
           : Math.max(currentIdx - 1, 0);
         var target = document.getElementById(ids[nextIdx]);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+          var jkReduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          target.scrollIntoView({ behavior: jkReduce ? 'auto' : 'smooth', block: 'start' });
+        }
       });
     }
   }
@@ -995,20 +798,19 @@ window.initSprint3JS = function() {
   if (window._mobileNavHandlersBound) return;
   window._mobileNavHandlersBound = true;
 
+  /* 關閉 = 移除 .responsive class（開關同一機制，不用 jQuery 動 inline display）*/
+  function closeMobileNav() {
+    var navMenu = document.querySelector('#header #nav > ul.responsive');
+    if (navMenu) navMenu.classList.remove('responsive');
+  }
+
   document.addEventListener('click', function(e) {
-    var navMenu = document.querySelector('#nav ul');
     var header = document.getElementById('header');
-    if (navMenu && header && !header.contains(e.target)) {
-      if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
-        $('#nav ul').slideUp(200);
-      }
-    }
+    if (header && !header.contains(e.target)) closeMobileNav();
   });
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && typeof $ !== 'undefined') {
-      $('#nav ul').slideUp(200);
-    }
+    if (e.key === 'Escape') closeMobileNav();
   });
 
   var touchStartX = 0;
@@ -1019,11 +821,11 @@ window.initSprint3JS = function() {
   }, {passive: true});
 
   document.addEventListener('touchend', function(e) {
-    if (typeof $ !== 'undefined' && $('#nav ul').is(':visible')) {
+    if (document.querySelector('#header #nav > ul.responsive')) {
       var touchEndX = e.changedTouches[0].screenX;
       var touchEndY = e.changedTouches[0].screenY;
       if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
-        $('#nav ul').slideUp(200);
+        closeMobileNav();
       }
     }
   }, {passive: true});
@@ -1119,14 +921,13 @@ window.initReadingProgress();
     lrcType: 0,
     audio: audio
   });
-  document.body.classList.add('aplayer-active');
 })();
 </script>
 
 
 
                     
-<script src="/js/hero-carousel.js"></script>
+<script src="/js/landing.js"></script>
 
                       <!-- PJAX 架構與進度條 -->
                       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">

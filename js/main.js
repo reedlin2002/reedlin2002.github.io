@@ -1,3 +1,8 @@
+/* 全站共用：使用者是否要求減少動效 */
+window.prefersReducedMotion = function() {
+  return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+};
+
 window.initMainJS = function() {
   /**
    * Sets up Justified Gallery.
@@ -22,11 +27,18 @@ window.initMainJS = function() {
       var current = html.dataset.theme || 'dark';
       var next = current === 'dark' ? 'light' : 'dark';
 
-      // Violet flash overlay
+      // 減少動效：直接切換，不做閃光過場
+      if (window.prefersReducedMotion()) {
+        html.dataset.theme = next;
+        localStorage.setItem('theme', next);
+        return;
+      }
+
+      // 品牌藍 flash overlay
       var overlay = document.createElement('div');
       overlay.style.cssText = [
         'position:fixed', 'inset:0', 'z-index:9998', 'pointer-events:none',
-        'background:rgba(196,30,58,0.14)', 'opacity:0',
+        'background:rgba(59,130,246,0.14)', 'opacity:0',
         'transition:opacity 0.22s ease', 'mix-blend-mode:screen'
       ].join(';');
       document.body.appendChild(overlay);
@@ -39,8 +51,6 @@ window.initMainJS = function() {
         setTimeout(function() {
           html.dataset.theme = next;
           localStorage.setItem('theme', next);
-          var npBar = document.querySelector('#nprogress .bar');
-          if (npBar) npBar.style.background = '#C41E3A';
           overlay.style.opacity = '0';
           setTimeout(function() {
             overlay.remove();
