@@ -27,7 +27,7 @@ Worker → Settings → Variables and Secrets：
 | 名稱 | 類型 | 值 |
 |---|---|---|
 | `OPENROUTER_API_KEY` | **Secret** | 步驟 1 的 key（必填） |
-| `MODEL` | Text | 選填，預設 `meta-llama/llama-3.3-70b-instruct:free`；`google/gemma-4-31b-it:free` 也可（worker 會自動把人設併入 user 訊息，因 gemma 不支援 system role）；清單見 openrouter.ai/models?q=free |
+| `MODEL` | Text | 選填。**不設也行**——worker 內建 fallback 鏈（gemma-4-26b → gpt-oss-20b → gemma-4-31b → nemotron-nano），首選失敗自動換下一個；設了就把你的模型排在鏈首。清單見 openrouter.ai/models?q=free |
 | `SYSTEM_PROMPT` | Text | 選填，覆寫人設（預設人設在 worker.js 裡） |
 | `ALLOWED_ORIGINS` | Text | 選填，預設已含正式站 + localhost:4000 |
 

@@ -6,12 +6,18 @@
  *
  * 環境變數（Settings → Variables and Secrets）：
  *   OPENROUTER_API_KEY  (Secret, 必填) OpenRouter 的 API key
- *   MODEL               (選填) 預設 google/gemini-2.0-flash-exp:free
+ *   MODEL               (選填) 指定首選模型；失敗會自動退到 FALLBACK_MODELS
  *   SYSTEM_PROMPT       (選填) 覆寫預設人設
  *   ALLOWED_ORIGINS     (選填) 逗號分隔的允許來源
  */
 
-const DEFAULT_MODEL = 'meta-llama/llama-3.3-70b-instruct:free';
+/* 免費模型的供應商常輪流故障，依序嘗試直到成功 */
+const FALLBACK_MODELS = [
+  'google/gemma-4-26b-a4b-it:free',
+  'openai/gpt-oss-20b:free',
+  'google/gemma-4-31b-it:free',
+  'nvidia/nemotron-3-nano-30b-a3b:free'
+];
 
 const DEFAULT_PERSONA = `妳是「響」(Hibiki)，Lin 的個人技術部落格 reedlin2002.github.io 的看板娘。
 Lin 是一位軟體設計工程師，專注 AI 應用整合與系統設計，部落格寫 LeetCode 解題、side projects（LocalAIAgentAPI、UrlHealthMonitor、my-ollama、HTTP Checker）與技術筆記。
@@ -57,10 +63,11 @@ export default {
       return new Response(JSON.stringify({ error: 'no user message' }), { status: 400, headers: cors });
     }
 
-    try {
-      const model = env.MODEL || DEFAULT_MODEL;
-      const persona = env.SYSTEM_PROMPT || DEFAULT_PERSONA;
+    const persona = env.SYSTEM_PROMPT || DEFAULT_PERSONA;
+    const chain = [...new Set([env.MODEL, ...FALLBACK_MODELS].filter(Boolean))];
+    let lastError = 'no model available';
 
+    for (const model of chain) {
       // Google gemma 系列不支援 system role：把人設併入第一則 user 訊息
       let outbound;
       if (/\bgemma\b/i.test(model)) {
@@ -71,31 +78,36 @@ export default {
         outbound = [{ role: 'system', content: persona }, ...messages];
       }
 
-      const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${env.OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://reedlin2002.github.io',
-          'X-Title': 'Reedlin2002 Blog Live2D Chat'
-        },
-        body: JSON.stringify({
-          model: model,
-          messages: outbound,
-          max_tokens: 300,
-          temperature: 0.8
-        })
-      });
+      try {
+        const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${env.OPENROUTER_API_KEY}`,
+            'Content-Type': 'application/json',
+            'HTTP-Referer': 'https://reedlin2002.github.io',
+            'X-Title': 'Reedlin2002 Blog Live2D Chat'
+          },
+          body: JSON.stringify({
+            model: model,
+            messages: outbound,
+            max_tokens: 300,
+            temperature: 0.8
+          })
+        });
 
-      const data = await r.json();
-      if (!r.ok) {
-        return new Response(JSON.stringify({ error: data.error?.message || 'upstream error' }),
-          { status: 502, headers: cors });
+        const data = await r.json();
+        const reply = data.choices?.[0]?.message?.content?.trim();
+        if (r.ok && reply) {
+          return new Response(JSON.stringify({ reply, model }), { headers: cors });
+        }
+        lastError = data.error?.message || `upstream ${r.status}`;
+        // 401/403 = key 問題，換模型也沒用，直接回報
+        if (r.status === 401 || r.status === 403) break;
+      } catch (e) {
+        lastError = 'fetch failed';
       }
-      const reply = data.choices?.[0]?.message?.content?.trim() || '（她歪著頭，沒說出話來）';
-      return new Response(JSON.stringify({ reply }), { headers: cors });
-    } catch (e) {
-      return new Response(JSON.stringify({ error: 'proxy failed' }), { status: 502, headers: cors });
     }
+
+    return new Response(JSON.stringify({ error: lastError }), { status: 502, headers: cors });
   }
 };
