@@ -34,9 +34,9 @@
     if (typeof L2Dwidget === 'undefined') return;
     L2Dwidget.init({
       model: { jsonPath: MODELS[key] },
-      display: { position: 'left', width: 80, height: 160, hOffset: 70, vOffset: 0 },
+      display: { position: 'left', width: 120, height: 240, hOffset: 110, vOffset: 0 },
       mobile: { show: false },
-      react: { opacityDefault: 0.65, opacityOnHover: 0.9 },
+      react: { opacityDefault: 0.7, opacityOnHover: 0.95 },
       log: false
     });
   }
@@ -82,6 +82,23 @@
     log.scrollTop = log.scrollHeight;
   }
 
+  /* ── 換模型後的狀態還原（reload 不失憶）────────── */
+  var wasSwitched = false;
+  try {
+    JSON.parse(sessionStorage.getItem('waifu-history') || '[]').forEach(function (m) {
+      history.push(m);
+      addLog(m.role, m.content);
+    });
+    if (sessionStorage.getItem('waifu-open')) {
+      chatOpen = true;
+      panel.hidden = false;
+    }
+    if (sessionStorage.getItem('waifu-switched')) {
+      sessionStorage.removeItem('waifu-switched');
+      wasSwitched = true;
+    }
+  } catch (e) { /* sessionStorage 不可用就算了 */ }
+
   /* ── 問候 ────────────────────────────────────── */
   function timeGreeting() {
     var h = new Date().getHours();
@@ -101,7 +118,7 @@
     return null;
   }
 
-  setTimeout(function () { say(timeGreeting()); }, 1800);
+  setTimeout(function () { say(wasSwitched ? '鏘鏘～換我上場！' : timeGreeting()); }, 1500);
 
   document.addEventListener('pjax:complete', function () {
     var g = pageGreeting();
@@ -118,12 +135,18 @@
     say(dark ? '燈亮起來囉 ☀' : '夜間模式，眼睛舒服多了～');
   });
 
-  /* ── 換模型 ──────────────────────────────────── */
+  /* ── 換模型 ──────────────────────────────────────
+     L2Dwidget 重 init 不會真的載入新模型（內部快取首次設定），
+     可靠做法是 reload；聊天記錄先存 sessionStorage 保留 */
   root.querySelector('.waifu-tool-model').addEventListener('click', function () {
     var next = modelKeys[(modelKeys.indexOf(currentModel()) + 1) % modelKeys.length];
     localStorage.setItem('live2d-model', next);
-    renderModel(next);
-    say('鏘鏘～換我上場！');
+    try {
+      sessionStorage.setItem('waifu-history', JSON.stringify(history.slice(-12)));
+      sessionStorage.setItem('waifu-open', chatOpen ? '1' : '');
+      sessionStorage.setItem('waifu-switched', '1');
+    } catch (e) {}
+    location.reload();
   });
 
   /* ── 聊天 ────────────────────────────────────── */

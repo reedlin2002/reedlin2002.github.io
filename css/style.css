@@ -3226,16 +3226,16 @@ article.post .content img:not(.no-zoom) {
 }
 #waifu-chat {
   position: fixed;
-  left: 12px;
-  bottom: 170px;
-  width: 240px;
+  left: 20px;
+  bottom: 256px /* 模型高 240 + 間距，疊在她頭上 */;
+  width: 264px;
   z-index: 120;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   font-size: 0.85em;
 }
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 520px) {
   #waifu-chat {
     display: none;
   }
