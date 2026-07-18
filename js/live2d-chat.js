@@ -1,10 +1,10 @@
 /**
- * Live2D 看板娘：渲染 + 問候 + 換模型 + 聊天（終端機視窗風）
+ * Live2D 看板娘 hibiki：渲染 + 問候 + 聊天（終端機視窗風）
  * - 設定來自 window.LIVE2D_CHAT_CONFIG（layout.ejs 注入 theme.live2d_chat）
- * - 點角色本體開關聊天視窗；關閉狀態只有角色 + 偶發氣泡
+ * - L2Dwidget 的 canvas 是 pointer-events:none（滑鼠事件穿透），
+ *   所以用一層透明 hitbox 疊在角色位置接收點擊來開關聊天
  * - 文章頁自動把當前文章內容（裁 6000 字）附進請求，支援「總結這篇」
  * - 聊天：POST {messages, page} 到 config.endpoint（CF Worker → OpenRouter）
- *   endpoint 未設定時退化為離線劇本回覆
  * - 掛在 body 上、只 init 一次，PJAX 換頁不受影響
  */
 (function () {
@@ -16,27 +16,19 @@
   if (window._live2dChatInit) return;
   window._live2dChatInit = true;
 
-  var MODELS = cfg.models || {};
-  var modelKeys = Object.keys(MODELS);
-  if (!modelKeys.length) return;
+  var MODEL_URL = cfg.model || (cfg.models && cfg.models[Object.keys(cfg.models)[0]]);
+  if (!MODEL_URL) return;
 
+  var CHAR_NAME = 'hibiki';
   var history = [];          // {role, content}，只存本分頁
   var bubbleTimer = null;
   var chatOpen = false;
   var pending = false;
 
-  /* ── Live2D 渲染 ─────────────────────────────── */
-  function currentModel() {
-    var saved = localStorage.getItem('live2d-model');
-    return (saved && MODELS[saved]) ? saved : (cfg.default_model || modelKeys[0]);
-  }
-
-  function renderModel(key) {
-    var old = document.getElementById('live2d-widget');
-    if (old) old.remove();
-    if (typeof L2Dwidget === 'undefined') return;
+  /* ── Live2D 渲染（單一模型，位置 left:110 bottom:0 120x240）── */
+  if (typeof L2Dwidget !== 'undefined') {
     L2Dwidget.init({
-      model: { jsonPath: MODELS[key] },
+      model: { jsonPath: MODEL_URL },
       display: { position: 'left', width: 120, height: 240, hOffset: 110, vOffset: 0 },
       mobile: { show: false },
       react: { opacityDefault: 0.7, opacityOnHover: 0.95 },
@@ -54,16 +46,16 @@
     return { title: title.slice(0, 100), text: text };
   }
 
-  /* ── UI：終端機視窗 ──────────────────────────── */
+  /* ── UI：hitbox + 氣泡 + 終端機視窗 ──────────── */
   var root = document.createElement('div');
   root.id = 'waifu-chat';
   root.innerHTML =
+    '<button type="button" class="waifu-hitbox" title="跟 hibiki 聊天" aria-label="開關聊天"></button>' +
     '<div class="waifu-bubble" hidden></div>' +
     '<div class="waifu-term" hidden>' +
       '<div class="waifu-term-bar">' +
         '<span class="waifu-term-dots" aria-hidden="true"></span>' +
-        '<span class="waifu-term-title"></span>' +
-        '<button type="button" class="waifu-term-btn waifu-btn-model" title="換個角色" aria-label="換模型">⇄</button>' +
+        '<span class="waifu-term-title">hibiki@reedlin:~</span>' +
         '<button type="button" class="waifu-term-btn waifu-btn-close" title="關閉" aria-label="關閉聊天">✕</button>' +
       '</div>' +
       '<div class="waifu-chips" hidden>' +
@@ -77,18 +69,13 @@
     '</div>';
   document.body.appendChild(root);
 
+  var hitbox = root.querySelector('.waifu-hitbox');
   var bubble = root.querySelector('.waifu-bubble');
   var term = root.querySelector('.waifu-term');
-  var termTitle = root.querySelector('.waifu-term-title');
   var chips = root.querySelector('.waifu-chips');
   var log = root.querySelector('.waifu-log');
   var form = root.querySelector('.waifu-form');
   var input = root.querySelector('.waifu-input');
-
-  function refreshTermMeta() {
-    termTitle.textContent = currentModel() + '@reedlin:~';
-    chips.hidden = !getPageContext();
-  }
 
   function say(text, ms) {
     if (chatOpen) { addLog('assistant', text); return; }
@@ -104,7 +91,7 @@
     if (role === 'assistant') {
       var name = document.createElement('span');
       name.className = 'waifu-msg-name';
-      name.textContent = currentModel();
+      name.textContent = CHAR_NAME;
       div.appendChild(name);
     }
     div.appendChild(document.createTextNode(text));
@@ -115,11 +102,10 @@
   }
 
   function openChat() {
-    if (chatOpen) return;
     chatOpen = true;
     term.hidden = false;
     bubble.hidden = true;
-    refreshTermMeta();
+    chips.hidden = !getPageContext();
     if (!log.children.length) {
       addLog('assistant', cfg.endpoint ? '嗨！想聊什麼呢？' : '嗨！（大腦還沒接上線，我只能講講預錄台詞啦）');
     }
@@ -131,32 +117,11 @@
     term.hidden = true;
   }
 
-  /* 點角色本體開關聊天（元素會被換模型重建，用事件委派） */
-  document.addEventListener('click', function (e) {
-    if (e.target.closest && e.target.closest('#live2d-widget')) {
-      chatOpen ? closeChat() : openChat();
-    }
+  hitbox.addEventListener('click', function () {
+    chatOpen ? closeChat() : openChat();
   });
 
   root.querySelector('.waifu-btn-close').addEventListener('click', closeChat);
-
-  /* ── 換模型後的狀態還原（reload 不失憶）────────── */
-  var wasSwitched = false;
-  try {
-    JSON.parse(sessionStorage.getItem('waifu-history') || '[]').forEach(function (m) {
-      history.push(m);
-      addLog(m.role, m.content);
-    });
-    if (sessionStorage.getItem('waifu-open')) {
-      chatOpen = true;
-      term.hidden = false;
-      refreshTermMeta();
-    }
-    if (sessionStorage.getItem('waifu-switched')) {
-      sessionStorage.removeItem('waifu-switched');
-      wasSwitched = true;
-    }
-  } catch (e) { /* sessionStorage 不可用就算了 */ }
 
   /* ── 問候 ────────────────────────────────────── */
   function timeGreeting() {
@@ -176,10 +141,19 @@
     return null;
   }
 
-  setTimeout(function () { say(wasSwitched ? '鏘鏘～換我上場！' : timeGreeting()); }, 1500);
+  setTimeout(function () {
+    var hinted = false;
+    try { hinted = !!localStorage.getItem('waifu-hinted'); } catch (e) {}
+    if (!hinted) {
+      try { localStorage.setItem('waifu-hinted', '1'); } catch (e) {}
+      say(timeGreeting() + '（點我可以聊天哦！）', 8000);
+    } else {
+      say(timeGreeting());
+    }
+  }, 1500);
 
   document.addEventListener('pjax:complete', function () {
-    refreshTermMeta();
+    chips.hidden = !getPageContext();
     var g = pageGreeting();
     if (g && Math.random() < 0.6) setTimeout(function () { say(g); }, 800);
   });
@@ -192,20 +166,6 @@
   if (themeBtn) themeBtn.addEventListener('click', function () {
     var dark = document.documentElement.dataset.theme === 'dark';
     say(dark ? '燈亮起來囉 ☀' : '夜間模式，眼睛舒服多了～');
-  });
-
-  /* ── 換模型 ──────────────────────────────────────
-     L2Dwidget 重 init 不會真的載入新模型（內部快取首次設定），
-     可靠做法是 reload；聊天記錄先存 sessionStorage 保留 */
-  root.querySelector('.waifu-btn-model').addEventListener('click', function () {
-    var next = modelKeys[(modelKeys.indexOf(currentModel()) + 1) % modelKeys.length];
-    localStorage.setItem('live2d-model', next);
-    try {
-      sessionStorage.setItem('waifu-history', JSON.stringify(history.slice(-12)));
-      sessionStorage.setItem('waifu-open', chatOpen ? '1' : '');
-      sessionStorage.setItem('waifu-switched', '1');
-    } catch (e) {}
-    location.reload();
   });
 
   /* ── 聊天 ────────────────────────────────────── */
@@ -275,8 +235,4 @@
   root.querySelector('.waifu-chip-summary').addEventListener('click', function () {
     sendMessage('幫我總結這篇文章的重點');
   });
-
-  /* ── 啟動 ────────────────────────────────────── */
-  renderModel(currentModel());
-  refreshTermMeta();
 })();

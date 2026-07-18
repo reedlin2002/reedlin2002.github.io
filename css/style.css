@@ -3244,8 +3244,21 @@ article.post .content img:not(.no-zoom) {
     display: none;
   }
 }
+.waifu-hitbox {
+  position: fixed;
+  left: 110px;
+  bottom: 0;
+  width: 120px;
+  height: 240px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 1 /* 容器內最底層：與視窗重疊時，視窗優先收點擊 */;
+}
 .waifu-bubble {
   position: absolute;
+  z-index: 2;
   left: 4px;
   bottom: 250px;
   width: 250px;
@@ -3271,6 +3284,8 @@ article.post .content img:not(.no-zoom) {
   transform: rotate(45deg);
 }
 .waifu-term {
+  position: relative;
+  z-index: 2 /* 蓋過 hitbox */;
   background: #0d1117;
   border: 1px solid rgba(255,255,255,0.09);
   border-radius: 10px;
