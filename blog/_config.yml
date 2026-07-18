@@ -111,9 +111,9 @@ search:
   field: post
   content: true
 
-# Live2D Widget
+# Live2D Widget（舊 helper 注入已停用；改由 theme 的 live2d_chat 自行渲染，見 workers/live2d-chat/README.md）
 live2d:
-  enable: true
+  enable: false
   scriptFrom: local
   pluginRootPath: live2dw/
   pluginJsPath: lib/
