@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Reedlin2002 • Posts by &#34;python&#34; tag</title>
+        <link>https://reedlin2002.github.io</link>
+        <description>Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程</description>
+        <language>zh-TW</language>
+        <pubDate>Sat, 18 Jul 2026 00:00:00 +0800</pubDate>
+        <lastBuildDate>Sat, 18 Jul 2026 00:00:00 +0800</lastBuildDate>
+        <category>project</category>
+        <category>myself</category>
+        <category>演算法</category>
+        <category>Binary Search</category>
+        <category>Python</category>
+        <category>LeetCode</category>
+        <category>leetcode</category>
+        <category>Daily</category>
+        <category>技術筆記</category>
+        <category>(作者自學用)</category>
+        <category>side project</category>
+        <category>React</category>
+        <category>NFC</category>
+        <category>Web API</category>
+        <category>TypeScript</category>
+        <category>AI</category>
+        <item>
+            <guid isPermalink="true">https://reedlin2002.github.io/2026/07/18/binary-search-learning/</guid>
+            <title>我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</title>
+            <link>https://reedlin2002.github.io/2026/07/18/binary-search-learning/</link>
+            <category>演算法</category>
+            <category>Binary Search</category>
+            <category>Python</category>
+            <category>LeetCode</category>
+            <pubDate>Sat, 18 Jul 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;以前看到二分搜尋（Binary Search），我只記得一句話：&lt;strong&gt;從中間開始找。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;但真的要自己寫時，我才發現問題沒有這麼簡單： &lt;code&gt;left&lt;/code&gt;  和  &lt;code&gt;right&lt;/code&gt;  到底代表什麼？為什麼要寫  &lt;code&gt;mid + 1&lt;/code&gt; ？找不到時，為什麼又能直接回傳  &lt;code&gt;left&lt;/code&gt; ？&lt;/p&gt;
+&lt;p&gt;這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程。&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+&lt;h2 id=&#34;二分搜尋不只是從中間找&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#二分搜尋不只是從中間找&#34;&gt;#&lt;/a&gt; 二分搜尋不只是「從中間找」&lt;/h2&gt;
+&lt;p&gt;假設有一排已經排序好的數字：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[1, 3, 5, 7, 9, 12, 15]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;現在要找  &lt;code&gt;12&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;一般的逐個搜尋會從  &lt;code&gt;1&lt;/code&gt;  開始，一個一個往後檢查。二分搜尋則會先看中間：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;索引： 0  1  2  3  4   5   6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;數字： 1  3  5  7  9  12  15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                   ↑&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                 mid = 3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;中間值是  &lt;code&gt;7&lt;/code&gt; 。因為  &lt;code&gt;12 &amp;gt; 7&lt;/code&gt; ，而且這些數字已經排序，所以  &lt;code&gt;7&lt;/code&gt;  和它左邊的數字都不可能是答案，可以一次全部排除。&lt;/p&gt;
+&lt;p&gt;剩下的範圍是：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[9, 12, 15]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;再看一次中間，就能找到  &lt;code&gt;12&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;所以二分搜尋真正的核心是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;利用資料已排序的特性，每比較一次，就排除一半不可能有答案的範圍。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;這也代表二分搜尋不能直接套在未排序的資料上。沒有排序時，看到中間值比較大或比較小，也無法確定答案究竟在哪一邊。&lt;/p&gt;
+&lt;h2 id=&#34;left-right-和-mid-是什麼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#left-right-和-mid-是什麼&#34;&gt;#&lt;/a&gt;  &lt;code&gt;left&lt;/code&gt; 、 &lt;code&gt;right&lt;/code&gt;  和  &lt;code&gt;mid&lt;/code&gt;  是什麼？&lt;/h2&gt;
+&lt;p&gt;二分搜尋不是真的把陣列切開或刪除，而是用三個索引標記目前要搜尋的範圍：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;left&lt;/code&gt; ：搜尋範圍最左邊的索引&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;right&lt;/code&gt; ：搜尋範圍最右邊的索引&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mid&lt;/code&gt; ：目前搜尋範圍的中間索引&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一開始這樣設定：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;right = &lt;span class=&#34;built_in&#34;&gt;len&lt;/span&gt;(nums) - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;right&lt;/code&gt;  必須是  &lt;code&gt;len(nums) - 1&lt;/code&gt; ，因為陣列長度和最後一個索引不一樣。&lt;/p&gt;
+&lt;p&gt;例如陣列有 7 個元素：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;長度：7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;索引：0, 1, 2, 3, 4, 5, 6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;接著計算中間位置：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;mid = (left + right) // &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;括號不能省略。 &lt;code&gt;(4 + 6) // 2&lt;/code&gt;  的答案是  &lt;code&gt;5&lt;/code&gt; ，但  &lt;code&gt;4 + 6 // 2&lt;/code&gt;  的答案會變成  &lt;code&gt;7&lt;/code&gt; ，意思完全不同。&lt;/p&gt;
+&lt;h2 id=&#34;實際走一次搜尋流程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#實際走一次搜尋流程&#34;&gt;#&lt;/a&gt; 實際走一次搜尋流程&lt;/h2&gt;
+&lt;p&gt;現在用這組資料尋找  &lt;code&gt;10&lt;/code&gt; ：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;nums = [2, 4, 6, 8, 10, 12, 14]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;target = 10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第一次搜尋：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;right = 6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mid = (0 + 6) // 2 = 3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;nums[3] = 8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;因為  &lt;code&gt;8 &amp;lt; 10&lt;/code&gt; ，代表索引  &lt;code&gt;0～3&lt;/code&gt;  都不可能是答案，所以直接把  &lt;code&gt;left&lt;/code&gt;  移到  &lt;code&gt;mid&lt;/code&gt;  的下一格：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = mid + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;comment&#34;&gt;# 4&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第二次搜尋：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = 4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;right = 6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mid = (4 + 6) // 2 = 5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;nums[5] = 12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;這次  &lt;code&gt;12 &amp;gt; 10&lt;/code&gt; ，代表答案只可能在左邊，因此把  &lt;code&gt;right&lt;/code&gt;  移到  &lt;code&gt;mid&lt;/code&gt;  的前一格：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;right = mid - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;  &lt;span class=&#34;comment&#34;&gt;# 4&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第三次搜尋：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = 4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;right = 4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mid = 4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;nums[4] = 10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;找到答案，回傳索引  &lt;code&gt;4&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id=&#34;為什麼一定是-mid-1&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#為什麼一定是-mid-1&#34;&gt;#&lt;/a&gt; 為什麼一定是  &lt;code&gt;mid + 1&lt;/code&gt; ？&lt;/h2&gt;
+&lt;p&gt;我一開始很容易把它寫成：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;這裡有兩個問題。&lt;/p&gt;
+&lt;p&gt;第一，這行只算出結果，沒有把結果存回  &lt;code&gt;left&lt;/code&gt; ，所以  &lt;code&gt;left&lt;/code&gt;  根本不會改變。&lt;/p&gt;
+&lt;p&gt;第二，就算寫成  &lt;code&gt;left = left + 1&lt;/code&gt; ，也只往前移動一格，沒有利用二分搜尋可以排除一半資料的優勢。&lt;/p&gt;
+&lt;p&gt;正確寫法是：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = mid + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;因為  &lt;code&gt;mid&lt;/code&gt;  已經檢查過，而且  &lt;code&gt;mid&lt;/code&gt;  左邊也全部確定太小，所以整段都可以排除。&lt;/p&gt;
+&lt;p&gt;右邊同樣是：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;right = mid - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&#34;完整的二分搜尋&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#完整的二分搜尋&#34;&gt;#&lt;/a&gt; 完整的二分搜尋&lt;/h2&gt;
+&lt;p&gt;把前面的邏輯組合起來：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;binary_search&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;nums, target&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    left = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    right = &lt;span class=&#34;built_in&#34;&gt;len&lt;/span&gt;(nums) - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; left &amp;lt;= right:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        mid = (left + right) // &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; nums[mid] == target:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; mid&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;elif&lt;/span&gt; nums[mid] &amp;lt; target:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            left = mid + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            right = mid - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; -&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;這段程式只有三種情況：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;中間值等於目標：找到答案， &lt;code&gt;return mid&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;中間值太小：答案只可能在右邊，移動  &lt;code&gt;left&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;中間值太大：答案只可能在左邊，移動  &lt;code&gt;right&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;return -1&lt;/code&gt;  必須放在  &lt;code&gt;while&lt;/code&gt;  外面。第一次沒有猜中，不代表答案不存在，只代表還要到剩下的那一半繼續找。&lt;/p&gt;
+&lt;p&gt;只有當  &lt;code&gt;left &amp;gt; right&lt;/code&gt; ，搜尋範圍完全消失後，才能確定真的找不到。&lt;/p&gt;
+&lt;h2 id=&#34;為什麼時間複雜度是-olog-n&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#為什麼時間複雜度是-olog-n&#34;&gt;#&lt;/a&gt; 為什麼時間複雜度是  &lt;code&gt;O(log n)&lt;/code&gt; ？&lt;/h2&gt;
+&lt;p&gt;如果有 8 筆資料，每次排除一半：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;8 → 4 → 2 → 1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;範圍縮小 3 次就只剩一筆。換個方向看：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;2³ = 8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;log₂(8) = 3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果有 16 筆資料：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;16 → 8 → 4 → 2 → 1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;會縮小 4 次：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;2⁴ = 16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;log₂(16) = 4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也就是說， &lt;code&gt;log₂(n)&lt;/code&gt;  可以先白話理解成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;n&lt;/code&gt;  可以連續除以 2 幾次，才會縮小成 1？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;即使有大約 100 萬筆排序資料，二分搜尋也只需要約 20 個層級。相比之下，逐個搜尋在最壞情況可能要檢查接近 100 萬筆。&lt;/p&gt;
+&lt;p&gt;實際比較次數可能會比縮小次數多一次，因為剩下最後一筆時仍要檢查它是不是答案。但 Big O 關心的是資料量增加時的成長趨勢，因此這種固定的  &lt;code&gt;+1&lt;/code&gt;  不會改變  &lt;code&gt;O(log n)&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id=&#34;延伸search-insert-position&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#延伸search-insert-position&#34;&gt;#&lt;/a&gt; 延伸：Search Insert Position&lt;/h2&gt;
+&lt;p&gt;LeetCode #35 不只要找出目標，還要求：如果目標不存在，回傳它應該插入的位置。&lt;/p&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;nums = [1, 3, 5, 6]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;target = 4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;搜尋過程：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left=0, right=3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mid=1 → nums[1]=3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3 &amp;lt; 4，所以 left=2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;left=2, right=3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;mid=2 → nums[2]=5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5 &amp;gt; 4，所以 right=1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;最後變成：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = 2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;right = 1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;left &amp;gt; right&lt;/code&gt;  代表搜尋結束，而  &lt;code&gt;left=2&lt;/code&gt;  剛好就是  &lt;code&gt;4&lt;/code&gt;  應該插入的位置：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[1, 3, 4, 5, 6]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;       ↑&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;     index 2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;因此程式和一般二分搜尋幾乎一樣，只有最後一行不同：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;search_insert&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;nums, target&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    left = &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    right = &lt;span class=&#34;built_in&#34;&gt;len&lt;/span&gt;(nums) - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;while&lt;/span&gt; left &amp;lt;= right:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        mid = (left + right) // &lt;span class=&#34;number&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; nums[mid] == target:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; mid&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;elif&lt;/span&gt; nums[mid] &amp;lt; target:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            left = mid + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            right = mid - &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; left&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;一般二分搜尋找不到時回傳  &lt;code&gt;-1&lt;/code&gt; ；Search Insert Position 則回傳  &lt;code&gt;left&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id=&#34;幾個容易忽略的邊界&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#幾個容易忽略的邊界&#34;&gt;#&lt;/a&gt; 幾個容易忽略的邊界&lt;/h2&gt;
+&lt;h3 id=&#34;目標比所有數字都小&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#目標比所有數字都小&#34;&gt;#&lt;/a&gt; 目標比所有數字都小&lt;/h3&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;nums = [1, 3, 5, 6]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;target = 0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;最後  &lt;code&gt;left = 0&lt;/code&gt; ，代表插在最前面。&lt;/p&gt;
+&lt;h3 id=&#34;目標比所有數字都大&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#目標比所有數字都大&#34;&gt;#&lt;/a&gt; 目標比所有數字都大&lt;/h3&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;nums = [1, 3, 5, 6]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;target = 7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;最後  &lt;code&gt;left = 4&lt;/code&gt; ，等於  &lt;code&gt;len(nums)&lt;/code&gt; ，代表插在陣列尾端之後。這是合法的插入位置，但不能在插入前直接讀取  &lt;code&gt;nums[4]&lt;/code&gt; ，因為那裡目前還沒有元素。&lt;/p&gt;
+&lt;h3 id=&#34;空陣列&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#空陣列&#34;&gt;#&lt;/a&gt; 空陣列&lt;/h3&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;nums = []&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;target = 5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;初始化後：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;left = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;right = -1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;while left &amp;lt;= right&lt;/code&gt;  一開始就是  &lt;code&gt;False&lt;/code&gt; ，所以直接回傳  &lt;code&gt;left=0&lt;/code&gt; 。空陣列的第一個插入位置確實就是索引  &lt;code&gt;0&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;如果把  &lt;code&gt;right&lt;/code&gt;  錯寫成  &lt;code&gt;len(nums)&lt;/code&gt; ，程式就可能嘗試讀取不存在的  &lt;code&gt;nums[0]&lt;/code&gt; ，造成  &lt;code&gt;IndexError&lt;/code&gt; 。&lt;/p&gt;
+&lt;h2 id=&#34;我這次真正學到的事&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#我這次真正學到的事&#34;&gt;#&lt;/a&gt; 我這次真正學到的事&lt;/h2&gt;
+&lt;p&gt;我原本以為理解「每次排除一半」就等於會寫二分搜尋，但實際動手後才發現，觀念和程式碼之間還有一段距離。&lt;/p&gt;
+&lt;p&gt;我踩到的問題包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;把  &lt;code&gt;len(nums)&lt;/code&gt;  誤認成最後一個索引&lt;/li&gt;
+&lt;li&gt;忘記  &lt;code&gt;mid&lt;/code&gt;  必須在每一輪重新計算&lt;/li&gt;
+&lt;li&gt;寫了  &lt;code&gt;left + 1&lt;/code&gt; ，卻沒有真的更新  &lt;code&gt;left&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;忘記應該從  &lt;code&gt;mid + 1&lt;/code&gt;  開始，而不是只移動一格&lt;/li&gt;
+&lt;li&gt;在還沒找完時使用  &lt;code&gt;return&lt;/code&gt; ，提早結束整個函式&lt;/li&gt;
+&lt;li&gt;把 Python 的  &lt;code&gt;elif&lt;/code&gt;  寫成其他語言常見的  &lt;code&gt;else if&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;現在我的理解是：二分搜尋不是背一段模板，而是一直維持一個規則：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果答案存在，它一定還在  &lt;code&gt;left&lt;/code&gt;  到  &lt;code&gt;right&lt;/code&gt;  之間。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;每次比較  &lt;code&gt;nums[mid]&lt;/code&gt; ，都是在安全地縮小這個可能範圍。當範圍消失，就代表找不到；在 Search Insert Position 裡，此時的  &lt;code&gt;left&lt;/code&gt;  則剛好留下了正確的插入位置。&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+
+  <!-- ── Core Meta ── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="theme-color" content="#08090d">
+
+  <!-- ── Title ── -->
+  <title>標籤: Binary Search</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  <meta name="keywords" content="Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
+  <meta name="author" content="Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reedlin2002">
+<meta property="og:url" content="https://reedlin2002.github.io/tags/Binary-Search/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:author" content="Lin">
+<meta property="article:tag" content="Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
+<meta name="twitter:card" content="summary">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Reedlin2002">
+  <meta name="twitter:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+
+  <!-- ── Favicon ── -->
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+
+  <!-- ── Analytics ── -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="max-width mx-auto px3 ltr">
+      
+            <main class="content index py4 " role="main">
+              <header id="header">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
+    
+  
+    <div id="title" style="margin: 0;">
+      <h1 class="p-name">Reedlin2002</h1>
+    </div>
+  </a>
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">首頁</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a href="/#projects">專案</a></li><!--
+   --><!--
+     --><li><a href="/about/">關於</a></li><!--
+   -->
+    </ul>
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
+  </div>
+</header>
+
+                <div id="archive">
+
+  <!-- ── 站點導覽（自首頁遷入：標籤 / 分類 / 統計）── -->
+  <section id="site-nav">
+    <span class="section-title">站點導覽</span>
+    <div class="site-nav-grid">
+
+      <div class="site-nav-block">
+        <span class="site-nav-block-title"><i class="fa-solid fa-tags"></i>標籤</span>
+        <div class="site-nav-tags">
+          
+          <a href="/tags/project/" class="shoka-tag">#project <sup>5</sup></a>
+          
+          <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" class="shoka-tag">#技術筆記 <sup>2</sup></a>
+          
+          <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" class="shoka-tag">#(作者自學用) <sup>2</sup></a>
+          
+          <a href="/tags/side-project/" class="shoka-tag">#side project <sup>2</sup></a>
+          
+          <a href="/tags/React/" class="shoka-tag">#React <sup>2</sup></a>
+          
+          <a href="/tags/myself/" class="shoka-tag">#myself <sup>1</sup></a>
+          
+          <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95/" class="shoka-tag">#演算法 <sup>1</sup></a>
+          
+          <a href="/tags/Binary-Search/" class="shoka-tag">#Binary Search <sup>1</sup></a>
+          
+          <a href="/tags/Python/" class="shoka-tag">#Python <sup>1</sup></a>
+          
+          <a href="/tags/LeetCode/" class="shoka-tag">#LeetCode <sup>1</sup></a>
+          
+          <a href="/tags/leetcode/" class="shoka-tag">#leetcode <sup>1</sup></a>
+          
+          <a href="/tags/Daily/" class="shoka-tag">#Daily <sup>1</sup></a>
+          
+          <a href="/tags/NFC/" class="shoka-tag">#NFC <sup>1</sup></a>
+          
+          <a href="/tags/Web-API/" class="shoka-tag">#Web API <sup>1</sup></a>
+          
+          <a href="/tags/TypeScript/" class="shoka-tag">#TypeScript <sup>1</sup></a>
+          
+          <a href="/tags/AI/" class="shoka-tag">#AI <sup>1</sup></a>
+          
+        </div>
+      </div>
+
+      
+
+      <div class="site-nav-block">
+        <span class="site-nav-block-title"><i class="fa-solid fa-chart-simple"></i>統計</span>
+        <div class="site-nav-stats">
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">12</span>
+            <span class="site-nav-stat-label">文章</span>
+          </div>
+          
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">16</span>
+            <span class="site-nav-stat-label">標籤</span>
+          </div>
+          
+          <div class="site-nav-stat">
+            <span class="site-nav-stat-num">13.8k</span>
+            <span class="site-nav-stat-label">總字數</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 依年份分組的完整文章列表（同首頁卡片樣式）── -->
+  <section class="archive-list">
+    <span class="section-title">全部文章</span>
+    <div class="post-list">
+      
+      
+      
+      
+        
+        
+        
+        
+          <h2 class="archive-year">2026</h2>
+        
+        
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
+      <a href="/2026/07/18/binary-search-learning/">我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</a>
+    </h2>
+    <p class="post-row-excerpt">以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
+但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
+這篇文章記錄我把二分搜尋一步一步拆開後，終於真正…</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2026-07-18</span>
+      <span><i class="fa-regular fa-clock"></i>6 min</span>
+      
+        
+        <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95" class="post-row-tag">#演算法</a>
+        
+        <a href="/tags/Binary%20Search" class="post-row-tag">#Binary Search</a>
+        
+        <a href="/tags/Python" class="post-row-tag">#Python</a>
+        
+        <a href="/tags/LeetCode" class="post-row-tag">#LeetCode</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2026/07/18/binary-search-learning/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/leetcode.jpg" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+      
+    </div>
+    
+
+  </section>
+
+</div>
+
+                  
+                        <!-- ═══════════════════════════════════════════════
+     FOOTER — Monogatari minimal single-bar
+     ═══════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-mono-bar">
+    <span class="footer-mono-name">
+      <strong>Lin</strong>
+    </span>
+
+    <span class="footer-mono-sep">·</span>
+
+    
+    
+    <span class="footer-mono-year">2016–2026</span>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="https://github.com/reedlin2002" target="_blank" rel="noopener" class="footer-mono-link">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="/search/" class="footer-mono-link">
+      <i class="fas fa-magnifying-glass"></i> 搜尋
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <span class="footer-mono-powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener" class="footer-mono-link">Hexo</a></span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     返回頂部按鈕
+     ═══════════════════════════════════════════════ -->
+<button id="back-to-top" aria-label="返回頂部" title="返回頂部">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+            </main>
+            <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- 舊版 ClipboardJS 複製按鈕已移除 — Sprint 3 的 .copy-btn 為唯一實作 -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- ── 圖片燈箱（medium-zoom）── -->
+
+<script src="/lib/medium-zoom/medium-zoom.min.js"></script>
+
+<script type="text/javascript">
+window.initLightbox = function() {
+  'use strict';
+  if (typeof mediumZoom !== 'function') return;
+  // PJAX 重入：先解除舊綁定
+  if (window._mzoom) {
+    window._mzoom.detach();
+    window._mzoom = null;
+  }
+  var selector = 'article.post .content img:not(.no-zoom)';
+  if (document.querySelector(selector)) {
+    window._mzoom = mediumZoom(selector, {
+      background: 'rgba(15, 17, 20, 0.92)',
+      margin: 24
+    });
+  }
+};
+window.initLightbox();
+</script>
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+window.initSprint2JS = function() {
+  'use strict';
+
+  /* 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card, .project-card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    if (window.cardObserver) {
+      window.cardObserver.disconnect();
+    }
+    window.cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          window.cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      window.cardObserver.observe(card);
+    });
+  }
+
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
+};
+window.initSprint2JS();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<script type="text/javascript">
+window.initSprint3JS = function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight:not(.has-copy-btn)');
+  highlights.forEach(function(block) {
+    block.classList.add('has-copy-btn');
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight' && c !== 'has-copy-btn';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      navigator.clipboard.writeText(text.trim()).then(function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 2000);
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② TOC IntersectionObserver：追蹤當前章節並高亮
+     ═══════════════════════════════════════════════════ */
+  var toc = document.getElementById('toc');
+  if (toc) {
+    if (window.tocObserver) {
+        window.tocObserver.disconnect();
+    }
+    // 樣式設定：讓 TOC 連結有 active class
+    var tocLinks = toc.querySelectorAll('a');
+    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
+
+    if (headings.length > 0 && tocLinks.length > 0) {
+      var activeId = null;
+
+      window.tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+          }
+        });
+        // 更新 TOC active 狀態
+        var activeLink = null;
+        tocLinks.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (href === '#' + activeId) {
+            link.classList.add('toc-active');
+            activeLink = link;
+          } else {
+            link.classList.remove('toc-active');
+          }
+        });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          var reduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          toc.scrollTo({ top: scrollTarget, behavior: reduce ? 'auto' : 'smooth' });
+        }
+      }, {
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0
+      });
+
+      headings.forEach(function(h) {
+        if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) {
+          var jkReduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          target.scrollIntoView({ behavior: jkReduce ? 'auto' : 'smooth', block: 'start' });
+        }
+      });
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  // We use standard named events to avoid duplication if we just use document.addEventListener
+  if (window._mobileNavHandlersBound) return;
+  window._mobileNavHandlersBound = true;
+
+  /* 關閉 = 移除 .responsive class（開關同一機制，不用 jQuery 動 inline display）*/
+  function closeMobileNav() {
+    var navMenu = document.querySelector('#header #nav > ul.responsive');
+    if (navMenu) navMenu.classList.remove('responsive');
+  }
+
+  document.addEventListener('click', function(e) {
+    var header = document.getElementById('header');
+    if (header && !header.contains(e.target)) closeMobileNav();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive: true});
+
+  document.addEventListener('touchend', function(e) {
+    if (document.querySelector('#header #nav > ul.responsive')) {
+      var touchEndX = e.changedTouches[0].screenX;
+      var touchEndY = e.changedTouches[0].screenY;
+      if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+        closeMobileNav();
+      }
+    }
+  }, {passive: true});
+
+};
+window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
+</script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+
+                <!-- 懸浮音樂播放器（APlayer）— 位於 main.content 外，PJAX 換頁音樂不中斷 -->
+
+<link rel="stylesheet" href="/lib/aplayer/APlayer.min.css">
+<div id="aplayer"></div>
+<script src="/lib/aplayer/APlayer.min.js"></script>
+<script type="text/javascript">
+(function () {
+  'use strict';
+  var audio = [{"name":"一難","artist":"","url":"/music/一難.mp3"},{"name":"私が選んだもの","artist":"ユイカ","url":"/music/私が選んだもの  ユイカMV.mp3"}];
+  audio = audio.map(function (t) { t.url = encodeURI(t.url); return t; });
+
+  window._aplayer = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    mini: true,
+    autoplay: false,
+    volume: 0.4,
+    loop: 'all',
+    order: 'list',
+    theme: '#8B5CF6',
+    preload: 'none',
+    lrcType: 0,
+    audio: audio
+  });
+})();
+</script>
+
+
+
+                    
+<script src="/js/landing.js"></script>
+
+                      <!-- PJAX 架構與進度條 -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+                      
+<script src="/js/pjax-init.js"></script>
+
+                      
+                      <!-- Live2D 看板娘 + 聊天（body 層，PJAX 換頁不重載） -->
+                      <script>window.LIVE2D_CHAT_CONFIG = {"enabled":true,"endpoint":"https://live2d-chat.kanewolf98.workers.dev","model":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json"};</script>
+                      
+<script src="/lib/live2d/L2Dwidget.min.js"></script>
+
+                      
+<script src="/js/live2d-chat.js"></script>
+
+                      
+    </body>
+
+    </html>

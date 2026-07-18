@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang=zh>
+  <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+
+  <!-- ── Core Meta ── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="theme-color" content="#08090d">
+
+  <!-- ── Title ── -->
+  <title>我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content="以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
+但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
+這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程">
+  
+  <meta name="keywords" content="演算法, Binary Search, Python, LeetCode">
+  <meta name="author" content="Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io/2026/07/18/binary-search-learning/">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。 但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？ 這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position">
+<meta property="og:url" content="https://reedlin2002.github.io/2026/07/18/binary-search-learning/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。 但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？ 這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-07-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-07-18T12:34:52.450Z">
+<meta property="article:author" content="Lin">
+<meta property="article:tag" content="演算法">
+<meta property="article:tag" content="Binary Search">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="LeetCode">
+<meta name="twitter:card" content="summary">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content="以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
+但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
+這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position">
+  <meta name="twitter:description" content="以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
+但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
+這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程">
+  
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position",
+    "description": "以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
+但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
+這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程",
+    "url": "https://reedlin2002.github.io/2026/07/18/binary-search-learning/",
+    "datePublished": "2026-07-17T16:00:00.000Z",
+    "dateModified": "2026-07-18T12:34:52.450Z",
+    "author": {
+      "@type": "Person",
+      "name": "Lin",
+      "url": "https://reedlin2002.github.io"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Lin",
+      "url": "https://reedlin2002.github.io"
+    }
+    
+  }
+  </script>
+  
+
+  <!-- ── Favicon ── -->
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+
+  <!-- ── Analytics ── -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="max-width mx-auto px3 ltr">
+      
+        <div id="header-post">
+  
+  
+  
+    <div id="toc">
+      <p class="toc-header">目錄</p>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B%E4%B8%8D%E5%8F%AA%E6%98%AF%E5%BE%9E%E4%B8%AD%E9%96%93%E6%89%BE"><span class="toc-number">1.</span> <span class="toc-text"> 二分搜尋不只是「從中間找」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#left-right-%E5%92%8C-mid-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="toc-number">2.</span> <span class="toc-text">  left 、 right  和  mid  是什麼？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E9%9A%9B%E8%B5%B0%E4%B8%80%E6%AC%A1%E6%90%9C%E5%B0%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text"> 實際走一次搜尋流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E4%B8%80%E5%AE%9A%E6%98%AF-mid-1"><span class="toc-number">4.</span> <span class="toc-text"> 為什麼一定是  mid + 1 ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B"><span class="toc-number">5.</span> <span class="toc-text"> 完整的二分搜尋</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E6%98%AF-olog-n"><span class="toc-number">6.</span> <span class="toc-text"> 為什麼時間複雜度是  O(log n) ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8search-insert-position"><span class="toc-number">7.</span> <span class="toc-text"> 延伸：Search Insert Position</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%BE%E5%80%8B%E5%AE%B9%E6%98%93%E5%BF%BD%E7%95%A5%E7%9A%84%E9%82%8A%E7%95%8C"><span class="toc-number">8.</span> <span class="toc-text"> 幾個容易忽略的邊界</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A8%99%E6%AF%94%E6%89%80%E6%9C%89%E6%95%B8%E5%AD%97%E9%83%BD%E5%B0%8F"><span class="toc-number">8.1.</span> <span class="toc-text"> 目標比所有數字都小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A8%99%E6%AF%94%E6%89%80%E6%9C%89%E6%95%B8%E5%AD%97%E9%83%BD%E5%A4%A7"><span class="toc-number">8.2.</span> <span class="toc-text"> 目標比所有數字都大</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%99%A3%E5%88%97"><span class="toc-number">8.3.</span> <span class="toc-text"> 空陣列</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E9%80%99%E6%AC%A1%E7%9C%9F%E6%AD%A3%E5%AD%B8%E5%88%B0%E7%9A%84%E4%BA%8B"><span class="toc-number">9.</span> <span class="toc-text"> 我這次真正學到的事</span></a></li></ol>
+    </div>
+  
+</div>
+
+          
+            <main class="content index py4 " role="main">
+              <header id="header">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
+    
+  
+    <div id="title" style="margin: 0;">
+      <h1 class="p-name">Reedlin2002</h1>
+    </div>
+  </a>
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">首頁</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a href="/#projects">專案</a></li><!--
+   --><!--
+     --><li><a href="/about/">關於</a></li><!--
+   -->
+    </ul>
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
+  </div>
+</header>
+
+                <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Lin</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-07-17T16:00:00.000Z" class="dt-published" itemprop="datePublished">2026-07-18</time>
+        
+        (Updated: <time datetime="2026-07-18T12:34:52.450Z" class="dt-updated" itemprop="dateModified">2026-07-18</time>)
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Binary-Search/" rel="tag">Binary Search</a>, <a class="p-category" href="/tags/LeetCode/" rel="tag">LeetCode</a>, <a class="p-category" href="/tags/Python/" rel="tag">Python</a>, <a class="p-category" href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95/" rel="tag">演算法</a>
+    </div>
+
+
+      
+      <span class="post-word-count"><i class="fa-solid fa-file-lines"></i> 1850 字</span>
+      <span class="post-read-time"><i class="fa-regular fa-clock"></i> 6 min read</span>
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>以前看到二分搜尋（Binary Search），我只記得一句話：<strong>從中間開始找。</strong></p>
+<p>但真的要自己寫時，我才發現問題沒有這麼簡單： <code>left</code>  和  <code>right</code>  到底代表什麼？為什麼要寫  <code>mid + 1</code> ？找不到時，為什麼又能直接回傳  <code>left</code> ？</p>
+<p>這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程。</p>
+<span id="more"></span>
+<h2 id="二分搜尋不只是從中間找"><a class="markdownIt-Anchor" href="#二分搜尋不只是從中間找">#</a> 二分搜尋不只是「從中間找」</h2>
+<p>假設有一排已經排序好的數字：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 3, 5, 7, 9, 12, 15]</span><br></pre></td></tr></table></figure>
+<p>現在要找  <code>12</code> 。</p>
+<p>一般的逐個搜尋會從  <code>1</code>  開始，一個一個往後檢查。二分搜尋則會先看中間：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">索引： 0  1  2  3  4   5   6</span><br><span class="line">數字： 1  3  5  7  9  12  15</span><br><span class="line">                   ↑</span><br><span class="line">                 mid = 3</span><br></pre></td></tr></table></figure>
+<p>中間值是  <code>7</code> 。因為  <code>12 &gt; 7</code> ，而且這些數字已經排序，所以  <code>7</code>  和它左邊的數字都不可能是答案，可以一次全部排除。</p>
+<p>剩下的範圍是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[9, 12, 15]</span><br></pre></td></tr></table></figure>
+<p>再看一次中間，就能找到  <code>12</code> 。</p>
+<p>所以二分搜尋真正的核心是：</p>
+<blockquote>
+<p>利用資料已排序的特性，每比較一次，就排除一半不可能有答案的範圍。</p>
+</blockquote>
+<p>這也代表二分搜尋不能直接套在未排序的資料上。沒有排序時，看到中間值比較大或比較小，也無法確定答案究竟在哪一邊。</p>
+<h2 id="left-right-和-mid-是什麼"><a class="markdownIt-Anchor" href="#left-right-和-mid-是什麼">#</a>  <code>left</code> 、 <code>right</code>  和  <code>mid</code>  是什麼？</h2>
+<p>二分搜尋不是真的把陣列切開或刪除，而是用三個索引標記目前要搜尋的範圍：</p>
+<ul>
+<li><code>left</code> ：搜尋範圍最左邊的索引</li>
+<li><code>right</code> ：搜尋範圍最右邊的索引</li>
+<li><code>mid</code> ：目前搜尋範圍的中間索引</li>
+</ul>
+<p>一開始這樣設定：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">left = <span class="number">0</span></span><br><span class="line">right = <span class="built_in">len</span>(nums) - <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><code>right</code>  必須是  <code>len(nums) - 1</code> ，因為陣列長度和最後一個索引不一樣。</p>
+<p>例如陣列有 7 個元素：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">長度：7</span><br><span class="line">索引：0, 1, 2, 3, 4, 5, 6</span><br></pre></td></tr></table></figure>
+<p>接著計算中間位置：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mid = (left + right) // <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>括號不能省略。 <code>(4 + 6) // 2</code>  的答案是  <code>5</code> ，但  <code>4 + 6 // 2</code>  的答案會變成  <code>7</code> ，意思完全不同。</p>
+<h2 id="實際走一次搜尋流程"><a class="markdownIt-Anchor" href="#實際走一次搜尋流程">#</a> 實際走一次搜尋流程</h2>
+<p>現在用這組資料尋找  <code>10</code> ：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = [2, 4, 6, 8, 10, 12, 14]</span><br><span class="line">target = 10</span><br></pre></td></tr></table></figure>
+<p>第一次搜尋：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">left = 0</span><br><span class="line">right = 6</span><br><span class="line">mid = (0 + 6) // 2 = 3</span><br><span class="line">nums[3] = 8</span><br></pre></td></tr></table></figure>
+<p>因為  <code>8 &lt; 10</code> ，代表索引  <code>0～3</code>  都不可能是答案，所以直接把  <code>left</code>  移到  <code>mid</code>  的下一格：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left = mid + <span class="number">1</span>  <span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
+<p>第二次搜尋：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">left = 4</span><br><span class="line">right = 6</span><br><span class="line">mid = (4 + 6) // 2 = 5</span><br><span class="line">nums[5] = 12</span><br></pre></td></tr></table></figure>
+<p>這次  <code>12 &gt; 10</code> ，代表答案只可能在左邊，因此把  <code>right</code>  移到  <code>mid</code>  的前一格：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">right = mid - <span class="number">1</span>  <span class="comment"># 4</span></span><br></pre></td></tr></table></figure>
+<p>第三次搜尋：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">left = 4</span><br><span class="line">right = 4</span><br><span class="line">mid = 4</span><br><span class="line">nums[4] = 10</span><br></pre></td></tr></table></figure>
+<p>找到答案，回傳索引  <code>4</code> 。</p>
+<h2 id="為什麼一定是-mid-1"><a class="markdownIt-Anchor" href="#為什麼一定是-mid-1">#</a> 為什麼一定是  <code>mid + 1</code> ？</h2>
+<p>我一開始很容易把它寫成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>這裡有兩個問題。</p>
+<p>第一，這行只算出結果，沒有把結果存回  <code>left</code> ，所以  <code>left</code>  根本不會改變。</p>
+<p>第二，就算寫成  <code>left = left + 1</code> ，也只往前移動一格，沒有利用二分搜尋可以排除一半資料的優勢。</p>
+<p>正確寫法是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left = mid + <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>因為  <code>mid</code>  已經檢查過，而且  <code>mid</code>  左邊也全部確定太小，所以整段都可以排除。</p>
+<p>右邊同樣是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">right = mid - <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="完整的二分搜尋"><a class="markdownIt-Anchor" href="#完整的二分搜尋">#</a> 完整的二分搜尋</h2>
+<p>把前面的邏輯組合起來：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">binary_search</span>(<span class="params">nums, target</span>):</span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    right = <span class="built_in">len</span>(nums) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">        mid = (left + right) // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            right = mid - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>這段程式只有三種情況：</p>
+<ol>
+<li>中間值等於目標：找到答案， <code>return mid</code></li>
+<li>中間值太小：答案只可能在右邊，移動  <code>left</code></li>
+<li>中間值太大：答案只可能在左邊，移動  <code>right</code></li>
+</ol>
+<p><code>return -1</code>  必須放在  <code>while</code>  外面。第一次沒有猜中，不代表答案不存在，只代表還要到剩下的那一半繼續找。</p>
+<p>只有當  <code>left &gt; right</code> ，搜尋範圍完全消失後，才能確定真的找不到。</p>
+<h2 id="為什麼時間複雜度是-olog-n"><a class="markdownIt-Anchor" href="#為什麼時間複雜度是-olog-n">#</a> 為什麼時間複雜度是  <code>O(log n)</code> ？</h2>
+<p>如果有 8 筆資料，每次排除一半：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8 → 4 → 2 → 1</span><br></pre></td></tr></table></figure>
+<p>範圍縮小 3 次就只剩一筆。換個方向看：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2³ = 8</span><br><span class="line">log₂(8) = 3</span><br></pre></td></tr></table></figure>
+<p>如果有 16 筆資料：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">16 → 8 → 4 → 2 → 1</span><br></pre></td></tr></table></figure>
+<p>會縮小 4 次：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2⁴ = 16</span><br><span class="line">log₂(16) = 4</span><br></pre></td></tr></table></figure>
+<p>也就是說， <code>log₂(n)</code>  可以先白話理解成：</p>
+<blockquote>
+<p><code>n</code>  可以連續除以 2 幾次，才會縮小成 1？</p>
+</blockquote>
+<p>即使有大約 100 萬筆排序資料，二分搜尋也只需要約 20 個層級。相比之下，逐個搜尋在最壞情況可能要檢查接近 100 萬筆。</p>
+<p>實際比較次數可能會比縮小次數多一次，因為剩下最後一筆時仍要檢查它是不是答案。但 Big O 關心的是資料量增加時的成長趨勢，因此這種固定的  <code>+1</code>  不會改變  <code>O(log n)</code> 。</p>
+<h2 id="延伸search-insert-position"><a class="markdownIt-Anchor" href="#延伸search-insert-position">#</a> 延伸：Search Insert Position</h2>
+<p>LeetCode #35 不只要找出目標，還要求：如果目標不存在，回傳它應該插入的位置。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = [1, 3, 5, 6]</span><br><span class="line">target = 4</span><br></pre></td></tr></table></figure>
+<p>搜尋過程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">left=0, right=3</span><br><span class="line">mid=1 → nums[1]=3</span><br><span class="line">3 &lt; 4，所以 left=2</span><br><span class="line"></span><br><span class="line">left=2, right=3</span><br><span class="line">mid=2 → nums[2]=5</span><br><span class="line">5 &gt; 4，所以 right=1</span><br></pre></td></tr></table></figure>
+<p>最後變成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">left = 2</span><br><span class="line">right = 1</span><br></pre></td></tr></table></figure>
+<p><code>left &gt; right</code>  代表搜尋結束，而  <code>left=2</code>  剛好就是  <code>4</code>  應該插入的位置：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[1, 3, 4, 5, 6]</span><br><span class="line">       ↑</span><br><span class="line">     index 2</span><br></pre></td></tr></table></figure>
+<p>因此程式和一般二分搜尋幾乎一樣，只有最後一行不同：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">search_insert</span>(<span class="params">nums, target</span>):</span><br><span class="line">    left = <span class="number">0</span></span><br><span class="line">    right = <span class="built_in">len</span>(nums) - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> left &lt;= right:</span><br><span class="line">        mid = (left + right) // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> nums[mid] == target:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">elif</span> nums[mid] &lt; target:</span><br><span class="line">            left = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            right = mid - <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> left</span><br></pre></td></tr></table></figure>
+<p>一般二分搜尋找不到時回傳  <code>-1</code> ；Search Insert Position 則回傳  <code>left</code> 。</p>
+<h2 id="幾個容易忽略的邊界"><a class="markdownIt-Anchor" href="#幾個容易忽略的邊界">#</a> 幾個容易忽略的邊界</h2>
+<h3 id="目標比所有數字都小"><a class="markdownIt-Anchor" href="#目標比所有數字都小">#</a> 目標比所有數字都小</h3>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = [1, 3, 5, 6]</span><br><span class="line">target = 0</span><br></pre></td></tr></table></figure>
+<p>最後  <code>left = 0</code> ，代表插在最前面。</p>
+<h3 id="目標比所有數字都大"><a class="markdownIt-Anchor" href="#目標比所有數字都大">#</a> 目標比所有數字都大</h3>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = [1, 3, 5, 6]</span><br><span class="line">target = 7</span><br></pre></td></tr></table></figure>
+<p>最後  <code>left = 4</code> ，等於  <code>len(nums)</code> ，代表插在陣列尾端之後。這是合法的插入位置，但不能在插入前直接讀取  <code>nums[4]</code> ，因為那裡目前還沒有元素。</p>
+<h3 id="空陣列"><a class="markdownIt-Anchor" href="#空陣列">#</a> 空陣列</h3>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nums = []</span><br><span class="line">target = 5</span><br></pre></td></tr></table></figure>
+<p>初始化後：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">left = 0</span><br><span class="line">right = -1</span><br></pre></td></tr></table></figure>
+<p><code>while left &lt;= right</code>  一開始就是  <code>False</code> ，所以直接回傳  <code>left=0</code> 。空陣列的第一個插入位置確實就是索引  <code>0</code> 。</p>
+<p>如果把  <code>right</code>  錯寫成  <code>len(nums)</code> ，程式就可能嘗試讀取不存在的  <code>nums[0]</code> ，造成  <code>IndexError</code> 。</p>
+<h2 id="我這次真正學到的事"><a class="markdownIt-Anchor" href="#我這次真正學到的事">#</a> 我這次真正學到的事</h2>
+<p>我原本以為理解「每次排除一半」就等於會寫二分搜尋，但實際動手後才發現，觀念和程式碼之間還有一段距離。</p>
+<p>我踩到的問題包括：</p>
+<ul>
+<li>把  <code>len(nums)</code>  誤認成最後一個索引</li>
+<li>忘記  <code>mid</code>  必須在每一輪重新計算</li>
+<li>寫了  <code>left + 1</code> ，卻沒有真的更新  <code>left</code></li>
+<li>忘記應該從  <code>mid + 1</code>  開始，而不是只移動一格</li>
+<li>在還沒找完時使用  <code>return</code> ，提早結束整個函式</li>
+<li>把 Python 的  <code>elif</code>  寫成其他語言常見的  <code>else if</code></li>
+</ul>
+<p>現在我的理解是：二分搜尋不是背一段模板，而是一直維持一個規則：</p>
+<blockquote>
+<p>如果答案存在，它一定還在  <code>left</code>  到  <code>right</code>  之間。</p>
+</blockquote>
+<p>每次比較  <code>nums[mid]</code> ，都是在安全地縮小這個可能範圍。當範圍消失，就代表找不到；在 Search Insert Position 裡，此時的  <code>left</code>  則剛好留下了正確的插入位置。</p>
+
+  </div>
+</article>
+
+
+
+
+<div class="post-copyright">
+  <div class="post-copyright-row">
+    <span class="post-copyright-label">本文作者</span>
+    <span class="post-copyright-value">Lin</span>
+  </div>
+  <div class="post-copyright-row">
+    <span class="post-copyright-label">本文連結</span>
+    <span class="post-copyright-value"><a href="https://reedlin2002.github.io/2026/07/18/binary-search-learning/">https://reedlin2002.github.io/2026/07/18/binary-search-learning/</a></span>
+  </div>
+  <div class="post-copyright-row">
+    <span class="post-copyright-label">版權聲明</span>
+    <span class="post-copyright-value">
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">
+        <i class="fa-brands fa-creative-commons"></i> CC BY-NC-SA 4.0
+      </a>
+      — 本文採用 CC BY-NC-SA 4.0 授權，轉載請註明出處。
+    </span>
+  </div>
+  <div class="post-copyright-share">
+    <i class="fa-solid fa-share-nodes"></i> 覺得這篇文章有幫助的話，歡迎分享給更多人！
+  </div>
+</div>
+
+
+
+
+
+<section class="post-related" aria-label="延伸閱讀">
+  <span class="section-title">延伸閱讀</span>
+  <div class="related-grid">
+    
+    <a class="related-card" href="/2026/05/31/nfc-test/">
+      <div class="related-card-cover-wrap">
+        <img class="related-card-cover" loading="lazy"
+          src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800"
+          alt="📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記">
+      </div>
+      <div class="related-card-body">
+        <span class="related-card-title">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</span>
+        <span class="related-card-date"><i class="fa-regular fa-calendar"></i> 2026-05-31</span>
+      </div>
+    </a>
+    
+    <a class="related-card" href="/2026/05/16/travel-planner-side-project/">
+      <div class="related-card-cover-wrap">
+        <img class="related-card-cover" loading="lazy"
+          src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800"
+          alt="用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得">
+      </div>
+      <div class="related-card-body">
+        <span class="related-card-title">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</span>
+        <span class="related-card-date"><i class="fa-regular fa-calendar"></i> 2026-05-16</span>
+      </div>
+    </a>
+    
+    <a class="related-card" href="/2025/07/19/LocalAIAgentAPI/">
+      <div class="related-card-cover-wrap">
+        <img class="related-card-cover" loading="lazy"
+          src="/images/LocalAIAgentAPI.png"
+          alt="📍 | LocalAIAgentAPI">
+      </div>
+      <div class="related-card-body">
+        <span class="related-card-title">📍 | LocalAIAgentAPI</span>
+        <span class="related-card-date"><i class="fa-regular fa-calendar"></i> 2025-07-19</span>
+      </div>
+    </a>
+    
+  </div>
+</section>
+
+
+
+
+
+                  
+                    <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首頁</a></li>
+        
+          <li><a href="/archives/">文章</a></li>
+        
+          <li><a href="/#projects">專案</a></li>
+        
+          <li><a href="/about/">關於</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B%E4%B8%8D%E5%8F%AA%E6%98%AF%E5%BE%9E%E4%B8%AD%E9%96%93%E6%89%BE"><span class="toc-number">1.</span> <span class="toc-text"> 二分搜尋不只是「從中間找」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#left-right-%E5%92%8C-mid-%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="toc-number">2.</span> <span class="toc-text">  left 、 right  和  mid  是什麼？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%A6%E9%9A%9B%E8%B5%B0%E4%B8%80%E6%AC%A1%E6%90%9C%E5%B0%8B%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text"> 實際走一次搜尋流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E4%B8%80%E5%AE%9A%E6%98%AF-mid-1"><span class="toc-number">4.</span> <span class="toc-text"> 為什麼一定是  mid + 1 ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BA%8C%E5%88%86%E6%90%9C%E5%B0%8B"><span class="toc-number">5.</span> <span class="toc-text"> 完整的二分搜尋</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E6%98%AF-olog-n"><span class="toc-number">6.</span> <span class="toc-text"> 為什麼時間複雜度是  O(log n) ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E4%BC%B8search-insert-position"><span class="toc-number">7.</span> <span class="toc-text"> 延伸：Search Insert Position</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%BE%E5%80%8B%E5%AE%B9%E6%98%93%E5%BF%BD%E7%95%A5%E7%9A%84%E9%82%8A%E7%95%8C"><span class="toc-number">8.</span> <span class="toc-text"> 幾個容易忽略的邊界</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A8%99%E6%AF%94%E6%89%80%E6%9C%89%E6%95%B8%E5%AD%97%E9%83%BD%E5%B0%8F"><span class="toc-number">8.1.</span> <span class="toc-text"> 目標比所有數字都小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E6%A8%99%E6%AF%94%E6%89%80%E6%9C%89%E6%95%B8%E5%AD%97%E9%83%BD%E5%A4%A7"><span class="toc-number">8.2.</span> <span class="toc-text"> 目標比所有數字都大</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%99%A3%E5%88%97"><span class="toc-number">8.3.</span> <span class="toc-text"> 空陣列</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E9%80%99%E6%AC%A1%E7%9C%9F%E6%AD%A3%E5%AD%B8%E5%88%B0%E7%9A%84%E4%BA%8B"><span class="toc-number">9.</span> <span class="toc-text"> 我這次真正學到的事</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/07/18/binary-search-learning/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&text=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&title=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&is_video=false&description=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position&body=Check out this article: https://reedlin2002.github.io/2026/07/18/binary-search-learning/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&title=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&title=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&title=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&title=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&name=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position&description=&lt;p&gt;以前看到二分搜尋（Binary Search），我只記得一句話：&lt;strong&gt;從中間開始找。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;但真的要自己寫時，我才發現問題沒有這麼簡單： &lt;code&gt;left&lt;/code&gt;  和  &lt;code&gt;right&lt;/code&gt;  到底代表什麼？為什麼要寫  &lt;code&gt;mid + 1&lt;/code&gt; ？找不到時，為什麼又能直接回傳  &lt;code&gt;left&lt;/code&gt; ？&lt;/p&gt;
+&lt;p&gt;這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/07/18/binary-search-learning/&t=我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+                      
+                        <!-- ═══════════════════════════════════════════════
+     FOOTER — Monogatari minimal single-bar
+     ═══════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-mono-bar">
+    <span class="footer-mono-name">
+      <strong>Lin</strong>
+    </span>
+
+    <span class="footer-mono-sep">·</span>
+
+    
+    
+    <span class="footer-mono-year">2016–2026</span>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="https://github.com/reedlin2002" target="_blank" rel="noopener" class="footer-mono-link">
+      <i class="fab fa-github"></i> GitHub
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="mailto:reedlin2002@gmail.com" class="footer-mono-link">
+      <i class="fas fa-envelope"></i> Email
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <a href="/search/" class="footer-mono-link">
+      <i class="fas fa-magnifying-glass"></i> 搜尋
+    </a>
+
+    <span class="footer-mono-sep">·</span>
+
+    <span class="footer-mono-powered">Powered by <a href="https://hexo.io" target="_blank" rel="noopener" class="footer-mono-link">Hexo</a></span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     返回頂部按鈕
+     ═══════════════════════════════════════════════ -->
+<button id="back-to-top" aria-label="返回頂部" title="返回頂部">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+            </main>
+            <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- 舊版 ClipboardJS 複製按鈕已移除 — Sprint 3 的 .copy-btn 為唯一實作 -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- ── 圖片燈箱（medium-zoom）── -->
+
+<script src="/lib/medium-zoom/medium-zoom.min.js"></script>
+
+<script type="text/javascript">
+window.initLightbox = function() {
+  'use strict';
+  if (typeof mediumZoom !== 'function') return;
+  // PJAX 重入：先解除舊綁定
+  if (window._mzoom) {
+    window._mzoom.detach();
+    window._mzoom = null;
+  }
+  var selector = 'article.post .content img:not(.no-zoom)';
+  if (document.querySelector(selector)) {
+    window._mzoom = mediumZoom(selector, {
+      background: 'rgba(15, 17, 20, 0.92)',
+      margin: 24
+    });
+  }
+};
+window.initLightbox();
+</script>
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+window.initSprint2JS = function() {
+  'use strict';
+
+  /* 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block, .related-card, .project-card');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    if (window.cardObserver) {
+      window.cardObserver.disconnect();
+    }
+    window.cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          window.cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      window.cardObserver.observe(card);
+    });
+  }
+
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
+};
+window.initSprint2JS();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + TOC Highlight + Mobile Nav ── -->
+<script type="text/javascript">
+window.initSprint3JS = function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight:not(.has-copy-btn)');
+  highlights.forEach(function(block) {
+    block.classList.add('has-copy-btn');
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight' && c !== 'has-copy-btn';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      navigator.clipboard.writeText(text.trim()).then(function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+        }, 2000);
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② TOC IntersectionObserver：追蹤當前章節並高亮
+     ═══════════════════════════════════════════════════ */
+  var toc = document.getElementById('toc');
+  if (toc) {
+    if (window.tocObserver) {
+        window.tocObserver.disconnect();
+    }
+    // 樣式設定：讓 TOC 連結有 active class
+    var tocLinks = toc.querySelectorAll('a');
+    var headings = document.querySelectorAll('#post .content h2, #post .content h3');
+
+    if (headings.length > 0 && tocLinks.length > 0) {
+      var activeId = null;
+
+      window.tocObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            activeId = entry.target.id;
+          }
+        });
+        // 更新 TOC active 狀態
+        var activeLink = null;
+        tocLinks.forEach(function(link) {
+          var href = link.getAttribute('href');
+          if (href === '#' + activeId) {
+            link.classList.add('toc-active');
+            activeLink = link;
+          } else {
+            link.classList.remove('toc-active');
+          }
+        });
+        /* Auto-scroll TOC so active item stays visible */
+        if (activeLink && toc.scrollHeight > toc.clientHeight) {
+          var linkTop = activeLink.offsetTop;
+          var tocHeight = toc.clientHeight;
+          var scrollTarget = linkTop - tocHeight / 2 + activeLink.offsetHeight / 2;
+          var reduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          toc.scrollTo({ top: scrollTarget, behavior: reduce ? 'auto' : 'smooth' });
+        }
+      }, {
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0
+      });
+
+      headings.forEach(function(h) {
+        if (h.id) window.tocObserver.observe(h);
+      });
+    }
+
+    /* ── j/k keyboard navigation between headings ── */
+    if (headings.length > 0 && !window._jkNavBound) {
+      window._jkNavBound = true;
+      document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key !== 'j' && e.key !== 'k') return;
+        var ids = Array.from(headings).filter(function(h) { return h.id; }).map(function(h) { return h.id; });
+        if (!ids.length) return;
+        var currentIdx = ids.indexOf(activeId);
+        var nextIdx = e.key === 'j'
+          ? Math.min(currentIdx + 1, ids.length - 1)
+          : Math.max(currentIdx - 1, 0);
+        var target = document.getElementById(ids[nextIdx]);
+        if (target) {
+          var jkReduce = window.prefersReducedMotion && window.prefersReducedMotion();
+          target.scrollIntoView({ behavior: jkReduce ? 'auto' : 'smooth', block: 'start' });
+        }
+      });
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     ③ Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  // We use standard named events to avoid duplication if we just use document.addEventListener
+  if (window._mobileNavHandlersBound) return;
+  window._mobileNavHandlersBound = true;
+
+  /* 關閉 = 移除 .responsive class（開關同一機制，不用 jQuery 動 inline display）*/
+  function closeMobileNav() {
+    var navMenu = document.querySelector('#header #nav > ul.responsive');
+    if (navMenu) navMenu.classList.remove('responsive');
+  }
+
+  document.addEventListener('click', function(e) {
+    var header = document.getElementById('header');
+    if (header && !header.contains(e.target)) closeMobileNav();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive: true});
+
+  document.addEventListener('touchend', function(e) {
+    if (document.querySelector('#header #nav > ul.responsive')) {
+      var touchEndX = e.changedTouches[0].screenX;
+      var touchEndY = e.changedTouches[0].screenY;
+      if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+        closeMobileNav();
+      }
+    }
+  }, {passive: true});
+
+};
+window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
+</script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+
+                <!-- 懸浮音樂播放器（APlayer）— 位於 main.content 外，PJAX 換頁音樂不中斷 -->
+
+<link rel="stylesheet" href="/lib/aplayer/APlayer.min.css">
+<div id="aplayer"></div>
+<script src="/lib/aplayer/APlayer.min.js"></script>
+<script type="text/javascript">
+(function () {
+  'use strict';
+  var audio = [{"name":"一難","artist":"","url":"/music/一難.mp3"},{"name":"私が選んだもの","artist":"ユイカ","url":"/music/私が選んだもの  ユイカMV.mp3"}];
+  audio = audio.map(function (t) { t.url = encodeURI(t.url); return t; });
+
+  window._aplayer = new APlayer({
+    container: document.getElementById('aplayer'),
+    fixed: true,
+    mini: true,
+    autoplay: false,
+    volume: 0.4,
+    loop: 'all',
+    order: 'list',
+    theme: '#8B5CF6',
+    preload: 'none',
+    lrcType: 0,
+    audio: audio
+  });
+})();
+</script>
+
+
+
+                    
+<script src="/js/landing.js"></script>
+
+                      <!-- PJAX 架構與進度條 -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+                      
+<script src="/js/pjax-init.js"></script>
+
+                      
+                      <!-- Live2D 看板娘 + 聊天（body 層，PJAX 換頁不重載） -->
+                      <script>window.LIVE2D_CHAT_CONFIG = {"enabled":true,"endpoint":"https://live2d-chat.kanewolf98.workers.dev","model":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json"};</script>
+                      
+<script src="/lib/live2d/L2Dwidget.min.js"></script>
+
+                      
+<script src="/js/live2d-chat.js"></script>
+
+                      
+    </body>
+
+    </html>
