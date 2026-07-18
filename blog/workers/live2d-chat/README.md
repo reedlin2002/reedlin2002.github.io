@@ -9,9 +9,18 @@
 3. 免費模型不需要儲值；預設用 `google/gemini-2.0-flash-exp:free`
 
 ## 2. 部署 Worker（Dashboard 免 CLI）
-1. https://dash.cloudflare.com → Workers & Pages → Create → Create Worker
-2. 名稱取 `live2d-chat`（網址會是 `https://live2d-chat.<你的子網域>.workers.dev`）
-3. Deploy 後點 Edit code，把本目錄的 `worker.js` 全文貼上 → Deploy
+1. https://dash.cloudflare.com → Workers & Pages → Create → Workers 分頁 → 選 **「Start with Hello World!」** 範本
+   （**不要**選「Import a repository」——那條路才會問 build command；本 worker 是零依賴單檔，不需要任何建置）
+2. 名稱取 `live2d-chat`（網址會是 `https://live2d-chat.<你的子網域>.workers.dev`）→ Deploy
+3. 點 Edit code 開線上編輯器，把範本全刪、貼上本目錄的 `worker.js` 全文 → Deploy
+
+> 想用 CLI 的話（等價做法）：
+> ```bash
+> cd workers/live2d-chat
+> npx wrangler login
+> npx wrangler deploy                          # 讀本目錄的 wrangler.jsonc
+> npx wrangler secret put OPENROUTER_API_KEY  # 貼上 key
+> ```
 
 ## 3. 設定環境變數
 Worker → Settings → Variables and Secrets：

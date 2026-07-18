@@ -1,0 +1,7 @@
+// CLI 部署用設定（選用）：cd workers/live2d-chat && npx wrangler deploy
+// Secret 另外設：npx wrangler secret put OPENROUTER_API_KEY
+{
+  "name": "live2d-chat",
+  "main": "worker.js",
+  "compatibility_date": "2026-07-01"
+}
