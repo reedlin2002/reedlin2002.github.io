@@ -42,7 +42,11 @@ none（純靜態網站主題層）
 - Console：主題層零錯誤；僅文章內容缺圖 nfc-test-*.png 404（既有內容問題）
 - 過程中額外修復：#theme-toggle 被 #header backdrop-filter 劫持 fixed containing block（改為 header 流內）；$base-style 給 h3 的底線蓋掉；抽屜面板改 absolute 定位
 
+## 視覺二版（2026-07-18）
+首版 Aurora 柔和風被使用者退回（「太 common」），改為 Dev/Terminal 暗色優先：近黑底 + 點陣紋理、電光青單一 accent、終端 kicker、巨型掃光字、skills 跑馬燈、mono `//` 區段標題、`[tag]` 括號卡片。詳見 decisions/2026-07-18-dev-terminal-visual-language.md。已重新驗證：亮暗兩模式、行動單欄、console 零錯誤。
+
 ## 決策參照
 - docs/decisions/2026-07-17-vanilla-js-over-react-for-landing-effects.md
 - docs/decisions/2026-07-17-delete-dead-css-layers.md
 - docs/decisions/2026-07-17-homepage-landing-ia.md
+- docs/decisions/2026-07-18-dev-terminal-visual-language.md
