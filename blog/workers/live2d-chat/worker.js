@@ -11,7 +11,7 @@
  *   ALLOWED_ORIGINS     (選填) 逗號分隔的允許來源
  */
 
-const DEFAULT_MODEL = 'google/gemini-2.0-flash-exp:free';
+const DEFAULT_MODEL = 'meta-llama/llama-3.3-70b-instruct:free';
 
 const DEFAULT_PERSONA = `妳是「響」(Hibiki)，Lin 的個人技術部落格 reedlin2002.github.io 的看板娘。
 Lin 是一位軟體設計工程師，專注 AI 應用整合與系統設計，部落格寫 LeetCode 解題、side projects（LocalAIAgentAPI、UrlHealthMonitor、my-ollama、HTTP Checker）與技術筆記。
@@ -58,6 +58,19 @@ export default {
     }
 
     try {
+      const model = env.MODEL || DEFAULT_MODEL;
+      const persona = env.SYSTEM_PROMPT || DEFAULT_PERSONA;
+
+      // Google gemma 系列不支援 system role：把人設併入第一則 user 訊息
+      let outbound;
+      if (/\bgemma\b/i.test(model)) {
+        outbound = messages.map(m => ({ ...m }));
+        const firstUser = outbound.find(m => m.role === 'user');
+        if (firstUser) firstUser.content = `[角色設定]\n${persona}\n[/角色設定]\n\n${firstUser.content}`;
+      } else {
+        outbound = [{ role: 'system', content: persona }, ...messages];
+      }
+
       const r = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -67,11 +80,8 @@ export default {
           'X-Title': 'Reedlin2002 Blog Live2D Chat'
         },
         body: JSON.stringify({
-          model: env.MODEL || DEFAULT_MODEL,
-          messages: [
-            { role: 'system', content: env.SYSTEM_PROMPT || DEFAULT_PERSONA },
-            ...messages
-          ],
+          model: model,
+          messages: outbound,
           max_tokens: 300,
           temperature: 0.8
         })
