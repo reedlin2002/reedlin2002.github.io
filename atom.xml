@@ -3,9 +3,11 @@
     <id>https://reedlin2002.github.io</id>
     <title>Reedlin2002</title>
     <link href="https://reedlin2002.github.io" />
-    <updated>2026-07-17T16:00:00.000Z</updated>
+    <updated>2026-07-19T04:59:38.000Z</updated>
     <category term="project" />
     <category term="myself" />
+    <category term="技術筆記" />
+    <category term="(作者自學用)" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
@@ -16,10 +18,133 @@
     <category term="React" />
     <category term="NFC" />
     <category term="Web API" />
-    <category term="技術筆記" />
-    <category term="(作者自學用)" />
     <category term="TypeScript" />
     <category term="AI" />
+    <entry>
+        <id>https://reedlin2002.github.io/2026/07/19/twstock-agent/</id>
+        <title>📈 | 010401 Finance 台股 AI 分析助手</title>
+        <link rel="alternate" href="https://reedlin2002.github.io/2026/07/19/twstock-agent/"/>
+        <content type="html">&lt;h1 id=&#34;010401-finance-把台股研究壓縮成一次查詢的-ai-分析-app&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#010401-finance-把台股研究壓縮成一次查詢的-ai-分析-app&#34;&gt;#&lt;/a&gt; 🚀 010401 Finance - 把台股研究壓縮成一次查詢的 AI 分析 App&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一款面向台股投資人的 AI 分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合在同一個畫面，輸入股票代號，就能得到一份可閱讀、可追蹤、可行動的分析報告。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;►  「 &lt;a href=&#34;https://github.com/reedlin2002/twstock-agent&#34;&gt;GITHUB&lt;/a&gt; 」&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;⚠️ 本專案提供投資研究與資料整理輔助，不構成任何買賣建議或投資邀約。實際交易前請自行判斷風險。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#專案緣起&#34;&gt;#&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
+&lt;p&gt;研究一檔台股，散戶通常要開一堆分頁：看線圖一個網站、查三大法人一個網站、翻新聞又一個網站，最後還要自己在腦中把這些資訊拼起來。這個專案想把「找資料、看技術線、看籌碼、整理觀點」壓縮成一次查詢:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;輸入  &lt;code&gt;2330&lt;/code&gt;  或公司名稱，自動抓價格、算指標、補籌碼&lt;/li&gt;
+&lt;li&gt;技術分析不只畫線，還轉成可執行的檢查表與買賣計畫&lt;/li&gt;
+&lt;li&gt;AI 只根據 App 整理好的結構化資料寫報告，降低幻覺&lt;/li&gt;
+&lt;li&gt;Web 與行動端同一套程式碼，可打包成 Android App&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;核心理念是:&lt;strong&gt; 不是只問 AI, 而是先有資料再問 AI&lt;/strong&gt;。AI 的角色是研究助理，不是憑空說故事的分析師。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;️-專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-專案技術&#34;&gt;#&lt;/a&gt; 🛠️ 專案技術&lt;/h2&gt;
+&lt;p&gt;🟢 前端核心&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;框架：React 18 + Vite 6&lt;br&gt;
+ 圖表：Recharts (價格走勢、籌碼柱狀圖)&lt;br&gt;
+ 圖示:lucide-react&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;🟡 資料來源&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Yahoo Finance: 近兩年日線價格、開高低收、成交量&lt;br&gt;
+ FinMind: 三大法人買賣超、融資融券、台股公司清單&lt;br&gt;
+ Google News RSS / PTT 股板：即時新聞與鄉民風向 (選配)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;🟣 AI 分析&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;OpenRouter API (可換模型), 採資料驅動 prompt&lt;br&gt;
+Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;🟠 行動端&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Capacitor 8:Android 打包、本地推播、背景任務&lt;br&gt;
+到價提醒、自選股資料存在裝置端 localStorage&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;功能導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#功能導覽&#34;&gt;#&lt;/a&gt; 📱 功能導覽&lt;/h2&gt;
+&lt;p&gt;以下畫面都是用行動裝置尺寸實際操作 App 的截圖。&lt;/p&gt;
+&lt;h3 id=&#34;自選股儀表板&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#自選股儀表板&#34;&gt;#&lt;/a&gt; 自選股儀表板&lt;/h3&gt;
+&lt;p&gt;打開 App 首頁就是自選股儀表板：每一檔顯示迷你走勢、動能訊號燈 (偏多 / 偏空 / 中性)、現價與漲跌幅，持有中的部位還會直接顯示未實現損益。&lt;/p&gt;
+&lt;div id=&#34;gallery&#34;&gt;
+  &lt;a href=&#34;/images/twstock-agent-home.png&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-home.png&#34; alt=&#34;自選股儀表板&#34; style=&#34;max-width: 320px;&#34;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;個股分析頁&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#個股分析頁&#34;&gt;#&lt;/a&gt; 個股分析頁&lt;/h3&gt;
+&lt;p&gt;輸入代號查詢後，最上方是股價摘要卡：現價、漲跌、產業別，以及一句由 AI 根據技術面與籌碼面生成的重點摘要。也可以從這裡收藏自選股、寫個人持股紀錄、複製整份報告。&lt;/p&gt;
+&lt;div id=&#34;gallery&#34;&gt;
+  &lt;a href=&#34;/images/twstock-agent-analysis-top.png&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-analysis-top.png&#34; alt=&#34;個股分析頁&#34; style=&#34;max-width: 320px;&#34;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;走勢圖-買賣計畫-overlay&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#走勢圖-買賣計畫-overlay&#34;&gt;#&lt;/a&gt; 走勢圖 + 買賣計畫 Overlay&lt;/h3&gt;
+&lt;p&gt;這是我最喜歡的功能：買賣計畫不是一段文字，而是直接疊在走勢圖上 —— 買點區、停損線、目標價都畫在圖上，和月線 MA20、季線 MA60 放在一起看。圖下方的計畫卡會給出明確狀態 (進場 / 觀望 / 先不要碰), 搭配觀察買點、突破參考、停損與分批停利價位。&lt;/p&gt;
+&lt;p&gt;所有價位都對齊台股最小升降單位 (tick), 不會算出掛不出去的價格。&lt;/p&gt;
+&lt;div id=&#34;gallery&#34;&gt;
+  &lt;a href=&#34;/images/twstock-agent-chart.png&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-chart.png&#34; alt=&#34;走勢圖與買賣計畫&#34; style=&#34;max-width: 320px;&#34;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;ai-深入分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ai-深入分析&#34;&gt;#&lt;/a&gt; AI 深入分析&lt;/h3&gt;
+&lt;p&gt;AI 報告分成幾個區塊：買點條件觀察、&lt;strong&gt;個人化進出場&lt;/strong&gt; (如果有填持股紀錄，會根據你的成本價與部位計算報酬率、安全距離與建議動作)、五大面向分析 (基本面 / 技術面 / 籌碼面 / 消息面 / 產業)、風險提示，以及引用的新聞來源清單。&lt;/p&gt;
+&lt;div id=&#34;gallery&#34;&gt;
+  &lt;a href=&#34;/images/twstock-agent-ai.png&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-ai.png&#34; alt=&#34;AI 深入分析&#34; style=&#34;max-width: 320px;&#34;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;趨勢檢查表與進場訊號&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#趨勢檢查表與進場訊號&#34;&gt;#&lt;/a&gt; 趨勢檢查表與進場訊號&lt;/h3&gt;
+&lt;p&gt;「詳細數據」抽屜把技術分析轉成逐項打勾的檢查表:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;趨勢結構&lt;/strong&gt; (Weinstein 階段分析 + Minervini 趨勢樣板): 站上季線 / 半年線、均線多頭排列、年線上彎、距 52 週高低點位置&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;進場訊號&lt;/strong&gt; (O’Neil 突破框架 + 台股常用轉折):KD 低檔黃金交叉、站回季線、帶量突破前高、MACD 翻多&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;gallery&#34;&gt;
+  &lt;a href=&#34;/images/twstock-agent-checklist.png&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-checklist.png&#34; alt=&#34;趨勢結構檢查表&#34; style=&#34;max-width: 320px;&#34;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;法人籌碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#法人籌碼&#34;&gt;#&lt;/a&gt; 法人籌碼&lt;/h3&gt;
+&lt;p&gt;FinMind 的籌碼資料整理成柱狀圖與統計卡：三大法人每日買賣超、外資 / 投信 / 自營商近 5 日合計、融資融券餘額與增減，下方還有一句白話的籌碼解讀。&lt;/p&gt;
+&lt;div id=&#34;gallery&#34;&gt;
+  &lt;a href=&#34;/images/twstock-agent-chips.png&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-chips.png&#34; alt=&#34;法人籌碼&#34; style=&#34;max-width: 320px;&#34;&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;ai-分析流程先有資料再問-ai&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ai-分析流程先有資料再問-ai&#34;&gt;#&lt;/a&gt; 🧠 AI 分析流程：先有資料，再問 AI&lt;/h2&gt;
+&lt;p&gt;整個分析採用資料驅動流程，AI 拿到的不是股票代號，而是 App 已經算好的結構化資料:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用者輸入股票名稱或代號&lt;/li&gt;
+&lt;li&gt;App 解析台股代號 ( &lt;code&gt;.TW&lt;/code&gt;  /  &lt;code&gt;.TWO&lt;/code&gt;  自動判斷)&lt;/li&gt;
+&lt;li&gt;抓取 Yahoo Finance 價格與 FinMind 籌碼資料&lt;/li&gt;
+&lt;li&gt;前端本地計算技術指標：MA20/60/120/240、KD、MACD、RSI、ATR14、52 週高低點&lt;/li&gt;
+&lt;li&gt;跑趨勢檢查與觸發訊號，產生交易計畫 (進場區間、停損、2R/3R 停利)&lt;/li&gt;
+&lt;li&gt;組成  &lt;code&gt;providedData&lt;/code&gt;  交給 AI,AI 只根據提供的資料寫報告&lt;/li&gt;
+&lt;li&gt;App 解析回覆的結構化區塊，分區顯示在畫面上&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;停損的取法也有講究：取「近 20 日低點、季線 ×0.98、觀察區上緣 ×0.92」中最接近價格的支撐，並確保與假設買價至少相隔 1×ATR 或 3%—— 太近就放寬停損，而不是把目標灌大，讓 2R/3R 名實相符。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;line-整合&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#line-整合&#34;&gt;#&lt;/a&gt; 📲 LINE 整合&lt;/h2&gt;
+&lt;p&gt;除了 App 本體，專案也接上了 LINE 官方帳號：透過 webhook + LIFF 可以在 LINE 裡管理觀察清單，每天定時收到自選股的分析摘要，以 Flex 卡片呈現重點價位與訊號，還會追蹤 AI 過去的看法戰績、在觀點被推翻時主動提醒。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;其他周邊&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#其他周邊&#34;&gt;#&lt;/a&gt; 🔧 其他周邊&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Python 報告產生器&lt;/strong&gt;: &lt;code&gt;python/taiwan_stock_agent.py 2330&lt;/code&gt;  一行指令產出含 K 線、均線、KD、MACD 的單檔 HTML 分析報告&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Android 打包&lt;/strong&gt;: &lt;code&gt;npm run android:apk&lt;/code&gt;  一鍵走完 Vite build → Capacitor sync → Gradle assemble&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;️-重要聲明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-重要聲明&#34;&gt;#&lt;/a&gt; ⚠️ 重要聲明&lt;/h2&gt;
+&lt;p&gt;本 App 產生的內容只供研究、學習與資訊整理使用。技術指標與 AI 分析都可能失準，任何買進、賣出、停損或停利決策，皆應由使用者自行負責。&lt;/p&gt;
+</content>
+        <category term="project" />
+        <updated>2026-07-19T04:59:38.000Z</updated>
+    </entry>
     <entry>
         <id>https://reedlin2002.github.io/2026/07/18/binary-search-learning/</id>
         <title>我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</title>
