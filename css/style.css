@@ -3245,6 +3245,9 @@ body.waifu-chat-open #live2d-widget {
   align-self: flex-end;
   color: #b8a7ff;
 }
+.waifu-msg-text {
+  white-space: pre-wrap;
+}
 .waifu-msg a.waifu-link {
   color: #72ddff;
   text-decoration: underline;

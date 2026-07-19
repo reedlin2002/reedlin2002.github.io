@@ -204,11 +204,14 @@
     name.className = 'waifu-msg-name';
     name.textContent = role === 'assistant' ? CHAR_NAME : 'YOU';
     div.appendChild(name);
+    var body = document.createElement('span');
+    body.className = 'waifu-msg-text';
     if (role === 'assistant') {
-      appendRichText(div, text);
+      appendRichText(body, text);
     } else {
-      div.appendChild(document.createTextNode(text));
+      body.appendChild(document.createTextNode(text));
     }
+    div.appendChild(body);
     log.appendChild(div);
     while (log.children.length > 14) log.removeChild(log.firstChild);
     log.scrollTop = log.scrollHeight;
