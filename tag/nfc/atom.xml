@@ -20,6 +20,10 @@
     <category term="Web API" />
     <category term="TypeScript" />
     <category term="AI" />
+    <category term="電腦視覺" />
+    <category term="Deep Learning" />
+    <category term="Instance Segmentation" />
+    <category term="影像處理" />
     <entry>
         <id>https://reedlin2002.github.io/2026/05/31/nfc-test/</id>
         <title>📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</title>

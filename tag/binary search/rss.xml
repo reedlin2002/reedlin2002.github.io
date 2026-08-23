@@ -23,6 +23,10 @@
         <category>Web API</category>
         <category>TypeScript</category>
         <category>AI</category>
+        <category>電腦視覺</category>
+        <category>Deep Learning</category>
+        <category>Instance Segmentation</category>
+        <category>影像處理</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/07/18/binary-search-learning/</guid>
             <title>我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</title>

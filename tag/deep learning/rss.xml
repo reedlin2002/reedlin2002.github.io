@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Reedlin2002 • Posts by &#34;deep learning&#34; tag</title>
+        <link>https://reedlin2002.github.io</link>
+        <description>Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程</description>
+        <language>zh-TW</language>
+        <pubDate>Sun, 23 Aug 2026 00:00:00 +0800</pubDate>
+        <lastBuildDate>Sun, 23 Aug 2026 00:00:00 +0800</lastBuildDate>
+        <category>project</category>
+        <category>myself</category>
+        <category>演算法</category>
+        <category>Binary Search</category>
+        <category>Python</category>
+        <category>LeetCode</category>
+        <category>技術筆記</category>
+        <category>(作者自學用)</category>
+        <category>leetcode</category>
+        <category>Daily</category>
+        <category>side project</category>
+        <category>React</category>
+        <category>NFC</category>
+        <category>Web API</category>
+        <category>TypeScript</category>
+        <category>AI</category>
+        <category>電腦視覺</category>
+        <category>Deep Learning</category>
+        <category>Instance Segmentation</category>
+        <category>影像處理</category>
+        <item>
+            <guid isPermalink="true">https://reedlin2002.github.io/2026/08/23/uav-vision-notes/</guid>
+            <title>空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</title>
+            <link>https://reedlin2002.github.io/2026/08/23/uav-vision-notes/</link>
+            <category>電腦視覺</category>
+            <category>Deep Learning</category>
+            <category>Instance Segmentation</category>
+            <category>影像處理</category>
+            <pubDate>Sun, 23 Aug 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以及當任務需要把多張影像拼成一張時，為什麼在特定場景下，古典幾何方法反而比深度學習更可靠。&lt;/p&gt;
+&lt;p&gt;這篇整理把這幾塊拆開講清楚，每個結論都對照原始論文、官方 repo 或官方文件的圖，而不是憑印象複述。&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+&lt;h2 id=&#34;一-分割策略語義-實例-全景分割的本質差異&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一-分割策略語義-實例-全景分割的本質差異&#34;&gt;#&lt;/a&gt; 一、分割策略：語義、實例、全景分割的本質差異&lt;/h2&gt;
+&lt;p&gt;分割任務常見的三種類型，定義上很容易背，但實務上的差異要透過範例才看得清楚。下圖出自 Kirillov 等人提出全景分割任務的原始論文，同一張街景照片分別用三種方式標註:&lt;/p&gt;
+&lt;div style=&#34;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;&#34;&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/uav-vision-notes-seg-original.jpg&#34; alt=&#34;原始影像&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;(a) 原始影像&lt;/p&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/uav-vision-notes-seg-semantic.jpg&#34; alt=&#34;語義分割&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;(b) 語義分割:同類別塗同一色塊&lt;/p&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/uav-vision-notes-seg-instance.jpg&#34; alt=&#34;實例分割&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;(c) 實例分割:每個物件各自一個 mask + box&lt;/p&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/uav-vision-notes-seg-panoptic.jpg&#34; alt=&#34;全景分割&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;(d) 全景分割:背景塗色 + 前景各自標開&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;圖片來源:Kirillov et al., &lt;a href=&#34;https://arxiv.org/abs/1801.00868&#34; target=&#34;_blank&#34;&gt;Panoptic Segmentation&lt;/a&gt;, CVPR 2019(arXiv:1801.00868)&lt;/p&gt;
+&lt;p&gt;觀察 (b) 語義分割的結果會發現一件事：畫面中間那群相鄰的行人，全部被塗成同一塊紅色 ——&lt;strong&gt; 語義分割只回答「這個 pixel 屬於哪一類」, 不回答「這是第幾個物件」&lt;/strong&gt;。相較之下，© 實例分割把每個人、每輛車都各自框出獨立的 mask 與邊界框，即使緊貼在一起也能切開。(d) 全景分割則是把兩者合併：天空、道路、建築物這類「不可數的背景」(論文稱為 &lt;em&gt;stuff&lt;/em&gt;) 用語義分割的方式塗色，行人、車輛這類「可數的前景物件」(論文稱為 &lt;em&gt;things&lt;/em&gt;) 則用實例分割的方式各自標開。&lt;/p&gt;
+&lt;p&gt;這個差異不是「哪個技術比較先進」, 而是「輸出的資訊維度不同」—— 用一個具體例子說明：假設畫面中有三個獨立物件，面積分別是 100、120、80 (單位:pixel)。如果語義分割把三者判成相鄰同類，輸出可能是「一塊面積 300 的區域」。這會同時造成兩個後果:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;數量被低估&lt;/strong&gt;：3 個變成看起來只有 1 個，任何依賴「數量」或「密度」的下游指標都會失真。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;尺寸分布跟著失真&lt;/strong&gt;：三個小型物件 (80、100、120) 被合併成一個大型物件 (300), 依大小分級的統計會整個跑掉。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;所以只要任務需要「數量」與「個別物件大小分布」, 而不只是「哪裡有東西」, 就必須選實例分割 (或全景分割)。三種任務對應的代表性架構大致如下:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;任務&lt;/th&gt;
+&lt;th&gt;是否分辨個體&lt;/th&gt;
+&lt;th&gt;常見代表架構&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;語義分割&lt;/td&gt;
+&lt;td&gt;否&lt;/td&gt;
+&lt;td&gt;FCN、U-Net、DeepLab 系列&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;實例分割&lt;/td&gt;
+&lt;td&gt;是&lt;/td&gt;
+&lt;td&gt;Mask R-CNN、YOLACT、CenterMask2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;全景分割&lt;/td&gt;
+&lt;td&gt;是 (前景)+ 否 (背景，但仍逐 pixel 標註)&lt;/td&gt;
+&lt;td&gt;Panoptic FPN、DETR 的 panoptic 頭&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;二-模型選型anchor-based-還是-anchor-freecentermask2-拆解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#二-模型選型anchor-based-還是-anchor-freecentermask2-拆解&#34;&gt;#&lt;/a&gt; 二、模型選型:anchor-based 還是 anchor-free?CenterMask2 拆解&lt;/h2&gt;
+&lt;p&gt;決定做實例分割之後，下一步是選模型。這裡有個經典分岔:&lt;strong&gt;anchor-based&lt;/strong&gt; (如 Mask R-CNN) 先在圖上鋪一堆預設候選框 (不同尺寸、長寬比), 逐一判斷框裡有沒有物件；&lt;strong&gt;anchor-free&lt;/strong&gt; (如 CenterMask2) 則直接對 feature map 上每個位置預測物件邊界，不需要事先假設物件的尺寸與長寬比。&lt;/p&gt;
+&lt;p&gt;空拍畫面裡的目標往往&lt;strong&gt;大小懸殊、形狀不規則&lt;/strong&gt;，很難設計出一組涵蓋所有情況的 anchor 尺寸，這是 anchor-free 路線在此類場景較有優勢的主因。CenterMask2 是這條路線的代表作之一，下圖是官方 repo 公開的架構圖:&lt;/p&gt;
+&lt;img src=&#34;/images/uav-vision-notes-centermask2-architecture.png&#34; alt=&#34;CenterMask2 架構圖&#34; style=&#34;width:100%;border-radius:6px;margin-top:16px;&#34;&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:4px;&#34;&gt;圖片來源:&lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34; target=&#34;_blank&#34;&gt;youngwanLEE/centermask2&lt;/a&gt; 官方 GitHub repo(CVPR 2020,arXiv:1911.06667)&lt;/p&gt;
+&lt;p&gt;拆解這張圖，整個流程分三段:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Backbone + FPN&lt;/strong&gt;: 輸入影像先經過 backbone 抽特徵，再用 FPN (Feature Pyramid Network) 產生 P3~P7 這五個不同解析度的特徵金字塔層 —— 淺層 (P3) 解析度高、適合抓小物件，深層 (P7) 語意資訊豐富、適合抓大物件。CenterMask 論文特別提出用 &lt;strong&gt;VoVNetV2&lt;/strong&gt; 當這個 backbone, 相較原始 VoVNet 多加了兩個設計：殘差連接 (緩解網路加深後的效能飽和問題) 與 eSE (effective Squeeze-Excitation, 改善原始 SE 模組的資訊耗損問題)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;FCOS Box Head (anchor-free 偵測頭)&lt;/strong&gt;: 對金字塔上每個位置直接預測三件事 ——Classification (類別)、Centerness (這個預測點離物件中心有多近，用來抑制品質差的邊界預測)、Box Regression (邊界框座標)。全程不需要預設 anchor。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SAG-Mask 分支 (Spatial Attention-Guided Mask)&lt;/strong&gt;: 偵測到候選框之後，先用 RoIAlign 取出 14×14×C 的特徵，經過幾層卷積，再通過圖中標示的 &lt;strong&gt;SAM&lt;/strong&gt; 模組 —— 把特徵做 max pooling 與 avg pooling 後串接 (concatenation)、卷積、sigmoid, 得到一張空間注意力圖，再乘回 (multiplication) 原始特徵，讓模型在畫 mask 時更聚焦於物件本體、抑制背景雜訊干擾。最後上採樣到 28×28×80, 輸出每個類別各自的 mask。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;跟其他常見選擇比較:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;模型&lt;/th&gt;
+&lt;th&gt;Anchor&lt;/th&gt;
+&lt;th&gt;Mask 生成方式&lt;/th&gt;
+&lt;th&gt;特點&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Mask R-CNN&lt;/td&gt;
+&lt;td&gt;anchor-based&lt;/td&gt;
+&lt;td&gt;RoIAlign 後直接卷積出 mask&lt;/td&gt;
+&lt;td&gt;精度高，是長期的 baseline&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;YOLACT&lt;/td&gt;
+&lt;td&gt;anchor-based&lt;/td&gt;
+&lt;td&gt;先生成一組 prototype mask 再線性組合&lt;/td&gt;
+&lt;td&gt;速度快，即時性佳，精度略遜&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;CenterMask2&lt;/td&gt;
+&lt;td&gt;anchor-free(FCOS)&lt;/td&gt;
+&lt;td&gt;SAG-Mask (空間注意力)&lt;/td&gt;
+&lt;td&gt;對尺寸懸殊、形狀不規則物件較友善&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;三-怎麼知道模型準不準iou-與-map&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#三-怎麼知道模型準不準iou-與-map&#34;&gt;#&lt;/a&gt; 三、怎麼知道模型準不準：IoU 與 mAP&lt;/h2&gt;
+&lt;img src=&#34;/images/uav-vision-notes-iou.jpg&#34; alt=&#34;IoU 示意圖&#34; style=&#34;width:100%;max-width:500px;display:block;margin:16px auto;border-radius:6px;&#34;&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-8px;&#34;&gt;圖片來源:Adrian Rosebrock,Wikimedia Commons(CC BY-SA 4.0)&lt;/p&gt;
+&lt;p&gt;上圖綠框是 ground-truth bounding box, 紅框是模型的預測框。&lt;strong&gt;IoU (Intersection over Union, 交並比)= 兩框的交集面積 ÷ 聯集面積&lt;/strong&gt;，數值介於 0~1, 越接近 1 代表預測框跟真實框重疊度越高。這個算法對 instance segmentation 一樣適用，只是把「框」換成「mask」。&lt;/p&gt;
+&lt;p&gt;單看 IoU 只能評估一次預測，實務上要看模型在整個資料集上的綜合表現，這時候要靠 &lt;strong&gt;mAP(mean Average Precision)&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先設定一個 IoU threshold (例如 0.5), 超過這個門檻的預測算「命中」(True Positive), 沒有對應到任何 ground truth 或低於門檻的算「誤報」(False Positive), 沒被任何預測命中的 ground truth 算「漏抓」(False Negative)。&lt;/li&gt;
+&lt;li&gt;用 Precision = TP/(TP+FP)、Recall = TP/(TP+FN) 畫出 precision-recall 曲線，曲線下面積就是這個類別在這個 threshold 下的 &lt;strong&gt;AP(Average Precision)&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;對所有類別取平均，得到 &lt;strong&gt;mAP&lt;/strong&gt;。COCO 的評估標準更嚴格，會在 IoU 0.5 到 0.95、每 0.05 一個間隔取多個 threshold 分別算 AP 再平均 (常標示為 mAP@[.5:.95]), 比 PASCAL VOC 只看單一 IoU 0.5 的標準更能反映定位精準度。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;實務上訓練這類模型很少從零開始，通常用 COCO 預訓練權重做遷移學習，再用自己的資料集微調。常見取捨包括:learning rate 通常要調小 (避免破壞預訓練特徵)、資料量小時可以凍結 backbone 前幾層降低過擬合風險、資料增強策略要配合場景設計 (空拍影像因為視角本來就沒有固定「正向」, 旋轉與翻轉類增強特別合理)。&lt;/p&gt;
+&lt;h2 id=&#34;四-把多張影像拼成一張homography-與-ransac&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#四-把多張影像拼成一張homography-與-ransac&#34;&gt;#&lt;/a&gt; 四、把多張影像拼成一張：Homography 與 RANSAC&lt;/h2&gt;
+&lt;p&gt;分割與偵測處理的是「單張影像裡有什麼」, 但空拍任務常常還需要把連續拍攝的多張照片拼成一張完整地圖，這是另一套數學:&lt;strong&gt;Homography (投影變換)&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Homography 是一個 3×3、自由度為 8 的矩陣 (定義到一個比例常數為止), 描述「同一個平面場景」在兩個視角下的座標對應關係。只要能在兩張影像裡找到至少 4 組對應特徵點，就能用 &lt;strong&gt;DLT(Direct Linear Transform)&lt;/strong&gt; 解出這個矩陣。問題是，自動找到的特徵點對應裡一定混著錯誤匹配，直接解方程式會被雜訊帶偏，這時候要靠 &lt;strong&gt;RANSAC(Random Sample Consensus)&lt;/strong&gt;: 隨機抽取幾組對應點算出候選 homography, 再看有多少其他對應點也符合這個變換，重複多次、選出支持者最多的解，自動排除離群的錯誤匹配。&lt;/p&gt;
+&lt;p&gt;OpenCV 的  &lt;code&gt;cv2.Stitcher&lt;/code&gt;  把這整套流程包好，官方文件的 pipeline 圖把流程拆成「Registration (算出影像之間的幾何關係)」與「Compositing (實際產生輸出)」兩大階段:&lt;/p&gt;
+&lt;img src=&#34;/images/uav-vision-notes-stitching-pipeline.jpg&#34; alt=&#34;OpenCV Stitching Pipeline&#34; style=&#34;width:100%;border-radius:6px;margin-top:16px;background:#fff;&#34;&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:4px;&#34;&gt;圖片來源:&lt;a href=&#34;https://docs.opencv.org/2.4.12/modules/stitching/doc/introduction.html&#34; target=&#34;_blank&#34;&gt;OpenCV 官方文件&lt;/a&gt; — Stitching Pipeline&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Registration&lt;/strong&gt;: 縮圖 → 找特徵 (Find features)→ 匹配特徵 (Match features)→ 挑選要用來拼接的影像與匹配子集 → 粗估相機參數 → 全域精修相機參數 → 波形修正與最終全景尺度估計，最後輸出「Registration data」(也就是每張影像對應的 homography / 相機參數)。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Compositing&lt;/strong&gt;: 依 Registration data 把影像變形 (Warp images)、估計並補償曝光差異 (Compensate exposure errors)、找接縫遮罩 (Find seam masks)、混合 (Blend images), 最後輸出完整全景圖。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;值得記錄的一個教訓：如果想用深度學習方法 (例如訓練一個 Siamese network 學習特徵描述子，取代 Registration 階段的傳統 SIFT/ORB) 來做特徵匹配，在海面、沙灘、農地這類&lt;strong&gt;低紋理、高重複性&lt;/strong&gt;的場景反而容易踩坑。原因有二：一是這類場景的局部區塊長得都很像，學出來的描述子區分度不夠；二是訓練這種模型需要大量「已知正確對應」的成對資料，這類場景的正負樣本本來就不好標注。相較之下，傳統 SIFT/ORB 搭配 RANSAC 幾何驗證不需要訓練資料，而且 RANSAC 那一步天生就是為了處理雜訊匹配設計的，在這類場景反而是更穩的路線 —— 這也是為什麼  &lt;code&gt;cv2.Stitcher&lt;/code&gt;  至今仍是許多空拍拼接應用的預設選擇，而不是換成端到端的深度學習方案。&lt;/p&gt;
+&lt;h2 id=&#34;五-資料不夠的時候半監督學習與極小物件偵測&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#五-資料不夠的時候半監督學習與極小物件偵測&#34;&gt;#&lt;/a&gt; 五、資料不夠的時候：半監督學習與極小物件偵測&lt;/h2&gt;
+&lt;p&gt;實務上做這類任務最大的痛點通常是「標註資料不夠」—— 實例分割的標註成本遠比分類或單純 bounding box 高，因為要把每個物件的完整輪廓畫出來。這裡有兩個常見的因應方向。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;半監督學習&lt;/strong&gt;：用少量標註資料搭配大量未標註資料一起訓練。常見手法包括:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Pseudo-labeling / self-training&lt;/strong&gt;: 先用初步模型對未標註資料打上「偽標籤」, 篩選信心高的部分加入訓練集，重新訓練。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Consistency regularization&lt;/strong&gt; (如 FixMatch、MixMatch): 同一張圖做不同強度的資料增強，要求模型在不同增強版本上的輸出保持一致，藉此利用未標註資料的資訊而不需要標籤。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Mean Teacher&lt;/strong&gt;: 維護一個由學生模型權重做指數移動平均得到的「教師模型」, 用教師模型的預測當作學生模型的訓練目標，讓訓練訊號更穩定。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;極小物件偵測&lt;/strong&gt;：空拍畫面裡的目標常常只佔畫面很小比例，經過網路多次下採樣後，小物件的特徵在深層 feature map 裡可能幾乎消失。常見對策:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用 &lt;strong&gt;FPN&lt;/strong&gt; 這類多尺度特徵融合架構，讓淺層 (解析度高、細節多) 跟深層 (語意資訊豐富) 的特徵互相補強 —— 這也是前面 CenterMask2 架構圖裡 P3~P7 金字塔的作用之一。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;切圖推論&lt;/strong&gt; (如 SAHI,Slicing Aided Hyper Inference): 把高解析度大圖切成多個小 patch 分別做推論，再把結果合併回原圖座標，避免小物件在整張大圖被下採樣到消失。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Copy-paste 資料增強&lt;/strong&gt;：訓練時刻意把小物件樣本複製貼到不同背景上，增加小物件在訓練資料中的曝光量，緩解類別 / 尺度不平衡問題。&lt;/li&gt;
+&lt;li&gt;Anchor-free 的偵測頭因為不需要預設物件尺寸，對尺度變化大的場景本身也會比 anchor-based 更寬容一些。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#小結&#34;&gt;#&lt;/a&gt; 小結&lt;/h2&gt;
+&lt;p&gt;整理下來，這條技術地圖大致是：先用「要不要分清楚個體」決定分割策略 → 用「物件尺寸 / 形狀是否規律」決定要不要走 anchor-free、並依此拆解 CenterMask2 這類架構的三個組件 → 用 IoU/mAP 評估、遷移學習微調 → 如果需要拼接多張影像，Homography + RANSAC 這套古典幾何方法在特定場景反而比深度學習更可靠 → 資料不夠的時候，半監督學習與針對小物件的架構 / 資料調整是兩個最直接的槓桿。&lt;/p&gt;
+&lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#延伸閱讀&#34;&gt;#&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Kirillov et al., &lt;a href=&#34;https://arxiv.org/abs/1801.00868&#34;&gt;Panoptic Segmentation&lt;/a&gt;, CVPR 2019&lt;/li&gt;
+&lt;li&gt;Lee &amp;amp; Park, &lt;a href=&#34;https://arxiv.org/abs/1911.06667&#34;&gt;CenterMask: Real-Time Anchor-Free Instance Segmentation&lt;/a&gt;, CVPR 2020 / &lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34;&gt;官方 repo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenCV, &lt;a href=&#34;https://docs.opencv.org/4.x/d8/d19/tutorial_stitcher.html&#34;&gt;High level stitching API (Stitcher class)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Sohn et al., &lt;a href=&#34;https://arxiv.org/abs/2001.07685&#34;&gt;FixMatch: Simplifying Semi-Supervised Learning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

@@ -20,6 +20,10 @@
     <category term="Web API" />
     <category term="TypeScript" />
     <category term="AI" />
+    <category term="電腦視覺" />
+    <category term="Deep Learning" />
+    <category term="Instance Segmentation" />
+    <category term="影像處理" />
     <entry>
         <id>https://reedlin2002.github.io/2025/07/13/singleton-pattern/</id>
         <title>單例模式 Singleton_pattern</title>
