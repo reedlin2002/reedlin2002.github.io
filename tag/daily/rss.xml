@@ -8,15 +8,14 @@
         <pubDate>Fri, 06 Jun 2025 10:42:24 +0800</pubDate>
         <lastBuildDate>Fri, 06 Jun 2025 10:42:24 +0800</lastBuildDate>
         <category>project</category>
-        <category>myself</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>技術筆記</category>
-        <category>(作者自學用)</category>
         <category>leetcode</category>
         <category>Daily</category>
+        <category>技術筆記</category>
+        <category>(作者自學用)</category>
         <category>iOS</category>
         <category>CallKit</category>
         <category>系統設計</category>
@@ -30,6 +29,7 @@
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
+        <category>myself</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2025/06/06/dailyleetcode/</guid>
             <title>📌 | LeetCode 學習記錄</title>
