@@ -1,0 +1,9 @@
+# 這個 repo 的 remote 是公開的 reedlin2002.github.io，內容只有 blog/。
+# workspace 底下其他專案各自獨立，不該被推上來（my-ollama 一個就有四萬個
+# 檔案，多半是 venv 與編譯產出）。
+#
+# 採白名單：預設忽略根目錄下的一切，只放行 blog/。
+# 之後要收錄某個專案，就在下面加一行 !/<專案名>/
+/*
+!/.gitignore
+!/blog/

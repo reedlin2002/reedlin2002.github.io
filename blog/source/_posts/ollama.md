@@ -22,7 +22,7 @@ cover: /images/ollama.png
 
 ## 系統流程圖
 
-```mermaid
+```
 使用者輸入問題
     ↓
 判斷是否需呼叫工具？

@@ -30,4 +30,4 @@ title: 關於我
 ## 聯絡方式
 
 - GitHub：[reedlin2002](https://github.com/reedlin2002)
-- Email：[reedlin2002@gmail.com](mailto:reedlin2002@gmail.com)
+- Email：[lin1022business@gmail.com.com](mailto:lin1022business@gmail.com.com)

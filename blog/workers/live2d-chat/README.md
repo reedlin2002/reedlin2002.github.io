@@ -1,6 +1,7 @@
 # Live2D 聊天代理 Worker — 部署步驟（約 10 分鐘，全免費）
 
 前端的看板娘聊天框會 POST 到這個 Cloudflare Worker，由它持 API key 轉呼叫 OpenRouter。
+Worker 回傳前會把模型偷渡的 markdown（粗體、標題、連結語法等）剝成純文字，前端以換行呈現分行分點。
 **endpoint 沒設定之前，看板娘會用離線劇本回覆，不影響網站其他功能。**
 
 ## 1. 拿 OpenRouter API key
@@ -30,6 +31,7 @@ Worker → Settings → Variables and Secrets：
 | `MODEL` | Text | 選填。**不設也行**——worker 內建 fallback 鏈（gemma-4-26b → gpt-oss-20b → gemma-4-31b → nemotron-nano），首選失敗自動換下一個；設了就把你的模型排在鏈首。清單見 openrouter.ai/models?q=free |
 | `SYSTEM_PROMPT` | Text | 選填，覆寫人設（預設人設在 worker.js 裡） |
 | `ALLOWED_ORIGINS` | Text | 選填，預設已含正式站 + localhost:4000 |
+| `INDEX_URL` | Text | 選填，文章索引 JSON 位置，預設 `https://reedlin2002.github.io/hibiki-index.json`（建置時由 `scripts/hibiki-index.js` 產出）。Worker 快取 1 小時；抓不到時 Hibiki 只是不會推薦文章，聊天不受影響 |
 
 ## 4. 接上部落格
 `themes/cactus/_config.yml`：
