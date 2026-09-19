@@ -817,8 +817,15 @@ window.initMermaid = function() {
     };
   }
 
-  function render(nodes) {
-    if (!window.mermaid || !nodes.length) return;
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme');
+  }
+
+  /* mermaid.run() 是非同步的,而顏色是 initialize() 當下燒進 SVG 的。
+     佈景在算圖途中切換時,兩次重繪會互相覆蓋,結果就是深色標籤配深色底
+     ——文字整塊變黑看不見。把重繪排成佇列,算完再確認佈景沒有又變過。 */
+  function draw(nodes) {
+    var theme = currentTheme();
     nodes.forEach(function(n) {
       n.removeAttribute('data-processed');
       n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
@@ -830,9 +837,21 @@ window.initMermaid = function() {
       themeVariables: themeVariables(),
       flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
     });
+    var run;
     try {
-      window.mermaid.run({ nodes: nodes, suppressErrors: true });
-    } catch (e) { /* 圖表失敗不該弄壞整頁 */ }
+      run = Promise.resolve(window.mermaid.run({ nodes: nodes, suppressErrors: true }));
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ return Promise.resolve(); }
+    return run.catch(function() {}).then(function() {
+      if (theme === currentTheme()) return;
+      return draw(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    window._mermaidQueue = (window._mermaidQueue || Promise.resolve())
+      .then(function() { return draw(nodes); })
+      .catch(function() {});
   }
 
   var targets = collect();

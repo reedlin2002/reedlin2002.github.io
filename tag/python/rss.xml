@@ -7,6 +7,7 @@
         <language>zh-TW</language>
         <pubDate>Sat, 18 Jul 2026 00:00:00 +0800</pubDate>
         <lastBuildDate>Sat, 18 Jul 2026 00:00:00 +0800</lastBuildDate>
+        <category>myself</category>
         <category>project</category>
         <category>演算法</category>
         <category>Binary Search</category>
@@ -29,7 +30,6 @@
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
-        <category>myself</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/07/18/binary-search-learning/</guid>
             <title>我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</title>

@@ -42,6 +42,8 @@
   /* ── 訪客自選的「收起 Hibiki」偏好 ─────────────── */
   /* 無痕模式讀寫 localStorage 會丟例外,失敗時退回「本次瀏覽有效」 */
   function readDismissed() {
+    // Disposable previews can opt into in-memory visibility without changing visitors' preferences.
+    if (cfg.persist_visibility === false) return !!cfg.start_hidden;
     try {
       return localStorage.getItem(HIDE_KEY) === '1';
     } catch (e) {
@@ -50,6 +52,7 @@
   }
 
   function writeDismissed(value) {
+    if (cfg.persist_visibility === false) return;
     try {
       if (value) {
         localStorage.setItem(HIDE_KEY, '1');

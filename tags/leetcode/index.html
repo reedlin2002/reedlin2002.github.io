@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#08090d">
 
   <!-- ── Title ── -->
-  <title>標籤: LeetCode</title>
+  <title>標籤: leetcode</title>
 
   <!-- ── SEO: Description + Keywords ── -->
   
@@ -29,7 +29,7 @@
   <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reedlin2002">
-<meta property="og:url" content="https://reedlin2002.github.io/tags/LeetCode/index.html">
+<meta property="og:url" content="https://reedlin2002.github.io/tags/leetcode/index.html">
 <meta property="og:site_name" content="Reedlin2002">
 <meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
 <meta property="og:locale" content="zh_TW">
@@ -160,6 +160,8 @@
           
           <a href="/tags/React/" class="shoka-tag">#React <sup>2</sup></a>
           
+          <a href="/tags/myself/" class="shoka-tag">#myself <sup>1</sup></a>
+          
           <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95/" class="shoka-tag">#演算法 <sup>1</sup></a>
           
           <a href="/tags/Binary-Search/" class="shoka-tag">#Binary Search <sup>1</sup></a>
@@ -193,8 +195,6 @@
           <a href="/tags/Instance-Segmentation/" class="shoka-tag">#Instance Segmentation <sup>1</sup></a>
           
           <a href="/tags/%E5%BD%B1%E5%83%8F%E8%99%95%E7%90%86/" class="shoka-tag">#影像處理 <sup>1</sup></a>
-          
-          <a href="/tags/myself/" class="shoka-tag">#myself <sup>1</sup></a>
           
         </div>
       </div>
@@ -236,36 +236,52 @@
         
         
         
-          <h2 class="archive-year">2026</h2>
+          <h2 class="archive-year">2025</h2>
         
         
 <article class="post-row">
   <div class="post-row-body">
     <h2 class="post-row-title">
-      <a href="/2026/07/18/binary-search-learning/">我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</a>
+      <a href="/2025/06/06/dailyleetcode/">📌 | LeetCode 學習記錄</a>
     </h2>
-    <p class="post-row-excerpt">以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
-但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
-這篇文章記錄我把二分搜尋一步一步拆開後，終於真正…</p>
+    <p class="post-row-excerpt">程式能力的提升離不開持續的練習。我會在這裡分享：
+每日筆記 - 自己對題目的理解與應用
+心得分享 - 刷題過程中的進度與收穫
+
+
+
+✅
+🉑
+🚫
+
+
+
+
+了解並寫出
+寫出但不清楚
+寫不出來
+
+
+
+📌 LeetCode 記錄
+
+D1 🉑  #1  Two Sum (GPT)
+D2 🉑  #9…</p>
     <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-07-18</span>
+      <span><i class="fa-regular fa-calendar"></i>2025-06-06</span>
       <span><i class="fa-regular fa-clock"></i>6 min</span>
       
         
-        <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95" class="post-row-tag">#演算法</a>
+        <a href="/tags/leetcode" class="post-row-tag">#leetcode</a>
         
-        <a href="/tags/Binary%20Search" class="post-row-tag">#Binary Search</a>
-        
-        <a href="/tags/Python" class="post-row-tag">#Python</a>
-        
-        <a href="/tags/LeetCode" class="post-row-tag">#LeetCode</a>
+        <a href="/tags/Daily" class="post-row-tag">#Daily</a>
         
       
     </div>
   </div>
   
-  <a class="post-row-thumb-wrap" href="/2026/07/18/binary-search-learning/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="/images/binary-search-cover-pov.png" loading="lazy" alt="">
+  <a class="post-row-thumb-wrap" href="/2025/06/06/dailyleetcode/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="/images/leetcode.jpg" loading="lazy" alt="">
   </a>
   
 </article>
@@ -616,8 +632,15 @@ window.initMermaid = function() {
     };
   }
 
-  function render(nodes) {
-    if (!window.mermaid || !nodes.length) return;
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme');
+  }
+
+  /* mermaid.run() 是非同步的,而顏色是 initialize() 當下燒進 SVG 的。
+     佈景在算圖途中切換時,兩次重繪會互相覆蓋,結果就是深色標籤配深色底
+     ——文字整塊變黑看不見。把重繪排成佇列,算完再確認佈景沒有又變過。 */
+  function draw(nodes) {
+    var theme = currentTheme();
     nodes.forEach(function(n) {
       n.removeAttribute('data-processed');
       n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
@@ -629,9 +652,21 @@ window.initMermaid = function() {
       themeVariables: themeVariables(),
       flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
     });
+    var run;
     try {
-      window.mermaid.run({ nodes: nodes, suppressErrors: true });
-    } catch (e) { /* 圖表失敗不該弄壞整頁 */ }
+      run = Promise.resolve(window.mermaid.run({ nodes: nodes, suppressErrors: true }));
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ return Promise.resolve(); }
+    return run.catch(function() {}).then(function() {
+      if (theme === currentTheme()) return;
+      return draw(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    window._mermaidQueue = (window._mermaidQueue || Promise.resolve())
+      .then(function() { return draw(nodes); })
+      .catch(function() {});
   }
 
   var targets = collect();

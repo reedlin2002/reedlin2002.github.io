@@ -111,6 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.initLightbox();
       }
 
+      // Mermaid 圖表：換頁後的 pre.mermaid 是全新節點，不重跑就只剩原始碼
+      if (typeof window.initMermaid === 'function') {
+        window.initMermaid();
+      }
+
       // Back-to-Top 重新初始化（PJAX 換頁後 scroll 位置重置）
       initBackToTop();
   

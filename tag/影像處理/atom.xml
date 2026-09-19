@@ -4,6 +4,7 @@
     <title>Reedlin2002 • Posts by &#34;影像處理&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2026-08-22T16:00:00.000Z</updated>
+    <category term="myself" />
     <category term="project" />
     <category term="演算法" />
     <category term="Binary Search" />
@@ -26,7 +27,6 @@
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
     <category term="影像處理" />
-    <category term="myself" />
     <entry>
         <id>https://reedlin2002.github.io/2026/08/23/uav-vision-notes/</id>
         <title>空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</title>

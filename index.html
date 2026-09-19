@@ -161,53 +161,257 @@
   </div>
 </header>
 
-                <!-- ══ 品牌 Landing：Dev/Terminal Hero ══ -->
+                
 
-<section class="landing-hero">
-  <div class="hero-backdrop" aria-hidden="true"></div>
+<!-- ══ Skills 跑馬燈（滿版細帶）══ -->
 
-  <noscript><style>.landing-hero-inner .hero-kicker, .landing-hero-inner .hero-title-line, .landing-hero-inner .hero-tagline, .landing-hero-inner .skills-marquee, .landing-hero-inner .hero-cta, .landing-hero-inner .hero-links { opacity: 1 !important; transform: none !important; }</style></noscript>
-
-  <div class="landing-hero-inner p-note">
-    <p class="hero-kicker"><span class="kicker-path">~/lin</span> $ whoami<span class="kicker-cursor" aria-hidden="true"></span></p>
-    <h1 class="hero-name" data-split>Lin</h1>
-    <p class="hero-title-line">軟體設計工程師｜AI 應用整合 × 跨平台 App 開發</p>
-    
-    <p class="hero-tagline">平常開發 Web 與跨平台 App也在研究怎麼讓 AI 真正進入軟體開發流程。 這裡記錄技術踩坑、開發方法，以及好奇心驅動的實驗與 side projects。</p>
-    
-    
-    <div class="skills-marquee">
-      <div class="marquee-inner">
-        <span class="marquee-track"><span>React</span><span>TypeScript</span><span>Python</span><span>Capacitor</span><span>RAG</span><span>System Design</span><span>Computer Vision</span><span>PyTorch / OpenCV</span></span>
-        <span class="marquee-track" aria-hidden="true"><span>React</span><span>TypeScript</span><span>Python</span><span>Capacitor</span><span>RAG</span><span>System Design</span><span>Computer Vision</span><span>PyTorch / OpenCV</span></span>
-      </div>
-    </div>
-    
-    <div class="hero-cta">
-      <a class="hero-btn hero-btn-primary" href="#projects"><i class="fa-solid fa-cubes"></i>精選專案</a>
-      <a class="hero-btn hero-btn-ghost" href="/archives/"><i class="fa-solid fa-book-open"></i>全部文章</a>
-    </div>
-    
-    <div class="hero-links">
-      
-        
-        
-        
-          <a class="u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002" aria-label="github"><i class="fa-brands fa-github"></i>Github</a>
-        
-      
-        
-        
-        
-          <a class="u-email" href="mailto:lin1022business@gmail.com" aria-label="mail"><i class="fa-solid fa-envelope"></i>Mail</a>
-        
-      
-    </div>
-    
+<section class="skills-marquee" aria-label="Lin 的技術工具箱">
+  <div class="marquee-inner">
+    <span class="marquee-track"><span>React</span><span>TypeScript</span><span>Python</span><span>Capacitor</span><span>RAG</span><span>System Design</span><span>Computer Vision</span><span>PyTorch / OpenCV</span></span>
+    <span class="marquee-track" aria-hidden="true"><span>React</span><span>TypeScript</span><span>Python</span><span>Capacitor</span><span>RAG</span><span>System Design</span><span>Computer Vision</span><span>PyTorch / OpenCV</span></span>
   </div>
-
-  <a class="scroll-hint" href="#projects" aria-label="往下捲動">scroll ↓</a>
+  <button type="button" class="marquee-toggle" aria-label="暫停技能跑馬燈" aria-pressed="false">Ⅱ</button>
 </section>
+
+
+<div class="notebook-layout p-note">
+  <!-- ══ 側欄：作者 + 主題索引 ══ -->
+  <aside class="notebook-sidebar">
+    
+    <div class="notebook-emblem"><img src="/images/logo.png" alt="Lin 的頭像" width="64" height="64"></div>
+    
+    <span class="notebook-kicker">A DEVELOPER’S OPEN NOTEBOOK</span>
+    <h1 class="notebook-name">Lin</h1>
+    <p class="notebook-role">軟體設計工程師｜AI 應用整合 × 跨平台 App 開發</p>
+    
+    <p class="notebook-tagline">平常開發 Web 與跨平台 App也在研究怎麼讓 AI 真正進入軟體開發流程。 這裡記錄技術踩坑、開發方法，以及好奇心驅動的實驗與 side projects。</p>
+    
+    <div class="notebook-status"><i class="accent-dot" aria-hidden="true"></i>16 則筆記，持續累積中</div>
+
+    
+    <nav class="notebook-topics" aria-label="主題索引">
+      <span class="notebook-kicker">EXPLORE / 打開一個好奇心</span>
+      <div class="topic-folder" data-topic-folder>
+        <div class="folder-world" id="topic-cloud" aria-label="浮動主題連結" inert>
+          <a class="folder-pill" href="/tags/project/" style="--pill-index:0">project<span aria-hidden="true">↗</span></a><a class="folder-pill" href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" style="--pill-index:1">技術筆記<span aria-hidden="true">↗</span></a><a class="folder-pill" href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" style="--pill-index:2">(作者自學用)<span aria-hidden="true">↗</span></a><a class="folder-pill" href="/tags/side-project/" style="--pill-index:3">side project<span aria-hidden="true">↗</span></a><a class="folder-pill" href="/tags/React/" style="--pill-index:4">React<span aria-hidden="true">↗</span></a>
+        </div>
+        <button type="button" class="folder-button" aria-expanded="false" aria-controls="topic-cloud" aria-label="開啟主題資料夾">
+          <span class="folder-back" aria-hidden="true"></span><span class="folder-paper" aria-hidden="true"></span>
+          <span class="folder-front"><span class="folder-symbol" aria-hidden="true">⌘</span><strong>主題資料夾</strong><small>5 個探索入口<span aria-hidden="true">↗</span></small></span>
+        </button>
+      </div>
+      <p class="folder-hint">滑過展開 · 拖動標籤 · 點擊探索</p>
+      <a class="folder-all" href="/archives/">所有主題與文章 ↗</a>
+    </nav>
+    
+
+    <div class="notebook-links">
+      <a href="/about/">關於我 <span aria-hidden="true">↗</span></a>
+      
+        
+        
+          <a class="u-url" target="_blank" rel="noopener me" href="https://github.com/reedlin2002"><i class="fa-brands fa-github" aria-hidden="true"></i>Github</a>
+        
+      
+        
+        
+          <a class="u-email" href="mailto:lin1022business@gmail.com"><i class="fa-solid fa-envelope" aria-hidden="true"></i>Email</a>
+        
+      
+    </div>
+  </aside>
+
+  <!-- ══ 最新文章 ══ -->
+  <section id="writing" class="notebook-feed" aria-labelledby="notebook-heading">
+    <div class="notebook-feed-heading">
+      <div>
+        <span class="notebook-kicker">THE RUNNING LOG</span>
+        <h2 id="notebook-heading">最近，想通了一些事<span>。</span></h2>
+      </div>
+      <span class="notebook-count">[ 01 — 06 ]</span>
+    </div>
+
+    
+    
+    
+    
+    <article class="notebook-entry">
+      <span class="entry-number">01</span>
+      <div class="notebook-entry-copy">
+        <div class="entry-meta">
+          <time datetime="2026-09-19">2026.09.19</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>15 分鐘閱讀</span>
+        </div>
+        <h3><a href="/2026/09/19/ios-caller-id-resolution-chain/">來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈</a></h3>
+        <p>我最近在研究一個商務名片 App 的 iOS 來電辨識該怎麼做。需求講起來很單純：讓使用者接到電話時，畫面上那行字是由我們的 App 決定的。
+查完文件會發現 Apple 給了三個看起來都能…</p>
+        
+        <div class="notebook-tags">
+          <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/">技術筆記</a><a href="/tags/iOS/">iOS</a><a href="/tags/CallKit/">CallKit</a>
+        </div>
+        
+      </div>
+      <span class="entry-arrow" aria-hidden="true">↗</span>
+      
+      <div class="notebook-preview" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1520923642038-b4259acecbd7?q=80&w=1200" alt="" loading="lazy">
+        <span>OPEN NOTE ↗</span>
+      </div>
+      
+    </article>
+    
+    
+    
+    
+    <article class="notebook-entry">
+      <span class="entry-number">02</span>
+      <div class="notebook-entry-copy">
+        <div class="entry-meta">
+          <time datetime="2026-08-23">2026.08.23</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>9 分鐘閱讀</span>
+        </div>
+        <h3><a href="/2026/08/23/uav-vision-notes/">空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</a></h3>
+        <p>空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以…</p>
+        
+        <div class="notebook-tags">
+          <a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/">電腦視覺</a><a href="/tags/Deep-Learning/">Deep Learning</a><a href="/tags/Instance-Segmentation/">Instance Segmentation</a>
+        </div>
+        
+      </div>
+      <span class="entry-arrow" aria-hidden="true">↗</span>
+      
+      <div class="notebook-preview" aria-hidden="true">
+        <img src="/images/uav-vision-notes-cover.png" alt="" loading="lazy">
+        <span>OPEN NOTE ↗</span>
+      </div>
+      
+    </article>
+    
+    
+    
+    
+    <article class="notebook-entry">
+      <span class="entry-number">03</span>
+      <div class="notebook-entry-copy">
+        <div class="entry-meta">
+          <time datetime="2026-07-27">2026.07.27</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>7 分鐘閱讀</span>
+        </div>
+        <h3><a href="/2026/07/27/tw-grad-lab-skills/">🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</a></h3>
+        <p>🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室
+
+一組給 Claude Code、Codex 等 coding agent 使用…</p>
+        
+        <div class="notebook-tags">
+          <a href="/tags/project/">project</a>
+        </div>
+        
+      </div>
+      <span class="entry-arrow" aria-hidden="true">↗</span>
+      
+      <div class="notebook-preview" aria-hidden="true">
+        <img src="/images/tw-grad-lab-skills-cover.png" alt="" loading="lazy">
+        <span>OPEN NOTE ↗</span>
+      </div>
+      
+    </article>
+    
+    
+    
+    
+    <article class="notebook-entry">
+      <span class="entry-number">04</span>
+      <div class="notebook-entry-copy">
+        <div class="entry-meta">
+          <time datetime="2026-07-19">2026.07.19</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>4 分鐘閱讀</span>
+        </div>
+        <h3><a href="/2026/07/19/twstock-agent/">📈 | 010401 Finance 台股 AI 分析助手</a></h3>
+        <p>🚀 010401 Finance - 把台股研究壓縮成一次查詢的 AI 分析 App
+
+一款面向台股投資人的 AI 分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合…</p>
+        
+        <div class="notebook-tags">
+          <a href="/tags/project/">project</a>
+        </div>
+        
+      </div>
+      <span class="entry-arrow" aria-hidden="true">↗</span>
+      
+      <div class="notebook-preview" aria-hidden="true">
+        <img src="/images/twstock-agent-cover.jpg" alt="" loading="lazy">
+        <span>OPEN NOTE ↗</span>
+      </div>
+      
+    </article>
+    
+    
+    
+    
+    <article class="notebook-entry">
+      <span class="entry-number">05</span>
+      <div class="notebook-entry-copy">
+        <div class="entry-meta">
+          <time datetime="2026-07-18">2026.07.18</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>6 分鐘閱讀</span>
+        </div>
+        <h3><a href="/2026/07/18/binary-search-learning/">我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</a></h3>
+        <p>以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
+但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mi…</p>
+        
+        <div class="notebook-tags">
+          <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a><a href="/tags/Binary-Search/">Binary Search</a><a href="/tags/Python/">Python</a>
+        </div>
+        
+      </div>
+      <span class="entry-arrow" aria-hidden="true">↗</span>
+      
+      <div class="notebook-preview" aria-hidden="true">
+        <img src="/images/binary-search-cover-pov.png" alt="" loading="lazy">
+        <span>OPEN NOTE ↗</span>
+      </div>
+      
+    </article>
+    
+    
+    
+    
+    <article class="notebook-entry">
+      <span class="entry-number">06</span>
+      <div class="notebook-entry-copy">
+        <div class="entry-meta">
+          <time datetime="2026-05-31">2026.05.31</time>
+          <span class="meta-dot" aria-hidden="true">·</span>
+          <span>5 分鐘閱讀</span>
+        </div>
+        <h3><a href="/2026/05/31/nfc-test/">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</a></h3>
+        <p>📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
+
+不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專…</p>
+        
+        <div class="notebook-tags">
+          <a href="/tags/side-project/">side project</a><a href="/tags/React/">React</a><a href="/tags/NFC/">NFC</a>
+        </div>
+        
+      </div>
+      <span class="entry-arrow" aria-hidden="true">↗</span>
+      
+      <div class="notebook-preview" aria-hidden="true">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" alt="" loading="lazy">
+        <span>OPEN NOTE ↗</span>
+      </div>
+      
+    </article>
+    
+
+    <a class="notebook-all" href="/archives/"><span>繼續往前翻</span><span>VIEW ALL 16 NOTES ↗</span></a>
+  </section>
+</div>
 
 <!-- ══ 精選專案（Spotlight + Tilt 卡片）══ -->
 
@@ -274,211 +478,6 @@
   </div>
 </section>
 
-
-<!-- ══ 最新文章 ══ -->
-<section id="writing" class="landing-section">
-  <h2 class="section-title">最新文章</h2>
-  <div class="post-list">
-    
-    
-    
-      
-<article class="post-row">
-  <div class="post-row-body">
-    <h2 class="post-row-title">
-      <a href="/2026/09/19/ios-caller-id-resolution-chain/">來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈</a>
-    </h2>
-    <p class="post-row-excerpt">我最近在研究一個商務名片 App 的 iOS 來電辨識該怎麼做。需求講起來很單純：讓使用者接到電話時，畫面上那行字是由我們的 App 決定的。
-查完文件會發現 Apple 給了三個看起來都能做這件事的 API, 而大部分的介紹文章都是各自說明它們的用途。我一開始也是這樣理解的，把它們排成「三個層次…</p>
-    <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-09-19</span>
-      <span><i class="fa-regular fa-clock"></i>15 min</span>
-      
-        
-        <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
-        
-        <a href="/tags/iOS" class="post-row-tag">#iOS</a>
-        
-        <a href="/tags/CallKit" class="post-row-tag">#CallKit</a>
-        
-        <a href="/tags/%E7%B3%BB%E7%B5%B1%E8%A8%AD%E8%A8%88" class="post-row-tag">#系統設計</a>
-        
-      
-    </div>
-  </div>
-  
-  <a class="post-row-thumb-wrap" href="/2026/09/19/ios-caller-id-resolution-chain/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1520923642038-b4259acecbd7?q=80&w=1200" loading="lazy" alt="">
-  </a>
-  
-</article>
-
-    
-      
-<article class="post-row">
-  <div class="post-row-body">
-    <h2 class="post-row-title">
-      <a href="/2026/08/23/uav-vision-notes/">空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</a>
-    </h2>
-    <p class="post-row-excerpt">空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以及當任務需要把多張影像拼成一張時，為什麼在特定場景下，古典幾何方法反而比深度學習更可靠。
-這篇整理把這幾塊拆…</p>
-    <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-08-23</span>
-      <span><i class="fa-regular fa-clock"></i>9 min</span>
-      
-        
-        <a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA" class="post-row-tag">#電腦視覺</a>
-        
-        <a href="/tags/Deep%20Learning" class="post-row-tag">#Deep Learning</a>
-        
-        <a href="/tags/Instance%20Segmentation" class="post-row-tag">#Instance Segmentation</a>
-        
-        <a href="/tags/%E5%BD%B1%E5%83%8F%E8%99%95%E7%90%86" class="post-row-tag">#影像處理</a>
-        
-      
-    </div>
-  </div>
-  
-  <a class="post-row-thumb-wrap" href="/2026/08/23/uav-vision-notes/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="/images/uav-vision-notes-cover.png" loading="lazy" alt="">
-  </a>
-  
-</article>
-
-    
-      
-<article class="post-row">
-  <div class="post-row-body">
-    <h2 class="post-row-title">
-      <a href="/2026/07/27/tw-grad-lab-skills/">🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</a>
-    </h2>
-    <p class="post-row-excerpt">🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室
-
-一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一…</p>
-    <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-07-27</span>
-      <span><i class="fa-regular fa-clock"></i>7 min</span>
-      
-        
-        <a href="/tags/project" class="post-row-tag">#project</a>
-        
-      
-    </div>
-  </div>
-  
-  <a class="post-row-thumb-wrap" href="/2026/07/27/tw-grad-lab-skills/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="/images/tw-grad-lab-skills-cover.png" loading="lazy" alt="">
-  </a>
-  
-</article>
-
-    
-      
-<article class="post-row">
-  <div class="post-row-body">
-    <h2 class="post-row-title">
-      <a href="/2026/07/19/twstock-agent/">📈 | 010401 Finance 台股 AI 分析助手</a>
-    </h2>
-    <p class="post-row-excerpt">🚀 010401 Finance - 把台股研究壓縮成一次查詢的 AI 分析 App
-
-一款面向台股投資人的 AI 分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合在同一個畫面，輸入股票代號，就能得到一份可閱讀、可追蹤、可行動的分析報告。
-
-►  「 GITHUB 」
-
-…</p>
-    <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-07-19</span>
-      <span><i class="fa-regular fa-clock"></i>4 min</span>
-      
-        
-        <a href="/tags/project" class="post-row-tag">#project</a>
-        
-      
-    </div>
-  </div>
-  
-  <a class="post-row-thumb-wrap" href="/2026/07/19/twstock-agent/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="/images/twstock-agent-cover.jpg" loading="lazy" alt="">
-  </a>
-  
-</article>
-
-    
-      
-<article class="post-row">
-  <div class="post-row-body">
-    <h2 class="post-row-title">
-      <a href="/2026/07/18/binary-search-learning/">我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</a>
-    </h2>
-    <p class="post-row-excerpt">以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
-但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
-這篇文章記錄我把二分搜尋一步一步拆開後，終於真正…</p>
-    <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-07-18</span>
-      <span><i class="fa-regular fa-clock"></i>6 min</span>
-      
-        
-        <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95" class="post-row-tag">#演算法</a>
-        
-        <a href="/tags/Binary%20Search" class="post-row-tag">#Binary Search</a>
-        
-        <a href="/tags/Python" class="post-row-tag">#Python</a>
-        
-        <a href="/tags/LeetCode" class="post-row-tag">#LeetCode</a>
-        
-      
-    </div>
-  </div>
-  
-  <a class="post-row-thumb-wrap" href="/2026/07/18/binary-search-learning/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="/images/binary-search-cover-pov.png" loading="lazy" alt="">
-  </a>
-  
-</article>
-
-    
-      
-<article class="post-row">
-  <div class="post-row-body">
-    <h2 class="post-row-title">
-      <a href="/2026/05/31/nfc-test/">📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</a>
-    </h2>
-    <p class="post-row-excerpt">📱 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記
-
-不想再傳連結、不想再截圖給別人掃 QR Code，就想直接把手機湊過去 —— 對方的手機一震，連結就開了。這個專案的起點就這麼簡單。
-
-
-🎯 專案動機
-有時候你想分享一個連結給旁邊的人，最懶的方法是什麼？
-
-用 LIN…</p>
-    <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-05-31</span>
-      <span><i class="fa-regular fa-clock"></i>5 min</span>
-      
-        
-        <a href="/tags/side%20project" class="post-row-tag">#side project</a>
-        
-        <a href="/tags/React" class="post-row-tag">#React</a>
-        
-        <a href="/tags/NFC" class="post-row-tag">#NFC</a>
-        
-        <a href="/tags/Web%20API" class="post-row-tag">#Web API</a>
-        
-      
-    </div>
-  </div>
-  
-  <a class="post-row-thumb-wrap" href="/2026/05/31/nfc-test/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" loading="lazy" alt="">
-  </a>
-  
-</article>
-
-    
-  </div>
-  <a class="view-all" href="/archives/">全部文章<i class="fa-solid fa-arrow-right"></i></a>
-</section>
 
 <!-- ══ Contact ══ -->
 <section id="contact" class="landing-section landing-contact">
@@ -839,8 +838,15 @@ window.initMermaid = function() {
     };
   }
 
-  function render(nodes) {
-    if (!window.mermaid || !nodes.length) return;
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme');
+  }
+
+  /* mermaid.run() 是非同步的,而顏色是 initialize() 當下燒進 SVG 的。
+     佈景在算圖途中切換時,兩次重繪會互相覆蓋,結果就是深色標籤配深色底
+     ——文字整塊變黑看不見。把重繪排成佇列,算完再確認佈景沒有又變過。 */
+  function draw(nodes) {
+    var theme = currentTheme();
     nodes.forEach(function(n) {
       n.removeAttribute('data-processed');
       n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
@@ -852,9 +858,21 @@ window.initMermaid = function() {
       themeVariables: themeVariables(),
       flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
     });
+    var run;
     try {
-      window.mermaid.run({ nodes: nodes, suppressErrors: true });
-    } catch (e) { /* 圖表失敗不該弄壞整頁 */ }
+      run = Promise.resolve(window.mermaid.run({ nodes: nodes, suppressErrors: true }));
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ return Promise.resolve(); }
+    return run.catch(function() {}).then(function() {
+      if (theme === currentTheme()) return;
+      return draw(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    window._mermaidQueue = (window._mermaidQueue || Promise.resolve())
+      .then(function() { return draw(nodes); })
+      .catch(function() {});
   }
 
   var targets = collect();

@@ -7,6 +7,7 @@
         <language>zh-TW</language>
         <pubDate>Sun, 13 Jul 2025 16:16:17 +0800</pubDate>
         <lastBuildDate>Sun, 13 Jul 2025 16:16:17 +0800</lastBuildDate>
+        <category>myself</category>
         <category>project</category>
         <category>演算法</category>
         <category>Binary Search</category>
@@ -29,7 +30,6 @@
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
-        <category>myself</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2025/07/13/singleton-pattern/</guid>
             <title>單例模式 Singleton_pattern</title>

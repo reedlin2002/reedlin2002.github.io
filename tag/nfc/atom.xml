@@ -4,6 +4,7 @@
     <title>Reedlin2002 • Posts by &#34;nfc&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2026-05-31T12:00:00.000Z</updated>
+    <category term="myself" />
     <category term="project" />
     <category term="演算法" />
     <category term="Binary Search" />
@@ -26,7 +27,6 @@
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
     <category term="影像處理" />
-    <category term="myself" />
     <entry>
         <id>https://reedlin2002.github.io/2026/05/31/nfc-test/</id>
         <title>📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</title>
