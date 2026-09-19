@@ -4,29 +4,29 @@
     <title>Reedlin2002</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2026-09-18T16:00:00.000Z</updated>
-    <category term="myself" />
     <category term="project" />
-    <category term="leetcode" />
-    <category term="Daily" />
+    <category term="myself" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
+    <category term="leetcode" />
+    <category term="Daily" />
     <category term="技術筆記" />
     <category term="(作者自學用)" />
-    <category term="iOS" />
-    <category term="CallKit" />
-    <category term="系統設計" />
     <category term="side project" />
     <category term="React" />
     <category term="NFC" />
     <category term="Web API" />
-    <category term="TypeScript" />
-    <category term="AI" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
     <category term="電腦視覺" />
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
     <category term="影像處理" />
+    <category term="TypeScript" />
+    <category term="AI" />
     <entry>
         <id>https://reedlin2002.github.io/2026/09/19/ios-caller-id-resolution-chain/</id>
         <title>來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈</title>

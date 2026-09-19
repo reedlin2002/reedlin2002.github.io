@@ -3042,6 +3042,53 @@ article.post .content img:not(.no-zoom) {
   right: 204px;
   bottom: 24px;
 }
+.waifu-reopen {
+  position: fixed;
+  right: 24px;
+  bottom: 76px;
+  z-index: 4;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(114,221,255,0.45);
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(17,27,57,0.96), rgba(35,25,71,0.96));
+  box-shadow: 0 10px 26px rgba(7,12,31,0.34), inset 0 0 14px rgba(114,221,255,0.06);
+  opacity: 0.72;
+  cursor: pointer;
+  transition: opacity 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.waifu-reopen:hover,
+.waifu-reopen:focus-visible {
+  opacity: 1;
+  border-color: #72ddff;
+  box-shadow: 0 12px 32px rgba(7,12,31,0.44), 0 0 18px rgba(114,221,255,0.18);
+  transform: translateY(-2px);
+}
+.waifu-reopen .waifu-face {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+.waifu-reopen.is-loading {
+  cursor: progress;
+}
+.waifu-reopen.is-loading .waifu-face {
+  opacity: 0.45;
+}
+.waifu-reopen.is-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-top-color: #72ddff;
+  border-radius: 50%;
+  animation: waifu-reopen-spin 0.8s linear infinite;
+}
 .waifu-hitbox {
   position: fixed;
   right: 72px;
@@ -3053,6 +3100,47 @@ article.post .content img:not(.no-zoom) {
   padding: 0;
   background: none;
   cursor: pointer;
+/* 預設的方框外框會整個框住角色,換成貼合的圓角光暈 */
+}
+.waifu-hitbox:focus-visible {
+  outline: none;
+  border-radius: 12px;
+  box-shadow: 0 0 0 2px rgba(114,221,255,0.7), 0 0 18px rgba(114,221,255,0.25);
+}
+.waifu-dismiss {
+  position: fixed;
+  right: 76px;
+  bottom: 206px;
+  z-index: 3;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  border: 1px solid rgba(114,221,255,0.45);
+  border-radius: 50%;
+  background: rgba(13,22,48,0.92);
+  color: rgba(245,248,255,0.78);
+  box-shadow: 0 6px 18px rgba(7,12,31,0.4);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans TC', sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: none;
+  transition: opacity 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+}
+.waifu-hitbox:hover ~ .waifu-dismiss,
+.waifu-dismiss:hover,
+.waifu-dismiss:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.waifu-dismiss:hover,
+.waifu-dismiss:focus-visible {
+  border-color: #72ddff;
+  color: #fff;
 }
 body:not(.waifu-live2d-visible) #live2d-widget {
   display: none !important;
@@ -3462,6 +3550,16 @@ body.waifu-chat-open #live2d-widget {
     right: 16px;
     bottom: 74px;
   }
+  .waifu-reopen {
+    right: 16px;
+    bottom: 74px;
+    width: 36px;
+    height: 36px;
+  }
+  .waifu-reopen .waifu-face {
+    width: 27px;
+    height: 27px;
+  }
   .waifu-bubble {
     right: 16px;
     bottom: 126px;
@@ -3541,6 +3639,9 @@ body.waifu-chat-open #live2d-widget {
   .waifu-term-btn,
   .waifu-chip,
   .waifu-send,
+  .waifu-dismiss,
+  .waifu-reopen,
+  .waifu-reopen.is-loading::after,
   body.waifu-live2d-visible #live2d-widget {
     animation: none;
     transition: none;
@@ -3550,8 +3651,15 @@ body.waifu-chat-open #live2d-widget {
   .waifu-chip:hover,
   .waifu-chip:focus-visible,
   .waifu-send:hover,
-  .waifu-send:focus-visible {
+  .waifu-send:focus-visible,
+  .waifu-reopen:hover,
+  .waifu-reopen:focus-visible {
     transform: none;
+  }
+}
+@keyframes waifu-reopen-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 @keyframes waifuDialogueIn {

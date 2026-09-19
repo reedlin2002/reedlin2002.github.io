@@ -7,29 +7,29 @@
         <language>zh-TW</language>
         <pubDate>Sat, 19 Sep 2026 00:00:00 +0800</pubDate>
         <lastBuildDate>Sat, 19 Sep 2026 00:00:00 +0800</lastBuildDate>
-        <category>myself</category>
         <category>project</category>
-        <category>leetcode</category>
-        <category>Daily</category>
+        <category>myself</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
         <category>side project</category>
         <category>React</category>
         <category>NFC</category>
         <category>Web API</category>
-        <category>TypeScript</category>
-        <category>AI</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>電腦視覺</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
+        <category>TypeScript</category>
+        <category>AI</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/09/19/ios-caller-id-resolution-chain/</guid>
             <title>來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈</title>

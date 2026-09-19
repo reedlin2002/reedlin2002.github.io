@@ -16,6 +16,7 @@
   var CHAR_NAME = 'Hibiki';
   var FULL_MIN_WIDTH = 769;
   var FULL_MIN_HEIGHT = 520;
+  var HIDE_KEY = 'hibiki-hidden';
 
   var history = [];
   var bubbleTimer = null;
@@ -36,6 +37,27 @@
   var midpointHinted = false;
   var scrollTicking = false;
   var AMBIENT_MAX_PER_PAGE = 4;
+  var dismissed = readDismissed();
+
+  /* ── 訪客自選的「收起 Hibiki」偏好 ─────────────── */
+  /* 無痕模式讀寫 localStorage 會丟例外,失敗時退回「本次瀏覽有效」 */
+  function readDismissed() {
+    try {
+      return localStorage.getItem(HIDE_KEY) === '1';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function writeDismissed(value) {
+    try {
+      if (value) {
+        localStorage.setItem(HIDE_KEY, '1');
+      } else {
+        localStorage.removeItem(HIDE_KEY);
+      }
+    } catch (e) { /* 忽略:偏好只在這次瀏覽生效 */ }
+  }
 
   /* ── 當前頁面與文章內容 ───────────────────────── */
   function getPageContext() {
@@ -73,6 +95,19 @@
       '<span>問 Hibiki</span>' +
     '</button>' +
     '<button type="button" class="waifu-hitbox" title="跟 Hibiki 聊天" aria-label="開啟 Hibiki 聊天" aria-controls="waifu-term" aria-expanded="false" hidden></button>' +
+    /* 滑過角色才浮出;必須排在 hitbox 之後,CSS 才能用 ~ 兄弟選擇器 */
+    '<button type="button" class="waifu-dismiss" title="收起 Hibiki" aria-label="收起 Hibiki" hidden>✕</button>' +
+    '<button type="button" class="waifu-reopen" title="顯示 Hibiki" aria-label="顯示 Hibiki" hidden>' +
+      '<svg class="waifu-face" viewBox="0 0 32 32" aria-hidden="true" focusable="false">' +
+        '<path d="M6 16.5a10 10 0 0 1 20 0v7.5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z" fill="#a25f38"/>' +
+        '<path d="M24.6 12.2c3 1.1 4.1 5 3.5 8.6-.3 1.8-1.2 3-2.2 3.4-.5.2-.9-.2-.8-.8.6-3.2.2-6.6-1.4-9.6-.3-.6.1-1.3.9-1.6z" fill="#b86c3f"/>' +
+        '<ellipse cx="16" cy="17.4" rx="7.5" ry="8.1" fill="#fce4d0"/>' +
+        '<path d="M8.1 15.6c.4-5 3.7-8.1 7.9-8.1s7.5 3.1 7.9 8.1c-1.4-.5-2-2.3-2.4-3.7-1.6 2-4.1 3-6.5 2.8-2-.2-3.4-1-4.4-2.3-.6 1.3-1.2 2.7-2.5 3.2z" fill="#c9793f"/>' +
+        '<ellipse cx="12.9" cy="18.2" rx="1.25" ry="1.6" fill="#3a2a25"/>' +
+        '<ellipse cx="19.1" cy="18.2" rx="1.25" ry="1.6" fill="#3a2a25"/>' +
+        '<path d="M15 21.6c.6.7 1.4.7 2 0" fill="none" stroke="#3a2a25" stroke-width="0.9" stroke-linecap="round"/>' +
+      '</svg>' +
+    '</button>' +
     '<button type="button" class="waifu-bubble" aria-label="開啟 Hibiki 聊天" hidden>' +
       '<span class="waifu-bubble-text"></span>' +
     '</button>' +
@@ -84,6 +119,8 @@
           '<span class="waifu-role">文章聊天助理</span>' +
         '</div>' +
         '<span class="waifu-online"><i aria-hidden="true"></i>ONLINE</span>' +
+        /* 手機與鍵盤使用者沒有 hover,從面板這裡也能收起 Hibiki */
+        '<button type="button" class="waifu-term-btn waifu-btn-hide" title="收起 Hibiki" aria-label="收起 Hibiki">–</button>' +
         '<button type="button" class="waifu-term-btn waifu-btn-close" title="關閉" aria-label="關閉聊天">✕</button>' +
       '</div>' +
       '<div class="waifu-log" aria-live="polite"></div>' +
@@ -103,6 +140,9 @@
 
   var launcher = root.querySelector('.waifu-launcher');
   var hitbox = root.querySelector('.waifu-hitbox');
+  var dismissBtn = root.querySelector('.waifu-dismiss');
+  var reopenBtn = root.querySelector('.waifu-reopen');
+  var hideBtn = root.querySelector('.waifu-btn-hide');
   var bubble = root.querySelector('.waifu-bubble');
   var bubbleText = root.querySelector('.waifu-bubble-text');
   var scrim = root.querySelector('.waifu-scrim');
@@ -161,13 +201,18 @@
     root.className = 'waifu-mode-' + currentMode + (chatOpen ? ' is-open' : '');
     root.setAttribute('data-mode', currentMode);
 
-    var showFull = currentMode === 'full';
+    var showFull = currentMode === 'full' && !dismissed;
     hitbox.hidden = !showFull;
-    launcher.hidden = currentMode === 'mobilebar' || chatOpen;
+    dismissBtn.hidden = !showFull;
+    /* mobilebar 沒有任何浮動元素可收(入口在底部操作列),就別多放一顆圓鈕擋畫面 */
+    reopenBtn.hidden = !dismissed || currentMode === 'mobilebar';
+    hideBtn.hidden = dismissed || currentMode === 'mobilebar';
+    launcher.hidden = dismissed || currentMode === 'mobilebar' || chatOpen;
     term.setAttribute('aria-modal', window.innerWidth < 500 ? 'true' : 'false');
     document.body.classList.toggle('waifu-live2d-visible', showFull);
     document.body.classList.toggle('waifu-chat-open', chatOpen && showFull);
 
+    /* 收起狀態下不呼叫:回訪者完全不會下載模型檔 */
     if (showFull) initLive2D();
     ensureMobileAction();
     syncExpandedState();
@@ -267,6 +312,62 @@
   scrim.addEventListener('click', function () { closeChat(); });
   root.querySelector('.waifu-btn-close').addEventListener('click', function () { closeChat(); });
 
+  /* ── 收起 / 顯示 Hibiki ──────────────────────── */
+  /* 手機文章頁底部操作列的入口不受此偏好影響:它在正常文件流裡,不遮內文 */
+  function dismiss() {
+    if (dismissed) return;
+    dismissed = true;
+    writeDismissed(true);
+    closeChat(false);
+    clearTimeout(ambientTimer);
+    ambientTimer = null;
+    clearTimeout(bubbleTimer);
+    bubble.hidden = true;
+    syncLayout();
+    reopenBtn.focus();
+  }
+
+  function restore() {
+    if (!dismissed) return;
+    /* 帶著「收起」設定進站的訪客沒載過模型,先在圓鈕上顯示載入中再換人 */
+    if (!live2dReady && getMode() === 'full') {
+      reopenBtn.classList.add('is-loading');
+      reopenBtn.disabled = true;
+      initLive2D();
+      waitForLive2D(finishRestore);
+      return;
+    }
+    finishRestore();
+  }
+
+  function finishRestore() {
+    reopenBtn.classList.remove('is-loading');
+    reopenBtn.disabled = false;
+    dismissed = false;
+    writeDismissed(false);
+    syncLayout();
+    var next = currentMode === 'full' ? hitbox : launcher;
+    if (next && !next.hidden) next.focus();
+    scheduleAmbient(randomBetween(8000, 15000));
+  }
+
+  /* L2Dwidget 沒有載入完成的回呼,以 canvas 出現當作就緒訊號;設上限避免永遠卡住 */
+  function waitForLive2D(done) {
+    var waited = 0;
+    (function poll() {
+      if (document.getElementById('live2dcanvas') || waited >= 6000) {
+        done();
+        return;
+      }
+      waited += 120;
+      setTimeout(poll, 120);
+    })();
+  }
+
+  dismissBtn.addEventListener('click', dismiss);
+  hideBtn.addEventListener('click', dismiss);
+  reopenBtn.addEventListener('click', restore);
+
   /* 點推薦連結導向新文章:先收合聊天,PJAX 導航後由 syncPage 重置對話 */
   log.addEventListener('click', function (event) {
     var link = event.target.closest && event.target.closest('a.waifu-link');
@@ -327,7 +428,7 @@
   }
 
   function canShowAmbient() {
-    return !chatOpen && !document.hidden && window.innerWidth >= 500 &&
+    return !dismissed && !chatOpen && !document.hidden && window.innerWidth >= 500 &&
       ambientCount < AMBIENT_MAX_PER_PAGE;
   }
 
