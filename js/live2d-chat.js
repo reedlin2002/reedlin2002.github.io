@@ -98,14 +98,14 @@
     /* 滑過角色才浮出;必須排在 hitbox 之後,CSS 才能用 ~ 兄弟選擇器 */
     '<button type="button" class="waifu-dismiss" title="收起 Hibiki" aria-label="收起 Hibiki" hidden>✕</button>' +
     '<button type="button" class="waifu-reopen" title="顯示 Hibiki" aria-label="顯示 Hibiki" hidden>' +
+      /* 貓耳笑臉:實心色塊在 30px 下才讀得出來,配色沿用 widget 的青綠 */
       '<svg class="waifu-face" viewBox="0 0 32 32" aria-hidden="true" focusable="false">' +
-        '<path d="M6 16.5a10 10 0 0 1 20 0v7.5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z" fill="#a25f38"/>' +
-        '<path d="M24.6 12.2c3 1.1 4.1 5 3.5 8.6-.3 1.8-1.2 3-2.2 3.4-.5.2-.9-.2-.8-.8.6-3.2.2-6.6-1.4-9.6-.3-.6.1-1.3.9-1.6z" fill="#b86c3f"/>' +
-        '<ellipse cx="16" cy="17.4" rx="7.5" ry="8.1" fill="#fce4d0"/>' +
-        '<path d="M8.1 15.6c.4-5 3.7-8.1 7.9-8.1s7.5 3.1 7.9 8.1c-1.4-.5-2-2.3-2.4-3.7-1.6 2-4.1 3-6.5 2.8-2-.2-3.4-1-4.4-2.3-.6 1.3-1.2 2.7-2.5 3.2z" fill="#c9793f"/>' +
-        '<ellipse cx="12.9" cy="18.2" rx="1.25" ry="1.6" fill="#3a2a25"/>' +
-        '<ellipse cx="19.1" cy="18.2" rx="1.25" ry="1.6" fill="#3a2a25"/>' +
-        '<path d="M15 21.6c.6.7 1.4.7 2 0" fill="none" stroke="#3a2a25" stroke-width="0.9" stroke-linecap="round"/>' +
+        '<path d="M7.4 10.2 6.1 4.6c-.1-.6.5-1 1-.7l4.8 3.1zM24.6 10.2l1.3-5.6c.1-.6-.5-1-1-.7l-4.8 3.1z" fill="currentColor"/>' +
+        '<circle cx="16" cy="17.4" r="10.2" fill="currentColor"/>' +
+        '<path d="M11.2 15.1c1 0 1.9 1 1.9 2.3s-.8 2.3-1.9 2.3-1.9-1-1.9-2.3.8-2.3 1.9-2.3z" fill="#111a33"/>' +
+        '<circle cx="10.5" cy="16.4" r="0.72" fill="#fff"/>' +
+        '<path d="M18.9 18.3c.7-1.2 1.3-1.8 1.9-1.8s1.2.6 1.9 1.8" fill="none" stroke="#111a33" stroke-width="1.6" stroke-linecap="round"/>' +
+        '<path d="M14.4 21.5c.5.7 1 1 1.6 1s1.1-.3 1.6-1" fill="none" stroke="#111a33" stroke-width="1.5" stroke-linecap="round"/>' +
       '</svg>' +
     '</button>' +
     '<button type="button" class="waifu-bubble" aria-label="開啟 Hibiki 聊天" hidden>' +

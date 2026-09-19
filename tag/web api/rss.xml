@@ -13,23 +13,23 @@
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>leetcode</category>
-        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
+        <category>leetcode</category>
+        <category>Daily</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>side project</category>
         <category>React</category>
         <category>NFC</category>
         <category>Web API</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
+        <category>TypeScript</category>
+        <category>AI</category>
         <category>電腦視覺</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
-        <category>TypeScript</category>
-        <category>AI</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/05/31/nfc-test/</guid>
             <title>📱 | 用 NFC 讓別人掃你的手機開啟連結 — NFC-test 開發筆記</title>
