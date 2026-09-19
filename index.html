@@ -286,6 +286,38 @@
 <article class="post-row">
   <div class="post-row-body">
     <h2 class="post-row-title">
+      <a href="/2026/09/19/ios-caller-id-resolution-chain/">來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈</a>
+    </h2>
+    <p class="post-row-excerpt">我最近在研究一個商務名片 App 的 iOS 來電辨識該怎麼做。需求講起來很單純：讓使用者接到電話時，畫面上那行字是由我們的 App 決定的。
+查完文件會發現 Apple 給了三個看起來都能做這件事的 API, 而大部分的介紹文章都是各自說明它們的用途。我一開始也是這樣理解的，把它們排成「三個層次…</p>
+    <div class="post-row-meta">
+      <span><i class="fa-regular fa-calendar"></i>2026-09-19</span>
+      <span><i class="fa-regular fa-clock"></i>15 min</span>
+      
+        
+        <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98" class="post-row-tag">#技術筆記</a>
+        
+        <a href="/tags/iOS" class="post-row-tag">#iOS</a>
+        
+        <a href="/tags/CallKit" class="post-row-tag">#CallKit</a>
+        
+        <a href="/tags/%E7%B3%BB%E7%B5%B1%E8%A8%AD%E8%A8%88" class="post-row-tag">#系統設計</a>
+        
+      
+    </div>
+  </div>
+  
+  <a class="post-row-thumb-wrap" href="/2026/09/19/ios-caller-id-resolution-chain/" tabindex="-1" aria-hidden="true">
+    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1520923642038-b4259acecbd7?q=80&w=1200" loading="lazy" alt="">
+  </a>
+  
+</article>
+
+    
+      
+<article class="post-row">
+  <div class="post-row-body">
+    <h2 class="post-row-title">
       <a href="/2026/08/23/uav-vision-notes/">空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</a>
     </h2>
     <p class="post-row-excerpt">空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以及當任務需要把多張影像拼成一張時，為什麼在特定場景下，古典幾何方法反而比深度學習更可靠。
@@ -439,43 +471,6 @@
   
   <a class="post-row-thumb-wrap" href="/2026/05/31/nfc-test/" tabindex="-1" aria-hidden="true">
     <img class="post-row-thumb" src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800" loading="lazy" alt="">
-  </a>
-  
-</article>
-
-    
-      
-<article class="post-row">
-  <div class="post-row-body">
-    <h2 class="post-row-title">
-      <a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</a>
-    </h2>
-    <p class="post-row-excerpt">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
-
-這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。
-
-
-專案簡介
-travelfrontend 是一個 AI 智慧行程規劃工具，使用者只…</p>
-    <div class="post-row-meta">
-      <span><i class="fa-regular fa-calendar"></i>2026-05-16</span>
-      <span><i class="fa-regular fa-clock"></i>5 min</span>
-      
-        
-        <a href="/tags/side%20project" class="post-row-tag">#side project</a>
-        
-        <a href="/tags/React" class="post-row-tag">#React</a>
-        
-        <a href="/tags/TypeScript" class="post-row-tag">#TypeScript</a>
-        
-        <a href="/tags/AI" class="post-row-tag">#AI</a>
-        
-      
-    </div>
-  </div>
-  
-  <a class="post-row-thumb-wrap" href="/2026/05/16/travel-planner-side-project/" tabindex="-1" aria-hidden="true">
-    <img class="post-row-thumb" src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800" loading="lazy" alt="">
   </a>
   
 </article>
@@ -795,6 +790,101 @@ window.initReadingProgress = function() {
   updateProgress();
 };
 window.initReadingProgress();
+</script>
+
+<!-- ── Mermaid 圖表（按需載入；相容 PJAX 與佈景切換）── -->
+<script type="text/javascript">
+window.MERMAID_SRC = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+window.initMermaid = function() {
+  'use strict';
+  if (!window.MERMAID_SRC) return;
+
+  /* 文章裡的 ```mermaid 圍欄已由 scripts/mermaid.js 轉成 pre.mermaid 元素，
+     這裡只需要保留原始碼，佈景切換時才能重繪 */
+  function collect() {
+    var nodes = [];
+    document.querySelectorAll('pre.mermaid').forEach(function(pre) {
+      if (!pre.hasAttribute('data-mmd-src')) {
+        pre.setAttribute('data-mmd-src', pre.textContent);
+      }
+      nodes.push(pre);
+    });
+    return nodes;
+  }
+
+  /* 主題色直接讀 CSS 變數，暗/亮佈景自動跟著走 */
+  function themeVariables() {
+    var cs = getComputedStyle(document.documentElement);
+    var v = function(name, fallback) {
+      return (cs.getPropertyValue(name) || '').trim() || fallback;
+    };
+    return {
+      background:         v('--shoka-color-bg',      '#08090d'),
+      mainBkg:            v('--shoka-surface-2',     '#14171f'),
+      primaryColor:       v('--shoka-surface-2',     '#14171f'),
+      secondaryColor:     v('--shoka-surface-1',     '#0d0f15'),
+      tertiaryColor:      v('--shoka-surface-3',     '#1c2029'),
+      primaryTextColor:   v('--shoka-color-text',    '#e8eaed'),
+      secondaryTextColor: v('--shoka-color-text',    '#e8eaed'),
+      tertiaryTextColor:  v('--shoka-color-text',    '#e8eaed'),
+      textColor:          v('--shoka-color-text',    '#e8eaed'),
+      primaryBorderColor: v('--shoka-color-primary', '#22d3ee'),
+      nodeBorder:         v('--shoka-color-primary', '#22d3ee'),
+      lineColor:          v('--shoka-color-text-2',  '#8b93a1'),
+      edgeLabelBackground: v('--shoka-color-bg',     '#08090d'),
+      /* 必須是實際渲染用的字體：mermaid 用這個值量測文字寬度，
+         量測字體與渲染字體不一致時，中文節點會被裁掉 */
+      fontFamily: getComputedStyle(document.body).fontFamily || 'sans-serif',
+      fontSize: '14px'
+    };
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    nodes.forEach(function(n) {
+      n.removeAttribute('data-processed');
+      n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
+    });
+    window.mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'base',
+      themeVariables: themeVariables(),
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+    });
+    try {
+      window.mermaid.run({ nodes: nodes, suppressErrors: true });
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ }
+  }
+
+  var targets = collect();
+  if (!targets.length) return;
+
+  /* 佈景切換時重繪（顏色是初始化時燒進 SVG 的，不重繪不會變色） */
+  if (!window._mermaidThemeWatcher) {
+    window._mermaidThemeWatcher = new MutationObserver(function() {
+      render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+    window._mermaidThemeWatcher.observe(document.documentElement, {
+      attributes: true, attributeFilter: ['data-theme']
+    });
+  }
+
+  if (window.mermaid) { render(targets); return; }
+  if (window._mermaidLoading) return;
+  window._mermaidLoading = true;
+
+  var s = document.createElement('script');
+  s.src = window.MERMAID_SRC;
+  s.crossOrigin = 'anonymous';
+  s.onload = function() {
+    window._mermaidLoading = false;
+    render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+  };
+  s.onerror = function() { window._mermaidLoading = false; };
+  document.head.appendChild(s);
+};
+window.initMermaid();
 </script>
 
 <!-- search -->

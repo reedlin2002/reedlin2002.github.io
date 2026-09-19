@@ -2090,6 +2090,64 @@ html[data-theme="dark"] blockquote {
     transform: none;
   }
 }
+pre.mermaid {
+  margin: 28px 0;
+  padding: 14px 16px;
+  background: var(--shoka-surface-1);
+  border: 1px solid var(--shoka-color-border);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13px;
+  color: var(--shoka-color-text-2);
+}
+pre.mermaid[data-processed] {
+  padding: 8px 0;
+  background: transparent;
+  border: 0;
+  text-align: center;
+  line-height: 0;
+}
+pre.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+pre.mermaid,
+pre.mermaid foreignObject div,
+pre.mermaid .nodeLabel,
+pre.mermaid .edgeLabel,
+pre.mermaid text {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', 'PingFang SC', system-ui, -apple-system, sans-serif;
+}
+.fig {
+  margin: 30px 0;
+  overflow-x: auto;
+}
+.fig svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.fig figcaption {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--shoka-color-text-2);
+  text-align: center;
+}
+.fig svg {
+  --fig-text: var(--shoka-color-text);
+  --fig-muted: var(--shoka-color-text-2);
+  --fig-line: var(--shoka-color-border);
+  --fig-accent: var(--shoka-color-primary);
+  --fig-card: var(--shoka-surface-2);
+  --fig-card-2: var(--shoka-surface-1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fig svg * {
+    animation: none !important;
+  }
+}
 *:focus-visible {
   outline: 2px solid var(--shoka-color-primary);
   outline-offset: 2px;

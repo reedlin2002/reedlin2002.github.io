@@ -289,6 +289,18 @@
   <span class="section-title">延伸閱讀</span>
   <div class="related-grid">
     
+    <a class="related-card" href="/2026/09/19/ios-caller-id-resolution-chain/">
+      <div class="related-card-cover-wrap">
+        <img class="related-card-cover" loading="lazy"
+          src="https://images.unsplash.com/photo-1520923642038-b4259acecbd7?q=80&w=1200"
+          alt="來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈">
+      </div>
+      <div class="related-card-body">
+        <span class="related-card-title">來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈</span>
+        <span class="related-card-date"><i class="fa-regular fa-calendar"></i> 2026-09-19</span>
+      </div>
+    </a>
+    
     <a class="related-card" href="/2026/08/23/uav-vision-notes/">
       <div class="related-card-cover-wrap">
         <img class="related-card-cover" loading="lazy"
@@ -310,18 +322,6 @@
       <div class="related-card-body">
         <span class="related-card-title">🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</span>
         <span class="related-card-date"><i class="fa-regular fa-calendar"></i> 2026-07-27</span>
-      </div>
-    </a>
-    
-    <a class="related-card" href="/2026/07/19/twstock-agent/">
-      <div class="related-card-cover-wrap">
-        <img class="related-card-cover" loading="lazy"
-          src="/images/twstock-agent-cover.jpg"
-          alt="📈 | 010401 Finance 台股 AI 分析助手">
-      </div>
-      <div class="related-card-body">
-        <span class="related-card-title">📈 | 010401 Finance 台股 AI 分析助手</span>
-        <span class="related-card-date"><i class="fa-regular fa-calendar"></i> 2026-07-19</span>
       </div>
     </a>
     
@@ -665,6 +665,101 @@ window.initReadingProgress = function() {
   updateProgress();
 };
 window.initReadingProgress();
+</script>
+
+<!-- ── Mermaid 圖表（按需載入；相容 PJAX 與佈景切換）── -->
+<script type="text/javascript">
+window.MERMAID_SRC = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+window.initMermaid = function() {
+  'use strict';
+  if (!window.MERMAID_SRC) return;
+
+  /* 文章裡的 ```mermaid 圍欄已由 scripts/mermaid.js 轉成 pre.mermaid 元素，
+     這裡只需要保留原始碼，佈景切換時才能重繪 */
+  function collect() {
+    var nodes = [];
+    document.querySelectorAll('pre.mermaid').forEach(function(pre) {
+      if (!pre.hasAttribute('data-mmd-src')) {
+        pre.setAttribute('data-mmd-src', pre.textContent);
+      }
+      nodes.push(pre);
+    });
+    return nodes;
+  }
+
+  /* 主題色直接讀 CSS 變數，暗/亮佈景自動跟著走 */
+  function themeVariables() {
+    var cs = getComputedStyle(document.documentElement);
+    var v = function(name, fallback) {
+      return (cs.getPropertyValue(name) || '').trim() || fallback;
+    };
+    return {
+      background:         v('--shoka-color-bg',      '#08090d'),
+      mainBkg:            v('--shoka-surface-2',     '#14171f'),
+      primaryColor:       v('--shoka-surface-2',     '#14171f'),
+      secondaryColor:     v('--shoka-surface-1',     '#0d0f15'),
+      tertiaryColor:      v('--shoka-surface-3',     '#1c2029'),
+      primaryTextColor:   v('--shoka-color-text',    '#e8eaed'),
+      secondaryTextColor: v('--shoka-color-text',    '#e8eaed'),
+      tertiaryTextColor:  v('--shoka-color-text',    '#e8eaed'),
+      textColor:          v('--shoka-color-text',    '#e8eaed'),
+      primaryBorderColor: v('--shoka-color-primary', '#22d3ee'),
+      nodeBorder:         v('--shoka-color-primary', '#22d3ee'),
+      lineColor:          v('--shoka-color-text-2',  '#8b93a1'),
+      edgeLabelBackground: v('--shoka-color-bg',     '#08090d'),
+      /* 必須是實際渲染用的字體：mermaid 用這個值量測文字寬度，
+         量測字體與渲染字體不一致時，中文節點會被裁掉 */
+      fontFamily: getComputedStyle(document.body).fontFamily || 'sans-serif',
+      fontSize: '14px'
+    };
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    nodes.forEach(function(n) {
+      n.removeAttribute('data-processed');
+      n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
+    });
+    window.mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'base',
+      themeVariables: themeVariables(),
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+    });
+    try {
+      window.mermaid.run({ nodes: nodes, suppressErrors: true });
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ }
+  }
+
+  var targets = collect();
+  if (!targets.length) return;
+
+  /* 佈景切換時重繪（顏色是初始化時燒進 SVG 的，不重繪不會變色） */
+  if (!window._mermaidThemeWatcher) {
+    window._mermaidThemeWatcher = new MutationObserver(function() {
+      render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+    window._mermaidThemeWatcher.observe(document.documentElement, {
+      attributes: true, attributeFilter: ['data-theme']
+    });
+  }
+
+  if (window.mermaid) { render(targets); return; }
+  if (window._mermaidLoading) return;
+  window._mermaidLoading = true;
+
+  var s = document.createElement('script');
+  s.src = window.MERMAID_SRC;
+  s.crossOrigin = 'anonymous';
+  s.onload = function() {
+    window._mermaidLoading = false;
+    render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+  };
+  s.onerror = function() { window._mermaidLoading = false; };
+  document.head.appendChild(s);
+};
+window.initMermaid();
 </script>
 
 <!-- search -->

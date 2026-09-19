@@ -33,7 +33,7 @@
 <meta property="og:site_name" content="Reedlin2002">
 <meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2026-07-18T09:07:49.565Z">
+<meta property="article:published_time" content="2026-08-22T05:52:16.093Z">
 <meta property="article:modified_time" content="2026-02-20T10:16:20.141Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="Lin, Reedlin2002, 技術筆記, AI, 系統設計, 程式開發, Python, React, 軟體工程">
@@ -230,10 +230,22 @@
                     
                   
                 
+                  
+                    
+                  
+                
+                  
+                    
+                  
+                
+                  
+                    
+                  
+                
                 
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" style="font-size: 21px;">(作者自學用)</a> <a href="/tags/AI/" style="font-size: 12px;">AI</a> <a href="/tags/Binary-Search/" style="font-size: 12px;">Binary Search</a> <a href="/tags/Daily/" style="font-size: 12px;">Daily</a> <a href="/tags/Deep-Learning/" style="font-size: 12px;">Deep Learning</a> <a href="/tags/Instance-Segmentation/" style="font-size: 12px;">Instance Segmentation</a> <a href="/tags/LeetCode/" style="font-size: 12px;">LeetCode</a> <a href="/tags/NFC/" style="font-size: 12px;">NFC</a> <a href="/tags/Python/" style="font-size: 12px;">Python</a> <a href="/tags/React/" style="font-size: 21px;">React</a> <a href="/tags/TypeScript/" style="font-size: 12px;">TypeScript</a> <a href="/tags/Web-API/" style="font-size: 12px;">Web API</a> <a href="/tags/leetcode/" style="font-size: 12px;">leetcode</a> <a href="/tags/myself/" style="font-size: 12px;">myself</a> <a href="/tags/project/" style="font-size: 30px;">project</a> <a href="/tags/side-project/" style="font-size: 21px;">side project</a> <a href="/tags/%E5%BD%B1%E5%83%8F%E8%99%95%E7%90%86/" style="font-size: 12px;">影像處理</a> <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" style="font-size: 21px;">技術筆記</a> <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95/" style="font-size: 12px;">演算法</a> <a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/" style="font-size: 12px;">電腦視覺</a>
+              <a href="/tags/%E4%BD%9C%E8%80%85%E8%87%AA%E5%AD%B8%E7%94%A8/" style="font-size: 18px;">(作者自學用)</a> <a href="/tags/AI/" style="font-size: 12px;">AI</a> <a href="/tags/Binary-Search/" style="font-size: 12px;">Binary Search</a> <a href="/tags/CallKit/" style="font-size: 12px;">CallKit</a> <a href="/tags/Daily/" style="font-size: 12px;">Daily</a> <a href="/tags/Deep-Learning/" style="font-size: 12px;">Deep Learning</a> <a href="/tags/Instance-Segmentation/" style="font-size: 12px;">Instance Segmentation</a> <a href="/tags/LeetCode/" style="font-size: 12px;">LeetCode</a> <a href="/tags/NFC/" style="font-size: 12px;">NFC</a> <a href="/tags/Python/" style="font-size: 12px;">Python</a> <a href="/tags/React/" style="font-size: 18px;">React</a> <a href="/tags/TypeScript/" style="font-size: 12px;">TypeScript</a> <a href="/tags/Web-API/" style="font-size: 12px;">Web API</a> <a href="/tags/iOS/" style="font-size: 12px;">iOS</a> <a href="/tags/leetcode/" style="font-size: 12px;">leetcode</a> <a href="/tags/myself/" style="font-size: 12px;">myself</a> <a href="/tags/project/" style="font-size: 30px;">project</a> <a href="/tags/side-project/" style="font-size: 18px;">side project</a> <a href="/tags/%E5%BD%B1%E5%83%8F%E8%99%95%E7%90%86/" style="font-size: 12px;">影像處理</a> <a href="/tags/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" style="font-size: 24px;">技術筆記</a> <a href="/tags/%E6%BC%94%E7%AE%97%E6%B3%95/" style="font-size: 12px;">演算法</a> <a href="/tags/%E7%B3%BB%E7%B5%B1%E8%A8%AD%E8%A8%88/" style="font-size: 12px;">系統設計</a> <a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/" style="font-size: 12px;">電腦視覺</a>
             </div>
           </div>
         
@@ -529,6 +541,101 @@ window.initReadingProgress = function() {
   updateProgress();
 };
 window.initReadingProgress();
+</script>
+
+<!-- ── Mermaid 圖表（按需載入；相容 PJAX 與佈景切換）── -->
+<script type="text/javascript">
+window.MERMAID_SRC = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+window.initMermaid = function() {
+  'use strict';
+  if (!window.MERMAID_SRC) return;
+
+  /* 文章裡的 ```mermaid 圍欄已由 scripts/mermaid.js 轉成 pre.mermaid 元素，
+     這裡只需要保留原始碼，佈景切換時才能重繪 */
+  function collect() {
+    var nodes = [];
+    document.querySelectorAll('pre.mermaid').forEach(function(pre) {
+      if (!pre.hasAttribute('data-mmd-src')) {
+        pre.setAttribute('data-mmd-src', pre.textContent);
+      }
+      nodes.push(pre);
+    });
+    return nodes;
+  }
+
+  /* 主題色直接讀 CSS 變數，暗/亮佈景自動跟著走 */
+  function themeVariables() {
+    var cs = getComputedStyle(document.documentElement);
+    var v = function(name, fallback) {
+      return (cs.getPropertyValue(name) || '').trim() || fallback;
+    };
+    return {
+      background:         v('--shoka-color-bg',      '#08090d'),
+      mainBkg:            v('--shoka-surface-2',     '#14171f'),
+      primaryColor:       v('--shoka-surface-2',     '#14171f'),
+      secondaryColor:     v('--shoka-surface-1',     '#0d0f15'),
+      tertiaryColor:      v('--shoka-surface-3',     '#1c2029'),
+      primaryTextColor:   v('--shoka-color-text',    '#e8eaed'),
+      secondaryTextColor: v('--shoka-color-text',    '#e8eaed'),
+      tertiaryTextColor:  v('--shoka-color-text',    '#e8eaed'),
+      textColor:          v('--shoka-color-text',    '#e8eaed'),
+      primaryBorderColor: v('--shoka-color-primary', '#22d3ee'),
+      nodeBorder:         v('--shoka-color-primary', '#22d3ee'),
+      lineColor:          v('--shoka-color-text-2',  '#8b93a1'),
+      edgeLabelBackground: v('--shoka-color-bg',     '#08090d'),
+      /* 必須是實際渲染用的字體：mermaid 用這個值量測文字寬度，
+         量測字體與渲染字體不一致時，中文節點會被裁掉 */
+      fontFamily: getComputedStyle(document.body).fontFamily || 'sans-serif',
+      fontSize: '14px'
+    };
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    nodes.forEach(function(n) {
+      n.removeAttribute('data-processed');
+      n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
+    });
+    window.mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'base',
+      themeVariables: themeVariables(),
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+    });
+    try {
+      window.mermaid.run({ nodes: nodes, suppressErrors: true });
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ }
+  }
+
+  var targets = collect();
+  if (!targets.length) return;
+
+  /* 佈景切換時重繪（顏色是初始化時燒進 SVG 的，不重繪不會變色） */
+  if (!window._mermaidThemeWatcher) {
+    window._mermaidThemeWatcher = new MutationObserver(function() {
+      render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+    window._mermaidThemeWatcher.observe(document.documentElement, {
+      attributes: true, attributeFilter: ['data-theme']
+    });
+  }
+
+  if (window.mermaid) { render(targets); return; }
+  if (window._mermaidLoading) return;
+  window._mermaidLoading = true;
+
+  var s = document.createElement('script');
+  s.src = window.MERMAID_SRC;
+  s.crossOrigin = 'anonymous';
+  s.onload = function() {
+    window._mermaidLoading = false;
+    render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+  };
+  s.onerror = function() { window._mermaidLoading = false; };
+  document.head.appendChild(s);
+};
+window.initMermaid();
 </script>
 
 <!-- search -->
