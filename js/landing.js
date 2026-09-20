@@ -2,7 +2,6 @@
  * 首頁互動（vanilla 重刻，無 React）
  * - Skills 跑馬燈：滑過/聚焦/按暫停/捲出畫面都停下來
  * - 主題資料夾：滑過或按下展開，標籤可以拖，點下去進標籤頁
- * - Spotlight + Tilt：專案卡滑鼠跟隨光暈與微傾斜
  * initLanding() 為冪等函式；PJAX 換頁後由 pjax-init.js 重新呼叫。
  */
 (function () {
@@ -244,7 +243,7 @@
       var placeTopics = function () {
         topics.classList.toggle('is-mobile-topics', mobile.matches);
         if (mobile.matches) feed.appendChild(topics);
-        else sidebar.insertBefore(topics, sidebar.querySelector('.notebook-links'));
+        else sidebar.insertBefore(topics, sidebar.querySelector(':scope > .text-link'));
         layout();
       };
       if (mobile.addEventListener) mobile.addEventListener('change', placeTopics);
@@ -252,43 +251,10 @@
     }
   }
 
-  /* ── Spotlight + Tilt（僅滑鼠裝置且未要求減少動效）── */
-  function initProjectCards() {
-    var grid = document.querySelector('.project-grid:not([data-spotlight-bound])');
-    if (!grid) return;
-    grid.setAttribute('data-spotlight-bound', '1');
-
-    var hoverable = window.matchMedia && window.matchMedia('(hover: hover)').matches;
-    if (!hoverable || reduce()) return;
-
-    grid.addEventListener('pointermove', function (e) {
-      var card = e.target.closest('.project-card');
-      if (!card) return;
-      var r = card.getBoundingClientRect();
-      var x = e.clientX - r.left;
-      var y = e.clientY - r.top;
-      card.style.setProperty('--mx', x + 'px');
-      card.style.setProperty('--my', y + 'px');
-      card.style.setProperty('--ry', (((x / r.width) - 0.5) * 8).toFixed(2) + 'deg');
-      card.style.setProperty('--rx', (((y / r.height) - 0.5) * -8).toFixed(2) + 'deg');
-    });
-
-    grid.addEventListener('pointerout', function (e) {
-      var card = e.target.closest('.project-card');
-      if (!card) return;
-      if (e.relatedTarget && card.contains(e.relatedTarget)) return;
-      card.style.removeProperty('--mx');
-      card.style.removeProperty('--my');
-      card.style.removeProperty('--rx');
-      card.style.removeProperty('--ry');
-    });
-  }
-
   window.initLanding = function () {
     syncScrollbarWidth();
     initMarquee();
     initTopicFolder();
-    initProjectCards();
   };
 
   window.addEventListener('resize', syncScrollbarWidth);
