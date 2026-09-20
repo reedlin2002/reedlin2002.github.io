@@ -2378,56 +2378,118 @@ article.post .content img:not(.no-zoom) {
   display: inline;
   margin: 0;
 }
-.aplayer {
-  background: var(--shoka-card-bg);
-  box-shadow: var(--shoka-shadow);
+.companion-dock {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: flex;
+  gap: 8px;
 }
-.aplayer .aplayer-info {
-  border-top-color: var(--shoka-color-border) !important;
+.dock-button {
+  display: grid;
+  place-items: center;
+  width: 41px;
+  height: 41px;
+  padding: 0;
+  border: 1px solid var(--shoka-color-border);
+  border-radius: 50%;
+  background: var(--shoka-color-bg);
+  color: var(--shoka-color-text-2);
+  box-shadow: 0 2px 9px rgba(0,0,0,0.2);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
-.aplayer .aplayer-info .aplayer-music .aplayer-title {
+.dock-button:hover {
+  transform: translateY(-3px);
+  border-color: var(--shoka-color-primary);
+  color: var(--shoka-color-primary);
+}
+.dock-button[aria-expanded="true"] {
+  border-color: var(--shoka-color-primary);
+  color: var(--shoka-color-primary);
+}
+.companion-panel {
+  position: fixed;
+  left: 24px;
+  bottom: 80px;
+  z-index: 50;
+  width: min(330px, calc(100% - 32px));
+  padding: 24px;
+  border: 1px solid var(--shoka-color-border);
+  background: var(--shoka-color-bg);
+  box-shadow: 0 14px 60px rgba(0,0,0,0.35);
+}
+.companion-panel header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.companion-panel header > button {
+  padding: 0 5px;
+  border: 0;
+  background: transparent;
+  color: var(--shoka-color-text-2);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+.companion-panel header > button:hover {
+  color: var(--shoka-color-primary);
+}
+.companion-panel .eyebrow {
+  font-size: 7px;
+  letter-spacing: 0.1em;
+}
+.companion-panel h2 {
+  margin: 10px 0 0;
+  font-size: 18px;
+  font-weight: 600;
   color: var(--shoka-color-text);
+  text-decoration: none;
 }
-.aplayer .aplayer-info .aplayer-music .aplayer-author {
+.companion-panel label {
+  display: block;
+  margin-top: 20px;
+  font-size: 11px;
   color: var(--shoka-color-text-2);
 }
-.aplayer .aplayer-list {
-  background: var(--shoka-card-bg);
-}
-.aplayer .aplayer-list ol li {
-  border-top-color: var(--shoka-color-border);
+.companion-panel select {
+  width: 100%;
+  margin: 7px 0 15px;
+  padding: 8px;
+  border: 1px solid var(--shoka-color-border);
+  background: var(--shoka-surface-2);
   color: var(--shoka-color-text);
+  font-size: 12px;
 }
-.aplayer .aplayer-list ol li:hover {
-  background: var(--shoka-surface-2);
+.companion-panel audio {
+  width: 100%;
+  height: 36px;
 }
-.aplayer .aplayer-list ol li.aplayer-list-light {
-  background: var(--shoka-surface-2);
+@media (max-width: 760px) {
+  .companion-dock {
+    left: 14px;
+    bottom: 80px;
+  }
+  .dock-button {
+    width: 36px;
+    height: 36px;
+  }
+  .companion-panel {
+    left: 14px;
+    bottom: 129px;
+  }
 }
-.aplayer .aplayer-list ol li .aplayer-list-author {
-  color: var(--shoka-color-text-2);
-}
-.aplayer .aplayer-bar-wrap .aplayer-bar {
-  background: var(--shoka-surface-3);
-}
-.aplayer .aplayer-miniswitcher {
-  background: var(--shoka-surface-2);
-}
-.aplayer .aplayer-miniswitcher .aplayer-icon path {
-  fill: var(--shoka-color-text-2);
-}
-.aplayer .aplayer-icon path {
-  fill: var(--shoka-color-text-2);
-}
-.aplayer .aplayer-icon:hover path {
-  fill: var(--shoka-color-primary);
-}
-.aplayer.aplayer-fixed .aplayer-body {
-  background: var(--shoka-card-bg);
-}
-@media (max-width: 768px) {
-  .aplayer.aplayer-fixed {
-    display: none;
+@media (prefers-reduced-motion: reduce) {
+  .dock-button {
+    transition: none;
+  }
+  .dock-button:hover {
+    transform: none;
   }
 }
 .eyebrow {
@@ -2622,8 +2684,10 @@ article.post .content img:not(.no-zoom) {
   white-space: nowrap;
   box-shadow: 0 3px 8px rgba(0,0,0,0.13);
   opacity: 0;
-  transform: translateY(100px) scale(0.55) rotate(var(--pill-angle, 0deg));
-  transition: opacity 0.24s ease, transform 0.52s cubic-bezier(0.2, 1.4, 0.4, 1);
+  translate: 0 100px;
+  scale: 0.55;
+  rotate: var(--pill-angle, 0deg);
+  transition: opacity 0.24s ease, translate 0.52s cubic-bezier(0.2, 1.4, 0.4, 1), scale 0.52s cubic-bezier(0.2, 1.4, 0.4, 1);
   transition-delay: calc(var(--pill-index) * 40ms);
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -2644,7 +2708,8 @@ article.post .content img:not(.no-zoom) {
 }
 .topic-folder.is-open .folder-pill {
   opacity: 1;
-  transform: translateY(0) scale(1) rotate(var(--pill-angle, 0deg));
+  translate: 0 0;
+  scale: 1;
   pointer-events: auto;
 }
 .folder-button {
@@ -2884,6 +2949,9 @@ article.post .content img:not(.no-zoom) {
   color: var(--shoka-color-primary);
 }
 @media (hover: hover) and (min-width: 1000px) {
+  .notebook-entry-copy {
+    max-width: calc(100% - 250px);
+  }
   .notebook-entry:hover .notebook-preview {
     opacity: 1;
     transform: translateY(0) rotate(-4deg);
@@ -3094,7 +3162,9 @@ article.post .content img:not(.no-zoom) {
   }
   .content a.folder-pill {
     opacity: 1;
-    transform: none;
+    translate: none;
+    scale: none;
+    rotate: none;
     transition: none;
   }
   .folder-front,
@@ -3650,7 +3720,7 @@ article.post .content img:not(.no-zoom) {
   box-shadow: 0 0 0 4px rgba(114,221,255,0.12), 0 0 12px rgba(114,221,255,0.8);
 }
 #waifu-chat.waifu-mode-full .waifu-launcher {
-  right: 204px;
+  right: 128px;
   bottom: 24px;
 }
 .waifu-reopen {
@@ -3704,11 +3774,11 @@ article.post .content img:not(.no-zoom) {
 }
 .waifu-hitbox {
   position: fixed;
-  right: 72px;
+  right: 26px;
   bottom: 0;
   z-index: 2;
-  width: 120px;
-  height: 240px;
+  width: 92px;
+  height: 184px;
   border: 0;
   padding: 0;
   background: none;
@@ -3722,8 +3792,8 @@ article.post .content img:not(.no-zoom) {
 }
 .waifu-dismiss {
   position: fixed;
-  right: 76px;
-  bottom: 206px;
+  right: 30px;
+  bottom: 158px;
   z-index: 3;
   width: 26px;
   height: 26px;
@@ -3846,10 +3916,10 @@ body.waifu-chat-open #live2d-widget {
   pointer-events: none;
 }
 #waifu-chat.waifu-mode-full .waifu-term {
-  right: 204px;
+  right: 128px;
   bottom: 24px;
-  width: 620px;
-  max-width: calc(100vw - 252px);
+  width: 560px;
+  max-width: calc(100vw - 176px);
   max-height: calc(100vh - 48px);
 }
 .waifu-term-bar {

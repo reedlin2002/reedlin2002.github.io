@@ -782,29 +782,73 @@ window.initMermaid();
 <!-- utterances Comments -->
 
 
-                <!-- 懸浮音樂播放器（APlayer）— 位於 main.content 外，PJAX 換頁音樂不中斷 -->
+                <!-- 背景音播放器（對齊原型 B）：左下角一顆圓鈕，點開才是面板。
+     位於 main.content 外，PJAX 換頁不重載，音樂不中斷。 -->
 
-<link rel="stylesheet" href="/lib/aplayer/APlayer.min.css">
-<div id="aplayer"></div>
-<script src="/lib/aplayer/APlayer.min.js"></script>
+
+<aside class="companion-dock" aria-label="背景音">
+  <button type="button" class="dock-button" data-panel="music-panel" aria-label="開啟音樂播放器" aria-expanded="false" aria-controls="music-panel">♫</button>
+</aside>
+<section class="companion-panel" id="music-panel" aria-labelledby="music-title" hidden>
+  <header>
+    <div>
+      <span class="eyebrow">A LITTLE BACKGROUND MUSIC</span>
+      <h2 id="music-title">閱讀的背景音。</h2>
+    </div>
+    <button type="button" data-close-panel aria-label="收起音樂播放器">×</button>
+  </header>
+  <label for="music-track">選一首歌</label>
+  <select id="music-track">
+    
+    <option value="/music/%E4%B8%80%E9%9B%A3.mp3">一難</option>
+    
+    <option value="/music/%E7%A7%81%E3%81%8C%E9%81%B8%E3%82%93%E3%81%A0%E3%82%82%E3%81%AE%20%20%E3%83%A6%E3%82%A4%E3%82%ABMV.mp3">私が選んだもの — ユイカ</option>
+    
+  </select>
+  <audio controls preload="none" src="/music/%E4%B8%80%E9%9B%A3.mp3"></audio>
+</section>
 <script type="text/javascript">
 (function () {
   'use strict';
-  var audio = [{"name":"一難","artist":"","url":"/music/一難.mp3"},{"name":"私が選んだもの","artist":"ユイカ","url":"/music/私が選んだもの  ユイカMV.mp3"}];
-  audio = audio.map(function (t) { t.url = encodeURI(t.url); return t; });
+  if (window._companionDockBound) return;
+  window._companionDockBound = true;
 
-  window._aplayer = new APlayer({
-    container: document.getElementById('aplayer'),
-    fixed: true,
-    mini: true,
-    autoplay: false,
-    volume: 0.4,
-    loop: 'all',
-    order: 'list',
-    theme: '#8B5CF6',
-    preload: 'none',
-    lrcType: 0,
-    audio: audio
+  var panel = document.getElementById('music-panel');
+  var opener = document.querySelector('[data-panel="music-panel"]');
+  var audio = panel.querySelector('audio');
+  var select = document.getElementById('music-track');
+
+  audio.volume = 0.4;
+
+  function setOpen(open) {
+    panel.hidden = !open;
+    opener.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) select.focus();
+  }
+
+  opener.addEventListener('click', function () { setOpen(panel.hidden); });
+  panel.querySelector('[data-close-panel]').addEventListener('click', function () {
+    setOpen(false);
+    opener.focus();
+  });
+
+  /* 換歌時保留播放狀態：本來在播就接著播 */
+  select.addEventListener('change', function () {
+    var wasPlaying = !audio.paused;
+    audio.src = select.value;
+    audio.load();
+    if (wasPlaying) audio.play().catch(function () {});
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); opener.focus(); }
+  });
+
+  /* 點面板與圓鈕以外的地方就收起來，但不要打斷播放 */
+  document.addEventListener('pointerdown', function (e) {
+    if (panel.hidden) return;
+    if (e.target.closest('#music-panel, [data-panel="music-panel"]')) return;
+    setOpen(false);
   });
 })();
 </script>

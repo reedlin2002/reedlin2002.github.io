@@ -192,7 +192,7 @@
     live2dReady = true;
     L2Dwidget.init({
       model: { jsonPath: MODEL_URL },
-      display: { position: 'right', width: 120, height: 240, hOffset: 72, vOffset: 0 },
+      display: { position: 'right', width: 92, height: 184, hOffset: 26, vOffset: 0 },
       mobile: { show: false },
       react: { opacityDefault: 0.55, opacityOnHover: 0.95 },
       log: false
