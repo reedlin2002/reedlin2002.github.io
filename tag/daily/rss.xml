@@ -7,25 +7,25 @@
         <language>zh-TW</language>
         <pubDate>Fri, 06 Jun 2025 10:42:24 +0800</pubDate>
         <lastBuildDate>Fri, 06 Jun 2025 10:42:24 +0800</lastBuildDate>
-        <category>myself</category>
+        <category>project</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>project</category>
-        <category>技術筆記</category>
-        <category>(作者自學用)</category>
+        <category>myself</category>
         <category>leetcode</category>
         <category>Daily</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
+        <category>技術筆記</category>
+        <category>(作者自學用)</category>
         <category>side project</category>
         <category>React</category>
         <category>NFC</category>
         <category>Web API</category>
         <category>TypeScript</category>
         <category>AI</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>電腦視覺</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
@@ -75,12 +75,12 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;D8&lt;/strong&gt; 🉑  #14 Longest Common Prefix
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;if not 某東西:&lt;/code&gt;  ← 檢查 “某東西” 是否為空，如果是就執行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;if not 某東西:&lt;/code&gt;  ← 檢查 &amp;quot;某東西&amp;quot; 是否為空，如果是就執行&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;D9&lt;/strong&gt; 🉑  #14 Longest Common Prefix
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;while not 某東西:&lt;/code&gt;  ← 檢查 “某東西” 為 True/False，如果為 False 就執行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;while not 某東西:&lt;/code&gt;  ← 檢查 &amp;quot;某東西&amp;quot; 為 True/False，如果為 False 就執行&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;D10&lt;/strong&gt; ✅  #14 Longest Common Prefix&lt;/li&gt;
@@ -146,7 +146,7 @@ self.next = next      # 指向下一個節點的指標&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;比較 1 和 2 → 接 1 → list1 向前 → 結果：1&lt;br&gt;
  比較 3 和 2 → 接 2 → list2 向前 → 結果：1 → 2&lt;br&gt;
- 比較 3 和 4 → 接 3 → …&lt;br&gt;
+ 比較 3 和 4 → 接 3 → ...&lt;br&gt;
  一直到兩邊都走完 → 合併完成&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
@@ -227,9 +227,9 @@ nums[i] = nums[j]&lt;/li&gt;
 &lt;ul&gt;
 &lt;li&gt;判斷
 &lt;blockquote&gt;
-&lt;p&gt;haystack = “TCodeLee”&lt;br&gt;
-haystack [0:3] → 取第 0、1、2 的字 → “TCo”&lt;br&gt;
-haystack [1:4] → 取第 1、2、3 的字 → “Cod”&lt;/p&gt;
+&lt;p&gt;haystack = &amp;quot;TCodeLee&amp;quot;&lt;br&gt;
+haystack [0:3] → 取第 0、1、2 的字 →&amp;quot;TCo&amp;quot;&lt;br&gt;
+haystack [1:4] → 取第 1、2、3 的字 →&amp;quot;Cod&amp;quot;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -241,7 +241,7 @@ haystack [1:4] → 取第 1、2、3 的字 → “Cod”&lt;/p&gt;
 &lt;p&gt;for i in range(len(haystack) - len(needle) + 1):&lt;br&gt;
 len(haystack) - len(needle) + 1 = 8 - 3 + 1 = 6&lt;br&gt;
 i=0 → haystack[i : i + 3] → haystack[0:3]&lt;br&gt;
- haystack [0:3] → “Lee” 符合！立刻 return 0&lt;/p&gt;
+ haystack [0:3] → &amp;quot;Lee&amp;quot; 符合！立刻 return 0&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

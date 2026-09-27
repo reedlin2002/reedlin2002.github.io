@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -26,15 +26,15 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="# 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得  這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。   # 專案簡介 travel_frontend 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份">
+  <meta name="description" content="這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。    專案簡介 travel_frontend 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份完整的旅遊行程表，並且在地圖上可視化路線。 整個前端技術棧：  React 18 + TypeScr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得">
 <meta property="og:url" content="https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="# 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得  這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。   # 專案簡介 travel_frontend 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份">
+<meta property="og:description" content="這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。    專案簡介 travel_frontend 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份完整的旅遊行程表，並且在地圖上可視化路線。 整個前端技術棧：  React 18 + TypeScr">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2026-05-16T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-16T13:58:28.705Z">
+<meta property="article:modified_time" content="2026-09-27T13:57:31.554Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="side project">
 <meta property="article:tag" content="React">
@@ -63,7 +63,7 @@
     "description": "Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
     "url": "https://reedlin2002.github.io/2026/05/16/travel-planner-side-project/",
     "datePublished": "2026-05-16T12:00:00.000Z",
-    "dateModified": "2026-05-16T13:58:28.705Z",
+    "dateModified": "2026-09-27T13:57:31.554Z",
     "author": {
       "@type": "Person",
       "name": "Lin",
@@ -142,14 +142,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -188,10 +190,10 @@
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>5 分鐘閱讀</span>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>1619 字</span>
+        <span>1603 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2026.05.16</span>
+        <span>更新於 2026.09.27</span>
         
       </div>
     </div>
@@ -200,12 +202,11 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><h1 id="用-ai-幫你規劃旅程-travel-planner-side-project-開發心得"><a class="markdownIt-Anchor" href="#用-ai-幫你規劃旅程-travel-planner-side-project-開發心得">#</a> 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</h1>
-<blockquote>
+  <div class="reading-body content e-content" itemprop="articleBody"><blockquote>
 <p>這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。</p>
 </blockquote>
 <hr>
-<h2 id="專案簡介"><a class="markdownIt-Anchor" href="#專案簡介">#</a> 專案簡介</h2>
+<h2 id="專案簡介"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#專案簡介"></a> 專案簡介</h2>
 <p><strong>travel_frontend</strong> 是一個 AI 智慧行程規劃工具，使用者只需要在地圖上選擇起點與終點、輸入旅遊天數、人數和偏好的交通方式，就可以由 AI 自動生成一份完整的旅遊行程表，並且在地圖上可視化路線。</p>
 <p>整個前端技術棧：</p>
 <ul>
@@ -219,8 +220,8 @@
 <li><strong>i18next</strong> — 中英文雙語支援</li>
 </ul>
 <hr>
-<h2 id="功能設計的思考過程"><a class="markdownIt-Anchor" href="#功能設計的思考過程">#</a> 功能設計的思考過程</h2>
-<h3 id="核心迴圈輸入-ai-地圖"><a class="markdownIt-Anchor" href="#核心迴圈輸入-ai-地圖">#</a> 核心迴圈：輸入 → AI → 地圖</h3>
+<h2 id="功能設計的思考過程"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#功能設計的思考過程"></a> 功能設計的思考過程</h2>
+<h3 id="核心迴圈輸入-ai-地圖"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#核心迴圈輸入-ai-地圖"></a> 核心迴圈：輸入 → AI → 地圖</h3>
 <p>最初的 MVP 設計非常直觀：</p>
 <ol>
 <li>使用者在地圖上<strong>點選起點與終點</strong></li>
@@ -229,13 +230,13 @@
 <li>行程清單與路線同時在地圖上呈現</li>
 </ol>
 <p>聽起來很簡單，但實際開發過程中每個環節都有坑。</p>
-<h3 id="ai-整合gemini-的-api-配額問題"><a class="markdownIt-Anchor" href="#ai-整合gemini-的-api-配額問題">#</a> AI 整合：Gemini 的 API 配額問題</h3>
+<h3 id="ai-整合gemini-的-api-配額問題"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#ai-整合gemini-的-api-配額問題"></a> AI 整合：Gemini 的 API 配額問題</h3>
 <p>AI 這塊是最核心也最棘手的部分。我選用了 Google 的 Gemini API，主要是因為有免費額度可以做 MVP 測試。</p>
 <p>遇到的第一個問題是 <strong>429 Rate Limit</strong>。Gemini 免費版的配額非常有限，為此實作了一套 <strong>Model Fallback 機制</strong>：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">MODEL_CONFIGS</span> = [</span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-1.5-flash&#x27;</span> &#125;,       <span class="comment">// 主力，配額壓力較低</span></span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-1.5-flash-8b&#x27;</span> &#125;,    <span class="comment">// 備援</span></span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-2.0-flash-lite&#x27;</span> &#125;,  <span class="comment">// 備援</span></span><br><span class="line">  &#123; <span class="attr">name</span>: <span class="string">&#x27;gemini-2.0-flash&#x27;</span> &#125;,       <span class="comment">// 備援</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 <p>依序嘗試，遇到 429 或 404 就自動切換下一個模型。這個設計讓開發階段幾乎不用擔心配額耗盡的問題。</p>
 <p>第二個問題是讓 AI <strong>穩定輸出結構化 JSON</strong>。最初直接使用  <code>responseMimeType: 'application/json'</code> ，但發現不同模型版本的行為不一致，最後改成在 Prompt 裡明確要求 JSON 格式並加上嚴格的欄位規範，搭配前端的 Retry 與驗證邏輯，才讓輸出穩定下來。</p>
-<h3 id="地圖整合google-maps-的坑"><a class="markdownIt-Anchor" href="#地圖整合google-maps-的坑">#</a> 地圖整合：Google Maps 的坑</h3>
+<h3 id="地圖整合google-maps-的坑"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#地圖整合google-maps-的坑"></a> 地圖整合：Google Maps 的坑</h3>
 <p>地圖這塊主要靠  <code>@react-google-maps/api</code>  這個 React wrapper。</p>
 <p>比較有趣的設計決策是 <strong>地圖的雙重模式</strong>：</p>
 <ul>
@@ -243,32 +244,32 @@
 <li>行程生成後：切換成「路線可視化地圖」，用有序的 Polyline 把所有景點連起來</li>
 </ul>
 <p>這個切換邏輯放在  <code>App.tsx</code>  裡，根據  <code>state.itinerary.itinerary</code>  是否存在來決定要渲染哪個地圖元件，簡單明瞭。</p>
-<h3 id="狀態管理context-api-的邊界"><a class="markdownIt-Anchor" href="#狀態管理context-api-的邊界">#</a> 狀態管理：Context API 的邊界</h3>
+<h3 id="狀態管理context-api-的邊界"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#狀態管理context-api-的邊界"></a> 狀態管理：Context API 的邊界</h3>
 <p>這個專案的狀態管理選擇了 React 原生的 Context API，而不是 Zustand 或 Redux。</p>
 <p>核心的  <code>PlanningContext</code>  管理著所有規劃參數與行程狀態：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">startLocation / destinationLocation</span><br><span class="line">days / numberOfPeople / transportationMode / travelTheme</span><br><span class="line">itinerary: &#123; isGenerating, itinerary, error &#125;</span><br></pre></td></tr></table></figure>
 <p>以 MVP 規模來說這樣夠用，但如果之後功能繼續擴充（例如多行程管理、協作編輯），Context 的 re-render 問題可能需要認真面對。</p>
 <hr>
-<h2 id="比較有趣的技術細節"><a class="markdownIt-Anchor" href="#比較有趣的技術細節">#</a> 比較有趣的技術細節</h2>
-<h3 id="dnd-kit-拖拉排序"><a class="markdownIt-Anchor" href="#dnd-kit-拖拉排序">#</a> dnd-kit 拖拉排序</h3>
+<h2 id="比較有趣的技術細節"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#比較有趣的技術細節"></a> 比較有趣的技術細節</h2>
+<h3 id="dnd-kit-拖拉排序"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#dnd-kit-拖拉排序"></a> dnd-kit 拖拉排序</h3>
 <p>行程生成後，使用者可以手動拖拉調整景點順序。這個功能用  <code>@dnd-kit/sortable</code>  實作，搭配虛擬列表  <code>@tanstack/react-virtual</code>  來處理長行程的效能問題。</p>
 <p>dnd-kit 的設計哲學是「無頭（headless）」，樣式完全自定義，比 react-beautiful-dnd 靈活很多，但上手成本稍高，需要自己組合  <code>DndContext</code> 、 <code>SortableContext</code> 、 <code>useSortable</code>  等 Hook。</p>
-<h3 id="i18n中英文雙語"><a class="markdownIt-Anchor" href="#i18n中英文雙語">#</a> i18n：中英文雙語</h3>
+<h3 id="i18n中英文雙語"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#i18n中英文雙語"></a> i18n：中英文雙語</h3>
 <p>一開始沒預期要做多語言，但考慮到之後可能分享給外國朋友用，就順手加了  <code>i18next</code> 。語言檔放在  <code>src/i18n/locales/</code>  下，分為  <code>zh-TW.json</code>  和  <code>en.json</code> ，搭配  <code>i18next-browser-languagedetector</code>  自動偵測瀏覽器語言設定。</p>
-<h3 id="design-system-tokens"><a class="markdownIt-Anchor" href="#design-system-tokens">#</a> Design System Tokens</h3>
+<h3 id="design-system-tokens"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#design-system-tokens"></a> Design System Tokens</h3>
 <p>雖然這只是個人 Side Project，但還是花時間建了一套簡單的 Design Token：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">src/design-system/tokens/</span><br><span class="line">  colors.ts</span><br><span class="line">  typography.ts</span><br><span class="line">  spacing.ts</span><br><span class="line">  shadows.ts</span><br><span class="line">  borderRadius.ts</span><br><span class="line">  animation.ts</span><br></pre></td></tr></table></figure>
 <p>這讓後來調整視覺風格時省了很多力，不用滿專案找散落的顏色值。</p>
 <hr>
-<h2 id="踩到的坑與反思"><a class="markdownIt-Anchor" href="#踩到的坑與反思">#</a> 踩到的坑與反思</h2>
-<p><strong>Prompt 工程比想像中重要</strong></p>
+<h2 id="踩到的坑與反思"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#踩到的坑與反思"></a> 踩到的坑與反思</h2>
+<h3 id="prompt-工程比想像中重要"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#prompt-工程比想像中重要"></a> Prompt 工程比想像中重要</h3>
 <p>讓 Gemini 穩定輸出符合預期格式的 JSON，花的時間遠比串接 API 本身多。Prompt 裡要明確說明輸出格式、每個欄位的型別與意義，以及各種邊界情況的處理方式。這讓我意識到，AI Feature 的品質上限很大程度取決於 Prompt 的品質。</p>
-<p><strong>型別安全帶來的摩擦值得</strong></p>
+<h3 id="型別安全帶來的摩擦值得"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#型別安全帶來的摩擦值得"></a> 型別安全帶來的摩擦值得</h3>
 <p>全程嚴格使用 TypeScript，初期定義 Interface 確實費時，但在後來改動 API Response 結構時，TypeScript 的編譯錯誤直接幫我找到所有受影響的地方。這個投資在中後期完全值回票價。</p>
-<p><strong>過早優化的誘惑</strong></p>
+<h3 id="過早優化的誘惑"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#過早優化的誘惑"></a> 過早優化的誘惑</h3>
 <p>中途有一段時間很想把 Context 換成 Zustand、把 CSS-in-JS 換成 Tailwind，但最後還是忍住了，專注在把核心功能做穩。Side Project 最容易死在「一直重構、一直換技術」這個迴圈裡。</p>
 <hr>
-<h2 id="目前狀態與後續規劃"><a class="markdownIt-Anchor" href="#目前狀態與後續規劃">#</a> 目前狀態與後續規劃</h2>
+<h2 id="目前狀態與後續規劃"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#目前狀態與後續規劃"></a> 目前狀態與後續規劃</h2>
 <p>MVP 的核心功能基本完成：</p>
 <ul class="task-list">
 <li class="task-list-item"><input type="checkbox" id="cbx_0" checked="true" disabled="true"><label for="cbx_0"> Google Maps 起終點選擇</label></li>
@@ -286,7 +287,7 @@
 <li>真實景點的開放時間與票價資訊整合</li>
 </ul>
 <hr>
-<h2 id="小結"><a class="markdownIt-Anchor" href="#小結">#</a> 小結</h2>
+<h2 id="小結"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#小結"></a> 小結</h2>
 <p>做這個 Side Project 的過程讓我對 AI API 整合有了更實際的認識 —— 它不只是呼叫一個 API 那麼簡單，背後的 Prompt 設計、錯誤處理、Fallback 策略，才是讓功能真正可靠的關鍵。</p>
 <p>如果你也有「這個工具怎麼還沒人做」的想法，就動手吧。從零到可以用，沒有想像中那麼遠。</p>
 <hr>
@@ -386,7 +387,7 @@
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -526,6 +527,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -540,14 +543,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -557,10 +566,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -777,6 +783,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 

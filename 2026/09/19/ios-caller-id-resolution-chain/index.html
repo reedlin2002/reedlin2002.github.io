@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -146,14 +146,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -192,7 +194,7 @@
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>15 分鐘閱讀</span>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>5119 字</span>
+        <span>5121 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>更新於 2026.09.19</span>
@@ -208,12 +210,12 @@
 <p>查完文件會發現 Apple 給了三個看起來都能做這件事的 API, 而大部分的介紹文章都是各自說明它們的用途。我一開始也是這樣理解的，把它們排成「三個層次」, 以為可以依序疊加。</p>
 <p>後來發現這個模型是錯的，而且錯得相當徹底。修正的過程比結論本身更值得寫，所以這篇不從 API 開始講。先看四通電話。</p>
 <span id="more"></span>
-<h2 id="情境-a十年老友"><a class="markdownIt-Anchor" href="#情境-a十年老友">#</a> 情境 A: 十年老友</h2>
+<h2 id="情境-a十年老友"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#情境-a十年老友"></a> 情境 A: 十年老友</h2>
 <p>你手機裡存過一個號碼，備註寫「阿宏」。他打來，畫面顯示「阿宏」。</p>
 <p>這裡沒有任何第三方 App 的事，但它是整件事最重要的一條規則:<strong> 使用者自己存過的東西，永遠優先。</strong></p>
 <p>使用者在自己通訊錄裡寫的是「老婆」「老闆」「房東」「不要接」。這些不是不完整的資料，它們承載的是使用者自己的判斷。任何第三方服務跑來說「根據我的資料庫，這位是陳美玲女士」然後把「老婆」蓋掉，都是在破壞使用者對自己手機的控制權。</p>
 <p>所以第一條界線先畫出來：這個 App 的目標不可能是「取代系統通訊錄」, 只能是「在系統通訊錄答不出來的時候補上」。</p>
-<h2 id="情境-b黃先生台中vip客戶"><a class="markdownIt-Anchor" href="#情境-b黃先生台中vip客戶">#</a> 情境 B:「黃先生｜台中 VIP 客戶」</h2>
+<h2 id="情境-b黃先生台中vip客戶"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#情境-b黃先生台中vip客戶"></a> 情境 B:「黃先生｜台中 VIP 客戶」</h2>
 <p>這位黃先生在我的名片夾裡。他的名片上寫的是:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">黃先生</span><br><span class="line">某某科技</span><br><span class="line">業務經理</span><br><span class="line">0911111111</span><br></pre></td></tr></table></figure>
 <p>但我自己在 App 裡幫他加了一行備註:「台中 VIP 客戶」。</p>
@@ -227,7 +229,7 @@
 <p>而它有一個很少被提到、但在這個情境下至關重要的性質:<strong> 它是唯寫的</strong>。</p>
 <p><code>CXCallDirectoryExtensionContext</code>  只有  <code>addIdentificationEntry</code>  跟  <code>removeIdentificationEntry</code> , 沒有任何讀回資料的 API。你寫進去之後，連你自己的 App 都拿不回來，其他 App 更不可能。系統只在來電辨識流程裡使用這份資料。</p>
 <p>所以 Call Directory 恰好是一個「私人關係脈絡投影到來電畫面」的輕量出口 —— 資料出得去畫面，但出不去這個用途。</p>
-<h2 id="情境-c天天寄信的客戶"><a class="markdownIt-Anchor" href="#情境-c天天寄信的客戶">#</a> 情境 C: 天天寄信的客戶</h2>
+<h2 id="情境-c天天寄信的客戶"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#情境-c天天寄信的客戶"></a> 情境 C: 天天寄信的客戶</h2>
 <p>陳大華是我每天都要打電話、寄信的合作對象。對他我的需求完全不同:</p>
 <p>我希望 Phone、Mail、Siri、CarPlay 全部都認得他。我在 Mail 裡輸入「陳」就要跳出他，我對 Siri 說「打給陳大華」要打得通。</p>
 <p>這不是來電顯示的需求，這是<strong>聯絡人的需求</strong>。</p>
@@ -237,7 +239,7 @@
 <p>這些聯絡人會出現在系統的通訊錄生態裡，但不是被寫進使用者原本的通訊錄。你沒有去動使用者的媽媽、朋友、私人客戶，你是告訴系統「我這邊另外有這一批商務聯絡人，你可以拿去用」。資料的更新權仍然在你的 App,ownership 很乾淨。</p>
 <p>實作上是 App 與 extension 透過 App Group 溝通，App 端用  <code>ContactProviderManager</code>  呼叫  <code>enable()</code>  與  <code>signalEnumerator()</code> ,extension 端實作  <code>ContactItemEnumerator</code>  的  <code>enumerateContent(in:for:)</code> (初次同步) 與  <code>enumerateChanges(startingAt:for:)</code> (增量同步)。注意它同樣是<strong>預先推送</strong>的模型，不是來電當下的即時查詢。</p>
 <p>代價也很明確：進了 Contacts 生態，就是任何取得通訊錄權限的 App 都看得到。所以這裡放的只能是<strong>正式名片上印得出來的資訊</strong>。</p>
-<h2 id="情境-d完全陌生的商務來電"><a class="markdownIt-Anchor" href="#情境-d完全陌生的商務來電">#</a> 情境 D: 完全陌生的商務來電</h2>
+<h2 id="情境-d完全陌生的商務來電"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#情境-d完全陌生的商務來電"></a> 情境 D: 完全陌生的商務來電</h2>
 <p>最後一種：對方根本不在我的名片夾裡。我沒見過他，沒換過名片。</p>
 <p>但他是這個名片網路的成員，他在上面建了自己的公開名片。理想的情況是：即使我從來沒有加過他，來電畫面上仍然能顯示他是誰。</p>
 <p>這對應的是 <strong>Live Caller ID Lookup</strong>, 而它底下用的是 <strong>PIR(Private Information Retrieval)</strong>。</p>
@@ -310,7 +312,7 @@
 <p>這裡的隱私性質值得講清楚：你的伺服器知道「有一個查詢進來了」, 可以統計整體流量，但它<strong>不知道這次查的是哪個號碼、查到了誰，也不知道是誰在接這通電話</strong>。「某使用者今天 15:30 接到某某的電話」這種資料，在這個架構下你根本拿不到。</p>
 <p>也就是：你提供身分辨識能力，但不掌握誰打給誰。</p>
 <p>另外有個實作上的細節值得先知道：Apple 的來電身分並沒有獨立的「公司」與「職稱」欄位。所以實務上你多半是把姓名、公司、職稱組合成<strong>單一顯示字串</strong>丟回去，最後怎麼呈現在來電畫面上仍然由系統決定。</p>
-<h2 id="揭曉這四個不是並列的功能"><a class="markdownIt-Anchor" href="#揭曉這四個不是並列的功能">#</a> 揭曉：這四個不是並列的功能</h2>
+<h2 id="揭曉這四個不是並列的功能"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#揭曉這四個不是並列的功能"></a> 揭曉：這四個不是並列的功能</h2>
 <p>到這裡看起來很漂亮 —— 四種情境，四個解法，各司其職。</p>
 <p>我原本就是這樣規劃的，還幫它們編了號：第一層全域辨識、第二層名片夾辨識、第三層系統整合。三層疊加，涵蓋所有情境。</p>
 <p><strong>這個模型是錯的。</strong></p>
@@ -413,16 +415,16 @@
 </figure>
 <p>Apple 的 DTS 工程師在開發者論壇上講得很直接:</p>
 <blockquote>
-<p>“No, we don’t ‘mix’ data like this. There’s basically a ‘hierarchy’ of data sources and we only present the data from that data source (whichever one ‘works’).”</p>
+<p>&quot;No, we don't 'mix' data like this. There's basically a 'hierarchy' of data sources and we only present the data from that data source (whichever one 'works').&quot;</p>
 </blockquote>
 <p>理由也講得很清楚：使用者的聯絡人卡片優先，是因為那是使用者直接控制的東西，不該讓「陳美玲女士」蓋掉「老婆」; 停在第一個命中也對效能有利；而混合多個來源的資料有被利用的可能，也會造成混淆。</p>
 <p>(補充一句誠實的話：這條階層是依 Apple 官方說明整理的，Contact Provider 與 Call Directory 同時啟用時的實際行為我還沒有實機驗證過。)</p>
-<h2 id="這條短路鏈推翻了什麼"><a class="markdownIt-Anchor" href="#這條短路鏈推翻了什麼">#</a> 這條短路鏈推翻了什麼</h2>
-<h3 id="第一件事我的層級編號是反的"><a class="markdownIt-Anchor" href="#第一件事我的層級編號是反的">#</a> 第一件事：我的層級編號是反的</h3>
+<h2 id="這條短路鏈推翻了什麼"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#這條短路鏈推翻了什麼"></a> 這條短路鏈推翻了什麼</h2>
+<h3 id="第一件事我的層級編號是反的"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#第一件事我的層級編號是反的"></a> 第一件事：我的層級編號是反的</h3>
 <p>我原本把 Contact Provider 當成「生態整合的加分項」排在最後，但它其實是<strong>第三方能拿到的最高優先權來源</strong>。</p>
 <p>而 Live Caller ID Lookup 是我投入最重的一層 —— 要自建 PIR 服務、OHTTP gateway、Privacy Pass token issuer, 要做 DNS TXT 驗證、到 CloudKit Console 註冊、維護資料集重建管線 —— 它卻在整條鏈的最底層，只有在前面四個來源全部落空時才會被呼叫到。</p>
 <p>這不代表不該做，但它確實改變了投入順序的判斷。</p>
-<h3 id="第二件事兩個模式不能同時開"><a class="markdownIt-Anchor" href="#第二件事兩個模式不能同時開">#</a> 第二件事：兩個模式不能同時開</h3>
+<h3 id="第二件事兩個模式不能同時開"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#第二件事兩個模式不能同時開"></a> 第二件事：兩個模式不能同時開</h3>
 <p>這個比較嚴重。</p>
 <p>假設黃先生同時存在 Contact Provider 的聯絡人裡，也存在 Call Directory 的對應表裡。依照短路規則，Contact Provider 贏。結果是:</p>
 <figure class="fig">
@@ -468,7 +470,7 @@
 </figure>
 <p>使用者打開一個看起來是升級的「系統整合」開關，換來的卻是來電畫面從「台中 VIP 客戶」退化成「黃先生」。他得到了 Mail 跟 Siri 的整合，但弄丟了他當初最想要的那個東西 —— 而且他不會知道為什麼，他只會覺得「開了那個功能之後來電顯示變難用了」。</p>
 <p>這不是邊緣案例，這是兩個開關都打開的預設路徑。</p>
-<h2 id="解法讓每張名片自己決定"><a class="markdownIt-Anchor" href="#解法讓每張名片自己決定">#</a> 解法：讓每張名片自己決定</h2>
+<h2 id="解法讓每張名片自己決定"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#解法讓每張名片自己決定"></a> 解法：讓每張名片自己決定</h2>
 <p>第一個念頭是做成全域二選一，讓使用者選一個模式。但這個解法不對 —— 取捨應該按<strong>聯絡人的性質</strong>決定，而不是按使用者的性格決定。同一個人的名片夾裡，黃先生跟陳大華的需求本來就不一樣。</p>
 <p>所以正確的做法是把 integration policy 下放到每一張名片:</p>
 <pre class="mermaid">flowchart TD
@@ -484,7 +486,7 @@
 <p>而底層的規則可以寫成一條 invariant:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CallDirectoryNumbers  ∩  ContactProviderNumbers  =  ∅</span><br></pre></td></tr></table></figure>
 <p><strong>同一支電話號碼永遠只存在其中一邊。</strong> 短路衝突從此不可能發生 —— 因為兩邊本來就不重疊。</p>
-<h2 id="真正的收穫identity-relationship"><a class="markdownIt-Anchor" href="#真正的收穫identity-relationship">#</a> 真正的收穫：Identity ≠ Relationship</h2>
+<h2 id="真正的收穫identity-relationship"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#真正的收穫identity-relationship"></a> 真正的收穫：Identity ≠ Relationship</h2>
 <p>寫下那條 invariant 之後，才看清楚它背後真正的東西。</p>
 <p>這兩個 API 長得不一樣，不是 Apple 隨便設計的。它們餵的是<strong>兩種不同性質的資料</strong>:</p>
 <table>
@@ -527,7 +529,7 @@
 <p>但這件事應該被明確禁止。因為那等於為了來電顯示，把內部的 CRM 脈絡擴散到系統 Contacts 生態，擴散到每一個取得通訊錄權限的 App。Contact Provider 的定位是把 App 管理的<strong>聯絡人</strong>提供給系統，不是提供你的內部註記。</p>
 <p>而這條邊界反過來把產品定義得更清楚了：這個 App 要保存的不只是「這個人是誰」, 更是「這個人跟我有什麼商務關係」。前者名片本身就有，後者才是名片夾存在的理由。</p>
 <p>一個被 Apple 的優先權設計逼出來的領域邊界，比憑空想出來的漂亮。</p>
-<h2 id="從-invariant-掉出來的工程約束"><a class="markdownIt-Anchor" href="#從-invariant-掉出來的工程約束">#</a> 從 invariant 掉出來的工程約束</h2>
+<h2 id="從-invariant-掉出來的工程約束"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#從-invariant-掉出來的工程約束"></a> 從 invariant 掉出來的工程約束</h2>
 <p>定了 invariant 之後，有幾件事變成必須處理的:</p>
 <p><strong>模式切換是兩條獨立的非同步管線。</strong> 把一張名片從 PRIVATE 換成 SYSTEM, 要做兩件事：從 Call Directory 移除 (增量移除 +  <code>reloadExtension</code> ), 以及加進 Contact Provider 的同步 (App Group +  <code>ContactProviderManager</code> )。這是兩套各自會失敗的機制，中間存在一個窗口。</p>
 <p>所以寫入順序不能隨便定。兩種失敗模式的後果完全不同:</p>
@@ -535,12 +537,12 @@
 <p>結論很明確:<strong> 先加進新集合，再從舊集合移除。</strong> 讓失敗落在「兩邊都有」那一側。</p>
 <p><strong>invariant 是 per-number 而非 per-card。</strong> 一個人可能有多支號碼；更麻煩的是兩張不同的名片可能共用同一支公司總機。如果王小明是 SYSTEM、黃先生是 PRIVATE, 而兩人的名片上都寫了同一個總機號碼，交集就破了。這需要一條仲裁規則。</p>
 <p><strong>Call Directory 的資料格式限制比想像中嚴格。</strong> 號碼必須是 E.164 格式的 64 位元整數，而且<strong>必須遞增排序</strong> —— 沒排序不是漏掉幾筆，是整個 extension 失效。台灣號碼要正規化成 +886 並去掉前導的 0。分機號碼沒有辦法表示。一個號碼也只能對應一個標籤。</p>
-<h2 id="ui不要讓使用者看到-apple-的名詞"><a class="markdownIt-Anchor" href="#ui不要讓使用者看到-apple-的名詞">#</a> UI: 不要讓使用者看到 Apple 的名詞</h2>
+<h2 id="ui不要讓使用者看到-apple-的名詞"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#ui不要讓使用者看到-apple-的名詞"></a> UI: 不要讓使用者看到 Apple 的名詞</h2>
 <p>最後一件事。這個取捨必須讓使用者看得懂，但沒有人需要知道什麼是 Call Directory。</p>
 <p>所以介面上不要出現 API 名稱，而是直接講清楚他換到了什麼、失去了什麼:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">○  僅在此 App 管理</span><br><span class="line">   只有這個 App 管理這位聯絡人。</span><br><span class="line">   來電時可以顯示您的私人備註。</span><br><span class="line"></span><br><span class="line">   來電畫面: 黃先生｜台中VIP客戶</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">○  提供給 iPhone 系統使用</span><br><span class="line">   將這位聯絡人提供給 iPhone 系統。</span><br><span class="line">   Phone、Mail 等功能可以辨識他,</span><br><span class="line">   但來電將使用正式名片資訊,不顯示私人備註。</span><br><span class="line"></span><br><span class="line">   來電畫面: 黃先生  某某科技</span><br></pre></td></tr></table></figure>
 <p>把兩邊的來電畫面直接畫出來，使用者一眼就知道自己在選什麼。這比任何文字說明都有效。</p>
-<h2 id="小結"><a class="markdownIt-Anchor" href="#小結">#</a> 小結</h2>
+<h2 id="小結"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#小結"></a> 小結</h2>
 <p>這趟研究真正的收穫不是「學會了三個 API」, 而是三件事:</p>
 <ol>
 <li><strong>這三個 API 不是三個並列的功能，是一條有優先權的短路鏈。</strong> 沒認清這件事之前，我的架構圖的層級編號跟實際優先權剛好是反的。</li>
@@ -548,7 +550,7 @@
 <li><strong>真正的設計工作不在「接哪個 API」, 而在「哪些資料屬於 Identity、哪些屬於 Relationship」。</strong> 這條邊界一旦劃清楚，API 的選擇就是自動的，連 invariant 都是自動的。</li>
 </ol>
 <p>還沒有寫進來的是另一整塊：全域資料集的成員資格該怎麼定、號碼所有權要怎麼驗證、PIR 在保護查詢者的同時讓伺服器失去了哪些防濫用能力、以及資料刪除的生效時間。那些問題的性質跟這篇不一樣，留到下一篇再談。</p>
-<h3 id="延伸閱讀"><a class="markdownIt-Anchor" href="#延伸閱讀">#</a> 延伸閱讀</h3>
+<h3 id="延伸閱讀"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#延伸閱讀"></a> 延伸閱讀</h3>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/forums/thread/762645">Does Live Caller ID Lookup entirely replace Call SIP content, or are they ever combined?</a> — Apple DTS 對資料來源階層的說明，本文短路鏈的主要依據</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/apple/pir-service-example">apple/pir-service-example</a> — Live Caller ID Lookup 的 PIR 服務範例與上線文件</li>
@@ -653,7 +655,7 @@
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -793,6 +795,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -807,14 +811,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -824,10 +834,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -1044,6 +1051,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 

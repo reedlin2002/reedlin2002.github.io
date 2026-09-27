@@ -4,25 +4,25 @@
     <title>Reedlin2002 • Posts by &#34;project&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2026-07-27T14:40:00.000Z</updated>
-    <category term="myself" />
+    <category term="project" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
-    <category term="project" />
-    <category term="技術筆記" />
-    <category term="(作者自學用)" />
+    <category term="myself" />
     <category term="leetcode" />
     <category term="Daily" />
-    <category term="iOS" />
-    <category term="CallKit" />
-    <category term="系統設計" />
+    <category term="技術筆記" />
+    <category term="(作者自學用)" />
     <category term="side project" />
     <category term="React" />
     <category term="NFC" />
     <category term="Web API" />
     <category term="TypeScript" />
     <category term="AI" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
     <category term="電腦視覺" />
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
@@ -31,13 +31,13 @@
         <id>https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/</id>
         <title>🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/"/>
-        <content type="html">&lt;h1 id=&#34;tw-grad-lab-skills-用-agent-skills-幫你找台灣研究所的教授與實驗室&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#tw-grad-lab-skills-用-agent-skills-幫你找台灣研究所的教授與實驗室&#34;&gt;#&lt;/a&gt; 🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室&lt;/h1&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;►  「 &lt;a href=&#34;https://github.com/reedlin2002/tw-grad-lab-skills&#34;&gt;GITHUB&lt;/a&gt; 」&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#專案緣起&#34;&gt;#&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
+&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
 &lt;p&gt;我自己也在準備研究所。找實驗室的時候，最痛苦的不是資訊太少，而是資訊太散：教授的研究方向在系網、近期論文在 Google Scholar、實驗室風氣要翻 Dcard 跟 PTT、到底適不適合我還得自己在腦中拼湊。每一檔候選教授都要重複一次這個流程，開一堆分頁、比來比去，最後還常常漏掉一些其實不錯、只是學校名氣沒那麼響的實驗室。&lt;/p&gt;
 &lt;p&gt;所以我把這個流程做成兩個 Agent Skills。核心理念很簡單:&lt;/p&gt;
 &lt;ul&gt;
@@ -47,16 +47,16 @@
 &lt;/ul&gt;
 &lt;p&gt;如果你也正在找研究所，希望它對你也有幫助 🙌&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;這是什麼agent-skills不是又一個網站&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#這是什麼agent-skills不是又一個網站&#34;&gt;#&lt;/a&gt; 🧩 這是什麼：Agent Skills, 不是又一個網站&lt;/h2&gt;
+&lt;h2 id=&#34;這是什麼agent-skills不是又一個網站&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#這是什麼agent-skills不是又一個網站&#34;&gt;&lt;/a&gt; 🧩 這是什麼：Agent Skills, 不是又一個網站&lt;/h2&gt;
 &lt;p&gt;這個專案沒有後端、沒有資料庫、甚至不需要 Python。它是兩個 &lt;strong&gt;Agent Skills&lt;/strong&gt;—— 放進支援 skills 的 coding agent (Claude Code、Codex⋯⋯) 後，就多出兩個斜線指令。你用自然語言跟 agent 對話，它負責上網搜尋、交叉比對、整理證據，最後直接生成一份 HTML 報告給你看。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;換句話說：報告是 agent 依照技能裡的規範「當場產生」的，而不是我寫死的一份範本。技能的價值在於那套&lt;strong&gt;流程與規範&lt;/strong&gt; —— 問什麼、去哪找、怎麼標註證據、報告長什麼樣。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;repo 收錄兩個技能，通常搭配使用：先用  &lt;code&gt;find-grad-labs&lt;/code&gt;  找出候選名單，再用  &lt;code&gt;investigate-grad-lab&lt;/code&gt;  深挖你最在意的幾位。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;技能一find-grad-labs-探索合適的實驗室&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#技能一find-grad-labs-探索合適的實驗室&#34;&gt;#&lt;/a&gt; 🔎 技能一: &lt;code&gt;/find-grad-labs&lt;/code&gt;  — 探索合適的實驗室&lt;/h2&gt;
+&lt;h2 id=&#34;技能一find-grad-labs-探索合適的實驗室&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技能一find-grad-labs-探索合適的實驗室&#34;&gt;&lt;/a&gt; 🔎 技能一: &lt;code&gt;/find-grad-labs&lt;/code&gt;  — 探索合適的實驗室&lt;/h2&gt;
 &lt;p&gt;這個技能負責「從零到候選名單」。它會先跑一輪結構化訪談，把你的條件問清楚，再開始跨校搜尋、比較，最後產出報告。&lt;/p&gt;
-&lt;h3 id=&#34;先問清楚再開始找&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#先問清楚再開始找&#34;&gt;#&lt;/a&gt; 先問清楚，再開始找&lt;/h3&gt;
+&lt;h3 id=&#34;先問清楚再開始找&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#先問清楚再開始找&#34;&gt;&lt;/a&gt; 先問清楚，再開始找&lt;/h3&gt;
 &lt;p&gt;在搜尋之前，它會用問答蒐集這些資訊:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;研究主題 / 子領域&lt;/strong&gt; —— 例如 NLP/LLM、電腦視覺、MLSys、RL, 可以複選&lt;/li&gt;
@@ -65,16 +65,16 @@
 &lt;li&gt;&lt;strong&gt;目標系所&lt;/strong&gt; ——CSIE、電機、資料科學、AI 學程、資管⋯⋯(不預設，因為強實驗室常常不在最明顯的系所)&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;地區、指導風格、生涯目標、限制條件&lt;/strong&gt; (獎學金需求、硬性條件等)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;廣撒網-落點分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#廣撒網-落點分級&#34;&gt;#&lt;/a&gt; 廣撒網 + 落點分級&lt;/h3&gt;
+&lt;h3 id=&#34;廣撒網-落點分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#廣撒網-落點分級&#34;&gt;&lt;/a&gt; 廣撒網 + 落點分級&lt;/h3&gt;
 &lt;p&gt;我最在意的兩個設計都在這裡:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;跨層級搜尋&lt;/strong&gt;：就算主題集中在頂大，它也會刻意去找中字輩國立大學、科技大學 (台科、北科、雲科⋯⋯) 與相關私校，最終名單&lt;strong&gt;必須跨越一個以上的層級&lt;/strong&gt;。如果某主題在頂大以外真的很稀缺，它會直說，並且列出「搜尋過但排除的學校」與原因 —— 不會給你一份「又全是四大」卻不解釋的名單。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;reach /match/safety (衝刺 / 穩健 / 保底)&lt;/strong&gt;: 用你的學校與成績，把候選教授分成落點，讓名單務實而不是全部都是衝刺。但這些標籤是&lt;strong&gt;有保留的建議&lt;/strong&gt;，絕不輸出錄取機率數字或任何保證，也會提醒你錄取還牽涉面試、SOP、推薦信、名額、推甄 vs 考試等這裡沒涵蓋的因素。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;產出&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#產出&#34;&gt;#&lt;/a&gt; 產出&lt;/h3&gt;
+&lt;h3 id=&#34;產出&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#產出&#34;&gt;&lt;/a&gt; 產出&lt;/h3&gt;
 &lt;p&gt;一份 HTML 報告，包含：偏好摘要、涵蓋度 / 透明度說明 (名單的層級與地區分布、排除了哪些學校)、候選教授卡片 (附落點標籤與「學生風評」小區塊)、比較矩陣、研究領域地圖、跨落點的推薦，以及&lt;strong&gt;依教授分組、可點擊的完整來源清單&lt;/strong&gt;。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;技能二investigate-grad-lab-深入調查單一教授&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#技能二investigate-grad-lab-深入調查單一教授&#34;&gt;#&lt;/a&gt; 🔬 技能二: &lt;code&gt;/investigate-grad-lab&lt;/code&gt;  — 深入調查單一教授&lt;/h2&gt;
+&lt;h2 id=&#34;技能二investigate-grad-lab-深入調查單一教授&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技能二investigate-grad-lab-深入調查單一教授&#34;&gt;&lt;/a&gt; 🔬 技能二: &lt;code&gt;/investigate-grad-lab&lt;/code&gt;  — 深入調查單一教授&lt;/h2&gt;
 &lt;p&gt;當你心裡已經有特定人選，這個技能負責把單一教授 / 實驗室查深、查實。它會:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;先用官方系網 / 系所頁面&lt;strong&gt;確認教授身分與現職&lt;/strong&gt;&lt;/li&gt;
@@ -85,7 +85,7 @@
 &lt;/ol&gt;
 &lt;p&gt;重點在最後那件事:&lt;strong&gt; 沒有可靠公開來源的東西就標成「未知」, 而不是硬掰&lt;/strong&gt;。它不會用論文數量去推斷實驗室風氣，也不會做無法佐證的個性判斷。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;讓報告可信的設計證據分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#讓報告可信的設計證據分級&#34;&gt;#&lt;/a&gt; 📐 讓報告可信的設計：證據分級&lt;/h2&gt;
+&lt;h2 id=&#34;讓報告可信的設計證據分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#讓報告可信的設計證據分級&#34;&gt;&lt;/a&gt; 📐 讓報告可信的設計：證據分級&lt;/h2&gt;
 &lt;p&gt;兩個技能最核心的規範，是一套&lt;strong&gt;來源分級政策&lt;/strong&gt;。所有事實性宣稱都要有來源、要能點進去，而且證據等級要看得出來:&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -116,7 +116,7 @@
 &lt;p&gt;規則很嚴格：官方事實和社群風向要分開放；社群訊息一律標成「未經查證的次級證據」, 永遠不能當成已確認的事實呈現；能交叉比對就交叉比對，單一來源、時間久遠或彼此矛盾的都要標出來；查不到就寫「未知」。報告視覺上也對應這套分級 ——&lt;strong&gt; 已確認用綠色、不確定用琥珀色、缺漏用灰色&lt;/strong&gt;，社群風評有自己專屬的「未經查證」樣式，不會被誤讀成事實。&lt;/p&gt;
 &lt;p&gt;這其實是我做這個專案最想守住的一條線:&lt;strong&gt; 找實驗室這種事，寧可誠實說「不知道」, 也不要給人一個看起來很篤定、其實是猜的答案。&lt;/strong&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-技術與實作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-技術與實作&#34;&gt;#&lt;/a&gt; 🛠️ 技術與實作&lt;/h2&gt;
+&lt;h2 id=&#34;️-技術與實作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-技術與實作&#34;&gt;&lt;/a&gt; 🛠️ 技術與實作&lt;/h2&gt;
 &lt;p&gt;🟢 標準&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;每個技能都是一個含  &lt;code&gt;SKILL.md&lt;/code&gt;  的資料夾，frontmatter 具備  &lt;code&gt;name&lt;/code&gt; 、 &lt;code&gt;description&lt;/code&gt; , 符合 Agent Skills 標準，因此可被  &lt;code&gt;skills&lt;/code&gt;  CLI 自動安裝。&lt;/p&gt;
@@ -133,16 +133,16 @@
 &lt;blockquote&gt;
 &lt;p&gt;透過 &lt;a href=&#34;https://github.com/vercel-labs/skills&#34;&gt; &lt;code&gt;skills&lt;/code&gt; &lt;/a&gt; CLI 安裝，官方支援 70+ 種 agent, 同一份技能在 Claude Code 用  &lt;code&gt;/&lt;/code&gt; 、在 Codex 用  &lt;code&gt;$&lt;/code&gt;  呼叫。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;專案結構也刻意保持乾淨：每個技能把「流程 (&lt;a href=&#34;http://SKILL.md&#34;&gt;SKILL.md&lt;/a&gt;)、報告結構 (&lt;a href=&#34;http://HTML-REPORT.md&#34;&gt;HTML-REPORT.md&lt;/a&gt;)、證據規範 (&lt;a href=&#34;http://EVIDENCE-RULES.md&#34;&gt;EVIDENCE-RULES.md&lt;/a&gt;)」拆成三份， &lt;code&gt;docs/&lt;/code&gt;  再放產品原則與來源政策 —— 規範和實作分開，之後要調整某一條規則，不用去翻整份 prompt。&lt;/p&gt;
+&lt;p&gt;專案結構也刻意保持乾淨：每個技能把「流程 (SKILL.md)、報告結構 (HTML-REPORT.md)、證據規範 (EVIDENCE-RULES.md)」拆成三份， &lt;code&gt;docs/&lt;/code&gt;  再放產品原則與來源政策 —— 規範和實作分開，之後要調整某一條規則，不用去翻整份 prompt。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;安裝與使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#安裝與使用&#34;&gt;#&lt;/a&gt; 📦 安裝與使用&lt;/h2&gt;
+&lt;h2 id=&#34;安裝與使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#安裝與使用&#34;&gt;&lt;/a&gt; 📦 安裝與使用&lt;/h2&gt;
 &lt;p&gt;用 &lt;a href=&#34;https://github.com/vercel-labs/skills&#34;&gt; &lt;code&gt;skills&lt;/code&gt; &lt;/a&gt; CLI 一鍵安裝，過程會問你要裝哪些技能、裝到哪個 agent:&lt;/p&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 一鍵安裝&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 先看看這個 repo 有哪些技能&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills --list&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 只裝其中一個&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills --skill find-grad-labs&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;裝好之後，在 Claude Code 直接輸入斜線指令:&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/find-grad-labs&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/investigate-grad-lab&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;在 Codex 則改用  &lt;code&gt;$find-grad-labs&lt;/code&gt;  /  &lt;code&gt;$investigate-grad-lab&lt;/code&gt;  (或  &lt;code&gt;/skills&lt;/code&gt;  選單)。不想用 CLI 的話，把  &lt;code&gt;skills/&lt;/code&gt;  底下的資料夾複製到 agent 的 skills 目錄 (Claude Code 全域是  &lt;code&gt;~/.claude/skills/&lt;/code&gt; ) 也可以。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;一點心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一點心得&#34;&gt;#&lt;/a&gt; 🧭 一點心得&lt;/h2&gt;
+&lt;h2 id=&#34;一點心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#一點心得&#34;&gt;&lt;/a&gt; 🧭 一點心得&lt;/h2&gt;
 &lt;p&gt;做這個專案最大的收穫，不是「AI 幫我找到了神級實驗室」, 而是逼自己把「怎麼算是有根據的判斷」寫成規範：什麼能當事實、什麼只能當參考、查不到的時候要誠實。這套原則其實不只適用找研究所 —— 任何要&lt;strong&gt;基於證據給建議&lt;/strong&gt;的 AI 應用，都適用。&lt;/p&gt;
 &lt;p&gt;它終究只是把候選名單整理清楚的工具。真正的決定，還是要自己去寫信、去面談、去感受那個實驗室適不適合你。如果你也在準備研究所，歡迎試用，也歡迎回饋 🙌&lt;/p&gt;
 &lt;blockquote&gt;
@@ -156,7 +156,7 @@
         <id>https://reedlin2002.github.io/2026/07/19/twstock-agent/</id>
         <title>📈 | 010401 Finance 台股 AI 分析助手</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2026/07/19/twstock-agent/"/>
-        <content type="html">&lt;h1 id=&#34;010401-finance-把台股研究壓縮成一次查詢的-ai-分析-app&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#010401-finance-把台股研究壓縮成一次查詢的-ai-分析-app&#34;&gt;#&lt;/a&gt; 🚀 010401 Finance - 把台股研究壓縮成一次查詢的 AI 分析 App&lt;/h1&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;🚀 010401 Finance - 把台股研究壓縮成一次查詢的 AI 分析 App&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;一款面向台股投資人的 AI 分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合在同一個畫面，輸入股票代號，就能得到一份可閱讀、可追蹤、可行動的分析報告。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -165,7 +165,7 @@
 &lt;p&gt;⚠️ 本專案提供投資研究與資料整理輔助，不構成任何買賣建議或投資邀約。實際交易前請自行判斷風險。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#專案緣起&#34;&gt;#&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
+&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
 &lt;p&gt;研究一檔台股，散戶通常要開一堆分頁：看線圖一個網站、查三大法人一個網站、翻新聞又一個網站，最後還要自己在腦中把這些資訊拼起來。這個專案想把「找資料、看技術線、看籌碼、整理觀點」壓縮成一次查詢:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;輸入  &lt;code&gt;2330&lt;/code&gt;  或公司名稱，自動抓價格、算指標、補籌碼&lt;/li&gt;
@@ -175,7 +175,7 @@
 &lt;/ul&gt;
 &lt;p&gt;核心理念是:&lt;strong&gt; 不是只問 AI, 而是先有資料再問 AI&lt;/strong&gt;。AI 的角色是研究助理，不是憑空說故事的分析師。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-專案技術&#34;&gt;#&lt;/a&gt; 🛠️ 專案技術&lt;/h2&gt;
+&lt;h2 id=&#34;️-專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-專案技術&#34;&gt;&lt;/a&gt; 🛠️ 專案技術&lt;/h2&gt;
 &lt;p&gt;🟢 前端核心&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;框架：React 18 + Vite 6&lt;br&gt;
@@ -199,23 +199,23 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 到價提醒、自選股資料存在裝置端 localStorage&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;功能導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#功能導覽&#34;&gt;#&lt;/a&gt; 📱 功能導覽&lt;/h2&gt;
+&lt;h2 id=&#34;功能導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#功能導覽&#34;&gt;&lt;/a&gt; 📱 功能導覽&lt;/h2&gt;
 &lt;p&gt;以下畫面都是用行動裝置尺寸實際操作 App 的截圖。&lt;/p&gt;
-&lt;h3 id=&#34;自選股儀表板&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#自選股儀表板&#34;&gt;#&lt;/a&gt; 自選股儀表板&lt;/h3&gt;
+&lt;h3 id=&#34;自選股儀表板&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#自選股儀表板&#34;&gt;&lt;/a&gt; 自選股儀表板&lt;/h3&gt;
 &lt;p&gt;打開 App 首頁就是自選股儀表板：每一檔顯示迷你走勢、動能訊號燈 (偏多 / 偏空 / 中性)、現價與漲跌幅，持有中的部位還會直接顯示未實現損益。&lt;/p&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/twstock-agent-home.png&#34;&gt;
     &lt;img src=&#34;/images/twstock-agent-home.png&#34; alt=&#34;自選股儀表板&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;個股分析頁&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#個股分析頁&#34;&gt;#&lt;/a&gt; 個股分析頁&lt;/h3&gt;
+&lt;h3 id=&#34;個股分析頁&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#個股分析頁&#34;&gt;&lt;/a&gt; 個股分析頁&lt;/h3&gt;
 &lt;p&gt;輸入代號查詢後，最上方是股價摘要卡：現價、漲跌、產業別，以及一句由 AI 根據技術面與籌碼面生成的重點摘要。也可以從這裡收藏自選股、寫個人持股紀錄、複製整份報告。&lt;/p&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/twstock-agent-analysis-top.png&#34;&gt;
     &lt;img src=&#34;/images/twstock-agent-analysis-top.png&#34; alt=&#34;個股分析頁&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;走勢圖-買賣計畫-overlay&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#走勢圖-買賣計畫-overlay&#34;&gt;#&lt;/a&gt; 走勢圖 + 買賣計畫 Overlay&lt;/h3&gt;
+&lt;h3 id=&#34;走勢圖-買賣計畫-overlay&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#走勢圖-買賣計畫-overlay&#34;&gt;&lt;/a&gt; 走勢圖 + 買賣計畫 Overlay&lt;/h3&gt;
 &lt;p&gt;這是我最喜歡的功能：買賣計畫不是一段文字，而是直接疊在走勢圖上 —— 買點區、停損線、目標價都畫在圖上，和月線 MA20、季線 MA60 放在一起看。圖下方的計畫卡會給出明確狀態 (進場 / 觀望 / 先不要碰), 搭配觀察買點、突破參考、停損與分批停利價位。&lt;/p&gt;
 &lt;p&gt;所有價位都對齊台股最小升降單位 (tick), 不會算出掛不出去的價格。&lt;/p&gt;
 &lt;div id=&#34;gallery&#34;&gt;
@@ -223,25 +223,25 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
     &lt;img src=&#34;/images/twstock-agent-chart.png&#34; alt=&#34;走勢圖與買賣計畫&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;ai-深入分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ai-深入分析&#34;&gt;#&lt;/a&gt; AI 深入分析&lt;/h3&gt;
+&lt;h3 id=&#34;ai-深入分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-深入分析&#34;&gt;&lt;/a&gt; AI 深入分析&lt;/h3&gt;
 &lt;p&gt;AI 報告分成幾個區塊：買點條件觀察、&lt;strong&gt;個人化進出場&lt;/strong&gt; (如果有填持股紀錄，會根據你的成本價與部位計算報酬率、安全距離與建議動作)、五大面向分析 (基本面 / 技術面 / 籌碼面 / 消息面 / 產業)、風險提示，以及引用的新聞來源清單。&lt;/p&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/twstock-agent-ai.png&#34;&gt;
     &lt;img src=&#34;/images/twstock-agent-ai.png&#34; alt=&#34;AI 深入分析&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;趨勢檢查表與進場訊號&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#趨勢檢查表與進場訊號&#34;&gt;#&lt;/a&gt; 趨勢檢查表與進場訊號&lt;/h3&gt;
+&lt;h3 id=&#34;趨勢檢查表與進場訊號&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#趨勢檢查表與進場訊號&#34;&gt;&lt;/a&gt; 趨勢檢查表與進場訊號&lt;/h3&gt;
 &lt;p&gt;「詳細數據」抽屜把技術分析轉成逐項打勾的檢查表:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;趨勢結構&lt;/strong&gt; (Weinstein 階段分析 + Minervini 趨勢樣板): 站上季線 / 半年線、均線多頭排列、年線上彎、距 52 週高低點位置&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;進場訊號&lt;/strong&gt; (O’Neil 突破框架 + 台股常用轉折):KD 低檔黃金交叉、站回季線、帶量突破前高、MACD 翻多&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;進場訊號&lt;/strong&gt; (O&#39;Neil 突破框架 + 台股常用轉折):KD 低檔黃金交叉、站回季線、帶量突破前高、MACD 翻多&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/twstock-agent-checklist.png&#34;&gt;
     &lt;img src=&#34;/images/twstock-agent-checklist.png&#34; alt=&#34;趨勢結構檢查表&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;法人籌碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#法人籌碼&#34;&gt;#&lt;/a&gt; 法人籌碼&lt;/h3&gt;
+&lt;h3 id=&#34;法人籌碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#法人籌碼&#34;&gt;&lt;/a&gt; 法人籌碼&lt;/h3&gt;
 &lt;p&gt;FinMind 的籌碼資料整理成柱狀圖與統計卡：三大法人每日買賣超、外資 / 投信 / 自營商近 5 日合計、融資融券餘額與增減，下方還有一句白話的籌碼解讀。&lt;/p&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/twstock-agent-chips.png&#34;&gt;
@@ -249,7 +249,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;ai-分析流程先有資料再問-ai&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ai-分析流程先有資料再問-ai&#34;&gt;#&lt;/a&gt; 🧠 AI 分析流程：先有資料，再問 AI&lt;/h2&gt;
+&lt;h2 id=&#34;ai-分析流程先有資料再問-ai&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-分析流程先有資料再問-ai&#34;&gt;&lt;/a&gt; 🧠 AI 分析流程：先有資料，再問 AI&lt;/h2&gt;
 &lt;p&gt;整個分析採用資料驅動流程，AI 拿到的不是股票代號，而是 App 已經算好的結構化資料:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;使用者輸入股票名稱或代號&lt;/li&gt;
@@ -262,16 +262,16 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;停損的取法也有講究：取「近 20 日低點、季線 ×0.98、觀察區上緣 ×0.92」中最接近價格的支撐，並確保與假設買價至少相隔 1×ATR 或 3%—— 太近就放寬停損，而不是把目標灌大，讓 2R/3R 名實相符。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;line-整合&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#line-整合&#34;&gt;#&lt;/a&gt; 📲 LINE 整合&lt;/h2&gt;
+&lt;h2 id=&#34;line-整合&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#line-整合&#34;&gt;&lt;/a&gt; 📲 LINE 整合&lt;/h2&gt;
 &lt;p&gt;除了 App 本體，專案也接上了 LINE 官方帳號：透過 webhook + LIFF 可以在 LINE 裡管理觀察清單，每天定時收到自選股的分析摘要，以 Flex 卡片呈現重點價位與訊號，還會追蹤 AI 過去的看法戰績、在觀點被推翻時主動提醒。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;其他周邊&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#其他周邊&#34;&gt;#&lt;/a&gt; 🔧 其他周邊&lt;/h2&gt;
+&lt;h2 id=&#34;其他周邊&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#其他周邊&#34;&gt;&lt;/a&gt; 🔧 其他周邊&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Python 報告產生器&lt;/strong&gt;: &lt;code&gt;python/taiwan_stock_agent.py 2330&lt;/code&gt;  一行指令產出含 K 線、均線、KD、MACD 的單檔 HTML 分析報告&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Android 打包&lt;/strong&gt;: &lt;code&gt;npm run android:apk&lt;/code&gt;  一鍵走完 Vite build → Capacitor sync → Gradle assemble&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-重要聲明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-重要聲明&#34;&gt;#&lt;/a&gt; ⚠️ 重要聲明&lt;/h2&gt;
+&lt;h2 id=&#34;️-重要聲明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-重要聲明&#34;&gt;&lt;/a&gt; ⚠️ 重要聲明&lt;/h2&gt;
 &lt;p&gt;本 App 產生的內容只供研究、學習與資訊整理使用。技術指標與 AI 分析都可能失準，任何買進、賣出、停損或停利決策，皆應由使用者自行負責。&lt;/p&gt;
 </content>
         <category term="project" />
@@ -281,7 +281,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
         <id>https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/</id>
         <title>📍 | LocalAIAgentAPI</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"/>
-        <content type="html">&lt;h1 id=&#34;學習專案localaiagentapi-從零開始的-ai-整合練習&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#學習專案localaiagentapi-從零開始的-ai-整合練習&#34;&gt;#&lt;/a&gt; 學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習&lt;/h1&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -291,7 +291,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;學習目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#學習目標&#34;&gt;#&lt;/a&gt; 學習目標&lt;/h2&gt;
+&lt;h2 id=&#34;學習目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#學習目標&#34;&gt;&lt;/a&gt; 學習目標&lt;/h2&gt;
 &lt;p&gt;作為一個正在準備面試的開發者，我給自己設定了一個挑戰：&lt;br&gt;
 能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？&lt;/p&gt;
 &lt;p&gt;說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有挑戰性的目標：&lt;/p&gt;
@@ -304,12 +304,12 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;結果沒想到，這個學習過程遠比我預期的有趣。每天回家寫 code，看到專案從無到有的感覺真的很讚。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;localaiagentapi&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#localaiagentapi&#34;&gt;#&lt;/a&gt; LocalAIAgentAPI&lt;/h2&gt;
+&lt;h2 id=&#34;localaiagentapi&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#localaiagentapi&#34;&gt;&lt;/a&gt; LocalAIAgentAPI&lt;/h2&gt;
 &lt;p&gt;這個專案基本上就是我這週學習筆記的具現化。我想透過實作來理解一些平常只能紙上談兵的問題：&lt;/p&gt;
 &lt;p&gt;怎麼在 .NET 中整合不同類型的 AI 模型？每個模型的 API 都不一樣，要怎麼設計統一的介面？REST API 的架構要怎麼設計才不會讓未來的自己想哭？前端跟後端的資料交換有哪些眉角？錯誤處理和日誌記錄該做到什麼程度？&lt;/p&gt;
 &lt;p&gt;雖然是練習專案，但我還是盡量按照真實專案的標準來做。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;building&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#building&#34;&gt;#&lt;/a&gt; Building&lt;/h2&gt;
+&lt;h2 id=&#34;building&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#building&#34;&gt;&lt;/a&gt; Building&lt;/h2&gt;
 &lt;p&gt;這一週下來，我大概涉獵了這些領域：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;後端架構&lt;/strong&gt;：.NET 8 Web API、依賴注入、Middleware&lt;br&gt;
  老實說，之前對 .NET 8 的依賴注入只是停留在「知道有這個東西」的階段，實際動手做才發現它比想像中強大很多。&lt;/p&gt;
@@ -324,7 +324,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;錯誤處理&lt;/strong&gt;：全域異常處理、Timeout 機制&lt;br&gt;
 踩了不少坑，但也學到如何優雅地處理各種意外狀況。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;problems&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#problems&#34;&gt;#&lt;/a&gt; Problems&lt;/h2&gt;
+&lt;h2 id=&#34;problems&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#problems&#34;&gt;&lt;/a&gt; Problems&lt;/h2&gt;
 &lt;p&gt;一週要整合這麼多東西，當然會遇到一些讓人頭痛的問題：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;模型載入失敗&lt;/strong&gt;：一開始 LLAMA2 模型老是載入不起來，debug 了半天才發現是 Ollama 路徑的問題。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;回應時間過長&lt;/strong&gt;：某些 LLM 推理需要很長時間，一開始沒設 Timeout，結果前端就一直等等等。體驗直接崩潰。&lt;/p&gt;
@@ -334,18 +334,18 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;p&gt;不過每解決一個問題，就覺得又成長了一點。這大概就是寫 code 最爽的地方吧。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;learning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#learning&#34;&gt;#&lt;/a&gt; Learning&lt;/h2&gt;
-&lt;h3 id=&#34;技術層面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#技術層面&#34;&gt;#&lt;/a&gt; 技術層面&lt;/h3&gt;
+&lt;h2 id=&#34;learning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#learning&#34;&gt;&lt;/a&gt; Learning&lt;/h2&gt;
+&lt;h3 id=&#34;技術層面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技術層面&#34;&gt;&lt;/a&gt; 技術層面&lt;/h3&gt;
 &lt;p&gt;對 .NET 8 的依賴注入和 Middleware 機制有了更深入的理解。之前都是看文件學習，實際用過才知道哪些地方容易出錯。&lt;/p&gt;
 &lt;p&gt;了解了不同 AI 模型的整合方式和各自的限制。每種模型都有自己的脾氣，要花時間去摸索。&lt;/p&gt;
 &lt;p&gt;練習了 API 設計和錯誤處理的一些最佳實踐。雖然還不敢說做得很好，但至少知道該注意什麼。&lt;/p&gt;
 &lt;p&gt;熟悉了前後端資料交換的完整流程。之前都是分別學習，這次算是串起來了。&lt;/p&gt;
-&lt;h3 id=&#34;軟實力&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#軟實力&#34;&gt;#&lt;/a&gt; 軟實力&lt;/h3&gt;
+&lt;h3 id=&#34;軟實力&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#軟實力&#34;&gt;&lt;/a&gt; 軟實力&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;問題解決能力&lt;/strong&gt;：遇到問題時如何有效地搜尋資料、閱讀文件、測試假設。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;學習方法&lt;/strong&gt;：如何在有限時間內快速掌握新技術的核心概念。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;架構思維&lt;/strong&gt;：開始思考如何設計可維護、可擴展的系統架構。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;這個專案&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#這個專案&#34;&gt;#&lt;/a&gt; 這個專案&lt;/h3&gt;
+&lt;h3 id=&#34;這個專案&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#這個專案&#34;&gt;&lt;/a&gt; 這個專案&lt;/h3&gt;
 &lt;p&gt;我會誠實地說：「這是我為了學習 AI 整合和準備面試而做的練習專案。功能相對簡單，但我把重點放在架構設計和程式碼品質上。」&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;為什麼選擇這些技術組合？各有什麼優缺點？&lt;/li&gt;
@@ -357,12 +357,12 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;p&gt;我覺得展現學習態度和解決問題的思路，比專案本身的完成度更重要。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;next-week&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#next-week&#34;&gt;#&lt;/a&gt; Next Week！&lt;/h2&gt;
+&lt;h2 id=&#34;next-week&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#next-week&#34;&gt;&lt;/a&gt; Next Week！&lt;/h2&gt;
 &lt;p&gt;這個專案讓我嚐到了甜頭，也發現了很多可以改進的地方：&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;程式碼重構&lt;/strong&gt;：有些地方寫得匆忙，想練習如何重構成更乾淨的程式碼。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;容器化部署&lt;/strong&gt;：嘗試用 Docker 打包，體驗現代化的部署流程。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;專案原始碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#專案原始碼&#34;&gt;#&lt;/a&gt; 專案原始碼&lt;/h2&gt;
+&lt;h2 id=&#34;專案原始碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案原始碼&#34;&gt;&lt;/a&gt; 專案原始碼&lt;/h2&gt;
 &lt;p&gt;GitHub Repo: &lt;a href=&#34;https://github.com/reedlin2002/LocalAIAgentAPI&#34;&gt;reedlin2002/LocalAIAgentAPI&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;重要提醒&lt;/strong&gt;：這是我的學習練習專案，程式碼品質可能還有很大改進空間，絕對不建議直接用在正式環境中。但如果你也在學習相關技術，歡迎參考或給我一些建議。&lt;/p&gt;
 &lt;p&gt;如果發現任何問題或有改進建議，也歡迎開 Issue 讓我學習。畢竟一個人閉門造車很容易有盲點。&lt;/p&gt;
@@ -390,13 +390,13 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
         <id>https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/</id>
         <title>🌐 | 網站健康監控平台</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/"/>
-        <content type="html">&lt;h1 id=&#34;net-url-health-monitor-以-docker-部署的網站監控服務&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#net-url-health-monitor-以-docker-部署的網站監控服務&#34;&gt;#&lt;/a&gt; 🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務&lt;/h1&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;►  「 &lt;a href=&#34;https://github.com/reedlin2002/UrlHealthMonitor&#34;&gt;GITHUB&lt;/a&gt; 」&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#專案緣起&#34;&gt;#&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
+&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
 &lt;p&gt;在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本專案希望：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;自動化監控：每 30 秒自動檢查所有註冊的 URL&lt;/li&gt;
@@ -405,10 +405,10 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;li&gt;提供容器化部署：Docker 一鍵部署，跨平台支援&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-專案技術&#34;&gt;#&lt;/a&gt; 🛠️ 專案技術&lt;/h2&gt;
+&lt;h2 id=&#34;️-專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-專案技術&#34;&gt;&lt;/a&gt; 🛠️ 專案技術&lt;/h2&gt;
 &lt;p&gt;🟢 後端核心&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;框架：.NET 8 Worker Service + &lt;a href=&#34;http://ASP.NET&#34;&gt;ASP.NET&lt;/a&gt; Minimal API&lt;br&gt;
+&lt;p&gt;框架：.NET 8 Worker Service + ASP.NET Minimal API&lt;br&gt;
  語言：C#（Async/Await + 依賴注入）&lt;br&gt;
 資料庫：SQLite 輕量級資料庫&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -428,24 +428,24 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
  環境支援：Linux / Windows /macOS&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-執行方式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-執行方式&#34;&gt;#&lt;/a&gt; ⚙️ 執行方式&lt;/h2&gt;
-&lt;h3 id=&#34;開發模式-本機執行&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#開發模式-本機執行&#34;&gt;#&lt;/a&gt; 開發模式 (本機執行)&lt;/h3&gt;
+&lt;h2 id=&#34;️-執行方式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-執行方式&#34;&gt;&lt;/a&gt; ⚙️ 執行方式&lt;/h2&gt;
+&lt;h3 id=&#34;開發模式-本機執行&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#開發模式-本機執行&#34;&gt;&lt;/a&gt; 開發模式 (本機執行)&lt;/h3&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;dotnet run -- add &amp;lt;URL&amp;gt;       # 新增要監控的 URL&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;dotnet run -- list            # 列出所有 URL&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;dotnet run -- remove &amp;lt;ID&amp;gt;     # 移除指定 URL&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;dotnet run -- serve           # 啟動 Web UI&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;打開 &lt;a href=&#34;http://localhost:5000&#34;&gt;http://localhost:5000&lt;/a&gt; 查看 Dashboard。&lt;/p&gt;
-&lt;h3 id=&#34;docker-部署&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#docker-部署&#34;&gt;#&lt;/a&gt; Docker 部署&lt;/h3&gt;
+&lt;p&gt;打開 http://localhost:5000 查看 Dashboard。&lt;/p&gt;
+&lt;h3 id=&#34;docker-部署&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#docker-部署&#34;&gt;&lt;/a&gt; Docker 部署&lt;/h3&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;# 建置映像&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;docker build -t urlhealthmonitor .&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;# 執行容器&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;docker run -d -p 5001:5000 --name urlhealthmonitor urlhealthmonitor&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;打開 &lt;a href=&#34;http://localhost:5001&#34;&gt;http://localhost:5001&lt;/a&gt; 查看 Dashboard。&lt;/p&gt;
+&lt;p&gt;打開 http://localhost:5001 查看 Dashboard。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;實際示範&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#實際示範&#34;&gt;#&lt;/a&gt; 🌐 實際示範&lt;/h2&gt;
+&lt;h2 id=&#34;實際示範&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#實際示範&#34;&gt;&lt;/a&gt; 🌐 實際示範&lt;/h2&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/UrlHealthMonitor-01.png&#34;&gt;
     &lt;img src=&#34;/images/UrlHealthMonitor-01.png&#34; alt=&#34;記帳頁面&#34; style=&#34;max-width: 600px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;tdd-測試&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#tdd-測試&#34;&gt;#&lt;/a&gt; 🧪 TDD 測試&lt;/h2&gt;
-&lt;h3 id=&#34;測試&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#測試&#34;&gt;#&lt;/a&gt; 測試&lt;/h3&gt;
+&lt;h2 id=&#34;tdd-測試&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#tdd-測試&#34;&gt;&lt;/a&gt; 🧪 TDD 測試&lt;/h2&gt;
+&lt;h3 id=&#34;測試&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#測試&#34;&gt;&lt;/a&gt; 測試&lt;/h3&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;dotnet test&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;測試範圍：&lt;/p&gt;
 &lt;ul&gt;
@@ -454,7 +454,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;li&gt;資料庫操作&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;未來擴展&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#未來擴展&#34;&gt;#&lt;/a&gt; 🚀 未來擴展&lt;/h2&gt;
+&lt;h2 id=&#34;未來擴展&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#未來擴展&#34;&gt;&lt;/a&gt; 🚀 未來擴展&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;RESTful API 支援&lt;/li&gt;
 &lt;li&gt;整合通知 (EMAIL / LINE)&lt;/li&gt;
@@ -463,7 +463,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;技術與應用方法：&lt;br&gt;
 .NET 8、C#（Async/Await + 依賴注入）、SQLite、xUnit + FluentAssertions（TDD 開發流程）、Docker、HttpClient（網站監控）、CLI 、JavaScript + HTML/CSS&lt;/p&gt;
-&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#心得&#34;&gt;#&lt;/a&gt; 📝 心得&lt;/h2&gt;
+&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#心得&#34;&gt;&lt;/a&gt; 📝 心得&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;針對 TDD、HTTP 協議這兩個技術練習了這個「HTTP 狀態碼偵測器」，在撰寫程式碼的過程中因為使用的是很久沒碰的 C# 一開始確實有些生疏，經常忘記變數宣告的語法規則，但隨著練習逐漸找回手感。在 Docker 部屬上，常常遇到檔案不知道放哪裡的問題，不過經過一番 ChatGPT 的協助和一番研究也是弄好了～也靠著 TDD 學會了更可靠的程式碼，先用測試再寫功能，確保程式碼符合預期，減少 BUG，培養良好的開發習慣&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -487,12 +487,12 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
         <id>https://reedlin2002.github.io/2025/06/25/ollama/</id>
         <title>🧠 | 聊天機器人</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2025/06/25/ollama/"/>
-        <content type="html">&lt;h1 id=&#34;用-ollama-langchain-打造本地-ai-工具型-agent含-rag-文件問答&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#用-ollama-langchain-打造本地-ai-工具型-agent含-rag-文件問答&#34;&gt;#&lt;/a&gt; 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）&lt;/h1&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;專案目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#專案目標&#34;&gt;#&lt;/a&gt; 🔧 專案目標&lt;/h2&gt;
+&lt;h2 id=&#34;專案目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案目標&#34;&gt;&lt;/a&gt; 🔧 專案目標&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;✫️ 建立一個 AI 助手系統，具備：&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -502,10 +502,10 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;li&gt;使用自己裝好模型的 Ollama + LangChain Agent 結構&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;系統流程圖&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#系統流程圖&#34;&gt;#&lt;/a&gt; 系統流程圖&lt;/h2&gt;
+&lt;h2 id=&#34;系統流程圖&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#系統流程圖&#34;&gt;&lt;/a&gt; 系統流程圖&lt;/h2&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;使用者輸入問題&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;判斷是否需呼叫工具？&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;【需要工具的流程】                                           【不需要工具的流程】&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;LangChain Agent 分析                 直接呼叫 LLM → LLM 生成回答 → 輸出結果給使用者&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;選擇對應 Tool&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ├ Calculator Tool&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    │&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ├ Get Weather Tool  &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    │&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    └ RAG Tool&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ├ TextLoader 載入檔案&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ├ Text Splitter 切段&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ├ HuggingFaceEmbeddings 向量化&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        └ FAISS 向量資料庫檢索&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Ollama LLM (Mistral)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;生成回答&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;輸出結果給使用者&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;套件與技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#套件與技術&#34;&gt;#&lt;/a&gt; 套件與技術&lt;/h2&gt;
+&lt;h2 id=&#34;套件與技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#套件與技術&#34;&gt;&lt;/a&gt; 套件與技術&lt;/h2&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -545,13 +545,13 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;核心程式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#核心程式&#34;&gt;#&lt;/a&gt; 核心程式&lt;/h3&gt;
+&lt;h3 id=&#34;核心程式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#核心程式&#34;&gt;&lt;/a&gt; 核心程式&lt;/h3&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# ⭐️ LLM 模型（使用 Ollama + Mistral）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;llm = OllamaLLM(model=&lt;span class=&#34;string&#34;&gt;&amp;quot;mistral&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# ⭐️ 建立工具：Calculator / Get Weather&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;calculator&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;query&lt;/span&gt;): &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;str&lt;/span&gt;(&lt;span class=&#34;built_in&#34;&gt;eval&lt;/span&gt;(query))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;get_weather&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;city&lt;/span&gt;): &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &amp;#123;&lt;span class=&#34;string&#34;&gt;&amp;quot;台北&amp;quot;&lt;/span&gt;:&lt;span class=&#34;string&#34;&gt;&amp;quot;晴天30度&amp;quot;&lt;/span&gt;&amp;#125;.get(city, &lt;span class=&#34;string&#34;&gt;&amp;quot;查無資料&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# ⭐️ RAG 工具：透過 FAISS 向量庫查詢本地 data.txt&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;build_rag_tool&lt;/span&gt;():&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    loader = TextLoader(&lt;span class=&#34;string&#34;&gt;&amp;quot;data.txt&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    docs = loader.load()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    splits = CharacterTextSplitter(chunk_size=&lt;span class=&#34;number&#34;&gt;500&lt;/span&gt;).split_documents(docs)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    embeddings = HuggingFaceEmbeddings()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    vectorstore = FAISS.from_documents(splits, embeddings)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    retriever = vectorstore.as_retriever()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    rag_chain = RetrievalQA.from_chain_type(llm, retriever=retriever)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; Tool(name=&lt;span class=&#34;string&#34;&gt;&amp;quot;rag_tool&amp;quot;&lt;/span&gt;, func=rag_chain.run, description=&lt;span class=&#34;string&#34;&gt;&amp;quot;查詢本地知識文件&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&#34;整合-tool-與-agent&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#整合-tool-與-agent&#34;&gt;#&lt;/a&gt; 整合 Tool 與 Agent&lt;/h3&gt;
+&lt;h3 id=&#34;整合-tool-與-agent&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#整合-tool-與-agent&#34;&gt;&lt;/a&gt; 整合 Tool 與 Agent&lt;/h3&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;tools = [&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Tool.from_function(&lt;span class=&#34;string&#34;&gt;&amp;quot;calculator&amp;quot;&lt;/span&gt;, calculator, &lt;span class=&#34;string&#34;&gt;&amp;quot;數學計算&amp;quot;&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    Tool.from_function(&lt;span class=&#34;string&#34;&gt;&amp;quot;get_weather&amp;quot;&lt;/span&gt;, get_weather, &lt;span class=&#34;string&#34;&gt;&amp;quot;天氣查詢&amp;quot;&lt;/span&gt;),&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    build_rag_tool()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;agent = initialize_agent(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    tools=tools,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    llm=llm,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    agent_type=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    handle_parsing_errors=&lt;span class=&#34;literal&#34;&gt;True&lt;/span&gt;,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    verbose=&lt;span class=&#34;literal&#34;&gt;False&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;測試&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#測試&#34;&gt;#&lt;/a&gt; 測試&lt;/h2&gt;
-&lt;h3 id=&#34;查詢天氣台北&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#查詢天氣台北&#34;&gt;#&lt;/a&gt; 查詢天氣：台北&lt;/h3&gt;
+&lt;h2 id=&#34;測試&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#測試&#34;&gt;&lt;/a&gt; 測試&lt;/h2&gt;
+&lt;h3 id=&#34;查詢天氣台北&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#查詢天氣台北&#34;&gt;&lt;/a&gt; 查詢天氣：台北&lt;/h3&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;❓請輸入問題：查台北天氣&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;🧩 使用 [Agent] 處理中...&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Action: get_weather&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Action Input: &lt;span class=&#34;string&#34;&gt;&amp;#x27;Taipei&amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Observation: 晴天，30 度&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Final Answer: 晴天，30 度&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;div id=&#34;gallery1&#34;&gt;
   &lt;a href=&#34;/images/ollama-Taipei.png&#34;&gt;
@@ -559,7 +559,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;查詢天氣高雄&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#查詢天氣高雄&#34;&gt;#&lt;/a&gt; 查詢天氣：高雄&lt;/h3&gt;
+&lt;h3 id=&#34;查詢天氣高雄&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#查詢天氣高雄&#34;&gt;&lt;/a&gt; 查詢天氣：高雄&lt;/h3&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;❓請輸入問題：高雄幾度&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Action: get_weather&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Action Input: &lt;span class=&#34;string&#34;&gt;&amp;#x27;高雄&amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Observation: 小雨，27 度&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Final Answer: 高雄今天是小雨且27度。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;div id=&#34;gallery2&#34;&gt;
   &lt;a href=&#34;/images/ollama-KAO.png&#34;&gt;
@@ -567,7 +567,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;數學運算&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#數學運算&#34;&gt;#&lt;/a&gt; 數學運算&lt;/h3&gt;
+&lt;h3 id=&#34;數學運算&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#數學運算&#34;&gt;&lt;/a&gt; 數學運算&lt;/h3&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;❓請輸入問題：12 * 3 + 5 是多少？&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Action: calculator&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Action Input: &lt;span class=&#34;string&#34;&gt;&amp;#x27;12 * 3 + 5&amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Observation: 45&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Final Answer: 結果為45。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;div id=&#34;gallery3&#34;&gt;
   &lt;a href=&#34;/images/ollama-math.png&#34;&gt;
@@ -575,7 +575,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;問文件內容&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#問文件內容&#34;&gt;#&lt;/a&gt; 問文件內容&lt;/h3&gt;
+&lt;h3 id=&#34;問文件內容&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#問文件內容&#34;&gt;&lt;/a&gt; 問文件內容&lt;/h3&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;❓請輸入問題：文件內容有提到什麼？&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Action: rag_tool&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Observation: 文件提到了台灣、台北、自然風景、語言（台語、閩南語、客家話）、夜市與珍珠奶茶等。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;Final Answer: 這份文件提到了台灣、台北、自然風景、文化與語言、以及夜市文化。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;div id=&#34;gallery4&#34;&gt;
   &lt;a href=&#34;/images/ollama-RAG.png&#34;&gt;
@@ -583,7 +583,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h3 id=&#34;自然對話&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#自然對話&#34;&gt;#&lt;/a&gt; 自然對話&lt;/h3&gt;
+&lt;h3 id=&#34;自然對話&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#自然對話&#34;&gt;&lt;/a&gt; 自然對話&lt;/h3&gt;
 &lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;❓請輸入問題：你好&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;💬 使用 LLM 直接回答...&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;🤖 回答：您好！讓我有幸為您提供服務。如果您有任何問題，請隨時告知，我會盡力幫助您解決。&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;div id=&#34;gallery5&#34;&gt;
   &lt;a href=&#34;/images/ollama-LLM.png&#34;&gt;
@@ -591,12 +591,12 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;結構&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#結構&#34;&gt;#&lt;/a&gt; 📁 結構&lt;/h2&gt;
+&lt;h2 id=&#34;結構&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#結構&#34;&gt;&lt;/a&gt; 📁 結構&lt;/h2&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;my-ollama/&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;│&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;├── main.py&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;├── data.txt       ← 本地知識庫文字檔&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;├── .venv/         ← 虛擬環境&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;├── requirements.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;hr&gt;
 &lt;p&gt;技術包含：&lt;br&gt;
 Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、RetrievalQA、自訂工具函數（Calculator、Get Weather）&lt;/p&gt;
-&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#心得&#34;&gt;#&lt;/a&gt; 📝 心得&lt;/h2&gt;
+&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#心得&#34;&gt;&lt;/a&gt; 📝 心得&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;第一次接觸 LLM、LangChain、Agent 花了 2、3 天完成這個小應用。&lt;br&gt;
 這個 project 幫助我：&lt;/p&gt;
@@ -646,7 +646,7 @@ Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、
         <id>https://reedlin2002.github.io/2025/06/18/expenses/</id>
         <title>🤖 | 記帳小管家</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2025/06/18/expenses/"/>
-        <content type="html">&lt;h1 id=&#34;一個結合-react-前端與-flask-後端的個人記帳專案&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#一個結合-react-前端與-flask-後端的個人記帳專案&#34;&gt;#&lt;/a&gt; 一個結合 React 前端與 Flask 後端的個人記帳專案&lt;/h1&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;一個結合 React 前端與 Flask 後端的個人記帳專案&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -656,7 +656,7 @@ Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;執行目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#執行目標&#34;&gt;#&lt;/a&gt; 執行目標&lt;/h2&gt;
+&lt;h2 id=&#34;執行目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#執行目標&#34;&gt;&lt;/a&gt; 執行目標&lt;/h2&gt;
 &lt;p&gt;希望做出一款簡單的記帳小工具，具有以下功能：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;支援每日紀錄多筆支出&lt;/li&gt;
@@ -666,23 +666,23 @@ Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、
 &lt;li&gt;支援本地儲存（localStorage）&lt;/li&gt;
 &lt;li&gt;無須登入註冊，輕量、單機可用&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;技術使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#技術使用&#34;&gt;#&lt;/a&gt; 技術使用&lt;/h2&gt;
+&lt;h2 id=&#34;技術使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技術使用&#34;&gt;&lt;/a&gt; 技術使用&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Flask&lt;/strong&gt;: Python 後端 Web Framework&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;HTML + React (CDN)&lt;/strong&gt;: 前端創建主畫面&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Babel (CDN)&lt;/strong&gt;: 讓我們直接在 HTML 中操作 JSX&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;CSS&lt;/strong&gt;: 自定義樣式&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;http://Render.com&#34;&gt;Render.com&lt;/a&gt;&lt;/strong&gt;: 免費部署 Platform&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Render.com&lt;/strong&gt;: 免費部署 Platform&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;flask-後端&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#flask-後端&#34;&gt;#&lt;/a&gt; Flask 後端&lt;/h3&gt;
+&lt;h3 id=&#34;flask-後端&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#flask-後端&#34;&gt;&lt;/a&gt; Flask 後端&lt;/h3&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# python&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; flask &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; Flask, render_template  &lt;span class=&#34;comment&#34;&gt;# 匯入 Flask 框架與頁面渲染函式&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; os  &lt;span class=&#34;comment&#34;&gt;# 匯入 os 模組，用於抓取環境變數&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;app = Flask(__name__)  &lt;span class=&#34;comment&#34;&gt;# 初始化 Flask 應用&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;@app.route(&lt;span class=&#34;params&#34;&gt;&lt;span class=&#34;string&#34;&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;/span&gt;)  &lt;/span&gt;&lt;span class=&#34;comment&#34;&gt;# 當用戶訪問根目錄 `/` 時&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;index&lt;/span&gt;():&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; render_template(&lt;span class=&#34;string&#34;&gt;&amp;quot;index.html&amp;quot;&lt;/span&gt;)  &lt;span class=&#34;comment&#34;&gt;# 回傳前端頁面（templates/index.html）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; __name__ == &lt;span class=&#34;string&#34;&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;comment&#34;&gt;# 讓 Flask 可以在本地測試，也能被 Render 部署（抓環境變數 PORT）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    port = &lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;(os.environ.get(&lt;span class=&#34;string&#34;&gt;&amp;quot;PORT&amp;quot;&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;5000&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    app.run(host=&lt;span class=&#34;string&#34;&gt;&amp;quot;0.0.0.0&amp;quot;&lt;/span&gt;, port=port)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&#34;前端-html-react&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#前端-html-react&#34;&gt;#&lt;/a&gt; 前端 HTML + React&lt;/h3&gt;
+&lt;h3 id=&#34;前端-html-react&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#前端-html-react&#34;&gt;&lt;/a&gt; 前端 HTML + React&lt;/h3&gt;
 &lt;figure class=&#34;highlight html&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;&amp;lt;!-- index.html --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;link&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;rel&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;href&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;&amp;#123;&amp;#123; url_for(&amp;#x27;static&amp;#x27;, filename=&amp;#x27;css/style.css&amp;#x27;) &amp;#125;&amp;#125;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;&amp;lt;!-- React &amp;amp; Babel CDN --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;src&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;https://unpkg.com/react@18/umd/react.development.js&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;src&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;https://unpkg.com/react-dom@18/umd/react-dom.development.js&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;src&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;https://unpkg.com/@babel/standalone/babel.min.js&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;&amp;lt;!-- Chart.js for data visualization --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;src&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;https://cdn.jsdelivr.net/npm/chart.js&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;&amp;lt;!-- 載入應用程式主程式 --&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;type&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;text/babel&amp;quot;&lt;/span&gt; &lt;span class=&#34;attr&#34;&gt;src&lt;/span&gt;=&lt;span class=&#34;string&#34;&gt;&amp;quot;&amp;#123;&amp;#123; url_for(&amp;#x27;static&amp;#x27;, filename=&amp;#x27;js/app.js&amp;#x27;) &amp;#125;&amp;#125;&amp;quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;tag&#34;&gt;&amp;lt;/&lt;span class=&#34;name&#34;&gt;script&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;React 使用 CDN 形式加載，用  &lt;code&gt;babel&lt;/code&gt;  直接執行 JSX 程式&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&#34;react-應用程式-core&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#react-應用程式-core&#34;&gt;#&lt;/a&gt; React 應用程式 core&lt;/h2&gt;
-&lt;h3 id=&#34;資料儲存方式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#資料儲存方式&#34;&gt;#&lt;/a&gt; 資料儲存方式&lt;/h3&gt;
+&lt;h2 id=&#34;react-應用程式-core&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#react-應用程式-core&#34;&gt;&lt;/a&gt; React 應用程式 core&lt;/h2&gt;
+&lt;h3 id=&#34;資料儲存方式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#資料儲存方式&#34;&gt;&lt;/a&gt; 資料儲存方式&lt;/h3&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
@@ -709,15 +709,15 @@ Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3 id=&#34;架構設計&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#架構設計&#34;&gt;#&lt;/a&gt; 架構設計&lt;/h3&gt;
+&lt;h3 id=&#34;架構設計&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#架構設計&#34;&gt;&lt;/a&gt; 架構設計&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;資料儲存：所有紀錄保存在 localStorage，依照日期分類。&lt;/li&gt;
 &lt;li&gt;畫面互動：輸入資料即時更新列表與圖表，並保留在本地。&lt;/li&gt;
 &lt;li&gt;視覺化統計：使用 Chart.js 呈現每日總支出，支援週次切換與點擊查看。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;技術包含：&lt;br&gt;
-Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStorage、&lt;a href=&#34;http://Render.com&#34;&gt;Render.com&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#心得&#34;&gt;#&lt;/a&gt; 📝 心得&lt;/h2&gt;
+Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStorage、Render.com&lt;/p&gt;
+&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#心得&#34;&gt;&lt;/a&gt; 📝 心得&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;這是一個簡單的 Flask + React 應用，Side Project。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -741,12 +741,11 @@ Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStora
         <id>https://reedlin2002.github.io/2025/06/09/program/</id>
         <title>📕 | PDF Reader</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2025/06/09/program/"/>
-        <content type="html">&lt;h1 id=&#34;pdf-reader&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#pdf-reader&#34;&gt;#&lt;/a&gt; PDF Reader&lt;/h1&gt;
-&lt;blockquote&gt;
+        <content type="html">&lt;blockquote&gt;
 &lt;p&gt;這是一個利用 RAG（Retrieval-Augmented Generation），做的 PDF 閱讀工具，方便從 PDF 文件中查詢資訊。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;技術架構&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#技術架構&#34;&gt;#&lt;/a&gt; 技術架構&lt;/h2&gt;
+&lt;h2 id=&#34;技術架構&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技術架構&#34;&gt;&lt;/a&gt; 技術架構&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;使用 Streamlit 做前端互動頁面，讓使用者上傳 PDF 並輸入問題。&lt;/li&gt;
 &lt;li&gt;使用 PyPDF2 讀取 PDF 內容，jieba 進行分段。&lt;/li&gt;
@@ -756,31 +755,31 @@ Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStora
 &lt;/ul&gt;
 &lt;p&gt;RAG 技術透過檢索（Retrieval）+ 增強上下文（Augmentation）+ 生成回答（Generation）三步驟，讓模型根據提供的內容產出準確的答案。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;rag-流程-簡易&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#rag-流程-簡易&#34;&gt;#&lt;/a&gt; 🧩 RAG 流程 (簡易)&lt;/h2&gt;
+&lt;h2 id=&#34;rag-流程-簡易&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#rag-流程-簡易&#34;&gt;&lt;/a&gt; 🧩 RAG 流程 (簡易)&lt;/h2&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;提問 → 檢索相關內容 → 合併為上下文 → 模型生成回答&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&#34;1-retrieval檢索&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#1-retrieval檢索&#34;&gt;#&lt;/a&gt; 1. Retrieval（檢索）&lt;/h3&gt;
+&lt;h3 id=&#34;1-retrieval檢索&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#1-retrieval檢索&#34;&gt;&lt;/a&gt; 1. Retrieval（檢索）&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;將 PDF 切成段落並建立向量表示（TF-IDF 或 embedding）&lt;/li&gt;
 &lt;li&gt;使用 cosine similarity 找出與問題最相關的段落&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;2-augmentation增強&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#2-augmentation增強&#34;&gt;#&lt;/a&gt; 2. Augmentation（增強）&lt;/h3&gt;
+&lt;h3 id=&#34;2-augmentation增強&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#2-augmentation增強&#34;&gt;&lt;/a&gt; 2. Augmentation（增強）&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;將相關段落合併成上下文內容&lt;/li&gt;
 &lt;li&gt;與問題一起輸入給模型&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;3-generation生成&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#3-generation生成&#34;&gt;#&lt;/a&gt; 3. Generation（生成）&lt;/h3&gt;
+&lt;h3 id=&#34;3-generation生成&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#3-generation生成&#34;&gt;&lt;/a&gt; 3. Generation（生成）&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;使用 Hugging Face 的中文 QA 模型回答問題&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;系統流程圖&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#系統流程圖&#34;&gt;#&lt;/a&gt; 系統流程圖&lt;/h2&gt;
+&lt;h2 id=&#34;系統流程圖&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#系統流程圖&#34;&gt;&lt;/a&gt; 系統流程圖&lt;/h2&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[PDF 上傳] → [文字解析] → [中文分段]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                        ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;           [段落向量化（TF-IDF）]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                        ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;         [使用者提問 → 問題向量化]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                        ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;         [計算相似度 → 取前 3 段]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                        ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        [合併上下文 + question]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                        ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;         [丟進 HuggingFace QA 模型]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                        ↓&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                 [產生回答]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;程式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#程式&#34;&gt;#&lt;/a&gt; 程式&lt;/h2&gt;
+&lt;h2 id=&#34;程式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#程式&#34;&gt;&lt;/a&gt; 程式&lt;/h2&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 建立段落的 TF-IDF 向量庫&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;chunk_vectors = vectorizer.fit_transform(chunks)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 將使用者問題向量化&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;query_vec = vectorizer.transform([user_question])&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 計算問題與各段落相似度&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;similarities = cosine_similarity(query_vec, chunk_vectors)[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 取得前三個最高相似度段落索引&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;top_indices = similarities.argsort()[-&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;:][::-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 聚合成上下文&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;top_chunks = [chunks[i] &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; i &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; top_indices]&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;context = &lt;span class=&#34;string&#34;&gt;&amp;quot;\n&amp;quot;&lt;/span&gt;.join(top_chunks)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 丟給問答模型產生答案&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;result = qa_pipeline(&amp;#123;&lt;span class=&#34;string&#34;&gt;&amp;quot;question&amp;quot;&lt;/span&gt;: user_question, &lt;span class=&#34;string&#34;&gt;&amp;quot;context&amp;quot;&lt;/span&gt;: context&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;技術包含：&lt;br&gt;
 Python、Streamlit、PyPDF2、jieba、SentenceTransformers、FAISS、Hugging Face Transformers&lt;/p&gt;
-&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#心得&#34;&gt;#&lt;/a&gt; 📝 心得&lt;/h2&gt;
+&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#心得&#34;&gt;&lt;/a&gt; 📝 心得&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;備註&lt;/strong&gt;：這個程式是我學習 RAG 技術的初步嘗試，所以還有很多能夠優化的地方，請多指教。&lt;/p&gt;
 &lt;/blockquote&gt;

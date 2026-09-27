@@ -46,11 +46,49 @@
     }
   }
 
+  /* ── 滑過預覽圖：第一次滑過條目才載入 ─────────────
+     預覽圖平常是 opacity 0，但 <img src> 照樣會下載（首頁因此載了約 9.6 MB）。
+     改成 data-src，只在有滑鼠的寬螢幕、第一次滑過或聚焦條目時才換成 src。 */
+  function initPreviewImages() {
+    var canHover = window.matchMedia && window.matchMedia('(hover: hover) and (min-width: 761px)').matches;
+    if (!canHover) return;
+    var entries = document.querySelectorAll('.notebook-entry:not([data-preview-bound])');
+    Array.prototype.forEach.call(entries, function (entry) {
+      entry.setAttribute('data-preview-bound', '1');
+      var img = entry.querySelector('.notebook-preview img[data-src]');
+      if (!img) return;
+      var load = function () {
+        if (img.getAttribute('src')) return;
+        img.setAttribute('src', img.getAttribute('data-src'));
+      };
+      entry.addEventListener('pointerenter', load, { once: true });
+      entry.addEventListener('focusin', load, { once: true });
+    });
+  }
+
   /* ── 主題資料夾（Folder Float 風格）───────────── */
+  /* PJAX 每次回首頁都會重新 init；上一輪掛在 document / matchMedia / Observer 上的
+     監聽要先拆掉，否則每回首頁一次就多一組（舊的還抓著已移除的 DOM）。 */
+  var folderTeardown = null;
+  var folderRoot = null;
+
+  function teardownFolder() {
+    if (folderTeardown) folderTeardown();
+    folderTeardown = null;
+    folderRoot = null;
+  }
+
   function initTopicFolder() {
+    if (folderRoot && !document.body.contains(folderRoot)) teardownFolder();
     var root = document.querySelector('[data-topic-folder]:not([data-folder-bound])');
     if (!root) return;
+    teardownFolder();
     root.setAttribute('data-folder-bound', '1');
+    folderRoot = root;
+
+    var aborter = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var listenOpts = aborter ? { signal: aborter.signal } : false;
+    var observers = [];
 
     var world = root.querySelector('.folder-world');
     var button = root.querySelector('.folder-button');
@@ -225,13 +263,19 @@
     });
 
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
+      var visibilityObserver = new IntersectionObserver(function (entries) {
         visible = entries[0].isIntersecting;
         animate();
-      }).observe(root);
+      });
+      visibilityObserver.observe(root);
+      observers.push(visibilityObserver);
     }
-    if ('ResizeObserver' in window) new ResizeObserver(layout).observe(world);
-    document.addEventListener('visibilitychange', animate);
+    if ('ResizeObserver' in window) {
+      var resizeObserver = new ResizeObserver(layout);
+      resizeObserver.observe(world);
+      observers.push(resizeObserver);
+    }
+    document.addEventListener('visibilitychange', animate, listenOpts);
     layout();
 
     /* 手機：資料夾移到文章之後，第一屏留給文章 */
@@ -246,15 +290,28 @@
         else sidebar.insertBefore(topics, sidebar.querySelector(':scope > .text-link'));
         layout();
       };
-      if (mobile.addEventListener) mobile.addEventListener('change', placeTopics);
+      if (mobile.addEventListener) mobile.addEventListener('change', placeTopics, listenOpts);
       placeTopics();
     }
+
+    folderTeardown = function () {
+      if (aborter) {
+        aborter.abort();
+      } else {
+        document.removeEventListener('visibilitychange', animate);
+        if (mobile && mobile.removeEventListener) mobile.removeEventListener('change', placeTopics);
+      }
+      observers.forEach(function (observer) { observer.disconnect(); });
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
   }
 
   window.initLanding = function () {
     syncScrollbarWidth();
     initMarquee();
     initTopicFolder();
+    initPreviewImages();
   };
 
   window.addEventListener('resize', syncScrollbarWidth);

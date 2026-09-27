@@ -4,25 +4,25 @@
     <title>Reedlin2002 • Posts by &#34;myself&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2025-06-05T07:03:00.000Z</updated>
-    <category term="myself" />
+    <category term="project" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
-    <category term="project" />
-    <category term="技術筆記" />
-    <category term="(作者自學用)" />
+    <category term="myself" />
     <category term="leetcode" />
     <category term="Daily" />
-    <category term="iOS" />
-    <category term="CallKit" />
-    <category term="系統設計" />
+    <category term="技術筆記" />
+    <category term="(作者自學用)" />
     <category term="side project" />
     <category term="React" />
     <category term="NFC" />
     <category term="Web API" />
     <category term="TypeScript" />
     <category term="AI" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
     <category term="電腦視覺" />
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
@@ -31,7 +31,7 @@
         <id>https://reedlin2002.github.io/2025/06/05/Aboutme/</id>
         <title>🧣 | GitHub</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2025/06/05/Aboutme/"/>
-        <content type="html">&lt;h1 id=&#34;about-me&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#about-me&#34;&gt;#&lt;/a&gt; 🧣 About me&lt;/h1&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;🧣 About me&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://reedlin2002.github.io/&#34;&gt;My Blog&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;目前主要使用 React、TypeScript 與 Capacitor 開發 Web、Android 與 iOS 跨平台應用，並負責 API 串接、跨平台整合、技術方案分析與功能驗證。&lt;/p&gt;
 &lt;p&gt;持續研究 AI 應用落地與 AI-assisted Development，包含 LLM、RAG、Coding Agent、MCP、Skills，以及 Human-in-the-loop 開發流程。曾使用 Python、LangChain 與 Streamlit 實作離線問答介面，處理模型相依性與執行環境問題。&lt;/p&gt;
@@ -67,7 +67,7 @@
   &lt;/tr&gt;
 &lt;/table&gt;
 &lt;br clear=&#34;both&#34;/&gt;
-&lt;h1 id=&#34;️-每日記錄&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#️-每日記錄&#34;&gt;#&lt;/a&gt; 〽️ 每日記錄&lt;/h1&gt;
+&lt;h1 id=&#34;️-每日記錄&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-每日記錄&#34;&gt;&lt;/a&gt; 〽️ 每日記錄&lt;/h1&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/ashutosh00710/github-readme-activity-graph&#34;&gt;&lt;img src=&#34;https://github-readme-activity-graph.vercel.app/graph?username=reedlin2002&amp;amp;theme=nord&#34; alt=&#34;Ashutosh&#39;s github activity graph&#34;&gt;&lt;/a&gt;&lt;/p&gt;
 </content>
         <category term="myself" />

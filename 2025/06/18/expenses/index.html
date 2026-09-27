@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -26,12 +26,12 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2025/06/18/expenses/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="# 一個結合 React 前端與 Flask 後端的個人記帳專案  基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。                # 執行目標 希望做出一款簡單的記帳小工具，具有以下功能：  支援每日紀錄多筆支出 直覺的欄位輸入介面 統計支出、圖表呈現 可依週切換檢視區間 支援本地儲存（localStorage） 無">
+  <meta name="description" content="一個結合 React 前端與 Flask 後端的個人記帳專案  基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。                 執行目標 希望做出一款簡單的記帳小工具，具有以下功能：  支援每日紀錄多筆支出 直覺的欄位輸入介面 統計支出、圖表呈現 可依週切換檢視區間 支援本地儲存（localStorage） 無須登入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="🤖 | 記帳小管家">
 <meta property="og:url" content="https://reedlin2002.github.io/2025/06/18/expenses/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="# 一個結合 React 前端與 Flask 後端的個人記帳專案  基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。                # 執行目標 希望做出一款簡單的記帳小工具，具有以下功能：  支援每日紀錄多筆支出 直覺的欄位輸入介面 統計支出、圖表呈現 可依週切換檢視區間 支援本地儲存（localStorage） 無">
+<meta property="og:description" content="一個結合 React 前端與 Flask 後端的個人記帳專案  基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。                 執行目標 希望做出一款簡單的記帳小工具，具有以下功能：  支援每日紀錄多筆支出 直覺的欄位輸入介面 統計支出、圖表呈現 可依週切換檢視區間 支援本地儲存（localStorage） 無須登入">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://reedlin2002.github.io/images/expenses_1.png">
 <meta property="article:published_time" content="2025-06-18T04:10:35.000Z">
@@ -141,14 +141,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -199,7 +201,7 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><h1 id="一個結合-react-前端與-flask-後端的個人記帳專案"><a class="markdownIt-Anchor" href="#一個結合-react-前端與-flask-後端的個人記帳專案">#</a> 一個結合 React 前端與 Flask 後端的個人記帳專案</h1>
+  <div class="reading-body content e-content" itemprop="articleBody"><p class="reading-subtitle">一個結合 React 前端與 Flask 後端的個人記帳專案</p>
 <blockquote>
 <p>基於 Flask + React，快速打造可視化、具本地儲存功能的個人記帳工具，部署在 Render 免費平台。</p>
 </blockquote>
@@ -209,7 +211,7 @@
   </a>
 </div>
 <hr>
-<h2 id="執行目標"><a class="markdownIt-Anchor" href="#執行目標">#</a> 執行目標</h2>
+<h2 id="執行目標"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#執行目標"></a> 執行目標</h2>
 <p>希望做出一款簡單的記帳小工具，具有以下功能：</p>
 <ul>
 <li>支援每日紀錄多筆支出</li>
@@ -219,23 +221,23 @@
 <li>支援本地儲存（localStorage）</li>
 <li>無須登入註冊，輕量、單機可用</li>
 </ul>
-<h2 id="技術使用"><a class="markdownIt-Anchor" href="#技術使用">#</a> 技術使用</h2>
+<h2 id="技術使用"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#技術使用"></a> 技術使用</h2>
 <ul>
 <li><strong>Flask</strong>: Python 後端 Web Framework</li>
 <li><strong>HTML + React (CDN)</strong>: 前端創建主畫面</li>
 <li><strong>Babel (CDN)</strong>: 讓我們直接在 HTML 中操作 JSX</li>
 <li><strong>CSS</strong>: 自定義樣式</li>
-<li><strong><a target="_blank" rel="noopener" href="http://Render.com">Render.com</a></strong>: 免費部署 Platform</li>
+<li><strong>Render.com</strong>: 免費部署 Platform</li>
 </ul>
-<h3 id="flask-後端"><a class="markdownIt-Anchor" href="#flask-後端">#</a> Flask 後端</h3>
+<h3 id="flask-後端"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#flask-後端"></a> Flask 後端</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># python</span></span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template  <span class="comment"># 匯入 Flask 框架與頁面渲染函式</span></span><br><span class="line"><span class="keyword">import</span> os  <span class="comment"># 匯入 os 模組，用於抓取環境變數</span></span><br><span class="line"></span><br><span class="line">app = Flask(__name__)  <span class="comment"># 初始化 Flask 應用</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&quot;/&quot;</span></span>)  </span><span class="comment"># 當用戶訪問根目錄 `/` 時</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">index</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>)  <span class="comment"># 回傳前端頁面（templates/index.html）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 讓 Flask 可以在本地測試，也能被 Render 部署（抓環境變數 PORT）</span></span><br><span class="line">    port = <span class="built_in">int</span>(os.environ.get(<span class="string">&quot;PORT&quot;</span>, <span class="number">5000</span>))</span><br><span class="line">    app.run(host=<span class="string">&quot;0.0.0.0&quot;</span>, port=port)</span><br></pre></td></tr></table></figure>
-<h3 id="前端-html-react"><a class="markdownIt-Anchor" href="#前端-html-react">#</a> 前端 HTML + React</h3>
+<h3 id="前端-html-react"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#前端-html-react"></a> 前端 HTML + React</h3>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;css/style.css&#x27;) &#125;&#125;&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- React &amp; Babel CDN --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react@18/umd/react.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/react-dom@18/umd/react-dom.development.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/@babel/standalone/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Chart.js for data visualization --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 載入應用程式主程式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123; url_for(&#x27;static&#x27;, filename=&#x27;js/app.js&#x27;) &#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>React 使用 CDN 形式加載，用  <code>babel</code>  直接執行 JSX 程式</p>
 </blockquote>
-<h2 id="react-應用程式-core"><a class="markdownIt-Anchor" href="#react-應用程式-core">#</a> React 應用程式 core</h2>
-<h3 id="資料儲存方式"><a class="markdownIt-Anchor" href="#資料儲存方式">#</a> 資料儲存方式</h3>
+<h2 id="react-應用程式-core"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#react-應用程式-core"></a> React 應用程式 core</h2>
+<h3 id="資料儲存方式"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#資料儲存方式"></a> 資料儲存方式</h3>
 <table>
 <thead>
 <tr>
@@ -262,15 +264,15 @@
 </tr>
 </tbody>
 </table>
-<h3 id="架構設計"><a class="markdownIt-Anchor" href="#架構設計">#</a> 架構設計</h3>
+<h3 id="架構設計"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#架構設計"></a> 架構設計</h3>
 <ul>
 <li>資料儲存：所有紀錄保存在 localStorage，依照日期分類。</li>
 <li>畫面互動：輸入資料即時更新列表與圖表，並保留在本地。</li>
 <li>視覺化統計：使用 Chart.js 呈現每日總支出，支援週次切換與點擊查看。</li>
 </ul>
 <p>技術包含：<br>
-Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStorage、<a target="_blank" rel="noopener" href="http://Render.com">Render.com</a></p>
-<h2 id="心得"><a class="markdownIt-Anchor" href="#心得">#</a> 📝 心得</h2>
+Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStorage、Render.com</p>
+<h2 id="心得"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#心得"></a> 📝 心得</h2>
 <blockquote>
 <p>這是一個簡單的 Flask + React 應用，Side Project。</p>
 </blockquote>
@@ -381,7 +383,7 @@ Python、Flask、HTML、React、Babel、JavaScript、Chart.js、CSS、localStora
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -521,6 +523,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -535,14 +539,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -552,10 +562,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -772,6 +779,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 

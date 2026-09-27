@@ -484,7 +484,7 @@ html {
   border-top: 2px solid #1f2328;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 24px;
 }
 body {
   margin: 0;
@@ -706,18 +706,52 @@ body {
     z-index: 155;
     flex-direction: column;
     align-items: stretch;
-    animation: menuSlideDown 0.22s ease;
-/* 面板展開時，漢堡鈕留在 header 原位（供關閉）*/
+    gap: 0;
+/* 面板項目依序滑入（30ms 錯開）；漢堡鈕本身不動 */
+/* 面板展開時，漢堡鈕留在 header 原位（供關閉）。
+         以前用 position: fixed; right: 12px，會剛好疊在月亮按鈕上。
+         這裡改成相對面板定位：header 56px、按鈕 40px → 距面板上緣 7.6px；
+         右側讓出主題鈕 36px + gap 12px + header padding 4px = 52px */
   }
   #header #nav ul.responsive li {
     display: block;
     border-right: 0;
   }
+  #header #nav ul.responsive > li:not(.icon) {
+    animation: menuSlideDown 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  #header #nav ul.responsive > li:not(.icon):nth-child(2) {
+    animation-delay: 0ms;
+  }
+  #header #nav ul.responsive > li:not(.icon):nth-child(3) {
+    animation-delay: 30ms;
+  }
+  #header #nav ul.responsive > li:not(.icon):nth-child(4) {
+    animation-delay: 60ms;
+  }
+  #header #nav ul.responsive > li:not(.icon):nth-child(5) {
+    animation-delay: 90ms;
+  }
+  #header #nav ul.responsive > li:not(.icon):nth-child(6) {
+    animation-delay: 120ms;
+  }
+  #header #nav ul.responsive > li:not(.icon):nth-child(7) {
+    animation-delay: 150ms;
+  }
   #header #nav ul.responsive li.icon {
-    position: fixed;
-    top: 8px;
-    right: 12px;
+    position: absolute;
+    bottom: calc(100% + 7.6px);
+    right: 52px;
     z-index: 160;
+  }
+  #header #nav ul.responsive li.icon .fa-bars::before {
+    content: '\f00d';
+  }
+  #header #nav ul.responsive li.nav-search {
+    margin-top: 8px;
+    padding-left: 0;
+    border-left: 0;
+    border-top: 1px solid var(--shoka-color-border, #e5e7eb);
   }
   #header #nav ul.responsive a {
     display: block;
@@ -755,7 +789,8 @@ body {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  #header #nav ul.responsive {
+  #header #nav ul.responsive,
+  #header #nav ul.responsive > li {
     animation: none;
   }
 }
@@ -776,9 +811,16 @@ body {
   left: 0;
   z-index: 5000000;
   width: 100%;
-  border-top: 1px solid #e5e7eb;
-  background: #f6f7f8;
-  transition: opacity 0.2s;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-top: 1px solid var(--shoka-color-border);
+  background: var(--shoka-surface-1);
+  color: var(--shoka-color-text-2);
+  transform: translateY(0);
+  transition: transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+/* main.js 往下捲時加上，往上捲時移除 */
+}
+#footer-post.is-hidden {
+  transform: translateY(100%);
 }
 #footer-post a {
   background: none;
@@ -789,23 +831,22 @@ body {
   background: none;
 }
 #footer-post a.icon:hover {
-  color: #3b82f6;
+  color: var(--shoka-color-primary);
 }
 #footer-post #nav-footer {
   padding-right: 1rem;
   padding-left: 1rem;
-  background: #eef0f2;
+  border-bottom: 1px solid var(--shoka-color-border);
+  background: var(--shoka-surface-2);
   text-align: center;
 }
 #footer-post #nav-footer a {
-  color: #3b82f6;
+  color: var(--shoka-color-text);
   font-size: 1em;
 }
 #footer-post #nav-footer a:hover {
-  background-image: linear-gradient(transparent, transparent 5px, #3b82f6 5px, #3b82f6);
-  background-position: bottom;
-  background-size: 100% 6px;
-  background-repeat: repeat-x;
+  color: var(--shoka-color-primary);
+  background-image: none;
 }
 #footer-post #nav-footer ul {
   display: table;
@@ -821,25 +862,38 @@ body {
   vertical-align: middle;
 }
 #footer-post #actions-footer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
   overflow: auto;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  margin: 0;
+  padding: 0 1rem;
   width: 100%;
-  text-align: center;
+  box-sizing: border-box;
   white-space: nowrap;
 }
 #footer-post #actions-footer a {
-  display: inline-block;
-  padding-left: 1rem;
-  color: #3b82f6;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 52px;
+  padding: 0 12px;
+  color: var(--shoka-color-text-2);
+  font-size: 14px;
+}
+#footer-post #actions-footer a:hover,
+#footer-post #actions-footer a:active {
+  color: var(--shoka-color-primary);
 }
 #footer-post #share-footer {
   padding-right: 1rem;
   padding-left: 1rem;
-  background: #eef0f2;
+  border-bottom: 1px solid var(--shoka-color-border);
+  background: var(--shoka-surface-2);
   text-align: center;
+}
+#footer-post #share-footer a {
+  color: var(--shoka-color-text-2);
 }
 #footer-post #share-footer ul {
   display: table;
@@ -853,6 +907,20 @@ body {
   padding: 10px;
   width: 20%;
   vertical-align: middle;
+}
+@media screen and (max-width: 499px) {
+  body.footer-post-on #back-to-top {
+    transform: translateY(calc(-60px - env(safe-area-inset-bottom)));
+  }
+  #back-to-top {
+    transition: transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease, color 0.2s ease;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #footer-post,
+  #back-to-top {
+    transition: none;
+  }
 }
 @media screen and (min-width: 500px) {
   #footer-post-container {
@@ -1397,6 +1465,24 @@ html[data-theme="light"] {
   --shoka-glow-2: rgba(95,153,80,0.05);
   --shoka-code-bg: #18231e;
 }
+:root {
+  --dur-hover: 120ms;
+  --dur-ui: 200ms;
+  --dur-sweep: 320ms;
+  --dur-enter: 420ms;
+  --dur-hero: 560ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-hover: 1ms;
+    --dur-ui: 1ms;
+    --dur-sweep: 1ms;
+    --dur-enter: 1ms;
+    --dur-hero: 1ms;
+  }
+}
 body {
   background: var(--shoka-color-bg);
   color: var(--shoka-color-text);
@@ -1540,6 +1626,7 @@ html[data-theme="light"] ::-webkit-scrollbar-thumb {
   border-bottom: 1px solid var(--shoka-color-border);
 /* base cactus 把 #title 做成 table / h1 做成 table-cell，
      小字會被排到標題右邊，這裡改回一般區塊流 */
+/* 站名改用 p（每頁只留一個 h1 給主標／文章標題），保留舊的 h1 選擇器以防萬一 */
 }
 #header #logo {
   width: 42px;
@@ -1552,7 +1639,8 @@ html[data-theme="light"] ::-webkit-scrollbar-thumb {
 #header #title {
   display: block;
 }
-#header #title h1 {
+#header #title h1,
+#header #title .site-name {
   display: block;
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 15px;
@@ -2084,6 +2172,7 @@ html[data-theme="dark"] #theme-toggle .icon-sun {
 .footer-meta a:hover {
   color: var(--shoka-color-primary);
   text-decoration: none;
+  background-image: none;
 }
 @media (max-width: 760px) {
   .footer-bar {
@@ -2103,6 +2192,7 @@ html[data-theme="dark"] #theme-toggle .icon-sun {
   }
 }
 html[data-theme="dark"] #title h1,
+html[data-theme="dark"] #title .site-name,
 html[data-theme="dark"] .content h1,
 html[data-theme="dark"] .content h2,
 html[data-theme="dark"] .content h3,
@@ -2619,8 +2709,9 @@ article.post .content img:not(.no-zoom) {
   letter-spacing: -1.5px;
   color: var(--shoka-color-text);
   text-decoration: none;
+/* 只有強調字是綠的；其他 span 是 BlurText 的逐字包裝 */
 }
-.notebook-headline span {
+.notebook-headline .headline-accent {
   color: var(--shoka-color-primary);
 }
 .notebook-intro {
@@ -2859,14 +2950,18 @@ article.post .content img:not(.no-zoom) {
   letter-spacing: -0.4px;
   color: var(--shoka-color-text);
   text-decoration: none;
+/* 標題滑過：綠色底線由左掃入（取代 style.styl 的藍色漸層底線） */
 }
 .notebook-entry h3 a {
   color: var(--shoka-color-text);
-  background-image: none;
+  background: linear-gradient(var(--shoka-color-primary), var(--shoka-color-primary)) left bottom/0 1px no-repeat;
+  transition: color var(--dur-ui) ease, background-size var(--dur-sweep) var(--ease-out);
 }
-.notebook-entry h3 a:hover {
+.notebook-entry h3 a:hover,
+.notebook-entry h3 a:focus-visible {
   color: var(--shoka-color-primary);
   text-decoration: none;
+  background: linear-gradient(var(--shoka-color-primary), var(--shoka-color-primary)) left bottom/100% 1px no-repeat;
 }
 .notebook-entry .entry-meta {
   font-size: 9px;
@@ -2917,6 +3012,7 @@ article.post .content img:not(.no-zoom) {
   border-color: var(--shoka-color-primary);
   color: var(--shoka-color-primary);
   text-decoration: none;
+  background-image: none;
 }
 .notebook-preview {
   position: absolute;
@@ -3006,6 +3102,7 @@ article.post .content img:not(.no-zoom) {
 .projects-links a:hover {
   color: var(--shoka-color-primary);
   text-decoration: none;
+  background-image: none;
 }
 .page-404 .content {
   min-height: 40vh;
@@ -3147,6 +3244,25 @@ article.post .content img:not(.no-zoom) {
     padding: 40px 0;
   }
 }
+.notebook-headline .blur-char {
+  display: inline-block;
+  white-space: pre;
+  animation: blurIn var(--dur-hero) var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
+}
+.notebook-entry {
+  animation: riseIn var(--dur-enter) var(--ease-out) both;
+  animation-delay: calc(min(var(--n, 0), 6) * 60ms + 240ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .notebook-headline .blur-char,
+  .notebook-entry {
+    animation: none;
+  }
+  .notebook-entry h3 a {
+    transition: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .skills-marquee .marquee-inner {
     animation: none;
@@ -3181,6 +3297,28 @@ article.post .content img:not(.no-zoom) {
   }
   to {
     transform: translateX(-50%);
+  }
+}
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 .reading-header {
@@ -3243,6 +3381,11 @@ article.post .content img:not(.no-zoom) {
   font-size: 17px;
   line-height: 1.95;
   overflow-wrap: anywhere;
+/* 開頭第一個 # 若和標題不同，scripts/post-lead-heading.js 會轉成這個副標 */
+/* 文章中段另起的 h1（例如 Aboutme 的「每日記錄」）與 h2 同級，
+     不再掉回 _extend.styl 的藍色 1.5em */
+/* h3：沿用 h2 的「//」語彙，給一個較輕的 › 前綴，才跟粗體內文分得開 */
+/* markdown-it-task-checkbox：有勾選框就不要再畫圓點 */
 /* Hexo 的 table 式 highlight */
 }
 .reading-body > :first-child {
@@ -3255,12 +3398,29 @@ article.post .content img:not(.no-zoom) {
   font-size: 19px;
   line-height: 1.9;
 }
+.reading-body h1,
 .reading-body h2,
 .reading-body h3,
-.reading-body h4 {
-  scroll-margin-top: 30px;
+.reading-body h4,
+.reading-body h5,
+.reading-body h6 {
+  display: block;
   color: var(--shoka-color-text);
   text-decoration: none;
+}
+.reading-body > p.reading-subtitle {
+  margin: 0 0 1.8em;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.75;
+  color: var(--shoka-color-text-2);
+}
+.reading-body h1 {
+  margin: 2.5em 0 1em;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: normal;
 }
 .reading-body h2 {
   display: block;
@@ -3291,13 +3451,27 @@ article.post .content img:not(.no-zoom) {
 .reading-body h3 {
   margin: 2em 0 0.8em;
   font-size: 21px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.7;
+}
+.reading-body h3::before {
+  content: '› ';
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-weight: 500;
+  color: var(--shoka-color-primary);
 }
 .reading-body h4 {
   margin: 1.7em 0 0.7em;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.7;
+}
+.reading-body h5,
+.reading-body h6 {
+  margin: 1.6em 0 0.6em;
+  font: 500 13px/1.7 'JetBrains Mono', 'Courier New', monospace;
+  letter-spacing: 1.5px;
+  color: var(--shoka-color-text-2);
 }
 .reading-body a {
   color: var(--shoka-color-primary);
@@ -3307,22 +3481,32 @@ article.post .content img:not(.no-zoom) {
           text-decoration-color: var(--shoka-color-border);
   text-underline-offset: 4px;
 }
-.reading-body a:hover {
+.reading-body a:hover,
+.reading-body a:focus-visible {
   -webkit-text-decoration-color: var(--shoka-color-primary);
           text-decoration-color: var(--shoka-color-primary);
+  background-image: none;
 }
 .reading-body ul,
 .reading-body ol {
   padding-left: 1.4em;
+}
+.reading-body li.task-list-item,
+.reading-body ul:has(> li > input[type="checkbox"]) > li {
+  list-style: none;
+}
+.reading-body ul:has(> li > input[type="checkbox"]) {
+  padding-left: 0.4em;
 }
 .reading-body li {
   margin: 0.5em 0;
 }
 .reading-body blockquote {
   margin: 30px 0;
-  padding: 10px 24px;
+  padding: 14px 24px;
   border-left: 2px solid var(--shoka-color-primary);
   background: var(--shoka-surface-2);
+  font-style: normal;
 }
 .reading-body blockquote p {
   margin: 0.5em 0;
@@ -3348,7 +3532,7 @@ article.post .content img:not(.no-zoom) {
   border-radius: 3px;
   background: var(--shoka-surface-2);
   color: var(--shoka-color-text);
-  font: 0.8em/1.8 'JetBrains Mono', 'Courier New', monospace;
+  font: 0.84em/1.8 'JetBrains Mono', 'Courier New', monospace;
 }
 .reading-body pre {
   max-width: 100%;
@@ -3378,6 +3562,9 @@ article.post .content img:not(.no-zoom) {
   background: var(--shoka-code-bg);
   color: #ddd;
   font: 12px/1.9 'JetBrains Mono', 'Courier New', monospace;
+/* 行號：原本 opacity .6 疊在 .45 透明度上，對比只剩約 1.5:1 */
+/* 程式碼底色兩套佈景都是深色（--shoka-code-bg），token 色要固定，
+       不能用會跟著淺色佈景變暗的 --shoka-* 變數 */
 }
 .reading-body figure.highlight table {
   width: 100%;
@@ -3397,29 +3584,37 @@ article.post .content img:not(.no-zoom) {
   overflow: visible;
   border: 0;
 }
-.reading-body figure.highlight .gutter {
+.reading-body figure.highlight td.gutter {
   width: 36px;
+  padding: 0 0 0 6px;
   text-align: right;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
-  opacity: 0.6;
-  color: var(--shoka-color-text-2);
+  opacity: 1;
 }
-.reading-body figure.highlight .gutter pre {
-  padding: 6px 10px;
+.reading-body figure.highlight td.gutter pre {
+  padding: 6px 8px;
+  color: rgba(145,164,154,0.6);
 }
-.reading-body figure.highlight .code {
+.reading-body figure.highlight td.code {
   width: 100%;
+  padding-left: 0;
+}
+.reading-body figure.highlight td.code pre {
+  padding: 6px 18px 6px 12px;
 }
 .reading-body figure.highlight .string,
 .reading-body figure.highlight .attribute,
 .reading-body figure.highlight .title {
-  color: var(--shoka-color-primary);
+  color: #b5e78b;
+}
+.reading-body figure.highlight .built_in {
+  color: #cdf0ac;
 }
 .reading-body figure.highlight .comment,
 .reading-body figure.highlight .meta {
-  color: var(--shoka-color-text-2);
+  color: #8b9a90 !important;
 }
 .reading-body figure.highlight .keyword,
 .reading-body figure.highlight .number,
@@ -3434,28 +3629,56 @@ article.post .content img:not(.no-zoom) {
 .copy-code,
 .copy-btn {
   position: absolute;
-  top: 8px;
-  right: 10px;
+  top: 4px;
+  right: 8px;
   padding: 4px 8px;
-  border: 1px solid var(--shoka-color-border);
-  background: var(--shoka-color-bg);
-  color: var(--shoka-color-text-2);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.62);
   font: 10px 'JetBrains Mono', 'Courier New', monospace;
   cursor: pointer;
 }
 .copy-code:hover,
 .copy-btn:hover {
-  color: var(--shoka-color-primary);
+  color: #b5e78b;
 }
+.copy-code:focus-visible,
+.copy-btn:focus-visible {
+  opacity: 1;
+}
+.copy-code.copied,
+.copy-btn.copied {
+  color: #b5e78b;
+}
+@media (hover: none) {
+  .content .highlight .copy-btn {
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 38px;
+    border: 0;
+    border-left: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0 10px 0 0;
+    background: transparent;
+    opacity: 1;
+  }
+}
+.content .highlight .lang-badge,
 .lang-badge,
 .code-language {
   position: absolute;
-  top: 13px;
-  left: 16px;
-  color: var(--shoka-color-text-2);
-  font: 9px 'JetBrains Mono', 'Courier New', monospace;
+  top: 12px;
+  right: auto;
+  left: 76px;
+  color: rgba(255,255,255,0.5);
+  font: 10px/1.4 'JetBrains Mono', 'Courier New', monospace;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
+  pointer-events: none;
+}
+.reading-body th {
+  color: var(--shoka-color-text);
+  background: var(--shoka-surface-2);
 }
 .table-scroll {
   max-width: 100%;
@@ -3477,25 +3700,32 @@ article.post .content img:not(.no-zoom) {
 .table-scroll th {
   background: var(--shoka-surface-2);
 }
+.reading-body h1,
 .reading-body h2,
 .reading-body h3,
 .reading-body h4 {
   position: relative;
 }
-.reading-body .markdownIt-Anchor {
+.reading-body a.markdownIt-Anchor {
   position: absolute;
   top: 0;
   right: 100%;
   margin-right: 10px;
   color: var(--shoka-color-text-2);
-  background-image: none;
+  background-image: none !important;
   text-decoration: none;
   opacity: 0;
   transition: opacity 0.2s ease;
 }
-.reading-body :is(h2,
-.reading-body h3,
-.reading-body h4):hover .markdownIt-Anchor,
+.reading-body a.markdownIt-Anchor::before {
+  content: '#';
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-weight: 400;
+}
+.reading-body h1:hover .markdownIt-Anchor,
+.reading-body h2:hover .markdownIt-Anchor,
+.reading-body h3:hover .markdownIt-Anchor,
+.reading-body h4:hover .markdownIt-Anchor,
 .reading-body .markdownIt-Anchor:focus-visible {
   opacity: 0.55;
 }
@@ -3624,18 +3854,46 @@ article.post .content img:not(.no-zoom) {
     margin-top: 28px;
     font-size: 16px;
     line-height: 1.95;
+/* 幾篇文章在 <img> 上寫了 style="max-width: 600px"，行內樣式蓋掉 max-width: 100%，
+       手機上整頁被撐到 620px 寬、底部工具列也跟著跑出畫面。窄螢幕一律不超過欄寬 */
+/* 內嵌 SVG 圖：縮到 350px 時標籤只剩 5–7px，改成保留可讀寬度、左右滑動 */
   }
   .reading-body > p:first-child {
     font-size: 17px;
   }
+  .reading-body > p.reading-subtitle {
+    font-size: 17px;
+  }
+  .reading-body h1,
   .reading-body h2 {
-    font-size: 23px;
+    font-size: 24px;
   }
   .reading-body h3 {
-    font-size: 19px;
+    font-size: 20px;
   }
   .reading-body blockquote {
-    padding: 8px 17px;
+    padding: 12px 17px;
+  }
+  .reading-body img {
+    max-width: 100% !important;
+  }
+  .reading-body .fig {
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+  .reading-body .fig svg {
+    width: 680px;
+    max-width: none;
+  }
+  .reading-body .fig::before {
+    content: '← 左右滑動看完整圖 →';
+    position: sticky;
+    left: 0;
+    display: block;
+    margin-bottom: 8px;
+    font: 11px 'JetBrains Mono', 'Courier New', monospace;
+    letter-spacing: 1px;
+    color: var(--shoka-color-text-2);
   }
   .reading-body pre,
   .reading-body figure.highlight {
@@ -3659,6 +3917,18 @@ article.post .content img:not(.no-zoom) {
     border-left: 0;
     border-top: 1px solid var(--shoka-color-border);
   }
+}
+html .reading-body.content h4 {
+  color: var(--shoka-color-secondary);
+}
+html[data-theme="light"] .reading-body.content h4 {
+  color: var(--shoka-color-primary);
+}
+html .reading-body code:not(.highlight code) {
+  padding: 2px 5px;
+  border: 0;
+  background: var(--shoka-surface-2);
+  color: var(--shoka-color-text);
 }
 #waifu-chat {
   position: fixed;
@@ -3695,8 +3965,10 @@ article.post .content img:not(.no-zoom) {
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.05em;
+  white-space: nowrap;
+  max-width: 220px;
   cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, opacity 0.2s ease, max-width 0.24s cubic-bezier(0.65, 0, 0.35, 1), padding 0.24s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.24s ease;
 }
 .waifu-launcher::after {
   content: 'TALK';
@@ -3824,6 +4096,10 @@ article.post .content img:not(.no-zoom) {
 .waifu-dismiss:focus-visible {
   border-color: #72ddff;
   color: #fff;
+}
+body.waifu-live2d-visible #back-to-top {
+  right: 128px;
+  bottom: 78px;
 }
 body:not(.waifu-live2d-visible) #live2d-widget {
   display: none !important;
@@ -4217,12 +4493,16 @@ body.waifu-chat-open #live2d-widget {
   display: none;
 }
 #actions-footer .waifu-mobile-action {
-  display: inline-block;
-  padding: 0 0 0 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 52px;
+  padding: 0 12px;
   border: 0;
   background: none;
-  color: #3b82f6;
+  color: var(--shoka-color-primary);
   font: inherit;
+  font-size: 14px;
   cursor: pointer;
 }
 @media (max-width: 499px) {
@@ -4232,6 +4512,10 @@ body.waifu-chat-open #live2d-widget {
   .waifu-launcher {
     right: 16px;
     bottom: 74px;
+  }
+  .waifu-input,
+  .companion-panel select {
+    font-size: 16px;
   }
   .waifu-reopen {
     right: 16px;
@@ -4304,6 +4588,14 @@ body.waifu-chat-open #live2d-widget {
   }
   .waifu-send span {
     display: none;
+  }
+}
+@media (max-width: 699px) {
+  #waifu-chat.is-collapsed .waifu-launcher {
+    max-width: 44px;
+    min-height: 44px;
+    padding: 0 0 0 17px;
+    border-radius: 22px;
   }
 }
 @media (max-height: 519px) {

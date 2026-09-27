@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -26,12 +26,12 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2025/06/25/ollama/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="# 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）  這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。   # 🔧 專案目標  ✫️ 建立一個 AI 助手系統，具">
+  <meta name="description" content="用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）  這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。    🔧 專案目標  ✫️ 建立一個 AI 助手系統，具備：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="🧠 | 聊天機器人">
 <meta property="og:url" content="https://reedlin2002.github.io/2025/06/25/ollama/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="# 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）  這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。   # 🔧 專案目標  ✫️ 建立一個 AI 助手系統，具">
+<meta property="og:description" content="用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）  這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。    🔧 專案目標  ✫️ 建立一個 AI 助手系統，具備：">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://reedlin2002.github.io/images/ollama-Taipei.png">
 <meta property="og:image" content="https://reedlin2002.github.io/images/ollama-KAO.png">
@@ -145,14 +145,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -203,12 +205,12 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><h1 id="用-ollama-langchain-打造本地-ai-工具型-agent含-rag-文件問答"><a class="markdownIt-Anchor" href="#用-ollama-langchain-打造本地-ai-工具型-agent含-rag-文件問答">#</a> 用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</h1>
+  <div class="reading-body content e-content" itemprop="articleBody"><p class="reading-subtitle">用 Ollama + LangChain 打造本地 AI 工具型 Agent（含 RAG 文件問答）</p>
 <blockquote>
 <p>這是一個我為了學習與實驗所做的小型 side project，目的是了解如何在本地端結合 LLM、LangChain 工具框架與 RAG（檢篩式問答）系統，實作出一個能夠回答問題、查天氣、計算數學，甚至查詢本地知識檔案的智能助手。</p>
 </blockquote>
 <hr>
-<h2 id="專案目標"><a class="markdownIt-Anchor" href="#專案目標">#</a> 🔧 專案目標</h2>
+<h2 id="專案目標"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#專案目標"></a> 🔧 專案目標</h2>
 <blockquote>
 <p>✫️ 建立一個 AI 助手系統，具備：</p>
 </blockquote>
@@ -218,10 +220,10 @@
 <li>使用自己裝好模型的 Ollama + LangChain Agent 結構</li>
 </ul>
 <hr>
-<h2 id="系統流程圖"><a class="markdownIt-Anchor" href="#系統流程圖">#</a> 系統流程圖</h2>
+<h2 id="系統流程圖"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#系統流程圖"></a> 系統流程圖</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">使用者輸入問題</span><br><span class="line">    ↓</span><br><span class="line">判斷是否需呼叫工具？</span><br><span class="line">    ↓</span><br><span class="line">【需要工具的流程】                                           【不需要工具的流程】</span><br><span class="line">LangChain Agent 分析                 直接呼叫 LLM → LLM 生成回答 → 輸出結果給使用者</span><br><span class="line">    ↓</span><br><span class="line">選擇對應 Tool</span><br><span class="line">    ├ Calculator Tool</span><br><span class="line">    │</span><br><span class="line">    ├ Get Weather Tool  </span><br><span class="line">    │</span><br><span class="line">    └ RAG Tool</span><br><span class="line">        ├ TextLoader 載入檔案</span><br><span class="line">        ├ Text Splitter 切段</span><br><span class="line">        ├ HuggingFaceEmbeddings 向量化</span><br><span class="line">        └ FAISS 向量資料庫檢索</span><br><span class="line">    ↓</span><br><span class="line">Ollama LLM (Mistral)</span><br><span class="line">    ↓</span><br><span class="line">生成回答</span><br><span class="line">    ↓</span><br><span class="line">輸出結果給使用者</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="套件與技術"><a class="markdownIt-Anchor" href="#套件與技術">#</a> 套件與技術</h2>
+<h2 id="套件與技術"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#套件與技術"></a> 套件與技術</h2>
 <table>
 <thead>
 <tr>
@@ -261,13 +263,13 @@
 </tbody>
 </table>
 <hr>
-<h3 id="核心程式"><a class="markdownIt-Anchor" href="#核心程式">#</a> 核心程式</h3>
+<h3 id="核心程式"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#核心程式"></a> 核心程式</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ⭐️ LLM 模型（使用 Ollama + Mistral）</span></span><br><span class="line">llm = OllamaLLM(model=<span class="string">&quot;mistral&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ⭐️ 建立工具：Calculator / Get Weather</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculator</span>(<span class="params">query</span>): <span class="keyword">return</span> <span class="built_in">str</span>(<span class="built_in">eval</span>(query))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_weather</span>(<span class="params">city</span>): <span class="keyword">return</span> &#123;<span class="string">&quot;台北&quot;</span>:<span class="string">&quot;晴天30度&quot;</span>&#125;.get(city, <span class="string">&quot;查無資料&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ⭐️ RAG 工具：透過 FAISS 向量庫查詢本地 data.txt</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_rag_tool</span>():</span><br><span class="line">    loader = TextLoader(<span class="string">&quot;data.txt&quot;</span>)</span><br><span class="line">    docs = loader.load()</span><br><span class="line">    splits = CharacterTextSplitter(chunk_size=<span class="number">500</span>).split_documents(docs)</span><br><span class="line">    embeddings = HuggingFaceEmbeddings()</span><br><span class="line">    vectorstore = FAISS.from_documents(splits, embeddings)</span><br><span class="line">    retriever = vectorstore.as_retriever()</span><br><span class="line">    rag_chain = RetrievalQA.from_chain_type(llm, retriever=retriever)</span><br><span class="line">    <span class="keyword">return</span> Tool(name=<span class="string">&quot;rag_tool&quot;</span>, func=rag_chain.run, description=<span class="string">&quot;查詢本地知識文件&quot;</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="整合-tool-與-agent"><a class="markdownIt-Anchor" href="#整合-tool-與-agent">#</a> 整合 Tool 與 Agent</h3>
+<h3 id="整合-tool-與-agent"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#整合-tool-與-agent"></a> 整合 Tool 與 Agent</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">tools = [</span><br><span class="line">    Tool.from_function(<span class="string">&quot;calculator&quot;</span>, calculator, <span class="string">&quot;數學計算&quot;</span>),</span><br><span class="line">    Tool.from_function(<span class="string">&quot;get_weather&quot;</span>, get_weather, <span class="string">&quot;天氣查詢&quot;</span>),</span><br><span class="line">    build_rag_tool()</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">agent = initialize_agent(</span><br><span class="line">    tools=tools,</span><br><span class="line">    llm=llm,</span><br><span class="line">    agent_type=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,</span><br><span class="line">    handle_parsing_errors=<span class="literal">True</span>,</span><br><span class="line">    verbose=<span class="literal">False</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="測試"><a class="markdownIt-Anchor" href="#測試">#</a> 測試</h2>
-<h3 id="查詢天氣台北"><a class="markdownIt-Anchor" href="#查詢天氣台北">#</a> 查詢天氣：台北</h3>
+<h2 id="測試"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#測試"></a> 測試</h2>
+<h3 id="查詢天氣台北"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#查詢天氣台北"></a> 查詢天氣：台北</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：查台北天氣</span><br><span class="line">🧩 使用 [Agent] 處理中...</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;Taipei&#x27;</span></span><br><span class="line">Observation: 晴天，30 度</span><br><span class="line">Final Answer: 晴天，30 度</span><br></pre></td></tr></table></figure>
 <div id="gallery1">
   <a href="/images/ollama-Taipei.png">
@@ -275,7 +277,7 @@
   </a>
 </div>
 <hr>
-<h3 id="查詢天氣高雄"><a class="markdownIt-Anchor" href="#查詢天氣高雄">#</a> 查詢天氣：高雄</h3>
+<h3 id="查詢天氣高雄"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#查詢天氣高雄"></a> 查詢天氣：高雄</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：高雄幾度</span><br><span class="line"></span><br><span class="line">Action: get_weather</span><br><span class="line">Action Input: <span class="string">&#x27;高雄&#x27;</span></span><br><span class="line">Observation: 小雨，27 度</span><br><span class="line">Final Answer: 高雄今天是小雨且27度。</span><br></pre></td></tr></table></figure>
 <div id="gallery2">
   <a href="/images/ollama-KAO.png">
@@ -283,7 +285,7 @@
   </a>
 </div>
 <hr>
-<h3 id="數學運算"><a class="markdownIt-Anchor" href="#數學運算">#</a> 數學運算</h3>
+<h3 id="數學運算"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#數學運算"></a> 數學運算</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：12 * 3 + 5 是多少？</span><br><span class="line"></span><br><span class="line">Action: calculator</span><br><span class="line">Action Input: <span class="string">&#x27;12 * 3 + 5&#x27;</span></span><br><span class="line">Observation: 45</span><br><span class="line">Final Answer: 結果為45。</span><br></pre></td></tr></table></figure>
 <div id="gallery3">
   <a href="/images/ollama-math.png">
@@ -291,7 +293,7 @@
   </a>
 </div>
 <hr>
-<h3 id="問文件內容"><a class="markdownIt-Anchor" href="#問文件內容">#</a> 問文件內容</h3>
+<h3 id="問文件內容"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#問文件內容"></a> 問文件內容</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：文件內容有提到什麼？</span><br><span class="line"></span><br><span class="line">Action: rag_tool</span><br><span class="line">Observation: 文件提到了台灣、台北、自然風景、語言（台語、閩南語、客家話）、夜市與珍珠奶茶等。</span><br><span class="line">Final Answer: 這份文件提到了台灣、台北、自然風景、文化與語言、以及夜市文化。</span><br></pre></td></tr></table></figure>
 <div id="gallery4">
   <a href="/images/ollama-RAG.png">
@@ -299,7 +301,7 @@
   </a>
 </div>
 <hr>
-<h3 id="自然對話"><a class="markdownIt-Anchor" href="#自然對話">#</a> 自然對話</h3>
+<h3 id="自然對話"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#自然對話"></a> 自然對話</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">❓請輸入問題：你好</span><br><span class="line"></span><br><span class="line">💬 使用 LLM 直接回答...</span><br><span class="line">🤖 回答：您好！讓我有幸為您提供服務。如果您有任何問題，請隨時告知，我會盡力幫助您解決。</span><br></pre></td></tr></table></figure>
 <div id="gallery5">
   <a href="/images/ollama-LLM.png">
@@ -307,12 +309,12 @@
   </a>
 </div>
 <hr>
-<h2 id="結構"><a class="markdownIt-Anchor" href="#結構">#</a> 📁 結構</h2>
+<h2 id="結構"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#結構"></a> 📁 結構</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">my-ollama/</span><br><span class="line">│</span><br><span class="line">├── main.py</span><br><span class="line">├── data.txt       ← 本地知識庫文字檔</span><br><span class="line">├── .venv/         ← 虛擬環境</span><br><span class="line">├── requirements.txt</span><br></pre></td></tr></table></figure>
 <hr>
 <p>技術包含：<br>
 Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、RetrievalQA、自訂工具函數（Calculator、Get Weather）</p>
-<h2 id="心得"><a class="markdownIt-Anchor" href="#心得">#</a> 📝 心得</h2>
+<h2 id="心得"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#心得"></a> 📝 心得</h2>
 <blockquote>
 <p>第一次接觸 LLM、LangChain、Agent 花了 2、3 天完成這個小應用。<br>
 這個 project 幫助我：</p>
@@ -449,7 +451,7 @@ Python、LangChain、Ollama、Mistral 模型、FAISS、HuggingFace Embeddings、
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -589,6 +591,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -603,14 +607,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -620,10 +630,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -840,6 +847,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 

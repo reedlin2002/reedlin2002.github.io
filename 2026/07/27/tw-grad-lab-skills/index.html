@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -26,15 +26,15 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="# 🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室  一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。  ►  「 GIT">
+  <meta name="description" content="🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室  一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。  ►  「 GITHU">
 <meta property="og:type" content="article">
 <meta property="og:title" content="🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能">
 <meta property="og:url" content="https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="# 🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室  一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。  ►  「 GIT">
+<meta property="og:description" content="🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室  一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。  ►  「 GITHU">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2026-07-27T14:40:00.000Z">
-<meta property="article:modified_time" content="2026-07-27T14:43:07.048Z">
+<meta property="article:modified_time" content="2026-09-27T13:57:16.096Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="project">
 <meta name="twitter:card" content="summary">
@@ -60,7 +60,7 @@
     "description": "Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
     "url": "https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/",
     "datePublished": "2026-07-27T14:40:00.000Z",
-    "dateModified": "2026-07-27T14:43:07.048Z",
+    "dateModified": "2026-09-27T13:57:16.096Z",
     "author": {
       "@type": "Person",
       "name": "Lin",
@@ -139,14 +139,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -188,7 +190,7 @@
         <span>2444 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2026.07.27</span>
+        <span>更新於 2026.09.27</span>
         
       </div>
     </div>
@@ -197,13 +199,13 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><h1 id="tw-grad-lab-skills-用-agent-skills-幫你找台灣研究所的教授與實驗室"><a class="markdownIt-Anchor" href="#tw-grad-lab-skills-用-agent-skills-幫你找台灣研究所的教授與實驗室">#</a> 🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室</h1>
+  <div class="reading-body content e-content" itemprop="articleBody"><p class="reading-subtitle">🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室</p>
 <blockquote>
 <p>一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。</p>
 </blockquote>
 <p>►  「 <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/tw-grad-lab-skills">GITHUB</a> 」</p>
 <hr>
-<h2 id="專案緣起"><a class="markdownIt-Anchor" href="#專案緣起">#</a> 💡 專案緣起</h2>
+<h2 id="專案緣起"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#專案緣起"></a> 💡 專案緣起</h2>
 <p>我自己也在準備研究所。找實驗室的時候，最痛苦的不是資訊太少，而是資訊太散：教授的研究方向在系網、近期論文在 Google Scholar、實驗室風氣要翻 Dcard 跟 PTT、到底適不適合我還得自己在腦中拼湊。每一檔候選教授都要重複一次這個流程，開一堆分頁、比來比去，最後還常常漏掉一些其實不錯、只是學校名氣沒那麼響的實驗室。</p>
 <p>所以我把這個流程做成兩個 Agent Skills。核心理念很簡單:</p>
 <ul>
@@ -213,16 +215,16 @@
 </ul>
 <p>如果你也正在找研究所，希望它對你也有幫助 🙌</p>
 <hr>
-<h2 id="這是什麼agent-skills不是又一個網站"><a class="markdownIt-Anchor" href="#這是什麼agent-skills不是又一個網站">#</a> 🧩 這是什麼：Agent Skills, 不是又一個網站</h2>
+<h2 id="這是什麼agent-skills不是又一個網站"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#這是什麼agent-skills不是又一個網站"></a> 🧩 這是什麼：Agent Skills, 不是又一個網站</h2>
 <p>這個專案沒有後端、沒有資料庫、甚至不需要 Python。它是兩個 <strong>Agent Skills</strong>—— 放進支援 skills 的 coding agent (Claude Code、Codex⋯⋯) 後，就多出兩個斜線指令。你用自然語言跟 agent 對話，它負責上網搜尋、交叉比對、整理證據，最後直接生成一份 HTML 報告給你看。</p>
 <blockquote>
 <p>換句話說：報告是 agent 依照技能裡的規範「當場產生」的，而不是我寫死的一份範本。技能的價值在於那套<strong>流程與規範</strong> —— 問什麼、去哪找、怎麼標註證據、報告長什麼樣。</p>
 </blockquote>
 <p>repo 收錄兩個技能，通常搭配使用：先用  <code>find-grad-labs</code>  找出候選名單，再用  <code>investigate-grad-lab</code>  深挖你最在意的幾位。</p>
 <hr>
-<h2 id="技能一find-grad-labs-探索合適的實驗室"><a class="markdownIt-Anchor" href="#技能一find-grad-labs-探索合適的實驗室">#</a> 🔎 技能一: <code>/find-grad-labs</code>  — 探索合適的實驗室</h2>
+<h2 id="技能一find-grad-labs-探索合適的實驗室"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#技能一find-grad-labs-探索合適的實驗室"></a> 🔎 技能一: <code>/find-grad-labs</code>  — 探索合適的實驗室</h2>
 <p>這個技能負責「從零到候選名單」。它會先跑一輪結構化訪談，把你的條件問清楚，再開始跨校搜尋、比較，最後產出報告。</p>
-<h3 id="先問清楚再開始找"><a class="markdownIt-Anchor" href="#先問清楚再開始找">#</a> 先問清楚，再開始找</h3>
+<h3 id="先問清楚再開始找"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#先問清楚再開始找"></a> 先問清楚，再開始找</h3>
 <p>在搜尋之前，它會用問答蒐集這些資訊:</p>
 <ul>
 <li><strong>研究主題 / 子領域</strong> —— 例如 NLP/LLM、電腦視覺、MLSys、RL, 可以複選</li>
@@ -231,16 +233,16 @@
 <li><strong>目標系所</strong> ——CSIE、電機、資料科學、AI 學程、資管⋯⋯(不預設，因為強實驗室常常不在最明顯的系所)</li>
 <li><strong>地區、指導風格、生涯目標、限制條件</strong> (獎學金需求、硬性條件等)</li>
 </ul>
-<h3 id="廣撒網-落點分級"><a class="markdownIt-Anchor" href="#廣撒網-落點分級">#</a> 廣撒網 + 落點分級</h3>
+<h3 id="廣撒網-落點分級"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#廣撒網-落點分級"></a> 廣撒網 + 落點分級</h3>
 <p>我最在意的兩個設計都在這裡:</p>
 <ol>
 <li><strong>跨層級搜尋</strong>：就算主題集中在頂大，它也會刻意去找中字輩國立大學、科技大學 (台科、北科、雲科⋯⋯) 與相關私校，最終名單<strong>必須跨越一個以上的層級</strong>。如果某主題在頂大以外真的很稀缺，它會直說，並且列出「搜尋過但排除的學校」與原因 —— 不會給你一份「又全是四大」卻不解釋的名單。</li>
 <li><strong>reach /match/safety (衝刺 / 穩健 / 保底)</strong>: 用你的學校與成績，把候選教授分成落點，讓名單務實而不是全部都是衝刺。但這些標籤是<strong>有保留的建議</strong>，絕不輸出錄取機率數字或任何保證，也會提醒你錄取還牽涉面試、SOP、推薦信、名額、推甄 vs 考試等這裡沒涵蓋的因素。</li>
 </ol>
-<h3 id="產出"><a class="markdownIt-Anchor" href="#產出">#</a> 產出</h3>
+<h3 id="產出"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#產出"></a> 產出</h3>
 <p>一份 HTML 報告，包含：偏好摘要、涵蓋度 / 透明度說明 (名單的層級與地區分布、排除了哪些學校)、候選教授卡片 (附落點標籤與「學生風評」小區塊)、比較矩陣、研究領域地圖、跨落點的推薦，以及<strong>依教授分組、可點擊的完整來源清單</strong>。</p>
 <hr>
-<h2 id="技能二investigate-grad-lab-深入調查單一教授"><a class="markdownIt-Anchor" href="#技能二investigate-grad-lab-深入調查單一教授">#</a> 🔬 技能二: <code>/investigate-grad-lab</code>  — 深入調查單一教授</h2>
+<h2 id="技能二investigate-grad-lab-深入調查單一教授"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#技能二investigate-grad-lab-深入調查單一教授"></a> 🔬 技能二: <code>/investigate-grad-lab</code>  — 深入調查單一教授</h2>
 <p>當你心裡已經有特定人選，這個技能負責把單一教授 / 實驗室查深、查實。它會:</p>
 <ol>
 <li>先用官方系網 / 系所頁面<strong>確認教授身分與現職</strong></li>
@@ -251,7 +253,7 @@
 </ol>
 <p>重點在最後那件事:<strong> 沒有可靠公開來源的東西就標成「未知」, 而不是硬掰</strong>。它不會用論文數量去推斷實驗室風氣，也不會做無法佐證的個性判斷。</p>
 <hr>
-<h2 id="讓報告可信的設計證據分級"><a class="markdownIt-Anchor" href="#讓報告可信的設計證據分級">#</a> 📐 讓報告可信的設計：證據分級</h2>
+<h2 id="讓報告可信的設計證據分級"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#讓報告可信的設計證據分級"></a> 📐 讓報告可信的設計：證據分級</h2>
 <p>兩個技能最核心的規範，是一套<strong>來源分級政策</strong>。所有事實性宣稱都要有來源、要能點進去，而且證據等級要看得出來:</p>
 <table>
 <thead>
@@ -282,7 +284,7 @@
 <p>規則很嚴格：官方事實和社群風向要分開放；社群訊息一律標成「未經查證的次級證據」, 永遠不能當成已確認的事實呈現；能交叉比對就交叉比對，單一來源、時間久遠或彼此矛盾的都要標出來；查不到就寫「未知」。報告視覺上也對應這套分級 ——<strong> 已確認用綠色、不確定用琥珀色、缺漏用灰色</strong>，社群風評有自己專屬的「未經查證」樣式，不會被誤讀成事實。</p>
 <p>這其實是我做這個專案最想守住的一條線:<strong> 找實驗室這種事，寧可誠實說「不知道」, 也不要給人一個看起來很篤定、其實是猜的答案。</strong></p>
 <hr>
-<h2 id="️-技術與實作"><a class="markdownIt-Anchor" href="#️-技術與實作">#</a> 🛠️ 技術與實作</h2>
+<h2 id="️-技術與實作"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#️-技術與實作"></a> 🛠️ 技術與實作</h2>
 <p>🟢 標準</p>
 <blockquote>
 <p>每個技能都是一個含  <code>SKILL.md</code>  的資料夾，frontmatter 具備  <code>name</code> 、 <code>description</code> , 符合 Agent Skills 標準，因此可被  <code>skills</code>  CLI 自動安裝。</p>
@@ -299,16 +301,16 @@
 <blockquote>
 <p>透過 <a target="_blank" rel="noopener" href="https://github.com/vercel-labs/skills"> <code>skills</code> </a> CLI 安裝，官方支援 70+ 種 agent, 同一份技能在 Claude Code 用  <code>/</code> 、在 Codex 用  <code>$</code>  呼叫。</p>
 </blockquote>
-<p>專案結構也刻意保持乾淨：每個技能把「流程 (<a target="_blank" rel="noopener" href="http://SKILL.md">SKILL.md</a>)、報告結構 (<a target="_blank" rel="noopener" href="http://HTML-REPORT.md">HTML-REPORT.md</a>)、證據規範 (<a target="_blank" rel="noopener" href="http://EVIDENCE-RULES.md">EVIDENCE-RULES.md</a>)」拆成三份， <code>docs/</code>  再放產品原則與來源政策 —— 規範和實作分開，之後要調整某一條規則，不用去翻整份 prompt。</p>
+<p>專案結構也刻意保持乾淨：每個技能把「流程 (SKILL.md)、報告結構 (HTML-REPORT.md)、證據規範 (EVIDENCE-RULES.md)」拆成三份， <code>docs/</code>  再放產品原則與來源政策 —— 規範和實作分開，之後要調整某一條規則，不用去翻整份 prompt。</p>
 <hr>
-<h2 id="安裝與使用"><a class="markdownIt-Anchor" href="#安裝與使用">#</a> 📦 安裝與使用</h2>
+<h2 id="安裝與使用"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#安裝與使用"></a> 📦 安裝與使用</h2>
 <p>用 <a target="_blank" rel="noopener" href="https://github.com/vercel-labs/skills"> <code>skills</code> </a> CLI 一鍵安裝，過程會問你要裝哪些技能、裝到哪個 agent:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一鍵安裝</span></span><br><span class="line">npx skills add reedlin2002/tw-grad-lab-skills</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先看看這個 repo 有哪些技能</span></span><br><span class="line">npx skills add reedlin2002/tw-grad-lab-skills --list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只裝其中一個</span></span><br><span class="line">npx skills add reedlin2002/tw-grad-lab-skills --skill find-grad-labs</span><br></pre></td></tr></table></figure>
 <p>裝好之後，在 Claude Code 直接輸入斜線指令:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/find-grad-labs</span><br><span class="line">/investigate-grad-lab</span><br></pre></td></tr></table></figure>
 <p>在 Codex 則改用  <code>$find-grad-labs</code>  /  <code>$investigate-grad-lab</code>  (或  <code>/skills</code>  選單)。不想用 CLI 的話，把  <code>skills/</code>  底下的資料夾複製到 agent 的 skills 目錄 (Claude Code 全域是  <code>~/.claude/skills/</code> ) 也可以。</p>
 <hr>
-<h2 id="一點心得"><a class="markdownIt-Anchor" href="#一點心得">#</a> 🧭 一點心得</h2>
+<h2 id="一點心得"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#一點心得"></a> 🧭 一點心得</h2>
 <p>做這個專案最大的收穫，不是「AI 幫我找到了神級實驗室」, 而是逼自己把「怎麼算是有根據的判斷」寫成規範：什麼能當事實、什麼只能當參考、查不到的時候要誠實。這套原則其實不只適用找研究所 —— 任何要<strong>基於證據給建議</strong>的 AI 應用，都適用。</p>
 <p>它終究只是把候選名單整理清楚的工具。真正的決定，還是要自己去寫信、去面談、去感受那個實驗室適不適合你。如果你也在準備研究所，歡迎試用，也歡迎回饋 🙌</p>
 <blockquote>
@@ -409,7 +411,7 @@
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -549,6 +551,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -563,14 +567,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -580,10 +590,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -800,6 +807,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 

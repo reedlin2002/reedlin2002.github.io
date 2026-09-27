@@ -57,7 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
       NProgress.configure({ showSpinner: false });
     }
   
+    // 回頂部先綁：下面的 Pjax／NProgress 來自 CDN，載入失敗時不能連帶讓它失效
+    initBackToTop();
+
     // 避免音樂重新載入，Pjax 只負責抽換主要內容
+    if (typeof Pjax === 'undefined') return;
     var pjax = new Pjax({
       elements: "a[href]:not([target='_blank']):not([href^='#']):not([href^='/#']):not([data-pjax-state])",
       selectors: [
@@ -67,17 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
       cacheBust: false,
       timeout: 5000
     });
-  
+
     // 開始換頁時：顯示進度條 + 淡出
     document.addEventListener("pjax:send", function() {
-      NProgress.start();
+      if (typeof NProgress !== 'undefined') NProgress.start();
       var main = document.querySelector('main.content');
       if (main) main.classList.add('pjax-loading');
     });
 
     // 換頁結束時：淡入 + 重新初始化腳本
     document.addEventListener("pjax:complete", function() {
-      NProgress.done();
+      if (typeof NProgress !== 'undefined') NProgress.done();
       var main = document.querySelector('main.content');
       if (main) {
         main.classList.remove('pjax-loading');
@@ -116,6 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
         window.initMermaid();
       }
 
+      // 搜尋頁：搜尋腳本在 main.content 外，從別頁換進 /search/ 時要手動綁定
+      if (typeof window.initSearch === 'function') {
+        window.initSearch();
+      }
+
       // Back-to-Top 重新初始化（PJAX 換頁後 scroll 位置重置）
       initBackToTop();
   
@@ -125,7 +134,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // 為了保證第一頁進來也能初始化（從 main.js 的 ready 事件拿過來）
     if (typeof window.initMainJS === 'function') window.initMainJS();
     // Sprint JS 會自己在行內呼叫，這裡不用再次呼叫
-
-    // 初始化返回頂部按鈕
-    initBackToTop();
   });

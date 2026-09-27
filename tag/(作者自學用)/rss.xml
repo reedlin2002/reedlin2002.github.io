@@ -7,25 +7,25 @@
         <language>zh-TW</language>
         <pubDate>Sun, 13 Jul 2025 16:16:17 +0800</pubDate>
         <lastBuildDate>Sun, 13 Jul 2025 16:16:17 +0800</lastBuildDate>
-        <category>myself</category>
+        <category>project</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>project</category>
-        <category>技術筆記</category>
-        <category>(作者自學用)</category>
+        <category>myself</category>
         <category>leetcode</category>
         <category>Daily</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
+        <category>技術筆記</category>
+        <category>(作者自學用)</category>
         <category>side project</category>
         <category>React</category>
         <category>NFC</category>
         <category>Web API</category>
         <category>TypeScript</category>
         <category>AI</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>電腦視覺</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
@@ -37,8 +37,7 @@
             <category>技術筆記</category>
             <category>(作者自學用)</category>
             <pubDate>Sun, 13 Jul 2025 16:16:17 +0800</pubDate>
-            <description><![CDATA[ &lt;h1 id=&#34;單例模式-singleton-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#單例模式-singleton-pattern&#34;&gt;#&lt;/a&gt; 單例模式 (Singleton Pattern)&lt;/h1&gt;
-&lt;h2 id=&#34;為什麼需要-singleton&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#為什麼需要-singleton&#34;&gt;#&lt;/a&gt; 為什麼需要 Singleton？&lt;/h2&gt;
+            <description><![CDATA[ &lt;h2 id=&#34;為什麼需要-singleton&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#為什麼需要-singleton&#34;&gt;&lt;/a&gt; 為什麼需要 Singleton？&lt;/h2&gt;
 &lt;p&gt;在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。&lt;/p&gt;
 &lt;p&gt;舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：&lt;/p&gt;
 &lt;ul&gt;
@@ -48,19 +47,19 @@
 &lt;/ul&gt;
 &lt;p&gt;這時候我們希望有一個全域的 Logger 管理者，所有模組都向它發送 Log 訊息。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Singleton 的核心思想：確保一個類別在整個系統中只有一個實例，並提供全域的存取點。&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;沒有使用-singleton-的情況&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#沒有使用-singleton-的情況&#34;&gt;#&lt;/a&gt; 沒有使用 Singleton 的情況&lt;/h2&gt;
+&lt;h2 id=&#34;沒有使用-singleton-的情況&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#沒有使用-singleton-的情況&#34;&gt;&lt;/a&gt; 沒有使用 Singleton 的情況&lt;/h2&gt;
 &lt;p&gt;來看看傳統的實作方式會產生什麼問題：&lt;/p&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;Logger&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;log&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, msg&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;f&amp;quot;[LOG] &lt;span class=&#34;subst&#34;&gt;&amp;#123;msg&amp;#125;&lt;/span&gt;&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 模組 A&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_a = Logger()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_a.log(&lt;span class=&#34;string&#34;&gt;&amp;quot;A 模組初始化完成&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 模組 B&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_b = Logger()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_b.log(&lt;span class=&#34;string&#34;&gt;&amp;quot;B 模組初始化完成&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;logger_a is logger_b:&amp;quot;&lt;/span&gt;, logger_a &lt;span class=&#34;keyword&#34;&gt;is&lt;/span&gt; logger_b)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;執行結果：&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;[LOG] A 模組初始化完成&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;[LOG] B 模組初始化完成&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_a is logger_b: False&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;可以看到，每次實例化都會產生不同的物件，這違背了我們想要統一管理的初衷。&lt;/p&gt;
-&lt;h2 id=&#34;使用-singleton-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用-singleton-pattern&#34;&gt;#&lt;/a&gt; 使用 Singleton Pattern&lt;/h2&gt;
+&lt;h2 id=&#34;使用-singleton-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#使用-singleton-pattern&#34;&gt;&lt;/a&gt; 使用 Singleton Pattern&lt;/h2&gt;
 &lt;p&gt;接下來實作 Singleton 版本：&lt;/p&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;SingletonLogger&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    _instance = &lt;span class=&#34;literal&#34;&gt;None&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;__new__&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;cls, *args, **kwargs&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; cls._instance &lt;span class=&#34;keyword&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;literal&#34;&gt;None&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;建立 SingletonLogger 實例&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            cls._instance = &lt;span class=&#34;built_in&#34;&gt;super&lt;/span&gt;().__new__(cls)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; cls._instance&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;log&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, msg&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;f&amp;quot;[LOG] &lt;span class=&#34;subst&#34;&gt;&amp;#123;msg&amp;#125;&lt;/span&gt;&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 在不同模組中使用&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_a = SingletonLogger()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_a.log(&lt;span class=&#34;string&#34;&gt;&amp;quot;A 模組初始化完成&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_b = SingletonLogger()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_b.log(&lt;span class=&#34;string&#34;&gt;&amp;quot;B 模組初始化完成&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;logger_a is logger_b:&amp;quot;&lt;/span&gt;, logger_a &lt;span class=&#34;keyword&#34;&gt;is&lt;/span&gt; logger_b)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;執行結果：&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;建立 SingletonLogger 實例&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;[LOG] A 模組初始化完成&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;[LOG] B 模組初始化完成&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;logger_a is logger_b: True&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;可以看到，不論在哪個模組中實例化，都會得到相同的物件參考。&lt;/p&gt;
-&lt;h2 id=&#34;實作細節說明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#實作細節說明&#34;&gt;#&lt;/a&gt; 實作細節說明&lt;/h2&gt;
+&lt;h2 id=&#34;實作細節說明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#實作細節說明&#34;&gt;&lt;/a&gt; 實作細節說明&lt;/h2&gt;
 &lt;p&gt;在這個實作中，我們重寫了  &lt;code&gt;__new__&lt;/code&gt;  方法來控制物件的創建過程：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;使用類別變數  &lt;code&gt;_instance&lt;/code&gt;  來儲存唯一的實例&lt;/li&gt;
@@ -68,9 +67,9 @@
 &lt;li&gt;如果不存在，則創建新實例；如果存在，則回傳現有實例&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;這種做法確保了無論呼叫多少次建構子，都只會有一個實例存在。&lt;/p&gt;
-&lt;h2 id=&#34;適用場景&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#適用場景&#34;&gt;#&lt;/a&gt; 適用場景&lt;/h2&gt;
+&lt;h2 id=&#34;適用場景&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#適用場景&#34;&gt;&lt;/a&gt; 適用場景&lt;/h2&gt;
 &lt;p&gt;Singleton 適合用於以下情況：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;建議使用：&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;建議使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#建議使用&#34;&gt;&lt;/a&gt; 建議使用&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;日誌系統（Logger）&lt;/li&gt;
 &lt;li&gt;設定檔管理器（Configuration Manager）&lt;/li&gt;
@@ -78,13 +77,13 @@
 &lt;li&gt;快取管理器（Cache Manager）&lt;/li&gt;
 &lt;li&gt;執行緒池（Thread Pool）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;不建議使用：&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;不建議使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#不建議使用&#34;&gt;&lt;/a&gt; 不建議使用&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;一般業務邏輯物件&lt;/li&gt;
 &lt;li&gt;需要多個不同狀態的物件&lt;/li&gt;
 &lt;li&gt;會影響單元測試的情況&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;注意事項&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#注意事項&#34;&gt;#&lt;/a&gt; 注意事項&lt;/h2&gt;
+&lt;h2 id=&#34;注意事項&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#注意事項&#34;&gt;&lt;/a&gt; 注意事項&lt;/h2&gt;
 &lt;p&gt;使用 Singleton 時需要注意：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;執行緒安全性&lt;/strong&gt;：在多執行緒環境中，需要考慮同步問題&lt;/li&gt;
@@ -102,7 +101,7 @@
             <category>技術筆記</category>
             <category>(作者自學用)</category>
             <pubDate>Sat, 12 Jul 2025 14:36:56 +0800</pubDate>
-            <description><![CDATA[ &lt;h1 id=&#34;python-設計模式&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#python-設計模式&#34;&gt;#&lt;/a&gt; Python 設計模式&lt;/h1&gt;
+            <description><![CDATA[ &lt;p class=&#34;reading-subtitle&#34;&gt;Python 設計模式&lt;/p&gt;
 &lt;p&gt;這篇文章紀錄四種我學習過的 Python 設計模式，包含簡單範例、使用情境與心得。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;四種模式&lt;/strong&gt;&lt;/p&gt;
@@ -114,16 +113,16 @@
 &lt;/ol&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;單例模式-singleton-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#單例模式-singleton-pattern&#34;&gt;#&lt;/a&gt; 🟢 單例模式 Singleton Pattern&lt;/h2&gt;
-&lt;h3 id=&#34;概念&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#概念&#34;&gt;#&lt;/a&gt; 概念&lt;/h3&gt;
+&lt;h2 id=&#34;單例模式-singleton-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#單例模式-singleton-pattern&#34;&gt;&lt;/a&gt; 🟢 單例模式 Singleton Pattern&lt;/h2&gt;
+&lt;h3 id=&#34;概念&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#概念&#34;&gt;&lt;/a&gt; 概念&lt;/h3&gt;
 &lt;p&gt;確保一個類別在全程只存在唯一一個實例。&lt;/p&gt;
-&lt;h3 id=&#34;使用情境&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用情境&#34;&gt;#&lt;/a&gt; 使用情境&lt;/h3&gt;
+&lt;h3 id=&#34;使用情境&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#使用情境&#34;&gt;&lt;/a&gt; 使用情境&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;設定檔管理&lt;/li&gt;
 &lt;li&gt;資源共用 (e.g., 日誌 Logger)&lt;/li&gt;
 &lt;li&gt;全域狀態控制&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;範例程式碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#範例程式碼&#34;&gt;#&lt;/a&gt; 範例程式碼&lt;/h3&gt;
+&lt;h3 id=&#34;範例程式碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#範例程式碼&#34;&gt;&lt;/a&gt; 範例程式碼&lt;/h3&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;SingletonLogger&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    _instance = &lt;span class=&#34;literal&#34;&gt;None&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;__new__&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;cls, *args, **kwargs&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;not&lt;/span&gt; cls._instance:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;建立 SingletonLogger 實例&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            cls._instance = &lt;span class=&#34;built_in&#34;&gt;super&lt;/span&gt;().__new__(cls)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; cls._instance&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;__init__&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;執行 __init__()&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 測試&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;log1 = SingletonLogger()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;log2 = SingletonLogger()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;log1 is log2:&amp;quot;&lt;/span&gt;, log1 &lt;span class=&#34;keyword&#34;&gt;is&lt;/span&gt; log2)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;執行輸出&lt;/p&gt;
 &lt;figure class=&#34;highlight scss&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;建立 SingletonLogger 實例&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;執行 &lt;span class=&#34;built_in&#34;&gt;__init__&lt;/span&gt;()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;執行 &lt;span class=&#34;built_in&#34;&gt;__init__&lt;/span&gt;()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;log1 is log2: True&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -134,15 +133,15 @@
 整個程式只會有一個 Logger，大家共用這個唯一的「盒子」。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;工廠模式-factory-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#工廠模式-factory-pattern&#34;&gt;#&lt;/a&gt; 🟢 工廠模式 Factory Pattern&lt;/h2&gt;
-&lt;h3 id=&#34;概念-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#概念-2&#34;&gt;#&lt;/a&gt; 概念&lt;/h3&gt;
+&lt;h2 id=&#34;工廠模式-factory-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#工廠模式-factory-pattern&#34;&gt;&lt;/a&gt; 🟢 工廠模式 Factory Pattern&lt;/h2&gt;
+&lt;h3 id=&#34;概念-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#概念-2&#34;&gt;&lt;/a&gt; 概念&lt;/h3&gt;
 &lt;p&gt;將「建立物件的邏輯」抽離到工廠方法，統一管理實例化流程。&lt;/p&gt;
-&lt;h3 id=&#34;使用情境-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用情境-2&#34;&gt;#&lt;/a&gt; 使用情境&lt;/h3&gt;
+&lt;h3 id=&#34;使用情境-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#使用情境-2&#34;&gt;&lt;/a&gt; 使用情境&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;根據參數決定建立哪個子類別&lt;/li&gt;
 &lt;li&gt;解耦「建立物件」與「使用物件」&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;範例程式碼-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#範例程式碼-2&#34;&gt;#&lt;/a&gt; 範例程式碼&lt;/h3&gt;
+&lt;h3 id=&#34;範例程式碼-2&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#範例程式碼-2&#34;&gt;&lt;/a&gt; 範例程式碼&lt;/h3&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;Dog&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;speak&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;Woof&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;Cat&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;speak&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;quot;Meow&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;AnimalFactory&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    animal_classes = &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;string&#34;&gt;&amp;quot;dog&amp;quot;&lt;/span&gt;: Dog,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;string&#34;&gt;&amp;quot;cat&amp;quot;&lt;/span&gt;: Cat&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;    @staticmethod&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;create_animal&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;animal_type&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; animal_type &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; AnimalFactory.animal_classes:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; AnimalFactory.animal_classes[animal_type]()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;raise&lt;/span&gt; ValueError(&lt;span class=&#34;string&#34;&gt;&amp;quot;未知的動物種類&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 測試&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;animal = AnimalFactory.create_animal(&lt;span class=&#34;string&#34;&gt;&amp;quot;dog&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(animal.speak())&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;執行輸出&lt;/p&gt;
 &lt;figure class=&#34;highlight scss&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;Woof&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -153,10 +152,10 @@
 工廠就像流水線，每次都造出新的產品，產品彼此獨立。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;策略模式-strategy-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#策略模式-strategy-pattern&#34;&gt;#&lt;/a&gt; 🟢 策略模式 Strategy Pattern&lt;/h2&gt;
-&lt;h3 id=&#34;概念-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#概念-3&#34;&gt;#&lt;/a&gt; 概念&lt;/h3&gt;
+&lt;h2 id=&#34;策略模式-strategy-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#策略模式-strategy-pattern&#34;&gt;&lt;/a&gt; 🟢 策略模式 Strategy Pattern&lt;/h2&gt;
+&lt;h3 id=&#34;概念-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#概念-3&#34;&gt;&lt;/a&gt; 概念&lt;/h3&gt;
 &lt;p&gt;將「行為策略」封裝為獨立類別，執行時依據情境決定要用哪個策略。&lt;/p&gt;
-&lt;h3 id=&#34;使用情境-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用情境-3&#34;&gt;#&lt;/a&gt; 使用情境&lt;/h3&gt;
+&lt;h3 id=&#34;使用情境-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#使用情境-3&#34;&gt;&lt;/a&gt; 使用情境&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;動態切換演算法&lt;/li&gt;
 &lt;li&gt;行為多樣化的系統&lt;/li&gt;
@@ -171,16 +170,16 @@ ShoppingCart () 也每次產生一個新的購物車，&lt;br&gt;
 策略物件和購物車都是獨立的！&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;觀察者模式-observer-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#觀察者模式-observer-pattern&#34;&gt;#&lt;/a&gt; 🟢 觀察者模式 Observer Pattern&lt;/h2&gt;
-&lt;h3 id=&#34;概念-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#概念-4&#34;&gt;#&lt;/a&gt; 概念&lt;/h3&gt;
+&lt;h2 id=&#34;觀察者模式-observer-pattern&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#觀察者模式-observer-pattern&#34;&gt;&lt;/a&gt; 🟢 觀察者模式 Observer Pattern&lt;/h2&gt;
+&lt;h3 id=&#34;概念-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#概念-4&#34;&gt;&lt;/a&gt; 概念&lt;/h3&gt;
 &lt;p&gt;當主題狀態改變時，自動通知所有依賴它的觀察者。&lt;/p&gt;
-&lt;h3 id=&#34;使用情境-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#使用情境-4&#34;&gt;#&lt;/a&gt; 使用情境&lt;/h3&gt;
+&lt;h3 id=&#34;使用情境-4&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#使用情境-4&#34;&gt;&lt;/a&gt; 使用情境&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;事件通知&lt;/li&gt;
 &lt;li&gt;資料監聽&lt;/li&gt;
 &lt;li&gt;訂閱 / 發布系統&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;範例程式碼-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#範例程式碼-3&#34;&gt;#&lt;/a&gt; 範例程式碼&lt;/h3&gt;
+&lt;h3 id=&#34;範例程式碼-3&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#範例程式碼-3&#34;&gt;&lt;/a&gt; 範例程式碼&lt;/h3&gt;
 &lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;31&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;Observer&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;update&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, message&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;pass&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;User&lt;/span&gt;(&lt;span class=&#34;title class_ inherited__&#34;&gt;Observer&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;__init__&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, name&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.name = name&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;update&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, message&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;built_in&#34;&gt;print&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;f&amp;quot;&lt;span class=&#34;subst&#34;&gt;&amp;#123;self.name&amp;#125;&lt;/span&gt; 收到通知: &lt;span class=&#34;subst&#34;&gt;&amp;#123;message&amp;#125;&lt;/span&gt;&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;ChatRoom&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;__init__&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.observers = []&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;add_observer&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, observer&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.observers.append(observer)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;notify_observers&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, message&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; observer &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.observers:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            observer.update(message)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 測試&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;chat_room = ChatRoom()&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;user1 = User(&lt;span class=&#34;string&#34;&gt;&amp;quot;小明&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;user2 = User(&lt;span class=&#34;string&#34;&gt;&amp;quot;小美&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;chat_room.add_observer(user1)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;chat_room.add_observer(user2)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;chat_room.notify_observers(&lt;span class=&#34;string&#34;&gt;&amp;quot;今天有新活動！&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;執行輸出&lt;/p&gt;
 &lt;figure class=&#34;highlight scss&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;小明 收到通知: 今天有新活動！&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;小美 收到通知: 今天有新活動！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
@@ -192,7 +191,7 @@ ChatRoom () 也可以建立多個聊天室，彼此沒有關聯。&lt;br&gt;
 每個聊天室都維護自己的訂閱清單，觀察者和主題都是獨立物件，沒有共享同一個實例。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#小結&#34;&gt;#&lt;/a&gt; ✨ 小結&lt;/h2&gt;
+&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#小結&#34;&gt;&lt;/a&gt; ✨ 小結&lt;/h2&gt;
 &lt;p&gt;這四種模式是物件導向程式設計中最經典的設計模式：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;單例：只有一個實例&lt;/li&gt;
@@ -272,7 +271,7 @@ ChatRoom () 也可以建立多個聊天室，彼此沒有關聯。&lt;br&gt;
 &lt;hr&gt;
 &lt;p&gt;技術與應用方法：&lt;br&gt;
 Python（OOP 與 Design Pattern）、VS Code（Python Extension）、互動式 CLI（範例測試）&lt;/p&gt;
-&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#心得&#34;&gt;#&lt;/a&gt; 📝心得：&lt;/h2&gt;
+&lt;h2 id=&#34;心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#心得&#34;&gt;&lt;/a&gt; 📝心得：&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;一開始對  &lt;code&gt;__new__()&lt;/code&gt; 、工廠模式的「字典映射類別」還有策略模式「注入策略物件」這種寫法有點陌生，看起來超抽象，不太確定「為什麼要多繞一層」，但慢慢測試、比對記憶體位置，就理解到它們的用意，這次練習也算是把「抽象的設計模式」變成「具體的練習案例」，實際跑一遍後真的對日後專案會有很大幫助，不管是要降低耦合度、提高可維護性、還是做功能擴展，都比單純 procedural code 更直覺清晰。如果未來要用到更大型的框架（像 Django、Flask、.NET Core），這些模式也能直接套用。&lt;/p&gt;
 &lt;/blockquote&gt;

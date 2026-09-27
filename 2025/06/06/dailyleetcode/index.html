@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -140,14 +140,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -186,7 +188,7 @@
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>6 分鐘閱讀</span>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>1580 字</span>
+        <span>1592 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>更新於 2025.06.28</span>
@@ -236,12 +238,12 @@
 </li>
 <li><strong>D8</strong> 🉑  #14 Longest Common Prefix
 <ul>
-<li><code>if not 某東西:</code>  ← 檢查 “某東西” 是否為空，如果是就執行</li>
+<li><code>if not 某東西:</code>  ← 檢查 &quot;某東西&quot; 是否為空，如果是就執行</li>
 </ul>
 </li>
 <li><strong>D9</strong> 🉑  #14 Longest Common Prefix
 <ul>
-<li><code>while not 某東西:</code>  ← 檢查 “某東西” 為 True/False，如果為 False 就執行</li>
+<li><code>while not 某東西:</code>  ← 檢查 &quot;某東西&quot; 為 True/False，如果為 False 就執行</li>
 </ul>
 </li>
 <li><strong>D10</strong> ✅  #14 Longest Common Prefix</li>
@@ -307,7 +309,7 @@ self.next = next      # 指向下一個節點的指標</p>
 <blockquote>
 <p>比較 1 和 2 → 接 1 → list1 向前 → 結果：1<br>
  比較 3 和 2 → 接 2 → list2 向前 → 結果：1 → 2<br>
- 比較 3 和 4 → 接 3 → …<br>
+ 比較 3 和 4 → 接 3 → ...<br>
  一直到兩邊都走完 → 合併完成</p>
 </blockquote>
 </li>
@@ -388,9 +390,9 @@ nums[i] = nums[j]</li>
 <ul>
 <li>判斷
 <blockquote>
-<p>haystack = “TCodeLee”<br>
-haystack [0:3] → 取第 0、1、2 的字 → “TCo”<br>
-haystack [1:4] → 取第 1、2、3 的字 → “Cod”</p>
+<p>haystack = &quot;TCodeLee&quot;<br>
+haystack [0:3] → 取第 0、1、2 的字 →&quot;TCo&quot;<br>
+haystack [1:4] → 取第 1、2、3 的字 →&quot;Cod&quot;</p>
 </blockquote>
 </li>
 </ul>
@@ -402,7 +404,7 @@ haystack [1:4] → 取第 1、2、3 的字 → “Cod”</p>
 <p>for i in range(len(haystack) - len(needle) + 1):<br>
 len(haystack) - len(needle) + 1 = 8 - 3 + 1 = 6<br>
 i=0 → haystack[i : i + 3] → haystack[0:3]<br>
- haystack [0:3] → “Lee” 符合！立刻 return 0</p>
+ haystack [0:3] → &quot;Lee&quot; 符合！立刻 return 0</p>
 </blockquote>
 </li>
 </ul>
@@ -605,7 +607,7 @@ i=0 → haystack[i : i + 3] → haystack[0:3]<br>
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -745,6 +747,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -759,14 +763,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -776,10 +786,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -996,6 +1003,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 

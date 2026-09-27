@@ -4,25 +4,25 @@
     <title>Reedlin2002 • Posts by &#34;系統設計&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2026-09-18T16:00:00.000Z</updated>
-    <category term="myself" />
+    <category term="project" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
-    <category term="project" />
-    <category term="技術筆記" />
-    <category term="(作者自學用)" />
+    <category term="myself" />
     <category term="leetcode" />
     <category term="Daily" />
-    <category term="iOS" />
-    <category term="CallKit" />
-    <category term="系統設計" />
+    <category term="技術筆記" />
+    <category term="(作者自學用)" />
     <category term="side project" />
     <category term="React" />
     <category term="NFC" />
     <category term="Web API" />
     <category term="TypeScript" />
     <category term="AI" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
     <category term="電腦視覺" />
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
@@ -35,12 +35,12 @@
 &lt;p&gt;查完文件會發現 Apple 給了三個看起來都能做這件事的 API, 而大部分的介紹文章都是各自說明它們的用途。我一開始也是這樣理解的，把它們排成「三個層次」, 以為可以依序疊加。&lt;/p&gt;
 &lt;p&gt;後來發現這個模型是錯的，而且錯得相當徹底。修正的過程比結論本身更值得寫，所以這篇不從 API 開始講。先看四通電話。&lt;/p&gt;
 &lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
-&lt;h2 id=&#34;情境-a十年老友&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#情境-a十年老友&#34;&gt;#&lt;/a&gt; 情境 A: 十年老友&lt;/h2&gt;
+&lt;h2 id=&#34;情境-a十年老友&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#情境-a十年老友&#34;&gt;&lt;/a&gt; 情境 A: 十年老友&lt;/h2&gt;
 &lt;p&gt;你手機裡存過一個號碼，備註寫「阿宏」。他打來，畫面顯示「阿宏」。&lt;/p&gt;
 &lt;p&gt;這裡沒有任何第三方 App 的事，但它是整件事最重要的一條規則:&lt;strong&gt; 使用者自己存過的東西，永遠優先。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;使用者在自己通訊錄裡寫的是「老婆」「老闆」「房東」「不要接」。這些不是不完整的資料，它們承載的是使用者自己的判斷。任何第三方服務跑來說「根據我的資料庫，這位是陳美玲女士」然後把「老婆」蓋掉，都是在破壞使用者對自己手機的控制權。&lt;/p&gt;
 &lt;p&gt;所以第一條界線先畫出來：這個 App 的目標不可能是「取代系統通訊錄」, 只能是「在系統通訊錄答不出來的時候補上」。&lt;/p&gt;
-&lt;h2 id=&#34;情境-b黃先生台中vip客戶&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#情境-b黃先生台中vip客戶&#34;&gt;#&lt;/a&gt; 情境 B:「黃先生｜台中 VIP 客戶」&lt;/h2&gt;
+&lt;h2 id=&#34;情境-b黃先生台中vip客戶&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#情境-b黃先生台中vip客戶&#34;&gt;&lt;/a&gt; 情境 B:「黃先生｜台中 VIP 客戶」&lt;/h2&gt;
 &lt;p&gt;這位黃先生在我的名片夾裡。他的名片上寫的是:&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;黃先生&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;某某科技&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;業務經理&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;0911111111&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;但我自己在 App 裡幫他加了一行備註:「台中 VIP 客戶」。&lt;/p&gt;
@@ -54,7 +54,7 @@
 &lt;p&gt;而它有一個很少被提到、但在這個情境下至關重要的性質:&lt;strong&gt; 它是唯寫的&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;CXCallDirectoryExtensionContext&lt;/code&gt;  只有  &lt;code&gt;addIdentificationEntry&lt;/code&gt;  跟  &lt;code&gt;removeIdentificationEntry&lt;/code&gt; , 沒有任何讀回資料的 API。你寫進去之後，連你自己的 App 都拿不回來，其他 App 更不可能。系統只在來電辨識流程裡使用這份資料。&lt;/p&gt;
 &lt;p&gt;所以 Call Directory 恰好是一個「私人關係脈絡投影到來電畫面」的輕量出口 —— 資料出得去畫面，但出不去這個用途。&lt;/p&gt;
-&lt;h2 id=&#34;情境-c天天寄信的客戶&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#情境-c天天寄信的客戶&#34;&gt;#&lt;/a&gt; 情境 C: 天天寄信的客戶&lt;/h2&gt;
+&lt;h2 id=&#34;情境-c天天寄信的客戶&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#情境-c天天寄信的客戶&#34;&gt;&lt;/a&gt; 情境 C: 天天寄信的客戶&lt;/h2&gt;
 &lt;p&gt;陳大華是我每天都要打電話、寄信的合作對象。對他我的需求完全不同:&lt;/p&gt;
 &lt;p&gt;我希望 Phone、Mail、Siri、CarPlay 全部都認得他。我在 Mail 裡輸入「陳」就要跳出他，我對 Siri 說「打給陳大華」要打得通。&lt;/p&gt;
 &lt;p&gt;這不是來電顯示的需求，這是&lt;strong&gt;聯絡人的需求&lt;/strong&gt;。&lt;/p&gt;
@@ -64,7 +64,7 @@
 &lt;p&gt;這些聯絡人會出現在系統的通訊錄生態裡，但不是被寫進使用者原本的通訊錄。你沒有去動使用者的媽媽、朋友、私人客戶，你是告訴系統「我這邊另外有這一批商務聯絡人，你可以拿去用」。資料的更新權仍然在你的 App,ownership 很乾淨。&lt;/p&gt;
 &lt;p&gt;實作上是 App 與 extension 透過 App Group 溝通，App 端用  &lt;code&gt;ContactProviderManager&lt;/code&gt;  呼叫  &lt;code&gt;enable()&lt;/code&gt;  與  &lt;code&gt;signalEnumerator()&lt;/code&gt; ,extension 端實作  &lt;code&gt;ContactItemEnumerator&lt;/code&gt;  的  &lt;code&gt;enumerateContent(in:for:)&lt;/code&gt; (初次同步) 與  &lt;code&gt;enumerateChanges(startingAt:for:)&lt;/code&gt; (增量同步)。注意它同樣是&lt;strong&gt;預先推送&lt;/strong&gt;的模型，不是來電當下的即時查詢。&lt;/p&gt;
 &lt;p&gt;代價也很明確：進了 Contacts 生態，就是任何取得通訊錄權限的 App 都看得到。所以這裡放的只能是&lt;strong&gt;正式名片上印得出來的資訊&lt;/strong&gt;。&lt;/p&gt;
-&lt;h2 id=&#34;情境-d完全陌生的商務來電&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#情境-d完全陌生的商務來電&#34;&gt;#&lt;/a&gt; 情境 D: 完全陌生的商務來電&lt;/h2&gt;
+&lt;h2 id=&#34;情境-d完全陌生的商務來電&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#情境-d完全陌生的商務來電&#34;&gt;&lt;/a&gt; 情境 D: 完全陌生的商務來電&lt;/h2&gt;
 &lt;p&gt;最後一種：對方根本不在我的名片夾裡。我沒見過他，沒換過名片。&lt;/p&gt;
 &lt;p&gt;但他是這個名片網路的成員，他在上面建了自己的公開名片。理想的情況是：即使我從來沒有加過他，來電畫面上仍然能顯示他是誰。&lt;/p&gt;
 &lt;p&gt;這對應的是 &lt;strong&gt;Live Caller ID Lookup&lt;/strong&gt;, 而它底下用的是 &lt;strong&gt;PIR(Private Information Retrieval)&lt;/strong&gt;。&lt;/p&gt;
@@ -137,7 +137,7 @@
 &lt;p&gt;這裡的隱私性質值得講清楚：你的伺服器知道「有一個查詢進來了」, 可以統計整體流量，但它&lt;strong&gt;不知道這次查的是哪個號碼、查到了誰，也不知道是誰在接這通電話&lt;/strong&gt;。「某使用者今天 15:30 接到某某的電話」這種資料，在這個架構下你根本拿不到。&lt;/p&gt;
 &lt;p&gt;也就是：你提供身分辨識能力，但不掌握誰打給誰。&lt;/p&gt;
 &lt;p&gt;另外有個實作上的細節值得先知道：Apple 的來電身分並沒有獨立的「公司」與「職稱」欄位。所以實務上你多半是把姓名、公司、職稱組合成&lt;strong&gt;單一顯示字串&lt;/strong&gt;丟回去，最後怎麼呈現在來電畫面上仍然由系統決定。&lt;/p&gt;
-&lt;h2 id=&#34;揭曉這四個不是並列的功能&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#揭曉這四個不是並列的功能&#34;&gt;#&lt;/a&gt; 揭曉：這四個不是並列的功能&lt;/h2&gt;
+&lt;h2 id=&#34;揭曉這四個不是並列的功能&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#揭曉這四個不是並列的功能&#34;&gt;&lt;/a&gt; 揭曉：這四個不是並列的功能&lt;/h2&gt;
 &lt;p&gt;到這裡看起來很漂亮 —— 四種情境，四個解法，各司其職。&lt;/p&gt;
 &lt;p&gt;我原本就是這樣規劃的，還幫它們編了號：第一層全域辨識、第二層名片夾辨識、第三層系統整合。三層疊加，涵蓋所有情境。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;這個模型是錯的。&lt;/strong&gt;&lt;/p&gt;
@@ -240,16 +240,16 @@
 &lt;/figure&gt;
 &lt;p&gt;Apple 的 DTS 工程師在開發者論壇上講得很直接:&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;“No, we don’t ‘mix’ data like this. There’s basically a ‘hierarchy’ of data sources and we only present the data from that data source (whichever one ‘works’).”&lt;/p&gt;
+&lt;p&gt;&amp;quot;No, we don&#39;t &#39;mix&#39; data like this. There&#39;s basically a &#39;hierarchy&#39; of data sources and we only present the data from that data source (whichever one &#39;works&#39;).&amp;quot;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;理由也講得很清楚：使用者的聯絡人卡片優先，是因為那是使用者直接控制的東西，不該讓「陳美玲女士」蓋掉「老婆」; 停在第一個命中也對效能有利；而混合多個來源的資料有被利用的可能，也會造成混淆。&lt;/p&gt;
 &lt;p&gt;(補充一句誠實的話：這條階層是依 Apple 官方說明整理的，Contact Provider 與 Call Directory 同時啟用時的實際行為我還沒有實機驗證過。)&lt;/p&gt;
-&lt;h2 id=&#34;這條短路鏈推翻了什麼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#這條短路鏈推翻了什麼&#34;&gt;#&lt;/a&gt; 這條短路鏈推翻了什麼&lt;/h2&gt;
-&lt;h3 id=&#34;第一件事我的層級編號是反的&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第一件事我的層級編號是反的&#34;&gt;#&lt;/a&gt; 第一件事：我的層級編號是反的&lt;/h3&gt;
+&lt;h2 id=&#34;這條短路鏈推翻了什麼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#這條短路鏈推翻了什麼&#34;&gt;&lt;/a&gt; 這條短路鏈推翻了什麼&lt;/h2&gt;
+&lt;h3 id=&#34;第一件事我的層級編號是反的&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#第一件事我的層級編號是反的&#34;&gt;&lt;/a&gt; 第一件事：我的層級編號是反的&lt;/h3&gt;
 &lt;p&gt;我原本把 Contact Provider 當成「生態整合的加分項」排在最後，但它其實是&lt;strong&gt;第三方能拿到的最高優先權來源&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;而 Live Caller ID Lookup 是我投入最重的一層 —— 要自建 PIR 服務、OHTTP gateway、Privacy Pass token issuer, 要做 DNS TXT 驗證、到 CloudKit Console 註冊、維護資料集重建管線 —— 它卻在整條鏈的最底層，只有在前面四個來源全部落空時才會被呼叫到。&lt;/p&gt;
 &lt;p&gt;這不代表不該做，但它確實改變了投入順序的判斷。&lt;/p&gt;
-&lt;h3 id=&#34;第二件事兩個模式不能同時開&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#第二件事兩個模式不能同時開&#34;&gt;#&lt;/a&gt; 第二件事：兩個模式不能同時開&lt;/h3&gt;
+&lt;h3 id=&#34;第二件事兩個模式不能同時開&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#第二件事兩個模式不能同時開&#34;&gt;&lt;/a&gt; 第二件事：兩個模式不能同時開&lt;/h3&gt;
 &lt;p&gt;這個比較嚴重。&lt;/p&gt;
 &lt;p&gt;假設黃先生同時存在 Contact Provider 的聯絡人裡，也存在 Call Directory 的對應表裡。依照短路規則，Contact Provider 贏。結果是:&lt;/p&gt;
 &lt;figure class=&#34;fig&#34;&gt;
@@ -295,7 +295,7 @@
 &lt;/figure&gt;
 &lt;p&gt;使用者打開一個看起來是升級的「系統整合」開關，換來的卻是來電畫面從「台中 VIP 客戶」退化成「黃先生」。他得到了 Mail 跟 Siri 的整合，但弄丟了他當初最想要的那個東西 —— 而且他不會知道為什麼，他只會覺得「開了那個功能之後來電顯示變難用了」。&lt;/p&gt;
 &lt;p&gt;這不是邊緣案例，這是兩個開關都打開的預設路徑。&lt;/p&gt;
-&lt;h2 id=&#34;解法讓每張名片自己決定&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#解法讓每張名片自己決定&#34;&gt;#&lt;/a&gt; 解法：讓每張名片自己決定&lt;/h2&gt;
+&lt;h2 id=&#34;解法讓每張名片自己決定&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#解法讓每張名片自己決定&#34;&gt;&lt;/a&gt; 解法：讓每張名片自己決定&lt;/h2&gt;
 &lt;p&gt;第一個念頭是做成全域二選一，讓使用者選一個模式。但這個解法不對 —— 取捨應該按&lt;strong&gt;聯絡人的性質&lt;/strong&gt;決定，而不是按使用者的性格決定。同一個人的名片夾裡，黃先生跟陳大華的需求本來就不一樣。&lt;/p&gt;
 &lt;p&gt;所以正確的做法是把 integration policy 下放到每一張名片:&lt;/p&gt;
 &lt;pre class=&#34;mermaid&#34;&gt;flowchart TD
@@ -311,7 +311,7 @@
 &lt;p&gt;而底層的規則可以寫成一條 invariant:&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;CallDirectoryNumbers  ∩  ContactProviderNumbers  =  ∅&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;strong&gt;同一支電話號碼永遠只存在其中一邊。&lt;/strong&gt; 短路衝突從此不可能發生 —— 因為兩邊本來就不重疊。&lt;/p&gt;
-&lt;h2 id=&#34;真正的收穫identity-relationship&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#真正的收穫identity-relationship&#34;&gt;#&lt;/a&gt; 真正的收穫：Identity ≠ Relationship&lt;/h2&gt;
+&lt;h2 id=&#34;真正的收穫identity-relationship&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#真正的收穫identity-relationship&#34;&gt;&lt;/a&gt; 真正的收穫：Identity ≠ Relationship&lt;/h2&gt;
 &lt;p&gt;寫下那條 invariant 之後，才看清楚它背後真正的東西。&lt;/p&gt;
 &lt;p&gt;這兩個 API 長得不一樣，不是 Apple 隨便設計的。它們餵的是&lt;strong&gt;兩種不同性質的資料&lt;/strong&gt;:&lt;/p&gt;
 &lt;table&gt;
@@ -354,7 +354,7 @@
 &lt;p&gt;但這件事應該被明確禁止。因為那等於為了來電顯示，把內部的 CRM 脈絡擴散到系統 Contacts 生態，擴散到每一個取得通訊錄權限的 App。Contact Provider 的定位是把 App 管理的&lt;strong&gt;聯絡人&lt;/strong&gt;提供給系統，不是提供你的內部註記。&lt;/p&gt;
 &lt;p&gt;而這條邊界反過來把產品定義得更清楚了：這個 App 要保存的不只是「這個人是誰」, 更是「這個人跟我有什麼商務關係」。前者名片本身就有，後者才是名片夾存在的理由。&lt;/p&gt;
 &lt;p&gt;一個被 Apple 的優先權設計逼出來的領域邊界，比憑空想出來的漂亮。&lt;/p&gt;
-&lt;h2 id=&#34;從-invariant-掉出來的工程約束&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#從-invariant-掉出來的工程約束&#34;&gt;#&lt;/a&gt; 從 invariant 掉出來的工程約束&lt;/h2&gt;
+&lt;h2 id=&#34;從-invariant-掉出來的工程約束&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#從-invariant-掉出來的工程約束&#34;&gt;&lt;/a&gt; 從 invariant 掉出來的工程約束&lt;/h2&gt;
 &lt;p&gt;定了 invariant 之後，有幾件事變成必須處理的:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;模式切換是兩條獨立的非同步管線。&lt;/strong&gt; 把一張名片從 PRIVATE 換成 SYSTEM, 要做兩件事：從 Call Directory 移除 (增量移除 +  &lt;code&gt;reloadExtension&lt;/code&gt; ), 以及加進 Contact Provider 的同步 (App Group +  &lt;code&gt;ContactProviderManager&lt;/code&gt; )。這是兩套各自會失敗的機制，中間存在一個窗口。&lt;/p&gt;
 &lt;p&gt;所以寫入順序不能隨便定。兩種失敗模式的後果完全不同:&lt;/p&gt;
@@ -362,12 +362,12 @@
 &lt;p&gt;結論很明確:&lt;strong&gt; 先加進新集合，再從舊集合移除。&lt;/strong&gt; 讓失敗落在「兩邊都有」那一側。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;invariant 是 per-number 而非 per-card。&lt;/strong&gt; 一個人可能有多支號碼；更麻煩的是兩張不同的名片可能共用同一支公司總機。如果王小明是 SYSTEM、黃先生是 PRIVATE, 而兩人的名片上都寫了同一個總機號碼，交集就破了。這需要一條仲裁規則。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Call Directory 的資料格式限制比想像中嚴格。&lt;/strong&gt; 號碼必須是 E.164 格式的 64 位元整數，而且&lt;strong&gt;必須遞增排序&lt;/strong&gt; —— 沒排序不是漏掉幾筆，是整個 extension 失效。台灣號碼要正規化成 +886 並去掉前導的 0。分機號碼沒有辦法表示。一個號碼也只能對應一個標籤。&lt;/p&gt;
-&lt;h2 id=&#34;ui不要讓使用者看到-apple-的名詞&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#ui不要讓使用者看到-apple-的名詞&#34;&gt;#&lt;/a&gt; UI: 不要讓使用者看到 Apple 的名詞&lt;/h2&gt;
+&lt;h2 id=&#34;ui不要讓使用者看到-apple-的名詞&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ui不要讓使用者看到-apple-的名詞&#34;&gt;&lt;/a&gt; UI: 不要讓使用者看到 Apple 的名詞&lt;/h2&gt;
 &lt;p&gt;最後一件事。這個取捨必須讓使用者看得懂，但沒有人需要知道什麼是 Call Directory。&lt;/p&gt;
 &lt;p&gt;所以介面上不要出現 API 名稱，而是直接講清楚他換到了什麼、失去了什麼:&lt;/p&gt;
 &lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;○  僅在此 App 管理&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   只有這個 App 管理這位聯絡人。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   來電時可以顯示您的私人備註。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   來電畫面: 黃先生｜台中VIP客戶&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;○  提供給 iPhone 系統使用&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   將這位聯絡人提供給 iPhone 系統。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   Phone、Mail 等功能可以辨識他,&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   但來電將使用正式名片資訊,不顯示私人備註。&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;   來電畫面: 黃先生  某某科技&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;把兩邊的來電畫面直接畫出來，使用者一眼就知道自己在選什麼。這比任何文字說明都有效。&lt;/p&gt;
-&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#小結&#34;&gt;#&lt;/a&gt; 小結&lt;/h2&gt;
+&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#小結&#34;&gt;&lt;/a&gt; 小結&lt;/h2&gt;
 &lt;p&gt;這趟研究真正的收穫不是「學會了三個 API」, 而是三件事:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;這三個 API 不是三個並列的功能，是一條有優先權的短路鏈。&lt;/strong&gt; 沒認清這件事之前，我的架構圖的層級編號跟實際優先權剛好是反的。&lt;/li&gt;
@@ -375,7 +375,7 @@
 &lt;li&gt;&lt;strong&gt;真正的設計工作不在「接哪個 API」, 而在「哪些資料屬於 Identity、哪些屬於 Relationship」。&lt;/strong&gt; 這條邊界一旦劃清楚，API 的選擇就是自動的，連 invariant 都是自動的。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;還沒有寫進來的是另一整塊：全域資料集的成員資格該怎麼定、號碼所有權要怎麼驗證、PIR 在保護查詢者的同時讓伺服器失去了哪些防濫用能力、以及資料刪除的生效時間。那些問題的性質跟這篇不一樣，留到下一篇再談。&lt;/p&gt;
-&lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#延伸閱讀&#34;&gt;#&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
+&lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#延伸閱讀&#34;&gt;&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://developer.apple.com/forums/thread/762645&#34;&gt;Does Live Caller ID Lookup entirely replace Call SIP content, or are they ever combined?&lt;/a&gt; — Apple DTS 對資料來源階層的說明，本文短路鏈的主要依據&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/apple/pir-service-example&#34;&gt;apple/pir-service-example&lt;/a&gt; — Live Caller ID Lookup 的 PIR 服務範例與上線文件&lt;/li&gt;

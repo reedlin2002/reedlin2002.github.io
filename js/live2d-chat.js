@@ -64,7 +64,8 @@
 
   /* ── 當前頁面與文章內容 ───────────────────────── */
   function getPageContext() {
-    var article = document.querySelector('article.post .content');
+    /* 只有文章頁有 .reading-body;關於、搜尋、標籤頁也是 article.post,不能當成文章內容送出 */
+    var article = document.querySelector('article.post .reading-body');
     if (!article) return null;
     var title = (document.title || '').replace(/\s*\|.*$/, '').trim();
     var text = (article.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 6000);
@@ -76,8 +77,10 @@
     return getPageContext() ? 'article:' + location.pathname : 'site';
   }
 
+  /* mobilebar 的入口掛在文章頁的底部操作列;沒有 #actions-footer 的頁面要退回 compact,
+     否則手機上會完全找不到 Hibiki */
   function isPhoneArticle() {
-    return window.innerWidth < 500 && !!getPageContext();
+    return window.innerWidth < 500 && !!document.getElementById('actions-footer');
   }
 
   function getMode() {
@@ -646,6 +649,24 @@
   root.querySelector('.waifu-chip-explain').addEventListener('click', function () {
     sendMessage('請用簡單易懂的方式解釋這篇文章在說什麼');
   });
+
+  /* ── 手機精簡入口:往下捲時收成圓鈕,停下或往上捲再展開 ── */
+  var COLLAPSE_MAX_WIDTH = 700;
+  var lastScrollY = window.scrollY;
+  var expandTimer = null;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    if (currentMode !== 'compact' || window.innerWidth >= COLLAPSE_MAX_WIDTH || chatOpen) {
+      root.classList.remove('is-collapsed');
+    } else if (y > lastScrollY + 4) {
+      root.classList.add('is-collapsed');
+    } else if (y < lastScrollY - 4) {
+      root.classList.remove('is-collapsed');
+    }
+    lastScrollY = y;
+    clearTimeout(expandTimer);
+    expandTimer = setTimeout(function () { root.classList.remove('is-collapsed'); }, 1200);
+  }, { passive: true });
 
   syncLayout();
   resetAmbient();

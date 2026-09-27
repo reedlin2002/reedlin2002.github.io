@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -26,12 +26,12 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="# 🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務  這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。  ►  「 GITHUB 」  # 💡 專案緣起 在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追">
+  <meta name="description" content="🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務  這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。  ►  「 GITHUB 」   💡 專案緣起 在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="🌐 | 網站健康監控平台">
 <meta property="og:url" content="https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="# 🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務  這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。  ►  「 GITHUB 」  # 💡 專案緣起 在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追">
+<meta property="og:description" content="🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務  這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。  ►  「 GITHUB 」   💡 專案緣起 在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://reedlin2002.github.io/images/UrlHealthMonitor-01.png">
 <meta property="article:published_time" content="2025-07-05T13:44:35.000Z">
@@ -141,14 +141,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -199,13 +201,13 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><h1 id="net-url-health-monitor-以-docker-部署的網站監控服務"><a class="markdownIt-Anchor" href="#net-url-health-monitor-以-docker-部署的網站監控服務">#</a> 🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務</h1>
+  <div class="reading-body content e-content" itemprop="articleBody"><p class="reading-subtitle">🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務</p>
 <blockquote>
 <p>這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。</p>
 </blockquote>
 <p>►  「 <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/UrlHealthMonitor">GITHUB</a> 」</p>
 <hr>
-<h2 id="專案緣起"><a class="markdownIt-Anchor" href="#專案緣起">#</a> 💡 專案緣起</h2>
+<h2 id="專案緣起"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#專案緣起"></a> 💡 專案緣起</h2>
 <p>在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本專案希望：</p>
 <ul>
 <li>自動化監控：每 30 秒自動檢查所有註冊的 URL</li>
@@ -214,10 +216,10 @@
 <li>提供容器化部署：Docker 一鍵部署，跨平台支援</li>
 </ul>
 <hr>
-<h2 id="️-專案技術"><a class="markdownIt-Anchor" href="#️-專案技術">#</a> 🛠️ 專案技術</h2>
+<h2 id="️-專案技術"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#️-專案技術"></a> 🛠️ 專案技術</h2>
 <p>🟢 後端核心</p>
 <blockquote>
-<p>框架：.NET 8 Worker Service + <a target="_blank" rel="noopener" href="http://ASP.NET">ASP.NET</a> Minimal API<br>
+<p>框架：.NET 8 Worker Service + ASP.NET Minimal API<br>
  語言：C#（Async/Await + 依賴注入）<br>
 資料庫：SQLite 輕量級資料庫</p>
 </blockquote>
@@ -237,24 +239,24 @@
  環境支援：Linux / Windows /macOS</p>
 </blockquote>
 <hr>
-<h2 id="️-執行方式"><a class="markdownIt-Anchor" href="#️-執行方式">#</a> ⚙️ 執行方式</h2>
-<h3 id="開發模式-本機執行"><a class="markdownIt-Anchor" href="#開發模式-本機執行">#</a> 開發模式 (本機執行)</h3>
+<h2 id="️-執行方式"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#️-執行方式"></a> ⚙️ 執行方式</h2>
+<h3 id="開發模式-本機執行"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#開發模式-本機執行"></a> 開發模式 (本機執行)</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dotnet run -- add &lt;URL&gt;       # 新增要監控的 URL</span><br><span class="line">dotnet run -- list            # 列出所有 URL</span><br><span class="line">dotnet run -- remove &lt;ID&gt;     # 移除指定 URL</span><br><span class="line">dotnet run -- serve           # 啟動 Web UI</span><br></pre></td></tr></table></figure>
-<p>打開 <a target="_blank" rel="noopener" href="http://localhost:5000">http://localhost:5000</a> 查看 Dashboard。</p>
-<h3 id="docker-部署"><a class="markdownIt-Anchor" href="#docker-部署">#</a> Docker 部署</h3>
+<p>打開 http://localhost:5000 查看 Dashboard。</p>
+<h3 id="docker-部署"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#docker-部署"></a> Docker 部署</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 建置映像</span><br><span class="line">docker build -t urlhealthmonitor .</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 執行容器</span><br><span class="line">docker run -d -p 5001:5000 --name urlhealthmonitor urlhealthmonitor</span><br></pre></td></tr></table></figure>
-<p>打開 <a target="_blank" rel="noopener" href="http://localhost:5001">http://localhost:5001</a> 查看 Dashboard。</p>
+<p>打開 http://localhost:5001 查看 Dashboard。</p>
 <hr>
-<h2 id="實際示範"><a class="markdownIt-Anchor" href="#實際示範">#</a> 🌐 實際示範</h2>
+<h2 id="實際示範"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#實際示範"></a> 🌐 實際示範</h2>
 <div id="gallery">
   <a href="/images/UrlHealthMonitor-01.png">
     <img src="/images/UrlHealthMonitor-01.png" alt="記帳頁面" style="max-width: 600px;">
   </a>
 </div>
 <hr>
-<h2 id="tdd-測試"><a class="markdownIt-Anchor" href="#tdd-測試">#</a> 🧪 TDD 測試</h2>
-<h3 id="測試"><a class="markdownIt-Anchor" href="#測試">#</a> 測試</h3>
+<h2 id="tdd-測試"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#tdd-測試"></a> 🧪 TDD 測試</h2>
+<h3 id="測試"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#測試"></a> 測試</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet test</span><br></pre></td></tr></table></figure>
 <p>測試範圍：</p>
 <ul>
@@ -263,7 +265,7 @@
 <li>資料庫操作</li>
 </ul>
 <hr>
-<h2 id="未來擴展"><a class="markdownIt-Anchor" href="#未來擴展">#</a> 🚀 未來擴展</h2>
+<h2 id="未來擴展"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#未來擴展"></a> 🚀 未來擴展</h2>
 <ul>
 <li>RESTful API 支援</li>
 <li>整合通知 (EMAIL / LINE)</li>
@@ -272,7 +274,7 @@
 <hr>
 <p>技術與應用方法：<br>
 .NET 8、C#（Async/Await + 依賴注入）、SQLite、xUnit + FluentAssertions（TDD 開發流程）、Docker、HttpClient（網站監控）、CLI 、JavaScript + HTML/CSS</p>
-<h2 id="心得"><a class="markdownIt-Anchor" href="#心得">#</a> 📝 心得</h2>
+<h2 id="心得"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#心得"></a> 📝 心得</h2>
 <blockquote>
 <p>針對 TDD、HTTP 協議這兩個技術練習了這個「HTTP 狀態碼偵測器」，在撰寫程式碼的過程中因為使用的是很久沒碰的 C# 一開始確實有些生疏，經常忘記變數宣告的語法規則，但隨著練習逐漸找回手感。在 Docker 部屬上，常常遇到檔案不知道放哪裡的問題，不過經過一番 ChatGPT 的協助和一番研究也是弄好了～也靠著 TDD 學會了更可靠的程式碼，先用測試再寫功能，確保程式碼符合預期，減少 BUG，培養良好的開發習慣</p>
 </blockquote>
@@ -383,7 +385,7 @@
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -523,6 +525,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -537,14 +541,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -554,10 +564,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -774,6 +781,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 

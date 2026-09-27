@@ -64,8 +64,12 @@ window.initMainJS = function() {
   /**
    * Shows the responsive navigation menu on mobile.
    */
-  $("#header > #nav > ul > .icon").off('click').on('click', function() {
-    $("#header > #nav > ul").toggleClass("responsive");
+  // 觸發連結是 href="#"，不擋預設行為會把網址變成 /# 並多一筆瀏覽紀錄
+  $("#header > #nav > ul > .icon").off('click').on('click', function(event) {
+    event.preventDefault();
+    var list = $("#header > #nav > ul");
+    list.toggleClass("responsive");
+    $(this).children("a").attr("aria-expanded", list.hasClass("responsive") ? "true" : "false");
   });
 
   /**
@@ -130,15 +134,22 @@ window.initMainJS = function() {
      */
     if ($("#footer-post").length) {
       var lastScrollTop = 0;
+      var footerPost = document.getElementById("footer-post");
+      // 用 class 讓工具列滑入滑出；body.footer-post-on 讓右下的回頂部往上讓位
+      var setFooterVisible = function(visible) {
+        footerPost.classList.toggle("is-hidden", !visible);
+        document.body.classList.toggle("footer-post-on", visible);
+      };
+      setFooterVisible(true);
+
       $(window).off("scroll.footer").on("scroll.footer", function() {
         var topDistance = $(window).scrollTop();
 
-        if (topDistance > lastScrollTop){
-          // downscroll -> show menu
-          $("#footer-post").hide();
-        } else {
-          // upscroll -> hide menu
-          $("#footer-post").show();
+        // 往下捲收起、往上捲出現；iOS 回彈的負值不算
+        if (topDistance > lastScrollTop && topDistance > 0) {
+          setFooterVisible(false);
+        } else if (topDistance < lastScrollTop) {
+          setFooterVisible(true);
         }
         lastScrollTop = topDistance;
 

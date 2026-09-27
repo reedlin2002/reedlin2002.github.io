@@ -4,25 +4,25 @@
     <title>Reedlin2002 • Posts by &#34;daily&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2025-06-06T02:42:24.000Z</updated>
-    <category term="myself" />
+    <category term="project" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
-    <category term="project" />
-    <category term="技術筆記" />
-    <category term="(作者自學用)" />
+    <category term="myself" />
     <category term="leetcode" />
     <category term="Daily" />
-    <category term="iOS" />
-    <category term="CallKit" />
-    <category term="系統設計" />
+    <category term="技術筆記" />
+    <category term="(作者自學用)" />
     <category term="side project" />
     <category term="React" />
     <category term="NFC" />
     <category term="Web API" />
     <category term="TypeScript" />
     <category term="AI" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
     <category term="電腦視覺" />
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
@@ -69,12 +69,12 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;D8&lt;/strong&gt; 🉑  #14 Longest Common Prefix
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;if not 某東西:&lt;/code&gt;  ← 檢查 “某東西” 是否為空，如果是就執行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;if not 某東西:&lt;/code&gt;  ← 檢查 &amp;quot;某東西&amp;quot; 是否為空，如果是就執行&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;D9&lt;/strong&gt; 🉑  #14 Longest Common Prefix
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;while not 某東西:&lt;/code&gt;  ← 檢查 “某東西” 為 True/False，如果為 False 就執行&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;while not 某東西:&lt;/code&gt;  ← 檢查 &amp;quot;某東西&amp;quot; 為 True/False，如果為 False 就執行&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;D10&lt;/strong&gt; ✅  #14 Longest Common Prefix&lt;/li&gt;
@@ -140,7 +140,7 @@ self.next = next      # 指向下一個節點的指標&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;比較 1 和 2 → 接 1 → list1 向前 → 結果：1&lt;br&gt;
  比較 3 和 2 → 接 2 → list2 向前 → 結果：1 → 2&lt;br&gt;
- 比較 3 和 4 → 接 3 → …&lt;br&gt;
+ 比較 3 和 4 → 接 3 → ...&lt;br&gt;
  一直到兩邊都走完 → 合併完成&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
@@ -221,9 +221,9 @@ nums[i] = nums[j]&lt;/li&gt;
 &lt;ul&gt;
 &lt;li&gt;判斷
 &lt;blockquote&gt;
-&lt;p&gt;haystack = “TCodeLee”&lt;br&gt;
-haystack [0:3] → 取第 0、1、2 的字 → “TCo”&lt;br&gt;
-haystack [1:4] → 取第 1、2、3 的字 → “Cod”&lt;/p&gt;
+&lt;p&gt;haystack = &amp;quot;TCodeLee&amp;quot;&lt;br&gt;
+haystack [0:3] → 取第 0、1、2 的字 →&amp;quot;TCo&amp;quot;&lt;br&gt;
+haystack [1:4] → 取第 1、2、3 的字 →&amp;quot;Cod&amp;quot;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -235,7 +235,7 @@ haystack [1:4] → 取第 1、2、3 的字 → “Cod”&lt;/p&gt;
 &lt;p&gt;for i in range(len(haystack) - len(needle) + 1):&lt;br&gt;
 len(haystack) - len(needle) + 1 = 8 - 3 + 1 = 6&lt;br&gt;
 i=0 → haystack[i : i + 3] → haystack[0:3]&lt;br&gt;
- haystack [0:3] → “Lee” 符合！立刻 return 0&lt;/p&gt;
+ haystack [0:3] → &amp;quot;Lee&amp;quot; 符合！立刻 return 0&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;

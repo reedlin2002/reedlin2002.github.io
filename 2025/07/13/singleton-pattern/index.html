@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=zh>
+<html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
   <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="HandheldFriendly" content="True">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
@@ -26,15 +26,15 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2025/07/13/singleton-pattern/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="# 單例模式 (Singleton Pattern) # 為什麼需要 Singleton？ 在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：  Log 訊息會分散在不同的物件中，難以統一管理和追蹤 無法維持一致的設定（例如 Log 等級、輸出格式）">
+  <meta name="description" content="為什麼需要 Singleton？ 在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：  Log 訊息會分散在不同的物件中，難以統一管理和追蹤 無法維持一致的設定（例如 Log 等級、輸出格式） 記憶體中會存在多個相同功能的物件，造成資源浪費  這時">
 <meta property="og:type" content="article">
 <meta property="og:title" content="單例模式 Singleton_pattern">
 <meta property="og:url" content="https://reedlin2002.github.io/2025/07/13/singleton-pattern/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="# 單例模式 (Singleton Pattern) # 為什麼需要 Singleton？ 在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：  Log 訊息會分散在不同的物件中，難以統一管理和追蹤 無法維持一致的設定（例如 Log 等級、輸出格式）">
+<meta property="og:description" content="為什麼需要 Singleton？ 在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。 舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：  Log 訊息會分散在不同的物件中，難以統一管理和追蹤 無法維持一致的設定（例如 Log 等級、輸出格式） 記憶體中會存在多個相同功能的物件，造成資源浪費  這時">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2025-07-13T08:16:17.000Z">
-<meta property="article:modified_time" content="2026-04-06T03:30:13.049Z">
+<meta property="article:modified_time" content="2026-09-27T13:57:31.592Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="技術筆記">
 <meta property="article:tag" content="(作者自學用)">
@@ -61,7 +61,7 @@
     "description": "Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
     "url": "https://reedlin2002.github.io/2025/07/13/singleton-pattern/",
     "datePublished": "2025-07-13T08:16:17.000Z",
-    "dateModified": "2026-04-06T03:30:13.049Z",
+    "dateModified": "2026-09-27T13:57:31.592Z",
     "author": {
       "@type": "Person",
       "name": "Lin",
@@ -140,14 +140,16 @@
     
   
     <div id="title" style="margin: 0;">
-      <h1 class="p-name">Reedlin2002</h1>
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
       <small class="site-kicker">LIN’S FIELD NOTES</small>
     </div>
   </a>
   <div id="nav" style="display: flex; align-items: center; gap: 12px;">
     <ul>
       <li class="icon">
-        <a href="#" aria-label="目錄"><i class="fa-solid fa-bars fa-2x"></i></a>
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
       </li>
       <!--
      --><li><a href="/">筆記</a></li><!--
@@ -186,10 +188,10 @@
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>2 分鐘閱讀</span>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>839 字</span>
+        <span>833 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2026.04.06</span>
+        <span>更新於 2026.09.27</span>
         
       </div>
     </div>
@@ -198,8 +200,7 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><h1 id="單例模式-singleton-pattern"><a class="markdownIt-Anchor" href="#單例模式-singleton-pattern">#</a> 單例模式 (Singleton Pattern)</h1>
-<h2 id="為什麼需要-singleton"><a class="markdownIt-Anchor" href="#為什麼需要-singleton">#</a> 為什麼需要 Singleton？</h2>
+  <div class="reading-body content e-content" itemprop="articleBody"><h2 id="為什麼需要-singleton"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#為什麼需要-singleton"></a> 為什麼需要 Singleton？</h2>
 <p>在開發大型系統時，我們經常會遇到這樣的需求：某些資源應該在整個應用程式中保持唯一性。</p>
 <p>舉個實際例子，假設你在開發一個分散式系統，多個模組都需要記錄 Log。如果每個模組都各自創建 Logger 實例：</p>
 <ul>
@@ -209,19 +210,19 @@
 </ul>
 <p>這時候我們希望有一個全域的 Logger 管理者，所有模組都向它發送 Log 訊息。</p>
 <p><strong>Singleton 的核心思想：確保一個類別在整個系統中只有一個實例，並提供全域的存取點。</strong></p>
-<h2 id="沒有使用-singleton-的情況"><a class="markdownIt-Anchor" href="#沒有使用-singleton-的情況">#</a> 沒有使用 Singleton 的情況</h2>
+<h2 id="沒有使用-singleton-的情況"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#沒有使用-singleton-的情況"></a> 沒有使用 Singleton 的情況</h2>
 <p>來看看傳統的實作方式會產生什麼問題：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Logger</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">log</span>(<span class="params">self, msg</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;[LOG] <span class="subst">&#123;msg&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模組 A</span></span><br><span class="line">logger_a = Logger()</span><br><span class="line">logger_a.log(<span class="string">&quot;A 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模組 B</span></span><br><span class="line">logger_b = Logger()</span><br><span class="line">logger_b.log(<span class="string">&quot;B 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;logger_a is logger_b:&quot;</span>, logger_a <span class="keyword">is</span> logger_b)</span><br></pre></td></tr></table></figure>
 <p>執行結果：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[LOG] A 模組初始化完成</span><br><span class="line">[LOG] B 模組初始化完成</span><br><span class="line">logger_a is logger_b: False</span><br></pre></td></tr></table></figure>
 <p>可以看到，每次實例化都會產生不同的物件，這違背了我們想要統一管理的初衷。</p>
-<h2 id="使用-singleton-pattern"><a class="markdownIt-Anchor" href="#使用-singleton-pattern">#</a> 使用 Singleton Pattern</h2>
+<h2 id="使用-singleton-pattern"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#使用-singleton-pattern"></a> 使用 Singleton Pattern</h2>
 <p>接下來實作 Singleton 版本：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">SingletonLogger</span>:</span><br><span class="line">    _instance = <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> cls._instance <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;建立 SingletonLogger 實例&quot;</span>)</span><br><span class="line">            cls._instance = <span class="built_in">super</span>().__new__(cls)</span><br><span class="line">        <span class="keyword">return</span> cls._instance</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">log</span>(<span class="params">self, msg</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;[LOG] <span class="subst">&#123;msg&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在不同模組中使用</span></span><br><span class="line">logger_a = SingletonLogger()</span><br><span class="line">logger_a.log(<span class="string">&quot;A 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line">logger_b = SingletonLogger()</span><br><span class="line">logger_b.log(<span class="string">&quot;B 模組初始化完成&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;logger_a is logger_b:&quot;</span>, logger_a <span class="keyword">is</span> logger_b)</span><br></pre></td></tr></table></figure>
 <p>執行結果：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">建立 SingletonLogger 實例</span><br><span class="line">[LOG] A 模組初始化完成</span><br><span class="line">[LOG] B 模組初始化完成</span><br><span class="line">logger_a is logger_b: True</span><br></pre></td></tr></table></figure>
 <p>可以看到，不論在哪個模組中實例化，都會得到相同的物件參考。</p>
-<h2 id="實作細節說明"><a class="markdownIt-Anchor" href="#實作細節說明">#</a> 實作細節說明</h2>
+<h2 id="實作細節說明"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#實作細節說明"></a> 實作細節說明</h2>
 <p>在這個實作中，我們重寫了  <code>__new__</code>  方法來控制物件的創建過程：</p>
 <ol>
 <li>使用類別變數  <code>_instance</code>  來儲存唯一的實例</li>
@@ -229,9 +230,9 @@
 <li>如果不存在，則創建新實例；如果存在，則回傳現有實例</li>
 </ol>
 <p>這種做法確保了無論呼叫多少次建構子，都只會有一個實例存在。</p>
-<h2 id="適用場景"><a class="markdownIt-Anchor" href="#適用場景">#</a> 適用場景</h2>
+<h2 id="適用場景"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#適用場景"></a> 適用場景</h2>
 <p>Singleton 適合用於以下情況：</p>
-<p><strong>建議使用：</strong></p>
+<h3 id="建議使用"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#建議使用"></a> 建議使用</h3>
 <ul>
 <li>日誌系統（Logger）</li>
 <li>設定檔管理器（Configuration Manager）</li>
@@ -239,13 +240,13 @@
 <li>快取管理器（Cache Manager）</li>
 <li>執行緒池（Thread Pool）</li>
 </ul>
-<p><strong>不建議使用：</strong></p>
+<h3 id="不建議使用"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#不建議使用"></a> 不建議使用</h3>
 <ul>
 <li>一般業務邏輯物件</li>
 <li>需要多個不同狀態的物件</li>
 <li>會影響單元測試的情況</li>
 </ul>
-<h2 id="注意事項"><a class="markdownIt-Anchor" href="#注意事項">#</a> 注意事項</h2>
+<h2 id="注意事項"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#注意事項"></a> 注意事項</h2>
 <p>使用 Singleton 時需要注意：</p>
 <ol>
 <li><strong>執行緒安全性</strong>：在多執行緒環境中，需要考慮同步問題</li>
@@ -349,7 +350,7 @@
     <div id="actions-footer">
         <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
         <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
     </div>
 
   </div>
@@ -489,6 +490,8 @@ window.initSprint3JS = function() {
     copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
     copyBtn.setAttribute('aria-label', '複製程式碼');
     copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
 
     copyBtn.addEventListener('click', function() {
       // 從 .code td 取文字，相容 Hexo table highlight
@@ -503,14 +506,20 @@ window.initSprint3JS = function() {
         text = codeEl ? codeEl.innerText : block.innerText;
       }
 
-      navigator.clipboard.writeText(text.trim()).then(function() {
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
         copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
         copyBtn.classList.add('copied');
-        setTimeout(function() {
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
           copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
           copyBtn.classList.remove('copied');
-        }, 2000);
-      }).catch(function() {
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
         // clipboard API fallback
         var ta = document.createElement('textarea');
         ta.value = text.trim();
@@ -520,10 +529,7 @@ window.initSprint3JS = function() {
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-        setTimeout(function() {
-          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-        }, 2000);
+        showCopied();
       });
     });
 
@@ -740,6 +746,53 @@ window.initMermaid();
 </script>
 
 <!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
 
 <!-- Baidu Analytics -->
 
