@@ -2,7 +2,7 @@
 title: 我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position
 date: 2026-07-18
 tags: [演算法, Binary Search, Python, LeetCode]
-cover: /images/binary-search-cover-pov.png
+cover: /images/binary-search-cover-pov.jpg
 ---
 
 以前看到二分搜尋（Binary Search），我只記得一句話：**從中間開始找。**

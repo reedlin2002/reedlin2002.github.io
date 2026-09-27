@@ -55,6 +55,23 @@ prismjs:
   line_number: true
   tab_replace: ''
 
+# Markdown（hexo-renderer-multi-markdown-it）
+# 沒寫這段時外掛全用預設值，會自動改寫內文：SKILL.md → http://SKILL.md、(c) → ©。
+# markdown-it-pangu 保留（約 350 處中文裡的半形標點靠它轉全形）。
+# 決策見 docs/decisions/2026-09-27-markdown-renderer-defaults.md
+markdown:
+  render:
+    html: true
+    breaks: true
+    linkify: false
+    typographer: false
+  plugins:
+    - plugin:
+        name: markdown-it-toc-and-anchor
+        enable: true
+        options:
+          anchorLinkSymbol: ''
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)

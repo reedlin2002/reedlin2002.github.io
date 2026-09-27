@@ -2,7 +2,7 @@
 title: 🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能
 date: 2026-07-27 22:40:00
 tags: [project]
-cover: /images/tw-grad-lab-skills-cover.png
+cover: /images/tw-grad-lab-skills-cover.jpg
 ---
 # 🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室
 

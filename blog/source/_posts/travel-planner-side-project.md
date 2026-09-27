@@ -118,15 +118,15 @@ src/design-system/tokens/
 
 ## 踩到的坑與反思
 
-**Prompt 工程比想像中重要**
+### Prompt 工程比想像中重要
 
 讓 Gemini 穩定輸出符合預期格式的 JSON，花的時間遠比串接 API 本身多。Prompt 裡要明確說明輸出格式、每個欄位的型別與意義，以及各種邊界情況的處理方式。這讓我意識到，AI Feature 的品質上限很大程度取決於 Prompt 的品質。
 
-**型別安全帶來的摩擦值得**
+### 型別安全帶來的摩擦值得
 
 全程嚴格使用 TypeScript，初期定義 Interface 確實費時，但在後來改動 API Response 結構時，TypeScript 的編譯錯誤直接幫我找到所有受影響的地方。這個投資在中後期完全值回票價。
 
-**過早優化的誘惑**
+### 過早優化的誘惑
 
 中途有一段時間很想把 Context 換成 Zustand、把 CSS-in-JS 換成 Tailwind，但最後還是忍住了，專注在把核心功能做穩。Side Project 最容易死在「一直重構、一直換技術」這個迴圈裡。
 

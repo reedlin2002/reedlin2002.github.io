@@ -101,14 +101,14 @@ logger_a is logger_b: True
 
 Singleton 適合用於以下情況：
 
-**建議使用：**
+### 建議使用
 - 日誌系統（Logger）
 - 設定檔管理器（Configuration Manager）
 - 資料庫連線池（Database Connection Pool）
 - 快取管理器（Cache Manager）
 - 執行緒池（Thread Pool）
 
-**不建議使用：**
+### 不建議使用
 - 一般業務邏輯物件
 - 需要多個不同狀態的物件
 - 會影響單元測試的情況
