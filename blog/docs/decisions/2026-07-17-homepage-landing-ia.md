@@ -1,7 +1,8 @@
 # Decision: 首頁改品牌 landing，文章列表移交 /archives
 
 **Date**: 2026-07-17
-**Status**: Accepted
+**Status**: Superseded — 首頁區塊定義由 `2026-09-20-notebook-homepage.md` 取代
+（「完整文章列表由 /archives 承接」與「導覽列四項」仍然有效）
 
 ## Context
 站點定位從純 blog 轉為「個人品牌網站 + blog」。原首頁 = 圖片輪播 + 文字 hero + 全文章列表（分頁）+ 站內導覽 + 專案清單，資訊密度高但無品牌敘事。

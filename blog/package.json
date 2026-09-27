@@ -6,7 +6,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "prototype": "node scripts/ui-prototype.js"
   },
   "hexo": {
     "version": "7.3.0"
@@ -28,5 +29,8 @@
     "hexo-server": "^3.0.0",
     "hexo-theme-landscape": "^1.0.0",
     "live2d-widget-model-hibiki": "^1.0.5"
+  },
+  "devDependencies": {
+    "three": "0.186.0"
   }
 }
