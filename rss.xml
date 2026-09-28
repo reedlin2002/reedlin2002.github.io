@@ -7,6 +7,7 @@
         <language>zh-TW</language>
         <pubDate>Mon, 28 Sep 2026 12:00:00 +0800</pubDate>
         <lastBuildDate>Mon, 28 Sep 2026 12:00:00 +0800</lastBuildDate>
+        <category>myself</category>
         <category>project</category>
         <category>.NET</category>
         <category>C#</category>
@@ -18,12 +19,11 @@
         <category>LeetCode</category>
         <category>leetcode</category>
         <category>Daily</category>
-        <category>myself</category>
+        <category>技術筆記</category>
+        <category>(作者自學用)</category>
         <category>iOS</category>
         <category>CallKit</category>
         <category>系統設計</category>
-        <category>技術筆記</category>
-        <category>(作者自學用)</category>
         <category>side project</category>
         <category>React</category>
         <category>TypeScript</category>
@@ -295,10 +295,10 @@
             <guid isPermalink="true">https://reedlin2002.github.io/2026/09/19/ios-caller-id-resolution-chain/</guid>
             <title>來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈</title>
             <link>https://reedlin2002.github.io/2026/09/19/ios-caller-id-resolution-chain/</link>
+            <category>技術筆記</category>
             <category>iOS</category>
             <category>CallKit</category>
             <category>系統設計</category>
-            <category>技術筆記</category>
             <pubDate>Sat, 19 Sep 2026 00:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;我最近在研究一個商務名片 App 的 iOS 來電辨識該怎麼做。需求講起來很單純：讓使用者接到電話時，畫面上那行字是由我們的 App 決定的。&lt;/p&gt;
 &lt;p&gt;查完文件會發現 Apple 給了三個看起來都能做這件事的 API, 而大部分的介紹文章都是各自說明它們的用途。我一開始也是這樣理解的，把它們排成「三個層次」, 以為可以依序疊加。&lt;/p&gt;
