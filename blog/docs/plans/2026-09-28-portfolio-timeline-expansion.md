@@ -40,10 +40,11 @@ none
 - 手機 390：無橫向溢出，學校與職稱各一行，未載入 Target Cursor。
 - console 無錯誤；頁面上所有外部連結皆為 200。
 - 已知取捨：時間軸依時間逐列排列，2025–2026 工程節點密集時研究欄會留白。
+- 2026-09-28 已部署（main `46cafe5`），線上 `/portfolio/` 與新資源檔皆為 200。
 
 ## Story Status
 - [x] In Progress
 - [x] Code Done
 - [x] Docs Updated
 - [x] SDD Updated
-- [ ] Review Ready
+- [x] Review Ready

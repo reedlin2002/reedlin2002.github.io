@@ -46,10 +46,11 @@ none
 - build：JS 494 KB（gzip 168 KB），主要為 React、gsap、motion。
 - 依使用者要求：favicon 改用與部落格相同的三個圖示；聯絡 email 改為 kanewolf98@gmail.com。
 - 2026-09-28 已部署（main `da76752`）。線上 `/portfolio/` 與 11 個資源檔皆為 200，含 `noindex`。
+- 第二版（Hero 改寫與時間軸擴充）見 `2026-09-28-portfolio-timeline-expansion.md`，已部署 main `46cafe5`。
 
 ## Story Status
 - [x] In Progress
 - [x] Code Done
 - [x] Docs Updated
 - [x] SDD Updated
-- [ ] Review Ready
+- [x] Review Ready
