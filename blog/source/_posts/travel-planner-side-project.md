@@ -1,11 +1,14 @@
 ---
 title: 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
 date: 2026-05-16 20:00:00
+updated: 2026-09-28 20:00:00
 tags: [side project, React, TypeScript, AI]
 cover: https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800
 ---
 
 # 用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得
+
+> **📌 這個專案已重做。** 新版（v1.1）以地圖為主體、加入智慧插入與順路推薦，請看〈[智慧旅程規劃：AI 排初稿，在地圖上隨時加景點](/2026/09/28/smart-trip-planner/)〉。本文保留為 v0.1 的開發紀錄。
 
 > 這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。
 
