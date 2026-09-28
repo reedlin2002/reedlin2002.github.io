@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang=zh-TW>
+  <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+
+  <!-- ── Core Meta ── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <meta name="theme-color" content="#101816">
+
+  <!-- ── Title ── -->
+  <title>智慧旅程規劃：AI 排初稿，在地圖上隨時加景點</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content=" 智慧旅程規劃：AI 排初稿，在地圖上隨時加景點
+
+五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。
+
+
+ 問題是什麼
+在計畫旅遊的">
+  
+  <meta name="keywords" content="side project, React, TypeScript, AI, PRD">
+  <meta name="author" content="Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io/2026/09/28/smart-trip-planner/">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="智慧旅程規劃：AI 排初稿，在地圖上隨時加景點  五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。    問題是什麼 在計畫旅遊的時候，大部分的時間其實不是花在旅遊本身，而是在回答這三個問題：  去哪裡？ — 景點這麼多">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智慧旅程規劃：AI 排初稿，在地圖上隨時加景點">
+<meta property="og:url" content="https://reedlin2002.github.io/2026/09/28/smart-trip-planner/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="智慧旅程規劃：AI 排初稿，在地圖上隨時加景點  五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。    問題是什麼 在計畫旅遊的時候，大部分的時間其實不是花在旅遊本身，而是在回答這三個問題：  去哪裡？ — 景點這麼多">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-create.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-trip.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-edit.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-search.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-insert.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-insert-warn.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-insert-spread.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-undo.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-explore.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-explore-food.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-history.png">
+<meta property="article:published_time" content="2026-09-28T12:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-28T12:53:52.757Z">
+<meta property="article:author" content="Lin">
+<meta property="article:tag" content="side project">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="PRD">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://reedlin2002.github.io/images/smart-trip-planner-create.png">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content=" 智慧旅程規劃：AI 排初稿，在地圖上隨時加景點
+
+五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。
+
+
+ 問題是什麼
+在計畫旅遊的">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="智慧旅程規劃：AI 排初稿，在地圖上隨時加景點">
+  <meta name="twitter:description" content=" 智慧旅程規劃：AI 排初稿，在地圖上隨時加景點
+
+五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。
+
+
+ 問題是什麼
+在計畫旅遊的">
+  
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "智慧旅程規劃：AI 排初稿，在地圖上隨時加景點",
+    "description": " 智慧旅程規劃：AI 排初稿，在地圖上隨時加景點
+
+五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。
+
+
+ 問題是什麼
+在計畫旅遊的",
+    "url": "https://reedlin2002.github.io/2026/09/28/smart-trip-planner/",
+    "datePublished": "2026-09-28T12:00:00.000Z",
+    "dateModified": "2026-09-28T12:53:52.757Z",
+    "author": {
+      "@type": "Person",
+      "name": "Lin",
+      "url": "https://reedlin2002.github.io"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Lin",
+      "url": "https://reedlin2002.github.io"
+    }
+    
+  }
+  </script>
+  
+
+  <!-- ── Favicon ── -->
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+
+  <!-- ── Analytics ── -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="max-width mx-auto px3 ltr">
+            <main class="content index " role="main">
+              <header id="header">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
+    
+  
+    <div id="title" style="margin: 0;">
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
+      <small class="site-kicker">LIN’S FIELD NOTES</small>
+    </div>
+  </a>
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <ul>
+      <li class="icon">
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">筆記</a></li><!--
+   --><!--
+     --><li><a href="/archives/">所有文章</a></li><!--
+   --><!--
+     --><li><a href="/#projects">作品</a></li><!--
+   --><!--
+     --><li><a href="/about/">關於</a></li><!--
+   -->
+      <li class="nav-search"><a href="/search/" aria-label="搜尋文章"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>搜尋</span></a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
+  </div>
+</header>
+
+                
+<article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="reading-header">
+    <a class="reading-back" href="/">← 回到筆記</a>
+    <div class="reading-eyebrow">
+      <span class="eyebrow">LOG ENTRY / FIELD NOTES</span>
+      <span class="eyebrow">side project</span>
+    </div>
+    <h1 itemprop="headline">智慧旅程規劃：AI 排初稿，在地圖上隨時加景點</h1>
+    <div class="reading-byline">
+      <img src="/images/logo.png" width="32" height="32" alt="">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        By <span class="p-name" itemprop="name">Lin</span>
+      </span>
+      <div class="entry-meta">
+        <time datetime="2026-09-28" itemprop="datePublished">2026.09.28</time>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>7 分鐘閱讀</span>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>2736 字</span>
+        
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>更新於 2026.09.28</span>
+        
+      </div>
+    </div>
+  </header>
+
+  
+
+
+  <div class="reading-body content e-content" itemprop="articleBody"><blockquote>
+<p>五月那篇〈<a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程</a>〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。</p>
+</blockquote>
+<hr>
+<h2 id="問題是什麼"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#問題是什麼"></a> 問題是什麼</h2>
+<p>在計畫旅遊的時候，大部分的時間其實不是花在旅遊本身，而是在回答這三個問題：</p>
+<ol>
+<li><strong>去哪裡？</strong> — 景點這麼多，哪些值得去？要怎麼篩選？</li>
+<li><strong>怎麼排？</strong> — 景點彼此距離不同，路線怎麼走最不繞？</li>
+<li><strong>幾點到？</strong> — 每個地方要留多久、什麼時候出發才不會太趕？</li>
+</ol>
+<p>這些問題互相牽連：改了景點順序，時間就全部跑掉；想臨時加一個景點，又要從頭重排。結果很多人花了幾個小時做規劃，精力耗盡，出發前就已經很累了。</p>
+<p><strong>目標使用者</strong>：忙碌的上班族（時間有限、不想從零開始）與深度旅行者（想要精心安排但不想手動排序計算時間）。</p>
+<hr>
+<h2 id="v01-的需求現在怎麼實現"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#v01-的需求現在怎麼實現"></a> V0.1 的需求，現在怎麼實現</h2>
+<p>五月版本的 PRD（V0.1）定義了六個核心需求，以下對照現在的實作：</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>PRD 原文</th>
+<th>現在的做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A-1</td>
+<td>輸入起點與終點</td>
+<td>出發城市（必填）＋結束城市（選填）；不填終點時 AI 以起點為中心輻射式探索</td>
+</tr>
+<tr>
+<td>A-2</td>
+<td>天數 1–7 天、人數 1–10 人</td>
+<td>調整為 1–14 天、1–20 人（實際使用反映需求更長更大）</td>
+</tr>
+<tr>
+<td>A-3</td>
+<td>三種交通方式</td>
+<td>大眾運輸、步行、開車，加上旅遊主題（歷史文化／自然風景／在地美食／購物／休閒放鬆／戶外活動）讓 AI 排的景點更符合偏好</td>
+</tr>
+<tr>
+<td>A-4</td>
+<td>AI 生成帶時間的行程</td>
+<td>每站含到達時間、建議停留時長；各段標「估算」（直線距離 × 1.25）</td>
+</tr>
+<tr>
+<td>B-1</td>
+<td>左面板行程表、右邊地圖</td>
+<td>桌機維持此版型；手機改為底部面板＋分頁列</td>
+</tr>
+<tr>
+<td>B-2</td>
+<td>地圖上依順序連線</td>
+<td>當天路線用深青色實線、其他天用灰色淡線；圖例在右下角</td>
+</tr>
+</tbody>
+</table>
+<p>一個改動值得特別說：原本想用 Google Maps，後來改成 <strong>MapLibre GL + OpenFreeMap</strong>—— 免費、免 API 金鑰、不限次數，對 Side Project 來說負擔少很多。地點搜尋同樣用開放資料（Photon /komoot，資料來自 OpenStreetMap）。</p>
+<span id="more"></span>
+<hr>
+<h2 id="重新定義的核心需求ai-只是起點"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#重新定義的核心需求ai-只是起點"></a> 重新定義的核心需求：AI 只是起點</h2>
+<p>v0.1 的問題在於：AI 排完就結束了。但真實的旅遊規劃不是這樣 —— 你會途中看到一個想去的地方、朋友推薦一個餐廳、發現原本的安排太趕或太閒。<strong>AI 排的是初稿，人來做最後的決定</strong>。</p>
+<p>這一版在原有的 A-1～B-2 之上，補上了三組新需求：</p>
+<h3 id="c加景點插入哪裡最省時"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#c加景點插入哪裡最省時"></a> C：加景點 —— 插入哪裡最省時？</h3>
+<p><strong>C-1 找最佳插入位置</strong></p>
+<p>用戶故事：「我在行程中看到一個景點，想加進去，但不想花時間想要插在第幾站」</p>
+<p>系統會自動計算把這個地點插入每一天、每個位置的「多繞幾分鐘」，列出前三個最省時的選項。</p>
+<p><strong>C-2 決定改動幅度</strong></p>
+<p>用戶故事：「我想加這個景點，但不確定要只是插進去、還是連順序都重排一下」</p>
+<p>三種範圍讓用戶決定改動幅度：</p>
+<ul>
+<li><strong>只插入</strong>：只在現有路線裡找一個縫隙放進去</li>
+<li><strong>重排當天</strong>：把整天重新最佳化順序（適合想省最多時間的情境）</li>
+<li><strong>跨天調整</strong>：把這個景點配到最合適的那天</li>
+</ul>
+<p>每次改動都會先預覽結果、顯示警告（例如到達時已過營業時間、整天預計超過晚上九點），確認後才套用。</p>
+<p><strong>C-3 套用後可以復原</strong></p>
+<p>用戶故事：「我改了之後覺得不對，想回到剛才的樣子」</p>
+<p>每次套用後都有一個浮動提示，可以點「復原」回到上一步。</p>
+<h3 id="d順路推薦沿路多繞幾分鐘能到哪裡"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#d順路推薦沿路多繞幾分鐘能到哪裡"></a> D：順路推薦 —— 沿路多繞幾分鐘能到哪裡？</h3>
+<p><strong>D-1 基於當天路線的推薦</strong></p>
+<p>用戶故事：「我想知道這天路線附近還有什麼值得去的，不用特地繞太遠的」</p>
+<p>開啟「順路推薦」，系統以當天各站為錨點向外搜尋 1,500 公尺內的地點，再算出把它插進行程要多繞幾分鐘，由少到多排列。景點與自然類用維基百科附近條目（有條目代表有一定知名度，且附帶照片），美食與購物類改用 OpenStreetMap（Overpass API），還會顯示營業時間。</p>
+<h3 id="e不需要帳號"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#e不需要帳號"></a> E：不需要帳號</h3>
+<p><strong>E-1 本地儲存＋分享連結</strong></p>
+<p>用戶故事：「我不想註冊帳號，但換裝置時還是要能看到行程」</p>
+<p>行程自動存在瀏覽器的 localStorage，換裝置請用「分享連結」—— 行程資料編碼在網址的  <code>#trip=</code>  後面，對方開啟連結就能看到完整行程，不需要後端。</p>
+<hr>
+<h2 id="使用者旅程"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#使用者旅程"></a> 使用者旅程</h2>
+<pre class="mermaid">journey
+  title 從想去旅遊到確認行程
+  section 建立條件
+    填寫出發城市與天數: 5: 用戶
+    選擇交通方式與旅遊主題: 4: 用戶
+    點「用 AI 排行程」: 5: 用戶, AI
+  section AI 生成初稿
+    AI 輸出每天景點與時間表: 3: AI
+    時間軸與地圖路線顯示: 5: 系統
+  section 調整行程
+    搜尋想加的景點: 5: 用戶
+    選擇插入位置與改動幅度: 4: 用戶, 系統
+    預覽結果並確認套用: 5: 用戶
+    復原（如果不滿意）: 4: 用戶
+  section 探索附近
+    開啟順路推薦: 5: 用戶
+    篩選類型（景點 / 美食 / 自然）: 4: 用戶
+    把喜歡的加入行程: 5: 用戶
+  section 儲存分享
+    行程自動存檔: 5: 系統
+    複製分享連結: 4: 用戶</pre>
+<hr>
+<h2 id="畫面導覽"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#畫面導覽"></a> 畫面導覽</h2>
+<h3 id="建立行程"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#建立行程"></a> 建立行程</h3>
+<p><img src="/images/smart-trip-planner-create.png" alt="建立行程表單"></p>
+<p><em>出發城市、結束城市（選填）、天數 1–14 天、人數 1–20 人、交通方式、旅遊主題；沒有 Gemini API Key 的話也可以直接載入「東京・京都・大阪 5 日」範例行程試玩。</em></p>
+<hr>
+<h3 id="行程時間軸地圖"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#行程時間軸地圖"></a> 行程時間軸＋地圖</h3>
+<p><img src="/images/smart-trip-planner-trip.png" alt="行程時間軸與地圖"></p>
+<p><em>左側面板每天一個分頁，每站顯示到達時間、建議停留時長、交通時間（「估算」表示直線距離換算，非真實路線）。右邊地圖：當天路線深青色實線、其他天淺灰色、右下角圖例。</em></p>
+<hr>
+<h3 id="編輯停靠點"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#編輯停靠點"></a> 編輯停靠點</h3>
+<p><img src="/images/smart-trip-planner-edit.png" alt="編輯停靠點"></p>
+<p><em>展開某個停靠點：上下微調停留時間（15 分鐘為單位）、拖曳換順序、刪除。</em></p>
+<hr>
+<h3 id="搜尋並預覽插入位置"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#搜尋並預覽插入位置"></a> 搜尋並預覽插入位置</h3>
+<p><img src="/images/smart-trip-planner-search.png" alt="搜尋景點"></p>
+<p>搜尋框輸入想加的地點，自動補全（資料來自 OpenStreetMap），點選後立刻計算插入成本：</p>
+<p><img src="/images/smart-trip-planner-insert.png" alt="插入位置預覽"></p>
+<p><em>前三個最省時的插入位置，每個選項都標明插在哪一天第幾站之間、多繞幾分鐘。下方可選擇改動幅度（只插入 / 重排當天 / 跨天調整），並顯示套用後的預覽摘要。</em></p>
+<hr>
+<h3 id="警告與跨天調整"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#警告與跨天調整"></a> 警告與跨天調整</h3>
+<p><img src="/images/smart-trip-planner-insert-warn.png" alt="警告訊息"></p>
+<p><em>若套用後某站到達時間超出營業時間，或整天結束超過晚上九點，就會在套用前顯示警告。</em></p>
+<p><img src="/images/smart-trip-planner-insert-spread.png" alt="跨天調整"></p>
+<p><em>選「跨天調整」時，系統會幫這個景點找最合適的那一天配進去，並顯示要移到哪一天。</em></p>
+<hr>
+<h3 id="套用並復原"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#套用並復原"></a> 套用並復原</h3>
+<p><img src="/images/smart-trip-planner-undo.png" alt="套用後 Toast"></p>
+<p><em>套用後浮現提示「已把 X 加到 D?」，右側「復原」可以回到套用前。</em></p>
+<hr>
+<h3 id="順路推薦"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#順路推薦"></a> 順路推薦</h3>
+<p><img src="/images/smart-trip-planner-explore.png" alt="順路推薦（全部）"></p>
+<p><em>以 D4 京都行程（嵐山竹林小徑 → 天龍寺 → 金閣寺 → 二條城 → 先斗町）為例：系統找出周邊多繞幾分鐘就能到的地點，祇園 +7 分、渡月橋 +8 分、本能寺 +9 分⋯ 地圖上同步顯示推薦標籤。底部標明資料來源（維基百科）。</em></p>
+<p><img src="/images/smart-trip-planner-explore-food.png" alt="順路推薦（美食）"></p>
+<p><em>切換到「美食」分類，資料改從 OpenStreetMap 取得，並顯示營業時間。錦市場 +8 分、がんこ高瀬川二条苑 +13 分⋯</em></p>
+<hr>
+<h3 id="我的行程"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#我的行程"></a> 我的行程</h3>
+<p><img src="/images/smart-trip-planner-history.png" alt="我的行程"></p>
+<p><em>行程自動儲存在瀏覽器，可以從「我的行程」開啟之前儲存的行程。底部提醒：換裝置請用分享連結。</em></p>
+<hr>
+<h2 id="技術架構一小段"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#技術架構一小段"></a> 技術架構（一小段）</h2>
+<pre class="mermaid">graph LR
+  Browser["瀏覽器（React + TypeScript）"]
+  Gemini["Google Gemini API\n（AI 行程生成）"]
+  Photon["Photon / komoot\n（地點搜尋，OSM 資料）"]
+  OFM["OpenFreeMap\n（地圖樣式）"]
+  Wiki["維基百科 API\n（順路推薦：景點、自然）"]
+  Overpass["Overpass API / OSM\n（順路推薦：美食、購物）"]
+  LS["localStorage\n（行程存檔）"]
+  Hash["URL #trip=…\n（分享連結）"]
+
+  Browser -- "生成行程 prompt（JSON）" --&gt; Gemini
+  Browser -- "文字搜尋" --&gt; Photon
+  Browser -- "地圖底圖" --&gt; OFM
+  Browser -- "附近條目" --&gt; Wiki
+  Browser -- "餐廳、市場" --&gt; Overpass
+  Browser -- "自動儲存" --&gt; LS
+  Browser -- "分享" --&gt; Hash</pre>
+<p><strong>地圖</strong>：MapLibre GL + OpenFreeMap，免費、免 API 金鑰。<br>
+<strong>地點搜尋</strong>：Photon（komoot），資料來自 OpenStreetMap。<br>
+<strong>AI</strong>：Google Gemini，prompt 強制輸出 JSON 格式的行程，模型依序備援（遇到流量限制自動換下一個）。<br>
+<strong>交通時間</strong>：目前是直線距離 × 1.25 的估算（程式標記「估算」）。規劃邏輯設計成可以替換成真實路線 API，但尚未接上。<br>
+<strong>儲存</strong>：不需要後端或帳號 —— 行程存在 localStorage；分享時把行程資料編碼在 URL hash 裡。</p>
+<hr>
+<h2 id="還沒做的"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#還沒做的"></a> 還沒做的</h2>
+<p>誠實說有兩件事還沒完成：</p>
+<ol>
+<li><strong>真實交通時間</strong>：目前的「估算」是用直線距離換算，不考慮道路繞路、大眾運輸班次。程式架構已設計成可以替換成 TDX（台灣）或 Google Routes API，但還沒接。</li>
+<li><strong>AI API Key 保護</strong>：目前 Gemini 的 API Key 是在前端直接呼叫，適合 Side Project 開發階段，但上線前應該搬到後端保護。</li>
+</ol>
+<hr>
+<h2 id="小結"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#小結"></a> 小結</h2>
+<p>這次重做的核心想法是三件事：</p>
+<p><strong>AI 產初稿，人做決定。</strong> 讓 AI 解決「從零開始不知道怎麼排」的問題，但行程的最終樣貌由人來定。加哪個景點、要不要調順序、改多少 —— 每個步驟都讓用戶選。</p>
+<p><strong>把「能改多少」交給用戶。</strong> 「只插入、重排當天、跨天調整」三個範圍，對應三種不同的改動意願。想改多就改多，只想加一個點就只改一個點。</p>
+<p><strong>不登入也能存與分享。</strong> 行程自動存在瀏覽器，換裝置用分享連結 —— 對 Side Project 來說這讓「使用門檻」最低。</p>
+<hr>
+<p><em>技術棧：React 18 + TypeScript + Vite，MapLibre GL，Google Gemini API，Photon /komoot，Wikipedia API，Overpass API，localStorage。</em></p>
+</div>
+
+  <footer class="reading-end">
+    <span class="end-mark" aria-hidden="true">✳</span>
+    <p>謝謝你，讀到這裡。</p>
+    
+    <div class="reading-tags">
+      <a href="/tags/side-project/"># side project</a><a href="/tags/React/"># React</a><a href="/tags/TypeScript/"># TypeScript</a><a href="/tags/AI/"># AI</a><a href="/tags/PRD/"># PRD</a>
+    </div>
+    
+    
+    <div class="reading-license">
+      Lin ·
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+    </div>
+    
+  </footer>
+</article>
+
+
+
+<section class="read-next" aria-labelledby="read-next-title">
+  <div class="section-heading">
+    <h2 id="read-next-title">下一個好奇心</h2>
+    <a class="text-link" href="/">回首頁 <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="read-next-grid">
+    
+    
+    <article>
+      <div class="entry-meta">
+        <time datetime="2026-05-16">2026.05.16</time>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>5 分鐘閱讀</span>
+      </div>
+      <h3><a href="/2026/05/16/travel-planner-side-project/">用 AI 幫你規劃旅程 — Travel Planner Side Project 開發心得</a></h3>
+      <a class="text-link" href="/2026/05/16/travel-planner-side-project/">繼續讀 <span aria-hidden="true">↗</span></a>
+    </article>
+    
+    
+    <article>
+      <div class="entry-meta">
+        <time datetime="2026-09-28">2026.09.28</time>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>7 分鐘閱讀</span>
+      </div>
+      <h3><a href="/2026/09/28/mapgo-hackathon/">玩點任務地圖 MapGo：台北捷運任務點數平台</a></h3>
+      <a class="text-link" href="/2026/09/28/mapgo-hackathon/">繼續讀 <span aria-hidden="true">↗</span></a>
+    </article>
+    
+  </div>
+</section>
+
+
+
+
+
+                  
+                    <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">筆記</a></li>
+        
+          <li><a href="/archives/">所有文章</a></li>
+        
+          <li><a href="/#projects">作品</a></li>
+        
+          <li><a href="/about/">關於</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&text=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&title=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&is_video=false&description=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點&body=Check out this article: https://reedlin2002.github.io/2026/09/28/smart-trip-planner/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&title=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&title=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&title=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&title=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&name=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點&description=&lt;h1 id=&#34;智慧旅程規劃ai-排初稿在地圖上隨時加景點&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#智慧旅程規劃ai-排初稿在地圖上隨時加景點&#34;&gt;&lt;/a&gt; 智慧旅程規劃：AI 排初稿，在地圖上隨時加景點&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;五月那篇〈&lt;a href=&#34;/2026/05/16/travel-planner-side-project/&#34;&gt;用 AI 幫你規劃旅程&lt;/a&gt;〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;問題是什麼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#問題是什麼&#34;&gt;&lt;/a&gt; 問題是什麼&lt;/h2&gt;
+&lt;p&gt;在計畫旅遊的時候，大部分的時間其實不是花在旅遊本身，而是在回答這三個問題：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;去哪裡？&lt;/strong&gt; — 景點這麼多，哪些值得去？要怎麼篩選？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;怎麼排？&lt;/strong&gt; — 景點彼此距離不同，路線怎麼走最不繞？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;幾點到？&lt;/strong&gt; — 每個地方要留多久、什麼時候出發才不會太趕？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;這些問題互相牽連：改了景點順序，時間就全部跑掉；想臨時加一個景點，又要從頭重排。結果很多人花了幾個小時做規劃，精力耗盡，出發前就已經很累了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;目標使用者&lt;/strong&gt;：忙碌的上班族（時間有限、不想從零開始）與深度旅行者（想要精心安排但不想手動排序計算時間）。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;v01-的需求現在怎麼實現&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; href=&#34;#v01-的需求現在怎麼實現&#34;&gt;&lt;/a&gt; V0.1 的需求，現在怎麼實現&lt;/h2&gt;
+&lt;p&gt;五月版本的 PRD（V0.1）定義了六個核心需求，以下對照現在的實作：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;需求&lt;/th&gt;
+&lt;th&gt;PRD 原文&lt;/th&gt;
+&lt;th&gt;現在的做法&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;A-1&lt;/td&gt;
+&lt;td&gt;輸入起點與終點&lt;/td&gt;
+&lt;td&gt;出發城市（必填）＋結束城市（選填）；不填終點時 AI 以起點為中心輻射式探索&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A-2&lt;/td&gt;
+&lt;td&gt;天數 1–7 天、人數 1–10 人&lt;/td&gt;
+&lt;td&gt;調整為 1–14 天、1–20 人（實際使用反映需求更長更大）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A-3&lt;/td&gt;
+&lt;td&gt;三種交通方式&lt;/td&gt;
+&lt;td&gt;大眾運輸、步行、開車，加上旅遊主題（歷史文化／自然風景／在地美食／購物／休閒放鬆／戶外活動）讓 AI 排的景點更符合偏好&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A-4&lt;/td&gt;
+&lt;td&gt;AI 生成帶時間的行程&lt;/td&gt;
+&lt;td&gt;每站含到達時間、建議停留時長；各段標「估算」（直線距離 × 1.25）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;B-1&lt;/td&gt;
+&lt;td&gt;左面板行程表、右邊地圖&lt;/td&gt;
+&lt;td&gt;桌機維持此版型；手機改為底部面板＋分頁列&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;B-2&lt;/td&gt;
+&lt;td&gt;地圖上依順序連線&lt;/td&gt;
+&lt;td&gt;當天路線用深青色實線、其他天用灰色淡線；圖例在右下角&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;一個改動值得特別說：原本想用 Google Maps，後來改成 &lt;strong&gt;MapLibre GL + OpenFreeMap&lt;/strong&gt;—— 免費、免 API 金鑰、不限次數，對 Side Project 來說負擔少很多。地點搜尋同樣用開放資料（Photon /komoot，資料來自 OpenStreetMap）。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/09/28/smart-trip-planner/&t=智慧旅程規劃：AI 排初稿，在地圖上隨時加景點"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+                      
+                        <!-- ═══════════════════════════════════════════════
+     FOOTER — 開發筆記本：Stay curious 字標 + 一行資訊
+     ═══════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-bar">
+    <a class="footer-note" href="/">Stay curious<span>繼續保持好奇。</span></a>
+    <div class="footer-meta">
+      
+      
+      <span>© 2016–2026 Lin / Reedlin2002</span>
+      <a href="https://github.com/reedlin2002" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="mailto:lin1022business@gmail.com">寫信給我 ↗</a>
+      <a href="/search/">搜尋 ↗</a>
+      <span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     返回頂部按鈕
+     ═══════════════════════════════════════════════ -->
+<button id="back-to-top" aria-label="返回頂部" title="返回頂部">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+            </main>
+            <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- 舊版 ClipboardJS 複製按鈕已移除 — Sprint 3 的 .copy-btn 為唯一實作 -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- ── 圖片燈箱（medium-zoom）── -->
+
+<script src="/lib/medium-zoom/medium-zoom.min.js"></script>
+
+<script type="text/javascript">
+window.initLightbox = function() {
+  'use strict';
+  if (typeof mediumZoom !== 'function') return;
+  // PJAX 重入：先解除舊綁定
+  if (window._mzoom) {
+    window._mzoom.detach();
+    window._mzoom = null;
+  }
+  var selector = 'article.post .content img:not(.no-zoom)';
+  if (document.querySelector(selector)) {
+    window._mzoom = mediumZoom(selector, {
+      background: 'rgba(15, 17, 20, 0.92)',
+      margin: 24
+    });
+  }
+};
+window.initLightbox();
+</script>
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+window.initSprint2JS = function() {
+  'use strict';
+
+  /* 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    if (window.cardObserver) {
+      window.cardObserver.disconnect();
+    }
+    window.cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          window.cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      window.cardObserver.observe(card);
+    });
+  }
+
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
+};
+window.initSprint2JS();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + Mobile Nav ── -->
+<script type="text/javascript">
+window.initSprint3JS = function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight:not(.has-copy-btn)');
+  highlights.forEach(function(block) {
+    block.classList.add('has-copy-btn');
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight' && c !== 'has-copy-btn';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied();
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  // We use standard named events to avoid duplication if we just use document.addEventListener
+  if (window._mobileNavHandlersBound) return;
+  window._mobileNavHandlersBound = true;
+
+  /* 關閉 = 移除 .responsive class（開關同一機制，不用 jQuery 動 inline display）*/
+  function closeMobileNav() {
+    var navMenu = document.querySelector('#header #nav > ul.responsive');
+    if (navMenu) navMenu.classList.remove('responsive');
+  }
+
+  document.addEventListener('click', function(e) {
+    var header = document.getElementById('header');
+    if (header && !header.contains(e.target)) closeMobileNav();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive: true});
+
+  document.addEventListener('touchend', function(e) {
+    if (document.querySelector('#header #nav > ul.responsive')) {
+      var touchEndX = e.changedTouches[0].screenX;
+      var touchEndY = e.changedTouches[0].screenY;
+      if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+        closeMobileNav();
+      }
+    }
+  }, {passive: true});
+
+};
+window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
+</script>
+
+<!-- ── Mermaid 圖表（按需載入；相容 PJAX 與佈景切換）── -->
+<script type="text/javascript">
+window.MERMAID_SRC = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+window.initMermaid = function() {
+  'use strict';
+  if (!window.MERMAID_SRC) return;
+
+  /* 文章裡的 ```mermaid 圍欄已由 scripts/mermaid.js 轉成 pre.mermaid 元素，
+     這裡只需要保留原始碼，佈景切換時才能重繪 */
+  function collect() {
+    var nodes = [];
+    document.querySelectorAll('pre.mermaid').forEach(function(pre) {
+      if (!pre.hasAttribute('data-mmd-src')) {
+        pre.setAttribute('data-mmd-src', pre.textContent);
+      }
+      nodes.push(pre);
+    });
+    return nodes;
+  }
+
+  /* 主題色直接讀 CSS 變數，暗/亮佈景自動跟著走 */
+  function themeVariables() {
+    var cs = getComputedStyle(document.documentElement);
+    var v = function(name, fallback) {
+      return (cs.getPropertyValue(name) || '').trim() || fallback;
+    };
+    return {
+      background:         v('--shoka-color-bg',      '#08090d'),
+      mainBkg:            v('--shoka-surface-2',     '#14171f'),
+      primaryColor:       v('--shoka-surface-2',     '#14171f'),
+      secondaryColor:     v('--shoka-surface-1',     '#0d0f15'),
+      tertiaryColor:      v('--shoka-surface-3',     '#1c2029'),
+      primaryTextColor:   v('--shoka-color-text',    '#e8eaed'),
+      secondaryTextColor: v('--shoka-color-text',    '#e8eaed'),
+      tertiaryTextColor:  v('--shoka-color-text',    '#e8eaed'),
+      textColor:          v('--shoka-color-text',    '#e8eaed'),
+      primaryBorderColor: v('--shoka-color-primary', '#22d3ee'),
+      nodeBorder:         v('--shoka-color-primary', '#22d3ee'),
+      lineColor:          v('--shoka-color-text-2',  '#8b93a1'),
+      edgeLabelBackground: v('--shoka-color-bg',     '#08090d'),
+      /* 必須是實際渲染用的字體：mermaid 用這個值量測文字寬度，
+         量測字體與渲染字體不一致時，中文節點會被裁掉 */
+      fontFamily: getComputedStyle(document.body).fontFamily || 'sans-serif',
+      fontSize: '14px'
+    };
+  }
+
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme');
+  }
+
+  /* mermaid.run() 是非同步的,而顏色是 initialize() 當下燒進 SVG 的。
+     佈景在算圖途中切換時,兩次重繪會互相覆蓋,結果就是深色標籤配深色底
+     ——文字整塊變黑看不見。把重繪排成佇列,算完再確認佈景沒有又變過。 */
+  function draw(nodes) {
+    var theme = currentTheme();
+    nodes.forEach(function(n) {
+      n.removeAttribute('data-processed');
+      n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
+    });
+    window.mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'base',
+      themeVariables: themeVariables(),
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+    });
+    var run;
+    try {
+      run = Promise.resolve(window.mermaid.run({ nodes: nodes, suppressErrors: true }));
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ return Promise.resolve(); }
+    return run.catch(function() {}).then(function() {
+      if (theme === currentTheme()) return;
+      return draw(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    window._mermaidQueue = (window._mermaidQueue || Promise.resolve())
+      .then(function() { return draw(nodes); })
+      .catch(function() {});
+  }
+
+  var targets = collect();
+  if (!targets.length) return;
+
+  /* 佈景切換時重繪（顏色是初始化時燒進 SVG 的，不重繪不會變色） */
+  if (!window._mermaidThemeWatcher) {
+    window._mermaidThemeWatcher = new MutationObserver(function() {
+      render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+    window._mermaidThemeWatcher.observe(document.documentElement, {
+      attributes: true, attributeFilter: ['data-theme']
+    });
+  }
+
+  if (window.mermaid) { render(targets); return; }
+  if (window._mermaidLoading) return;
+  window._mermaidLoading = true;
+
+  var s = document.createElement('script');
+  s.src = window.MERMAID_SRC;
+  s.crossOrigin = 'anonymous';
+  s.onload = function() {
+    window._mermaidLoading = false;
+    render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+  };
+  s.onerror = function() { window._mermaidLoading = false; };
+  document.head.appendChild(s);
+};
+window.initMermaid();
+</script>
+
+<!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+
+                <!-- 背景音播放器（對齊原型 B）：左下角一顆圓鈕，點開才是面板。
+     位於 main.content 外，PJAX 換頁不重載，音樂不中斷。 -->
+
+
+<aside class="companion-dock" aria-label="背景音">
+  <button type="button" class="dock-button" data-panel="music-panel" aria-label="開啟音樂播放器" aria-expanded="false" aria-controls="music-panel">♫</button>
+</aside>
+<section class="companion-panel" id="music-panel" aria-labelledby="music-title" hidden>
+  <header>
+    <div>
+      <span class="eyebrow">A LITTLE BACKGROUND MUSIC</span>
+      <h2 id="music-title">閱讀的背景音。</h2>
+    </div>
+    <button type="button" data-close-panel aria-label="收起音樂播放器">×</button>
+  </header>
+  <label for="music-track">選一首歌</label>
+  <select id="music-track">
+    
+    <option value="/music/%E4%B8%80%E9%9B%A3.mp3">一難</option>
+    
+    <option value="/music/%E7%A7%81%E3%81%8C%E9%81%B8%E3%82%93%E3%81%A0%E3%82%82%E3%81%AE%20%20%E3%83%A6%E3%82%A4%E3%82%ABMV.mp3">私が選んだもの — ユイカ</option>
+    
+  </select>
+  <audio controls preload="none" src="/music/%E4%B8%80%E9%9B%A3.mp3"></audio>
+</section>
+<script type="text/javascript">
+(function () {
+  'use strict';
+  if (window._companionDockBound) return;
+  window._companionDockBound = true;
+
+  var panel = document.getElementById('music-panel');
+  var opener = document.querySelector('[data-panel="music-panel"]');
+  var audio = panel.querySelector('audio');
+  var select = document.getElementById('music-track');
+
+  audio.volume = 0.4;
+
+  function setOpen(open) {
+    panel.hidden = !open;
+    opener.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) select.focus();
+  }
+
+  opener.addEventListener('click', function () { setOpen(panel.hidden); });
+  panel.querySelector('[data-close-panel]').addEventListener('click', function () {
+    setOpen(false);
+    opener.focus();
+  });
+
+  /* 換歌時保留播放狀態：本來在播就接著播 */
+  select.addEventListener('change', function () {
+    var wasPlaying = !audio.paused;
+    audio.src = select.value;
+    audio.load();
+    if (wasPlaying) audio.play().catch(function () {});
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); opener.focus(); }
+  });
+
+  /* 點面板與圓鈕以外的地方就收起來，但不要打斷播放 */
+  document.addEventListener('pointerdown', function (e) {
+    if (panel.hidden) return;
+    if (e.target.closest('#music-panel, [data-panel="music-panel"]')) return;
+    setOpen(false);
+  });
+})();
+</script>
+
+
+
+                    
+<script src="/js/landing.js"></script>
+
+                      <!-- PJAX 架構與進度條 -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+                      
+<script src="/js/pjax-init.js"></script>
+
+                      
+                      <!-- Live2D 看板娘 + 聊天（body 層，PJAX 換頁不重載） -->
+                      <script>window.LIVE2D_CHAT_CONFIG = {"enabled":true,"endpoint":"https://live2d-chat.kanewolf98.workers.dev","model":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json"};</script>
+                      
+<script src="/lib/live2d/L2Dwidget.min.js"></script>
+
+                      
+<script src="/js/live2d-chat.js"></script>
+
+                      
+    </body>
+
+    </html>

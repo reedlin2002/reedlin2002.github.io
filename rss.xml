@@ -5,8 +5,8 @@
         <link>https://reedlin2002.github.io</link>
         <description>Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程</description>
         <language>zh-TW</language>
-        <pubDate>Mon, 28 Sep 2026 12:00:00 +0800</pubDate>
-        <lastBuildDate>Mon, 28 Sep 2026 12:00:00 +0800</lastBuildDate>
+        <pubDate>Mon, 28 Sep 2026 20:00:00 +0800</pubDate>
+        <lastBuildDate>Mon, 28 Sep 2026 20:00:00 +0800</lastBuildDate>
         <category>myself</category>
         <category>project</category>
         <category>.NET</category>
@@ -17,28 +17,229 @@
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>leetcode</category>
-        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <category>iOS</category>
         <category>CallKit</category>
         <category>系統設計</category>
         <category>side project</category>
-        <category>NFC</category>
-        <category>Android</category>
-        <category>Capacitor</category>
         <category>React</category>
         <category>TypeScript</category>
         <category>PWA</category>
         <category>Hackathon</category>
+        <category>NFC</category>
+        <category>Android</category>
+        <category>Capacitor</category>
         <category>AI</category>
+        <category>PRD</category>
         <category>重構</category>
         <category>電腦視覺</category>
         <category>軟體工程</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
+        <item>
+            <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/smart-trip-planner/</guid>
+            <title>智慧旅程規劃：AI 排初稿，在地圖上隨時加景點</title>
+            <link>https://reedlin2002.github.io/2026/09/28/smart-trip-planner/</link>
+            <category>side project</category>
+            <category>React</category>
+            <category>TypeScript</category>
+            <category>AI</category>
+            <category>PRD</category>
+            <pubDate>Mon, 28 Sep 2026 20:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;blockquote&gt;
+&lt;p&gt;五月那篇〈&lt;a href=&#34;/2026/05/16/travel-planner-side-project/&#34;&gt;用 AI 幫你規劃旅程&lt;/a&gt;〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;問題是什麼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#問題是什麼&#34;&gt;&lt;/a&gt; 問題是什麼&lt;/h2&gt;
+&lt;p&gt;在計畫旅遊的時候，大部分的時間其實不是花在旅遊本身，而是在回答這三個問題：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;去哪裡？&lt;/strong&gt; — 景點這麼多，哪些值得去？要怎麼篩選？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;怎麼排？&lt;/strong&gt; — 景點彼此距離不同，路線怎麼走最不繞？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;幾點到？&lt;/strong&gt; — 每個地方要留多久、什麼時候出發才不會太趕？&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;這些問題互相牽連：改了景點順序，時間就全部跑掉；想臨時加一個景點，又要從頭重排。結果很多人花了幾個小時做規劃，精力耗盡，出發前就已經很累了。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;目標使用者&lt;/strong&gt;：忙碌的上班族（時間有限、不想從零開始）與深度旅行者（想要精心安排但不想手動排序計算時間）。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;v01-的需求現在怎麼實現&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#v01-的需求現在怎麼實現&#34;&gt;&lt;/a&gt; V0.1 的需求，現在怎麼實現&lt;/h2&gt;
+&lt;p&gt;五月版本的 PRD（V0.1）定義了六個核心需求，以下對照現在的實作：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;需求&lt;/th&gt;
+&lt;th&gt;PRD 原文&lt;/th&gt;
+&lt;th&gt;現在的做法&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;A-1&lt;/td&gt;
+&lt;td&gt;輸入起點與終點&lt;/td&gt;
+&lt;td&gt;出發城市（必填）＋結束城市（選填）；不填終點時 AI 以起點為中心輻射式探索&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A-2&lt;/td&gt;
+&lt;td&gt;天數 1–7 天、人數 1–10 人&lt;/td&gt;
+&lt;td&gt;調整為 1–14 天、1–20 人（實際使用反映需求更長更大）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A-3&lt;/td&gt;
+&lt;td&gt;三種交通方式&lt;/td&gt;
+&lt;td&gt;大眾運輸、步行、開車，加上旅遊主題（歷史文化／自然風景／在地美食／購物／休閒放鬆／戶外活動）讓 AI 排的景點更符合偏好&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;A-4&lt;/td&gt;
+&lt;td&gt;AI 生成帶時間的行程&lt;/td&gt;
+&lt;td&gt;每站含到達時間、建議停留時長；各段標「估算」（直線距離 × 1.25）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;B-1&lt;/td&gt;
+&lt;td&gt;左面板行程表、右邊地圖&lt;/td&gt;
+&lt;td&gt;桌機維持此版型；手機改為底部面板＋分頁列&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;B-2&lt;/td&gt;
+&lt;td&gt;地圖上依順序連線&lt;/td&gt;
+&lt;td&gt;當天路線用深青色實線、其他天用灰色淡線；圖例在右下角&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;一個改動值得特別說：原本想用 Google Maps，後來改成 &lt;strong&gt;MapLibre GL + OpenFreeMap&lt;/strong&gt;—— 免費、免 API 金鑰、不限次數，對 Side Project 來說負擔少很多。地點搜尋同樣用開放資料（Photon /komoot，資料來自 OpenStreetMap）。&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;重新定義的核心需求ai-只是起點&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#重新定義的核心需求ai-只是起點&#34;&gt;&lt;/a&gt; 重新定義的核心需求：AI 只是起點&lt;/h2&gt;
+&lt;p&gt;v0.1 的問題在於：AI 排完就結束了。但真實的旅遊規劃不是這樣 —— 你會途中看到一個想去的地方、朋友推薦一個餐廳、發現原本的安排太趕或太閒。&lt;strong&gt;AI 排的是初稿，人來做最後的決定&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;這一版在原有的 A-1～B-2 之上，補上了三組新需求：&lt;/p&gt;
+&lt;h3 id=&#34;c加景點插入哪裡最省時&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#c加景點插入哪裡最省時&#34;&gt;&lt;/a&gt; C：加景點 —— 插入哪裡最省時？&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;C-1 找最佳插入位置&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用戶故事：「我在行程中看到一個景點，想加進去，但不想花時間想要插在第幾站」&lt;/p&gt;
+&lt;p&gt;系統會自動計算把這個地點插入每一天、每個位置的「多繞幾分鐘」，列出前三個最省時的選項。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;C-2 決定改動幅度&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用戶故事：「我想加這個景點，但不確定要只是插進去、還是連順序都重排一下」&lt;/p&gt;
+&lt;p&gt;三種範圍讓用戶決定改動幅度：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;只插入&lt;/strong&gt;：只在現有路線裡找一個縫隙放進去&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;重排當天&lt;/strong&gt;：把整天重新最佳化順序（適合想省最多時間的情境）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;跨天調整&lt;/strong&gt;：把這個景點配到最合適的那天&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;每次改動都會先預覽結果、顯示警告（例如到達時已過營業時間、整天預計超過晚上九點），確認後才套用。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;C-3 套用後可以復原&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用戶故事：「我改了之後覺得不對，想回到剛才的樣子」&lt;/p&gt;
+&lt;p&gt;每次套用後都有一個浮動提示，可以點「復原」回到上一步。&lt;/p&gt;
+&lt;h3 id=&#34;d順路推薦沿路多繞幾分鐘能到哪裡&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#d順路推薦沿路多繞幾分鐘能到哪裡&#34;&gt;&lt;/a&gt; D：順路推薦 —— 沿路多繞幾分鐘能到哪裡？&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;D-1 基於當天路線的推薦&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用戶故事：「我想知道這天路線附近還有什麼值得去的，不用特地繞太遠的」&lt;/p&gt;
+&lt;p&gt;開啟「順路推薦」，系統以當天各站為錨點向外搜尋 1,500 公尺內的地點，再算出把它插進行程要多繞幾分鐘，由少到多排列。景點與自然類用維基百科附近條目（有條目代表有一定知名度，且附帶照片），美食與購物類改用 OpenStreetMap（Overpass API），還會顯示營業時間。&lt;/p&gt;
+&lt;h3 id=&#34;e不需要帳號&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#e不需要帳號&#34;&gt;&lt;/a&gt; E：不需要帳號&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;E-1 本地儲存＋分享連結&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;用戶故事：「我不想註冊帳號，但換裝置時還是要能看到行程」&lt;/p&gt;
+&lt;p&gt;行程自動存在瀏覽器的 localStorage，換裝置請用「分享連結」—— 行程資料編碼在網址的  &lt;code&gt;#trip=&lt;/code&gt;  後面，對方開啟連結就能看到完整行程，不需要後端。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;使用者旅程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#使用者旅程&#34;&gt;&lt;/a&gt; 使用者旅程&lt;/h2&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;journey
+  title 從想去旅遊到確認行程
+  section 建立條件
+    填寫出發城市與天數: 5: 用戶
+    選擇交通方式與旅遊主題: 4: 用戶
+    點「用 AI 排行程」: 5: 用戶, AI
+  section AI 生成初稿
+    AI 輸出每天景點與時間表: 3: AI
+    時間軸與地圖路線顯示: 5: 系統
+  section 調整行程
+    搜尋想加的景點: 5: 用戶
+    選擇插入位置與改動幅度: 4: 用戶, 系統
+    預覽結果並確認套用: 5: 用戶
+    復原（如果不滿意）: 4: 用戶
+  section 探索附近
+    開啟順路推薦: 5: 用戶
+    篩選類型（景點 / 美食 / 自然）: 4: 用戶
+    把喜歡的加入行程: 5: 用戶
+  section 儲存分享
+    行程自動存檔: 5: 系統
+    複製分享連結: 4: 用戶&lt;/pre&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;畫面導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#畫面導覽&#34;&gt;&lt;/a&gt; 畫面導覽&lt;/h2&gt;
+&lt;h3 id=&#34;建立行程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#建立行程&#34;&gt;&lt;/a&gt; 建立行程&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-create.png&#34; alt=&#34;建立行程表單&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;出發城市、結束城市（選填）、天數 1–14 天、人數 1–20 人、交通方式、旅遊主題；沒有 Gemini API Key 的話也可以直接載入「東京・京都・大阪 5 日」範例行程試玩。&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;行程時間軸地圖&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#行程時間軸地圖&#34;&gt;&lt;/a&gt; 行程時間軸＋地圖&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-trip.png&#34; alt=&#34;行程時間軸與地圖&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;左側面板每天一個分頁，每站顯示到達時間、建議停留時長、交通時間（「估算」表示直線距離換算，非真實路線）。右邊地圖：當天路線深青色實線、其他天淺灰色、右下角圖例。&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;編輯停靠點&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#編輯停靠點&#34;&gt;&lt;/a&gt; 編輯停靠點&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-edit.png&#34; alt=&#34;編輯停靠點&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;展開某個停靠點：上下微調停留時間（15 分鐘為單位）、拖曳換順序、刪除。&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;搜尋並預覽插入位置&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#搜尋並預覽插入位置&#34;&gt;&lt;/a&gt; 搜尋並預覽插入位置&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-search.png&#34; alt=&#34;搜尋景點&#34;&gt;&lt;/p&gt;
+&lt;p&gt;搜尋框輸入想加的地點，自動補全（資料來自 OpenStreetMap），點選後立刻計算插入成本：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-insert.png&#34; alt=&#34;插入位置預覽&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;前三個最省時的插入位置，每個選項都標明插在哪一天第幾站之間、多繞幾分鐘。下方可選擇改動幅度（只插入 / 重排當天 / 跨天調整），並顯示套用後的預覽摘要。&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;警告與跨天調整&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#警告與跨天調整&#34;&gt;&lt;/a&gt; 警告與跨天調整&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-insert-warn.png&#34; alt=&#34;警告訊息&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;若套用後某站到達時間超出營業時間，或整天結束超過晚上九點，就會在套用前顯示警告。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-insert-spread.png&#34; alt=&#34;跨天調整&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;選「跨天調整」時，系統會幫這個景點找最合適的那一天配進去，並顯示要移到哪一天。&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;套用並復原&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#套用並復原&#34;&gt;&lt;/a&gt; 套用並復原&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-undo.png&#34; alt=&#34;套用後 Toast&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;套用後浮現提示「已把 X 加到 D?」，右側「復原」可以回到套用前。&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;順路推薦&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#順路推薦&#34;&gt;&lt;/a&gt; 順路推薦&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-explore.png&#34; alt=&#34;順路推薦（全部）&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;以 D4 京都行程（嵐山竹林小徑 → 天龍寺 → 金閣寺 → 二條城 → 先斗町）為例：系統找出周邊多繞幾分鐘就能到的地點，祇園 +7 分、渡月橋 +8 分、本能寺 +9 分⋯ 地圖上同步顯示推薦標籤。底部標明資料來源（維基百科）。&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-explore-food.png&#34; alt=&#34;順路推薦（美食）&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;切換到「美食」分類，資料改從 OpenStreetMap 取得，並顯示營業時間。錦市場 +8 分、がんこ高瀬川二条苑 +13 分⋯&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;我的行程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#我的行程&#34;&gt;&lt;/a&gt; 我的行程&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;/images/smart-trip-planner-history.png&#34; alt=&#34;我的行程&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;行程自動儲存在瀏覽器，可以從「我的行程」開啟之前儲存的行程。底部提醒：換裝置請用分享連結。&lt;/em&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;技術架構一小段&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技術架構一小段&#34;&gt;&lt;/a&gt; 技術架構（一小段）&lt;/h2&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;graph LR
+  Browser[&#34;瀏覽器（React + TypeScript）&#34;]
+  Gemini[&#34;Google Gemini API\n（AI 行程生成）&#34;]
+  Photon[&#34;Photon / komoot\n（地點搜尋，OSM 資料）&#34;]
+  OFM[&#34;OpenFreeMap\n（地圖樣式）&#34;]
+  Wiki[&#34;維基百科 API\n（順路推薦：景點、自然）&#34;]
+  Overpass[&#34;Overpass API / OSM\n（順路推薦：美食、購物）&#34;]
+  LS[&#34;localStorage\n（行程存檔）&#34;]
+  Hash[&#34;URL #trip=…\n（分享連結）&#34;]
+
+  Browser -- &#34;生成行程 prompt（JSON）&#34; --&amp;gt; Gemini
+  Browser -- &#34;文字搜尋&#34; --&amp;gt; Photon
+  Browser -- &#34;地圖底圖&#34; --&amp;gt; OFM
+  Browser -- &#34;附近條目&#34; --&amp;gt; Wiki
+  Browser -- &#34;餐廳、市場&#34; --&amp;gt; Overpass
+  Browser -- &#34;自動儲存&#34; --&amp;gt; LS
+  Browser -- &#34;分享&#34; --&amp;gt; Hash&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;地圖&lt;/strong&gt;：MapLibre GL + OpenFreeMap，免費、免 API 金鑰。&lt;br&gt;
+&lt;strong&gt;地點搜尋&lt;/strong&gt;：Photon（komoot），資料來自 OpenStreetMap。&lt;br&gt;
+&lt;strong&gt;AI&lt;/strong&gt;：Google Gemini，prompt 強制輸出 JSON 格式的行程，模型依序備援（遇到流量限制自動換下一個）。&lt;br&gt;
+&lt;strong&gt;交通時間&lt;/strong&gt;：目前是直線距離 × 1.25 的估算（程式標記「估算」）。規劃邏輯設計成可以替換成真實路線 API，但尚未接上。&lt;br&gt;
+&lt;strong&gt;儲存&lt;/strong&gt;：不需要後端或帳號 —— 行程存在 localStorage；分享時把行程資料編碼在 URL hash 裡。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;還沒做的&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#還沒做的&#34;&gt;&lt;/a&gt; 還沒做的&lt;/h2&gt;
+&lt;p&gt;誠實說有兩件事還沒完成：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;真實交通時間&lt;/strong&gt;：目前的「估算」是用直線距離換算，不考慮道路繞路、大眾運輸班次。程式架構已設計成可以替換成 TDX（台灣）或 Google Routes API，但還沒接。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI API Key 保護&lt;/strong&gt;：目前 Gemini 的 API Key 是在前端直接呼叫，適合 Side Project 開發階段，但上線前應該搬到後端保護。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#小結&#34;&gt;&lt;/a&gt; 小結&lt;/h2&gt;
+&lt;p&gt;這次重做的核心想法是三件事：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AI 產初稿，人做決定。&lt;/strong&gt; 讓 AI 解決「從零開始不知道怎麼排」的問題，但行程的最終樣貌由人來定。加哪個景點、要不要調順序、改多少 —— 每個步驟都讓用戶選。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;把「能改多少」交給用戶。&lt;/strong&gt; 「只插入、重排當天、跨天調整」三個範圍，對應三種不同的改動意願。想改多就改多，只想加一個點就只改一個點。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;不登入也能存與分享。&lt;/strong&gt; 行程自動存在瀏覽器，換裝置用分享連結 —— 對 Side Project 來說這讓「使用門檻」最低。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;技術棧：React 18 + TypeScript + Vite，MapLibre GL，Google Gemini API，Photon /komoot，Wikipedia API，Overpass API，localStorage。&lt;/em&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/</guid>
             <title>玩點任務地圖 MapGo：台北捷運任務點數平台</title>
@@ -1191,10 +1392,10 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
             <title>讓手機假裝成一張 NFC 卡片：NFC-test 的 HCE 實作與平台不對稱</title>
             <link>https://reedlin2002.github.io/2026/05/31/nfc-test/</link>
             <category>side project</category>
+            <category>React</category>
             <category>NFC</category>
             <category>Android</category>
             <category>Capacitor</category>
-            <category>React</category>
             <pubDate>Sun, 31 May 2026 20:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;交換名片最麻煩的一步，是讓對方「拿到」你的資訊：傳 LINE 要先加好友，掃 QR code 要先打開相機。我想要的是兩支手機碰一下，對方手機就跳出我的連結，而且對方&lt;strong&gt;不需要安裝任何 App&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;工作上的產品後來也要做 NFC 功能，但需求還沒定型，不適合直接在正式專案裡試。所以我先開了一個獨立的 prototype：NFC-test。它是用 React + Capacitor 包成原生 App 的 NFC 名片工具，驗證三件事：手機對手機分享、寫入實體 NFC 卡、讀取別人的 NFC 名片。&lt;/p&gt;
@@ -1330,6 +1531,9 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
             <category>AI</category>
             <pubDate>Sat, 16 May 2026 20:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;📌 這個專案已重做。&lt;/strong&gt; 新版（v1.1）以地圖為主體、加入智慧插入與順路推薦，請看〈&lt;a href=&#34;/2026/09/28/smart-trip-planner/&#34;&gt;智慧旅程規劃：AI 排初稿，在地圖上隨時加景點&lt;/a&gt;〉。本文保留為 v0.1 的開發紀錄。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
 &lt;p&gt;這個 Side Project 的起點很簡單：每次出遊前花在「要去哪裡、怎麼排行程」上的時間，往往比旅遊本身還要長。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
