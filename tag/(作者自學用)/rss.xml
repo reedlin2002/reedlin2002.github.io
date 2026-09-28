@@ -7,7 +7,6 @@
         <language>zh-TW</language>
         <pubDate>Sun, 13 Jul 2025 16:16:17 +0800</pubDate>
         <lastBuildDate>Sun, 13 Jul 2025 16:16:17 +0800</lastBuildDate>
-        <category>myself</category>
         <category>project</category>
         <category>.NET</category>
         <category>C#</category>
@@ -19,6 +18,10 @@
         <category>LeetCode</category>
         <category>leetcode</category>
         <category>Daily</category>
+        <category>myself</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
         <category>side project</category>
@@ -26,9 +29,6 @@
         <category>TypeScript</category>
         <category>PWA</category>
         <category>Hackathon</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
         <category>NFC</category>
         <category>Android</category>
         <category>Capacitor</category>

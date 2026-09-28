@@ -7,7 +7,6 @@
         <language>zh-TW</language>
         <pubDate>Mon, 28 Sep 2026 12:00:00 +0800</pubDate>
         <lastBuildDate>Mon, 28 Sep 2026 12:00:00 +0800</lastBuildDate>
-        <category>myself</category>
         <category>project</category>
         <category>.NET</category>
         <category>C#</category>
@@ -19,6 +18,10 @@
         <category>LeetCode</category>
         <category>leetcode</category>
         <category>Daily</category>
+        <category>myself</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
         <category>side project</category>
@@ -26,9 +29,6 @@
         <category>TypeScript</category>
         <category>PWA</category>
         <category>Hackathon</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
         <category>NFC</category>
         <category>Android</category>
         <category>Capacitor</category>
@@ -41,7 +41,7 @@
         <category>影像處理</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/</guid>
-            <title>3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨</title>
+            <title>玩點任務地圖 MapGo：台北捷運任務點數平台</title>
             <link>https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/</link>
             <category>side project</category>
             <category>React</category>
@@ -49,7 +49,10 @@
             <category>PWA</category>
             <category>Hackathon</category>
             <pubDate>Mon, 28 Sep 2026 12:00:00 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。&lt;/p&gt;
+            <description><![CDATA[ &lt;blockquote&gt;
+&lt;p&gt;台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。&lt;/p&gt;
 &lt;p&gt;它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：&lt;strong&gt;一個要拿去現場 demo 的 prototype，要怎麼設計才不會在台上出錯。&lt;/strong&gt;&lt;/p&gt;
 &lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
 &lt;h2 id=&#34;先問這個-prototype-會在什麼情況下被使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#先問這個-prototype-會在什麼情況下被使用&#34;&gt;&lt;/a&gt; 先問：這個 prototype 會在什麼情況下被使用&lt;/h2&gt;

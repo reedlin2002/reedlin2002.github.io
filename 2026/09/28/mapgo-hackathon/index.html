@@ -12,12 +12,15 @@
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
-  <title>3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨</title>
+  <title>玩點任務地圖 MapGo：台北捷運任務點數平台</title>
 
   <!-- ── SEO: Description + Keywords ── -->
   
-  <meta name="description" content="今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。
-它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：一個要拿去現場 de">
+  <meta name="description" content="
+台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮
+
+今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。
+它是一個 prototype：沒">
   
   <meta name="keywords" content="side project, React, TypeScript, PWA, Hackathon">
   <meta name="author" content="Lin">
@@ -27,17 +30,17 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。 它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：一個要拿去現場 demo 的 prototype，要怎麼設計才不會在台上出錯。">
+  <meta name="description" content="台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮  今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。 它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨">
+<meta property="og:title" content="玩點任務地圖 MapGo：台北捷運任務點數平台">
 <meta property="og:url" content="https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。 它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：一個要拿去現場 demo 的 prototype，要怎麼設計才不會在台上出錯。">
+<meta property="og:description" content="台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮  今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。 它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://reedlin2002.github.io/images/mapgo-flow-1.png">
 <meta property="og:image" content="https://reedlin2002.github.io/images/mapgo-flow-2.png">
 <meta property="article:published_time" content="2026-09-28T04:00:00.000Z">
-<meta property="article:modified_time" content="2026-09-28T03:20:34.587Z">
+<meta property="article:modified_time" content="2026-09-28T03:27:55.627Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="side project">
 <meta property="article:tag" content="React">
@@ -47,16 +50,22 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://reedlin2002.github.io/images/mapgo-flow-1.png">
   <!-- OG 補強：確保 description 有值 -->
-  <meta property="og:description" content="今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。
-它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：一個要拿去現場 de">
+  <meta property="og:description" content="
+台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮
+
+今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。
+它是一個 prototype：沒">
   <meta property="og:site_name" content="Reedlin2002">
   <meta property="og:locale" content="zh_TW">
 
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨">
-  <meta name="twitter:description" content="今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。
-它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：一個要拿去現場 de">
+  <meta name="twitter:title" content="玩點任務地圖 MapGo：台北捷運任務點數平台">
+  <meta name="twitter:description" content="
+台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮
+
+今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。
+它是一個 prototype：沒">
   
   
 
@@ -66,12 +75,15 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨",
-    "description": "今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。
-它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：一個要拿去現場 de",
+    "headline": "玩點任務地圖 MapGo：台北捷運任務點數平台",
+    "description": "
+台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮
+
+今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。
+它是一個 prototype：沒",
     "url": "https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/",
     "datePublished": "2026-09-28T04:00:00.000Z",
-    "dateModified": "2026-09-28T03:20:34.587Z",
+    "dateModified": "2026-09-28T03:27:55.627Z",
     "author": {
       "@type": "Person",
       "name": "Lin",
@@ -187,7 +199,7 @@
       <span class="eyebrow">LOG ENTRY / FIELD NOTES</span>
       <span class="eyebrow">side project</span>
     </div>
-    <h1 itemprop="headline">3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨</h1>
+    <h1 itemprop="headline">玩點任務地圖 MapGo：台北捷運任務點數平台</h1>
     <div class="reading-byline">
       <img src="/images/logo.png" width="32" height="32" alt="">
       <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -198,7 +210,7 @@
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>7 分鐘閱讀</span>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>2379 字</span>
+        <span>2418 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
         <span>更新於 2026.09.28</span>
@@ -210,7 +222,10 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><p>今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。</p>
+  <div class="reading-body content e-content" itemprop="articleBody"><blockquote>
+<p>台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮</p>
+</blockquote>
+<p>今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。</p>
 <p>它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：<strong>一個要拿去現場 demo 的 prototype，要怎麼設計才不會在台上出錯。</strong></p>
 <span id="more"></span>
 <h2 id="先問這個-prototype-會在什麼情況下被使用"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#先問這個-prototype-會在什麼情況下被使用"></a> 先問：這個 prototype 會在什麼情況下被使用</h2>
@@ -380,17 +395,20 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&text=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&is_video=false&description=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨&body=Check out this article: https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&name=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨&description=&lt;p&gt;今年我一個人參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我做的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。&lt;/p&gt;
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&text=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&is_video=false&description=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=玩點任務地圖 MapGo：台北捷運任務點數平台&body=Check out this article: https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&title=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&name=玩點任務地圖 MapGo：台北捷運任務點數平台&description=&lt;blockquote&gt;
+&lt;p&gt;台北捷運任務點數平台 — 搭捷運、做任務、累點數、換好禮&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;今年我跟隊友組隊參加了一場黑客松，題目圍繞台北捷運的「捷運點」。我們提的是「玩點任務地圖」（MapGo）：搭捷運去指定商圈完成任務、累積捷運點，再拿點數兌換合作店家的優惠。這個 prototype 是我一個人做的。&lt;/p&gt;
 &lt;p&gt;它是一個 prototype：沒有後端、沒有真的點數，優惠跟兌換碼也都是示意。所以這篇不談點子本身，而是談一件更實際的事：&lt;strong&gt;一個要拿去現場 demo 的 prototype，要怎麼設計才不會在台上出錯。&lt;/strong&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&t=3 分鐘的 demo 不能出錯：一個黑客松 prototype 的設計取捨"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/&t=玩點任務地圖 MapGo：台北捷運任務點數平台"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
