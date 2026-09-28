@@ -7,26 +7,33 @@
         <language>zh-TW</language>
         <pubDate>Sun, 23 Aug 2026 00:00:00 +0800</pubDate>
         <lastBuildDate>Sun, 23 Aug 2026 00:00:00 +0800</lastBuildDate>
+        <category>myself</category>
         <category>project</category>
+        <category>.NET</category>
+        <category>C#</category>
+        <category>SQLite</category>
+        <category>Docker</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>myself</category>
         <category>leetcode</category>
         <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
-        <category>side project</category>
-        <category>React</category>
-        <category>NFC</category>
-        <category>Web API</category>
-        <category>TypeScript</category>
-        <category>AI</category>
         <category>iOS</category>
         <category>CallKit</category>
         <category>系統設計</category>
+        <category>side project</category>
+        <category>NFC</category>
+        <category>Android</category>
+        <category>Capacitor</category>
+        <category>React</category>
+        <category>TypeScript</category>
+        <category>AI</category>
+        <category>重構</category>
         <category>電腦視覺</category>
+        <category>軟體工程</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>

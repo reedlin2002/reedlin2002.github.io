@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>Reedlin2002 • Posts by &#34;重構&#34; tag</title>
+        <link>https://reedlin2002.github.io</link>
+        <description>Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程</description>
+        <language>zh-TW</language>
+        <pubDate>Mon, 28 Sep 2026 00:00:00 +0800</pubDate>
+        <lastBuildDate>Mon, 28 Sep 2026 00:00:00 +0800</lastBuildDate>
+        <category>myself</category>
+        <category>project</category>
+        <category>.NET</category>
+        <category>C#</category>
+        <category>SQLite</category>
+        <category>Docker</category>
+        <category>演算法</category>
+        <category>Binary Search</category>
+        <category>Python</category>
+        <category>LeetCode</category>
+        <category>leetcode</category>
+        <category>Daily</category>
+        <category>技術筆記</category>
+        <category>(作者自學用)</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
+        <category>side project</category>
+        <category>NFC</category>
+        <category>Android</category>
+        <category>Capacitor</category>
+        <category>React</category>
+        <category>TypeScript</category>
+        <category>AI</category>
+        <category>重構</category>
+        <category>電腦視覺</category>
+        <category>軟體工程</category>
+        <category>Deep Learning</category>
+        <category>Instance Segmentation</category>
+        <category>影像處理</category>
+        <item>
+            <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/</guid>
+            <title>兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來</title>
+            <link>https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/</link>
+            <category>Python</category>
+            <category>重構</category>
+            <category>電腦視覺</category>
+            <category>軟體工程</category>
+            <pubDate>Mon, 28 Sep 2026 00:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;兩年後，我把這份程式碼重構了兩次。第一次交給 Claude Code，它交出四個看起來很完整的 commit；第二次，我把其中大半拆掉了。&lt;/p&gt;
+&lt;p&gt;這篇記錄兩次重構差在哪裡。結論先講：&lt;strong&gt;沒有基準（baseline）的重構，就跟沒有對照組的實驗一樣 —— 你不知道這次改動到底改變了什麼。&lt;/strong&gt;&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+&lt;h2 id=&#34;起點2024-年的程式在做什麼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#起點2024-年的程式在做什麼&#34;&gt;&lt;/a&gt; 起點：2024 年的程式在做什麼&lt;/h2&gt;
+&lt;p&gt;當年的主程式  &lt;code&gt;project_main.py&lt;/code&gt;  流程大致如下：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;flowchart LR
+    A[&#34;GUI&amp;lt;br/&amp;gt;影片抽幀&#34;] --&amp;gt; B[&#34;frames_output/&#34;]
+    B --&amp;gt; C[&#34;cv2.Stitcher&amp;lt;br/&amp;gt;拼出全景圖&#34;]
+    B --&amp;gt; D[&#34;split_image&amp;lt;br/&amp;gt;切成 640×480&#34;]
+    D --&amp;gt; E[&#34;CenterMask2&#34;]
+    E --&amp;gt; X[&#34;output_data.xlsx&#34;]
+    W[&#34;withoutoverlap/&amp;lt;br/&amp;gt;另外準備的影像&#34;] --&amp;gt; F[&#34;predict_withoutoverlap.py&amp;lt;br/&amp;gt;再切一次、再辨識一次&#34;]
+    F --&amp;gt; X&lt;/pre&gt;
+&lt;p&gt;它能跑，也真的交出了專題成果。但現在回頭讀，有四個問題：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;一、同樣的函式有兩份。&lt;/strong&gt;  &lt;code&gt;predict_segm.py&lt;/code&gt;  跟  &lt;code&gt;predict_withoutoverlap.py&lt;/code&gt;  各有一份  &lt;code&gt;setup_predictor&lt;/code&gt; 、 &lt;code&gt;is_on_boundary&lt;/code&gt; 、 &lt;code&gt;save_excel&lt;/code&gt; ，內容幾乎一樣，類別名稱清單  &lt;code&gt;[&#39;Float&#39;, &#39;Wood&#39;, &#39;Styrofoam&#39;, &#39;Bottle&#39;, &#39;Buoy&#39;]&lt;/code&gt;  在這兩個檔案裡一共寫了四次。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;二、兩份切圖邏輯不一樣。&lt;/strong&gt; 主程式的  &lt;code&gt;split_image&lt;/code&gt;  是這樣切的：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# project_main.py（2024，commit 66d674c）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; y &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, h - height + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, height):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; x &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, w - width + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, width):&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;predict_withoutoverlap.py&lt;/code&gt;  則是這樣：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# predict_withoutoverlap.py（2024，commit 66d674c）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; y &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, height, &lt;span class=&#34;number&#34;&gt;480&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; x &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, width, &lt;span class=&#34;number&#34;&gt;640&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;差別在  &lt;code&gt;range&lt;/code&gt;  的終點。前者只切「放得下一整格」的位置，後者連不滿一格的尾巴也切。拿 repo 歷史裡保留的一張 3840×2160 空拍影像來算：2160 ÷ 480 = 4.5，前者只切出 4 列，&lt;strong&gt;最下面 240 px 不會被送進模型&lt;/strong&gt;；後者切出 5 列，但最後一列每格只有 640×240。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/uav-analysis-refactor-tiles-2024.jpg&#34; alt=&#34;2024 年 split_image 的切法：6 × 4 = 24 格，最下面 240 px 沒有送進模型&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;影像取自專題 repo 歷史（commit a77cc57）中的 UAV 空拍影像，格線依 2024 年 &lt;code&gt;split_image&lt;/code&gt; 的邏輯繪製。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;三、被切開的物件怎麼算。&lt;/strong&gt; 一個寶特瓶剛好壓在兩格的交界上，會被切成兩半、各自被辨識一次。當年的處理方式寫在  &lt;code&gt;save_excel&lt;/code&gt;  裡：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# predict_withoutoverlap.py（2024，commit 66d674c）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            total_count = class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;count&amp;quot;&lt;/span&gt;] - class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;boundary_count&amp;quot;&lt;/span&gt;] &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;count&amp;quot;&lt;/span&gt;] &amp;gt; &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;count&amp;quot;&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;boundary_count&lt;/code&gt;  是「mask 碰到切片邊緣」的物件數。這條公式把它們全部扣掉：被切成兩半的寶特瓶，兩半都碰到邊緣，算進 2 個、又扣掉 2 個，最後變成 0；一個完整、只是剛好貼著邊緣的寶特瓶，也會被扣掉。面積那一欄則沒有扣，兩半的面積照樣加總。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;四、兩個步驟寫同一個檔案。&lt;/strong&gt; 主程式先呼叫  &lt;code&gt;predict_images_in_folder(...)&lt;/code&gt;  寫出  &lt;code&gt;output_data.xlsx&lt;/code&gt; ，再呼叫  &lt;code&gt;process_images_without_overlap(...)&lt;/code&gt;  寫&lt;strong&gt;同一個路徑&lt;/strong&gt;。 &lt;code&gt;pd.ExcelWriter&lt;/code&gt;  預設是覆寫模式，所以最後留下來的只有第二步的結果。 &lt;code&gt;withoutoverlap/&lt;/code&gt;  資料夾裡是另外準備、已經去掉重疊區域的影像，repo 裡找不到產生它的程式。&lt;/p&gt;
+&lt;p&gt;這些問題有個共同點：模型本身當年用 mAP、IoU 評估過，但&lt;strong&gt;從切圖到 Excel 這一整段，沒有任何方法可以回答「這個數字對不對」&lt;/strong&gt;。沒有測試，也沒有一份固定輸入、固定輸出的結果可以比對。&lt;/p&gt;
+&lt;h2 id=&#34;第一輪交給-claude-code&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#第一輪交給-claude-code&#34;&gt;&lt;/a&gt; 第一輪：交給 Claude Code&lt;/h2&gt;
+&lt;p&gt;2026 年 7 月，我讓 Claude Code 對這個 repo 做架構重構。它列出四個候選方案，一個一個實作、各自 commit：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Commit&lt;/th&gt;
+&lt;th&gt;候選方案&lt;/th&gt;
+&lt;th&gt;內容&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;13f6308&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Candidate 1&lt;/td&gt;
+&lt;td&gt;常數集中到  &lt;code&gt;PipelineConfig&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;8afafa4&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Candidate 2&lt;/td&gt;
+&lt;td&gt;抽出  &lt;code&gt;predictor/&lt;/code&gt;  套件，加上 Strategy 類別&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;b2fd681&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Candidate 3&lt;/td&gt;
+&lt;td&gt;支援 YAML／JSON 設定檔&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;732d459&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Candidate 4&lt;/td&gt;
+&lt;td&gt;GUI 改用  &lt;code&gt;VideoProcessor&lt;/code&gt;  服務層 + Observer&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;最後還附了一份  &lt;code&gt;REFACTORING_SUMMARY.md&lt;/code&gt; ，寫著「消除 95% 代碼重複」、「從～1000 行減少到～534 行」。&lt;/p&gt;
+&lt;p&gt;有些改動是真的有效的。三個重複的共用函式搬進了  &lt;code&gt;predictor/garbage_predictor.py&lt;/code&gt; ，舊腳本改成從那裡 import；常數也集中到了一處。但仔細看，有三個地方不對勁：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Strategy 類別沒有接上。&lt;/strong&gt; Candidate 2 新增了  &lt;code&gt;OverlapStrategyPredictor&lt;/code&gt;  跟  &lt;code&gt;NoOverlapStrategyPredictor&lt;/code&gt;  兩個類別（合計約 290 行），也在  &lt;code&gt;predictor/__init__.py&lt;/code&gt;  匯出了。但在  &lt;code&gt;994a1aa&lt;/code&gt;  這個版本裡搜尋整個 repo，除了定義跟匯出，沒有任何地方呼叫它們。主程式走的還是原本的  &lt;code&gt;classify_and_save&lt;/code&gt;  跟  &lt;code&gt;process_images&lt;/code&gt; 。同一份 summary 的最後一行寫的是「&lt;strong&gt;+702 新增行，-165 刪除行&lt;/strong&gt;」—— 說是消除重複，實際上是多了一套沒人用的抽象。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Observer 從背景執行緒改 UI。&lt;/strong&gt; Candidate 4 讓 GUI 在背景執行緒跑影片處理：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# gui.py（第一輪，commit 994a1aa）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;process_thread&lt;/span&gt;():&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            processor.process_video(file_path, frame_cut, start_point, end_point)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        threading.Thread(target=process_thread, daemon=&lt;span class=&#34;literal&#34;&gt;True&lt;/span&gt;).start()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;process_video&lt;/code&gt;  在這條執行緒裡呼叫  &lt;code&gt;self._notify_status(&amp;quot;處理中...&amp;quot;)&lt;/code&gt; ，經過  &lt;code&gt;GuiAdapter&lt;/code&gt;  轉發後，最後執行的是：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# gui.py（第一輪，commit 994a1aa）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;on_status_changed&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;status: &lt;span class=&#34;built_in&#34;&gt;str&lt;/span&gt;&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;string&#34;&gt;&amp;quot;&amp;quot;&amp;quot;處理狀態變更&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        completion_label.config(text=status, fg=&lt;span class=&#34;string&#34;&gt;&amp;quot;black&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也就是&lt;strong&gt;從背景執行緒直接改 Tkinter 元件&lt;/strong&gt;。Tkinter 的元件只應該在主執行緒操作，這種寫法大部分時候看起來沒事，偶爾才出問題，是最難查的那一種 bug。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;驗證只驗了語法。&lt;/strong&gt; summary 列出的驗證方法是「Python AST 編譯檢查（py_compile）、導入測試、配置加載測試、參數驗證測試」。這些能證明程式可以被 import，但沒有任何一項能證明「重構後辨識出來的數量，跟重構前一樣」。&lt;/p&gt;
+&lt;p&gt;回頭看，agent 很擅長把「一個好架構應該有的東西」補齊：設定檔、抽象基類、設計模式、服務層。它沒有問、我當時也沒有問的是兩個問題：&lt;strong&gt;這個抽象現在被誰呼叫？改完之後，輸出跟改之前一樣嗎？&lt;/strong&gt; 第二個問題在這個 repo 裡根本沒有辦法回答，因為從來沒有基準。&lt;/p&gt;
+&lt;h2 id=&#34;第二輪先定名詞再劃邊界&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#第二輪先定名詞再劃邊界&#34;&gt;&lt;/a&gt; 第二輪：先定名詞，再劃邊界&lt;/h2&gt;
+&lt;p&gt;第二輪我先決定方向，再交給 agent 照計畫實作。方向有四條。&lt;/p&gt;
+&lt;h3 id=&#34;1-先把名詞定下來&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#1-先把名詞定下來&#34;&gt;&lt;/a&gt; 1. 先把名詞定下來&lt;/h3&gt;
+&lt;p&gt;新增的  &lt;code&gt;CONTEXT.md&lt;/code&gt;  只做一件事：規定這個專案裡的名詞，以及&lt;strong&gt;不要用&lt;/strong&gt;的同義詞。&lt;/p&gt;
+&lt;figure class=&#34;highlight markdown&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;strong&#34;&gt;**Tile**&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;A possibly overlapping rectangular region of a Sampled Frame submitted to the model for detection.&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;emphasis&#34;&gt;_Avoid_&lt;/span&gt;: crop, patch&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;2024 年的程式裡，同一個東西叫  &lt;code&gt;sub_image&lt;/code&gt; 、「小圖」、「切割圖像」；「一次執行」則沒有名字，散在  &lt;code&gt;project_main.py&lt;/code&gt;  的  &lt;code&gt;__main__&lt;/code&gt;  裡。名詞不統一，邊界就只能靠檔案來劃。定下 &lt;strong&gt;Analysis Run&lt;/strong&gt;、&lt;strong&gt;Sampled Frame&lt;/strong&gt;、&lt;strong&gt;Tile&lt;/strong&gt;、&lt;strong&gt;Detection&lt;/strong&gt;、&lt;strong&gt;Artifact&lt;/strong&gt; 這五個詞之後，模組怎麼切就很自然了：&lt;/p&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;flowchart TD
+    UI[&#34;GUI / CLI&amp;lt;br/&amp;gt;project_main.py&#34;] --&amp;gt; R[&#34;AnalysisRun&amp;lt;br/&amp;gt;analysis_run.py&#34;]
+    R --&amp;gt; S[&#34;VideoSampler&amp;lt;br/&amp;gt;抽出 Sampled Frame&#34;]
+    R --&amp;gt; I[&#34;inference.py&amp;lt;br/&amp;gt;Tile · 全域座標 · 去重&#34;]
+    I --&amp;gt; A[&#34;CenterMaskAdapter&amp;lt;br/&amp;gt;Detectron2 只在這裡載入&#34;]
+    R --&amp;gt; W[&#34;ArtifactWriter&amp;lt;br/&amp;gt;JSON · Excel&#34;]&lt;/pre&gt;
+&lt;p&gt;第一輪的 Strategy 類別跟  &lt;code&gt;VideoProcessor&lt;/code&gt;  服務層都拿掉了。 &lt;code&gt;REFACTORING_SUMMARY.md&lt;/code&gt;  沒有刪，但開頭加上一行註記，標明它是「歷史文件」、描述的是已經被取代的中間版本。&lt;/p&gt;
+&lt;h3 id=&#34;2-模型框架只從一個地方進來&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#2-模型框架只從一個地方進來&#34;&gt;&lt;/a&gt; 2. 模型框架只從一個地方進來&lt;/h3&gt;
+&lt;p&gt;除了  &lt;code&gt;--diagnose&lt;/code&gt;  會讀取套件版本之外，整個專案只有  &lt;code&gt;CenterMaskAdapter&lt;/code&gt;  會真正載入 Detectron2，而且是等到真的要跑模型時才 import：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# predictor/garbage_predictor.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; torch&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; detectron2.engine &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; DefaultPredictor&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; centermask.config &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; get_cfg&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;except&lt;/span&gt; ImportError &lt;span class=&#34;keyword&#34;&gt;as&lt;/span&gt; exc:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;raise&lt;/span&gt; ConfigError(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;string&#34;&gt;&amp;quot;CenterMask runtime is unavailable. Activate the pinned WSL2 environment: &amp;#123;&amp;#125;&amp;quot;&lt;/span&gt;.&lt;span class=&#34;built_in&#34;&gt;format&lt;/span&gt;(exc)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            ) &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; exc&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;其他模組只認得一個介面：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;DetectionAdapter&lt;/span&gt;(&lt;span class=&#34;title class_ inherited__&#34;&gt;Protocol&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;detect&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, image&lt;/span&gt;) -&amp;gt; &lt;span class=&#34;type&#34;&gt;Sequence&lt;/span&gt;[TileDetection]:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;這讓切片、座標換算、去重、輸出這些&lt;strong&gt;我自己寫的邏輯&lt;/strong&gt;，可以在沒有 GPU 的電腦上用假的 detector 測試。第一輪只驗了語法；第二輪的  &lt;code&gt;tests/&lt;/code&gt;  驗的是行為：幀數與秒數的換算、切片有沒有蓋到尾端、全黑的切片會不會被跳過、重複的偵測會不會被去掉、JSON 跟 Excel 有沒有正確寫出來。&lt;/p&gt;
+&lt;h3 id=&#34;3-tile重疊切片-座標轉回-再去重&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#3-tile重疊切片-座標轉回-再去重&#34;&gt;&lt;/a&gt; 3. Tile：重疊切片、座標轉回、再去重&lt;/h3&gt;
+&lt;p&gt;2024 年「切開的物件扣掉邊緣數」那條公式，換成了三個步驟。第一步，切片之間留重疊，最後一格貼齊影像邊緣：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;_tile_positions&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;length: &lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;, tile_size: &lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;, overlap: &lt;span class=&#34;built_in&#34;&gt;float&lt;/span&gt;&lt;/span&gt;) -&amp;gt; &lt;span class=&#34;type&#34;&gt;Tuple&lt;/span&gt;[&lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;, ...]:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; length &amp;lt;= tile_size:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    stride = &lt;span class=&#34;built_in&#34;&gt;max&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;(&lt;span class=&#34;built_in&#34;&gt;round&lt;/span&gt;(tile_size * (&lt;span class=&#34;number&#34;&gt;1.0&lt;/span&gt; - overlap))))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    final_start = length - tile_size&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    positions = &lt;span class=&#34;built_in&#34;&gt;list&lt;/span&gt;(&lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, final_start + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, stride))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; positions[-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] != final_start:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        positions.append(final_start)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;tuple&lt;/span&gt;(positions)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;預設重疊 10%，步長是 576 × 432 px。同一張 3840×2160 影格會切成 7 × 5 = 35 格，每一格都是完整的 640×480，不會再有漏掉的尾巴或半格：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/uav-analysis-refactor-tiles-2026.jpg&#34; alt=&#34;2026 年 iter_tiles 的切法：7 × 5 = 35 格，藍色是相鄰切片的重疊帶&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;同一張影格，格線依 2026 年 &lt;code&gt;inference.iter_tiles&lt;/code&gt; 的邏輯繪製。&lt;/p&gt;
+&lt;p&gt;對應的測試直接把「尾端有沒有被蓋到」寫成斷言：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# tests/test_inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;test_tiles_cover_the_trailing_edges&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.assertEqual(_tile_positions(&lt;span class=&#34;number&#34;&gt;7&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0.25&lt;/span&gt;), (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.assertEqual(_tile_positions(&lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0.25&lt;/span&gt;), (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.assertEqual(_tile_positions(&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0.25&lt;/span&gt;), (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;第二步，每個偵測框加上切片的位移，換回整張影格的座標。第三步，同類別、框的 IoU 達到門檻（預設 0.5）的偵測視為重複，只留信心分數最高的那個：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;class_aware_nms&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;params&#34;&gt;    detections: Iterable[Detection], iou_threshold: &lt;span class=&#34;built_in&#34;&gt;float&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;params&#34;&gt;&lt;/span&gt;) -&amp;gt; &lt;span class=&#34;type&#34;&gt;List&lt;/span&gt;[Detection]:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    kept = []&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; candidate &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;sorted&lt;/span&gt;(detections, key=&lt;span class=&#34;keyword&#34;&gt;lambda&lt;/span&gt; item: item.score, reverse=&lt;span class=&#34;literal&#34;&gt;True&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        duplicate = &lt;span class=&#34;built_in&#34;&gt;any&lt;/span&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            candidate.class_id == existing.class_id&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;and&lt;/span&gt; bbox_iou(candidate.bbox, existing.bbox) &amp;gt;= iou_threshold&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; existing &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; kept&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        )&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;not&lt;/span&gt; duplicate:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            kept.append(candidate)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;sorted&lt;/span&gt;(kept, key=&lt;span class=&#34;keyword&#34;&gt;lambda&lt;/span&gt; item: (item.class_id, item.bbox[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;], item.bbox[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;]))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;「碰到切片邊緣」這個資訊還在，但用法不一樣了。2024 年它被拿去扣數量，藏在公式裡；現在它是 Excel 裡的一個欄位「接觸切片邊緣」，&lt;strong&gt;留給看報表的人判斷&lt;/strong&gt;，不再默默改動數字。&lt;/p&gt;
+&lt;h3 id=&#34;4-gui從-observer-換成事件佇列&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#4-gui從-observer-換成事件佇列&#34;&gt;&lt;/a&gt; 4. GUI：從 Observer 換成事件佇列&lt;/h3&gt;
+&lt;p&gt;背景執行緒不再碰任何 UI 元件，只把事件丟進佇列：&lt;/p&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# gui.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;worker&lt;/span&gt;():&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                result = AnalysisRun(selected_config).execute(video_path, post_progress)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                events.put((&lt;span class=&#34;string&#34;&gt;&amp;quot;completed&amp;quot;&lt;/span&gt;, result))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;except&lt;/span&gt; Exception &lt;span class=&#34;keyword&#34;&gt;as&lt;/span&gt; exc:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                events.put((&lt;span class=&#34;string&#34;&gt;&amp;quot;error&amp;quot;&lt;/span&gt;, exc))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;主執行緒每 100 ms 用  &lt;code&gt;root.after(100, poll_events)&lt;/code&gt;  把佇列裡的事件取出來，再更新進度條跟狀態文字。這比第一輪的 Observer 少了一個介面、一個 adapter，也少了一個執行緒問題。&lt;/p&gt;
+&lt;h2 id=&#34;刻意不做的事不升級-pytorch&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#刻意不做的事不升級-pytorch&#34;&gt;&lt;/a&gt; 刻意不做的事：不升級 PyTorch&lt;/h2&gt;
+&lt;p&gt;CenterMask2 的官方環境是 PyTorch 1.7 加 CUDA 10.1，以 2026 年來說相當舊。第二輪我刻意&lt;strong&gt;沒有&lt;/strong&gt;升級它，而是把舊環境原樣釘住：&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# environment.yml&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;python=3.8&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;pytorch=1.7.1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;torchvision=0.8.2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;cudatoolkit=10.1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;理由寫在  &lt;code&gt;docs/adr/0001-run-centermask-in-wsl2.md&lt;/code&gt;  的最後一句：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;upgrading the model stack is a separate, golden-output-guarded migration.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;意思是：升級模型框架是另一次獨立的遷移，而且要有一份 golden output（固定輸入下的標準輸出）當護欄。如果這次同時重構程式、又升級框架，而辨識結果變了，我不會知道是哪一個造成的。這跟做實驗一次只改一個變因是同一件事。&lt;/p&gt;
+&lt;h2 id=&#34;還沒做完的事&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#還沒做完的事&#34;&gt;&lt;/a&gt; 還沒做完的事&lt;/h2&gt;
+&lt;p&gt;這次重構有三件事還沒完成，必須寫清楚：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;還沒拿原本的模型權重跑過。&lt;/strong&gt; 所有行為測試用的都是假的 detector；README 也寫明，正式使用前要先在 WSL2 用既有模型做一次 GPU smoke test。換句話說，「重構後的辨識結果跟 2024 年一樣」目前&lt;strong&gt;還沒有被驗證&lt;/strong&gt;。而且 2024 年沒有留下任何可以比對的輸出，所以真正的第一步，是先產生第一份 golden output。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;範圍變窄了。&lt;/strong&gt; 現在的版本是「一支影片 → 逐幀偵測」的工具。2024 年的影像拼接跟海灘清潔指數（CCI／PAI）計算不在這一版裡。Excel 的「數量」是所有抽樣幀的偵測次數加總：同一件垃圾如果出現在好幾個抽樣幀，就會被算好幾次。要數出「海灘上實際有幾件垃圾」，需要拼接或跨幀追蹤，這是下一步。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;大物件仍可能重複。&lt;/strong&gt; 水平重疊 64 px、垂直重疊 48 px，代表不超過 64 × 48 px 的物件一定完整落在某一格裡。更大的物件如果壓在交界上，可能一格看到一半、另一格看到全部；兩個框的 IoU 不到 0.5，就會被當成兩件。被切到的那一半會被標成「接觸切片邊緣」，至少查得到。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#小結&#34;&gt;&lt;/a&gt; 小結&lt;/h2&gt;
+&lt;p&gt;兩次重構之間，差的不是程式寫得漂不漂亮，而是三件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;抽象要看現在有誰在用。&lt;/strong&gt; agent 補上的是「好架構應該有的樣子」，但沒有被呼叫的抽象不是彈性，是維護成本。第二輪最大的改動其實是刪除。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;驗證要驗行為，不是驗語法。&lt;/strong&gt; 用  &lt;code&gt;Protocol&lt;/code&gt;  把模型隔開之後，切片、座標、去重、輸出這些我自己的邏輯，都能在 CPU 上用假資料測試；模型本身，則要靠 golden output。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;沒有 baseline，就不知道改動帶來了什麼。&lt;/strong&gt; 這次最大的遺憾，是 2024 年沒有留下一份固定輸入、固定輸出的結果。重構也好、換模型也好、調參數也好，都應該先固定一個基準，再一次只改一件事。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#延伸閱讀&#34;&gt;&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/reedlin2002/project&#34;&gt;reedlin2002/project&lt;/a&gt; — 本文所有程式碼的出處；2024 年的版本可以從 commit  &lt;code&gt;66d674c&lt;/code&gt;  查看&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34;&gt;youngwanLEE/centermask2&lt;/a&gt; — CenterMask2 官方 repo&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/2026/08/23/uav-vision-notes/&#34;&gt;空拍影像辨識技術地圖：分割策略、模型架構與影像拼接的技術取捨&lt;/a&gt; — 這套系統用到的實例分割、評估指標與拼接原理&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

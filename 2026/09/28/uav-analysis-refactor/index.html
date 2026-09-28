@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang=zh-TW>
+  <head>
+  <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
+  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+
+  <!-- ── Core Meta ── -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
+  <meta name="theme-color" content="#101816">
+
+  <!-- ── Title ── -->
+  <title>兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來</title>
+
+  <!-- ── SEO: Description + Keywords ── -->
+  
+  <meta name="description" content="2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：
+1bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！
+兩年後，">
+  
+  <meta name="keywords" content="Python, 重構, 電腦視覺, 軟體工程">
+  <meta name="author" content="Lin">
+  <meta name="robots" content="index, follow">
+
+  <!-- ── Canonical URL ── -->
+  <link rel="canonical" href="https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/">
+
+  <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
+  <meta name="description" content="2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣： 1bb55de1  07&#x2F;27 影像分割+預測+拼接  一定要整包下載！！！ 兩年後，我把這份程式碼重構了兩次。第一次交給 Claude Code，它交出四個看起來很完整的 c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來">
+<meta property="og:url" content="https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/index.html">
+<meta property="og:site_name" content="Reedlin2002">
+<meta property="og:description" content="2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣： 1bb55de1  07&#x2F;27 影像分割+預測+拼接  一定要整包下載！！！ 兩年後，我把這份程式碼重構了兩次。第一次交給 Claude Code，它交出四個看起來很完整的 c">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://reedlin2002.github.io/images/uav-analysis-refactor-tiles-2024.jpg">
+<meta property="og:image" content="https://reedlin2002.github.io/images/uav-analysis-refactor-tiles-2026.jpg">
+<meta property="article:published_time" content="2026-09-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-09-28T02:27:40.782Z">
+<meta property="article:author" content="Lin">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="重構">
+<meta property="article:tag" content="電腦視覺">
+<meta property="article:tag" content="軟體工程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://reedlin2002.github.io/images/uav-analysis-refactor-tiles-2024.jpg">
+  <!-- OG 補強：確保 description 有值 -->
+  <meta property="og:description" content="2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：
+1bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！
+兩年後，">
+  <meta property="og:site_name" content="Reedlin2002">
+  <meta property="og:locale" content="zh_TW">
+
+  <!-- ── Twitter Card ── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來">
+  <meta name="twitter:description" content="2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：
+1bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！
+兩年後，">
+  
+  
+
+  <!-- ── JSON-LD Structured Data ── -->
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來",
+    "description": "2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：
+1bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！
+兩年後，",
+    "url": "https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/",
+    "datePublished": "2026-09-27T16:00:00.000Z",
+    "dateModified": "2026-09-28T02:27:40.782Z",
+    "author": {
+      "@type": "Person",
+      "name": "Lin",
+      "url": "https://reedlin2002.github.io"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Lin",
+      "url": "https://reedlin2002.github.io"
+    }
+    
+  }
+  </script>
+  
+
+  <!-- ── Favicon ── -->
+  
+    
+      
+        <link rel="shortcut icon" href="/images/favicon.ico">
+      
+    
+    
+      
+        <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+      
+    
+    
+      
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+      
+    
+  
+
+  <!-- ── Analytics ── -->
+  <!-- Google Analytics -->
+
+
+  <!-- Umami Analytics -->
+
+
+
+  <!-- ── Performance: DNS prefetch + Preconnect ── -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- ── Google Fonts（font-display=swap 減少 FOUT / CLS）── -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- ── Styles ── -->
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <!-- ── RSS Feed ── -->
+  
+  
+
+  <!-- ── MathJax ── -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="max-width mx-auto px3 ltr">
+            <main class="content index " role="main">
+              <header id="header">
+  <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
+  
+    
+      <img id="logo" alt class="u-logo" src="/images/logo.png" style="margin: 0;" />
+    
+  
+    <div id="title" style="margin: 0;">
+      
+      
+      <p class="p-name site-name">Reedlin2002</p>
+      <small class="site-kicker">LIN’S FIELD NOTES</small>
+    </div>
+  </a>
+  <div id="nav" style="display: flex; align-items: center; gap: 12px;">
+    <ul>
+      <li class="icon">
+        <a href="#" role="button" aria-label="選單" aria-expanded="false"><i class="fa-solid fa-bars fa-2x" aria-hidden="true"></i></a>
+      </li>
+      <!--
+     --><li><a href="/">筆記</a></li><!--
+   --><!--
+     --><li><a href="/archives/">所有文章</a></li><!--
+   --><!--
+     --><li><a href="/#projects">作品</a></li><!--
+   --><!--
+     --><li><a href="/about/">關於</a></li><!--
+   -->
+      <li class="nav-search"><a href="/search/" aria-label="搜尋文章"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>搜尋</span></a></li>
+    </ul>
+    <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
+      <i class="fa-solid fa-sun icon-sun"></i>
+      <i class="fa-solid fa-moon icon-moon"></i>
+    </button>
+  </div>
+</header>
+
+                
+<article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="reading-header">
+    <a class="reading-back" href="/">← 回到筆記</a>
+    <div class="reading-eyebrow">
+      <span class="eyebrow">LOG ENTRY / FIELD NOTES</span>
+      <span class="eyebrow">Python</span>
+    </div>
+    <h1 itemprop="headline">兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來</h1>
+    <div class="reading-byline">
+      <img src="/images/logo.png" width="32" height="32" alt="">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        By <span class="p-name" itemprop="name">Lin</span>
+      </span>
+      <div class="entry-meta">
+        <time datetime="2026-09-28" itemprop="datePublished">2026.09.28</time>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>11 分鐘閱讀</span>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>3559 字</span>
+        
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>更新於 2026.09.28</span>
+        
+      </div>
+    </div>
+  </header>
+
+  
+
+
+  <div class="reading-body content e-content" itemprop="articleBody"><p>2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！</span><br></pre></td></tr></table></figure>
+<p>兩年後，我把這份程式碼重構了兩次。第一次交給 Claude Code，它交出四個看起來很完整的 commit；第二次，我把其中大半拆掉了。</p>
+<p>這篇記錄兩次重構差在哪裡。結論先講：<strong>沒有基準（baseline）的重構，就跟沒有對照組的實驗一樣 —— 你不知道這次改動到底改變了什麼。</strong></p>
+<span id="more"></span>
+<h2 id="起點2024-年的程式在做什麼"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#起點2024-年的程式在做什麼"></a> 起點：2024 年的程式在做什麼</h2>
+<p>當年的主程式  <code>project_main.py</code>  流程大致如下：</p>
+<pre class="mermaid">flowchart LR
+    A["GUI&lt;br/&gt;影片抽幀"] --&gt; B["frames_output/"]
+    B --&gt; C["cv2.Stitcher&lt;br/&gt;拼出全景圖"]
+    B --&gt; D["split_image&lt;br/&gt;切成 640×480"]
+    D --&gt; E["CenterMask2"]
+    E --&gt; X["output_data.xlsx"]
+    W["withoutoverlap/&lt;br/&gt;另外準備的影像"] --&gt; F["predict_withoutoverlap.py&lt;br/&gt;再切一次、再辨識一次"]
+    F --&gt; X</pre>
+<p>它能跑，也真的交出了專題成果。但現在回頭讀，有四個問題：</p>
+<p><strong>一、同樣的函式有兩份。</strong>  <code>predict_segm.py</code>  跟  <code>predict_withoutoverlap.py</code>  各有一份  <code>setup_predictor</code> 、 <code>is_on_boundary</code> 、 <code>save_excel</code> ，內容幾乎一樣，類別名稱清單  <code>['Float', 'Wood', 'Styrofoam', 'Bottle', 'Buoy']</code>  在這兩個檔案裡一共寫了四次。</p>
+<p><strong>二、兩份切圖邏輯不一樣。</strong> 主程式的  <code>split_image</code>  是這樣切的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># project_main.py（2024，commit 66d674c）</span></span><br><span class="line">    <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, h - height + <span class="number">1</span>, height):</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, w - width + <span class="number">1</span>, width):</span><br></pre></td></tr></table></figure>
+<p><code>predict_withoutoverlap.py</code>  則是這樣：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># predict_withoutoverlap.py（2024，commit 66d674c）</span></span><br><span class="line">        <span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, height, <span class="number">480</span>):</span><br><span class="line">            <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, width, <span class="number">640</span>):</span><br></pre></td></tr></table></figure>
+<p>差別在  <code>range</code>  的終點。前者只切「放得下一整格」的位置，後者連不滿一格的尾巴也切。拿 repo 歷史裡保留的一張 3840×2160 空拍影像來算：2160 ÷ 480 = 4.5，前者只切出 4 列，<strong>最下面 240 px 不會被送進模型</strong>；後者切出 5 列，但最後一列每格只有 640×240。</p>
+<p><img src="/images/uav-analysis-refactor-tiles-2024.jpg" alt="2024 年 split_image 的切法：6 × 4 = 24 格，最下面 240 px 沒有送進模型"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">影像取自專題 repo 歷史（commit a77cc57）中的 UAV 空拍影像，格線依 2024 年 <code>split_image</code> 的邏輯繪製。</p>
+<p><strong>三、被切開的物件怎麼算。</strong> 一個寶特瓶剛好壓在兩格的交界上，會被切成兩半、各自被辨識一次。當年的處理方式寫在  <code>save_excel</code>  裡：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># predict_withoutoverlap.py（2024，commit 66d674c）</span></span><br><span class="line">            total_count = class_info[<span class="string">&quot;count&quot;</span>] - class_info[<span class="string">&quot;boundary_count&quot;</span>] <span class="keyword">if</span> class_info[<span class="string">&quot;count&quot;</span>] &gt; <span class="number">1</span> <span class="keyword">else</span> class_info[<span class="string">&quot;count&quot;</span>]</span><br></pre></td></tr></table></figure>
+<p><code>boundary_count</code>  是「mask 碰到切片邊緣」的物件數。這條公式把它們全部扣掉：被切成兩半的寶特瓶，兩半都碰到邊緣，算進 2 個、又扣掉 2 個，最後變成 0；一個完整、只是剛好貼著邊緣的寶特瓶，也會被扣掉。面積那一欄則沒有扣，兩半的面積照樣加總。</p>
+<p><strong>四、兩個步驟寫同一個檔案。</strong> 主程式先呼叫  <code>predict_images_in_folder(...)</code>  寫出  <code>output_data.xlsx</code> ，再呼叫  <code>process_images_without_overlap(...)</code>  寫<strong>同一個路徑</strong>。 <code>pd.ExcelWriter</code>  預設是覆寫模式，所以最後留下來的只有第二步的結果。 <code>withoutoverlap/</code>  資料夾裡是另外準備、已經去掉重疊區域的影像，repo 裡找不到產生它的程式。</p>
+<p>這些問題有個共同點：模型本身當年用 mAP、IoU 評估過，但<strong>從切圖到 Excel 這一整段，沒有任何方法可以回答「這個數字對不對」</strong>。沒有測試，也沒有一份固定輸入、固定輸出的結果可以比對。</p>
+<h2 id="第一輪交給-claude-code"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#第一輪交給-claude-code"></a> 第一輪：交給 Claude Code</h2>
+<p>2026 年 7 月，我讓 Claude Code 對這個 repo 做架構重構。它列出四個候選方案，一個一個實作、各自 commit：</p>
+<table>
+<thead>
+<tr>
+<th>Commit</th>
+<th>候選方案</th>
+<th>內容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>13f6308</code></td>
+<td>Candidate 1</td>
+<td>常數集中到  <code>PipelineConfig</code></td>
+</tr>
+<tr>
+<td><code>8afafa4</code></td>
+<td>Candidate 2</td>
+<td>抽出  <code>predictor/</code>  套件，加上 Strategy 類別</td>
+</tr>
+<tr>
+<td><code>b2fd681</code></td>
+<td>Candidate 3</td>
+<td>支援 YAML／JSON 設定檔</td>
+</tr>
+<tr>
+<td><code>732d459</code></td>
+<td>Candidate 4</td>
+<td>GUI 改用  <code>VideoProcessor</code>  服務層 + Observer</td>
+</tr>
+</tbody>
+</table>
+<p>最後還附了一份  <code>REFACTORING_SUMMARY.md</code> ，寫著「消除 95% 代碼重複」、「從～1000 行減少到～534 行」。</p>
+<p>有些改動是真的有效的。三個重複的共用函式搬進了  <code>predictor/garbage_predictor.py</code> ，舊腳本改成從那裡 import；常數也集中到了一處。但仔細看，有三個地方不對勁：</p>
+<p><strong>Strategy 類別沒有接上。</strong> Candidate 2 新增了  <code>OverlapStrategyPredictor</code>  跟  <code>NoOverlapStrategyPredictor</code>  兩個類別（合計約 290 行），也在  <code>predictor/__init__.py</code>  匯出了。但在  <code>994a1aa</code>  這個版本裡搜尋整個 repo，除了定義跟匯出，沒有任何地方呼叫它們。主程式走的還是原本的  <code>classify_and_save</code>  跟  <code>process_images</code> 。同一份 summary 的最後一行寫的是「<strong>+702 新增行，-165 刪除行</strong>」—— 說是消除重複，實際上是多了一套沒人用的抽象。</p>
+<p><strong>Observer 從背景執行緒改 UI。</strong> Candidate 4 讓 GUI 在背景執行緒跑影片處理：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gui.py（第一輪，commit 994a1aa）</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">process_thread</span>():</span><br><span class="line">            processor.process_video(file_path, frame_cut, start_point, end_point)</span><br><span class="line">        </span><br><span class="line">        threading.Thread(target=process_thread, daemon=<span class="literal">True</span>).start()</span><br></pre></td></tr></table></figure>
+<p><code>process_video</code>  在這條執行緒裡呼叫  <code>self._notify_status(&quot;處理中...&quot;)</code> ，經過  <code>GuiAdapter</code>  轉發後，最後執行的是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gui.py（第一輪，commit 994a1aa）</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_status_changed</span>(<span class="params">status: <span class="built_in">str</span></span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;處理狀態變更&quot;&quot;&quot;</span></span><br><span class="line">        completion_label.config(text=status, fg=<span class="string">&quot;black&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>也就是<strong>從背景執行緒直接改 Tkinter 元件</strong>。Tkinter 的元件只應該在主執行緒操作，這種寫法大部分時候看起來沒事，偶爾才出問題，是最難查的那一種 bug。</p>
+<p><strong>驗證只驗了語法。</strong> summary 列出的驗證方法是「Python AST 編譯檢查（py_compile）、導入測試、配置加載測試、參數驗證測試」。這些能證明程式可以被 import，但沒有任何一項能證明「重構後辨識出來的數量，跟重構前一樣」。</p>
+<p>回頭看，agent 很擅長把「一個好架構應該有的東西」補齊：設定檔、抽象基類、設計模式、服務層。它沒有問、我當時也沒有問的是兩個問題：<strong>這個抽象現在被誰呼叫？改完之後，輸出跟改之前一樣嗎？</strong> 第二個問題在這個 repo 裡根本沒有辦法回答，因為從來沒有基準。</p>
+<h2 id="第二輪先定名詞再劃邊界"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#第二輪先定名詞再劃邊界"></a> 第二輪：先定名詞，再劃邊界</h2>
+<p>第二輪我先決定方向，再交給 agent 照計畫實作。方向有四條。</p>
+<h3 id="1-先把名詞定下來"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#1-先把名詞定下來"></a> 1. 先把名詞定下來</h3>
+<p>新增的  <code>CONTEXT.md</code>  只做一件事：規定這個專案裡的名詞，以及<strong>不要用</strong>的同義詞。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**Tile**</span>:</span><br><span class="line">A possibly overlapping rectangular region of a Sampled Frame submitted to the model for detection.</span><br><span class="line"><span class="emphasis">_Avoid_</span>: crop, patch</span><br></pre></td></tr></table></figure>
+<p>2024 年的程式裡，同一個東西叫  <code>sub_image</code> 、「小圖」、「切割圖像」；「一次執行」則沒有名字，散在  <code>project_main.py</code>  的  <code>__main__</code>  裡。名詞不統一，邊界就只能靠檔案來劃。定下 <strong>Analysis Run</strong>、<strong>Sampled Frame</strong>、<strong>Tile</strong>、<strong>Detection</strong>、<strong>Artifact</strong> 這五個詞之後，模組怎麼切就很自然了：</p>
+<pre class="mermaid">flowchart TD
+    UI["GUI / CLI&lt;br/&gt;project_main.py"] --&gt; R["AnalysisRun&lt;br/&gt;analysis_run.py"]
+    R --&gt; S["VideoSampler&lt;br/&gt;抽出 Sampled Frame"]
+    R --&gt; I["inference.py&lt;br/&gt;Tile · 全域座標 · 去重"]
+    I --&gt; A["CenterMaskAdapter&lt;br/&gt;Detectron2 只在這裡載入"]
+    R --&gt; W["ArtifactWriter&lt;br/&gt;JSON · Excel"]</pre>
+<p>第一輪的 Strategy 類別跟  <code>VideoProcessor</code>  服務層都拿掉了。 <code>REFACTORING_SUMMARY.md</code>  沒有刪，但開頭加上一行註記，標明它是「歷史文件」、描述的是已經被取代的中間版本。</p>
+<h3 id="2-模型框架只從一個地方進來"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#2-模型框架只從一個地方進來"></a> 2. 模型框架只從一個地方進來</h3>
+<p>除了  <code>--diagnose</code>  會讀取套件版本之外，整個專案只有  <code>CenterMaskAdapter</code>  會真正載入 Detectron2，而且是等到真的要跑模型時才 import：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># predictor/garbage_predictor.py</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">import</span> torch</span><br><span class="line">            <span class="keyword">from</span> detectron2.engine <span class="keyword">import</span> DefaultPredictor</span><br><span class="line">            <span class="keyword">from</span> centermask.config <span class="keyword">import</span> get_cfg</span><br><span class="line">        <span class="keyword">except</span> ImportError <span class="keyword">as</span> exc:</span><br><span class="line">            <span class="keyword">raise</span> ConfigError(</span><br><span class="line">                <span class="string">&quot;CenterMask runtime is unavailable. Activate the pinned WSL2 environment: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(exc)</span><br><span class="line">            ) <span class="keyword">from</span> exc</span><br></pre></td></tr></table></figure>
+<p>其他模組只認得一個介面：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># inference.py</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DetectionAdapter</span>(<span class="title class_ inherited__">Protocol</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">detect</span>(<span class="params">self, image</span>) -&gt; <span class="type">Sequence</span>[TileDetection]:</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+<p>這讓切片、座標換算、去重、輸出這些<strong>我自己寫的邏輯</strong>，可以在沒有 GPU 的電腦上用假的 detector 測試。第一輪只驗了語法；第二輪的  <code>tests/</code>  驗的是行為：幀數與秒數的換算、切片有沒有蓋到尾端、全黑的切片會不會被跳過、重複的偵測會不會被去掉、JSON 跟 Excel 有沒有正確寫出來。</p>
+<h3 id="3-tile重疊切片-座標轉回-再去重"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#3-tile重疊切片-座標轉回-再去重"></a> 3. Tile：重疊切片、座標轉回、再去重</h3>
+<p>2024 年「切開的物件扣掉邊緣數」那條公式，換成了三個步驟。第一步，切片之間留重疊，最後一格貼齊影像邊緣：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># inference.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_tile_positions</span>(<span class="params">length: <span class="built_in">int</span>, tile_size: <span class="built_in">int</span>, overlap: <span class="built_in">float</span></span>) -&gt; <span class="type">Tuple</span>[<span class="built_in">int</span>, ...]:</span><br><span class="line">    <span class="keyword">if</span> length &lt;= tile_size:</span><br><span class="line">        <span class="keyword">return</span> (<span class="number">0</span>,)</span><br><span class="line">    stride = <span class="built_in">max</span>(<span class="number">1</span>, <span class="built_in">int</span>(<span class="built_in">round</span>(tile_size * (<span class="number">1.0</span> - overlap))))</span><br><span class="line">    final_start = length - tile_size</span><br><span class="line">    positions = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">0</span>, final_start + <span class="number">1</span>, stride))</span><br><span class="line">    <span class="keyword">if</span> positions[-<span class="number">1</span>] != final_start:</span><br><span class="line">        positions.append(final_start)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tuple</span>(positions)</span><br></pre></td></tr></table></figure>
+<p>預設重疊 10%，步長是 576 × 432 px。同一張 3840×2160 影格會切成 7 × 5 = 35 格，每一格都是完整的 640×480，不會再有漏掉的尾巴或半格：</p>
+<p><img src="/images/uav-analysis-refactor-tiles-2026.jpg" alt="2026 年 iter_tiles 的切法：7 × 5 = 35 格，藍色是相鄰切片的重疊帶"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">同一張影格，格線依 2026 年 <code>inference.iter_tiles</code> 的邏輯繪製。</p>
+<p>對應的測試直接把「尾端有沒有被蓋到」寫成斷言：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tests/test_inference.py</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">test_tiles_cover_the_trailing_edges</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="variable language_">self</span>.assertEqual(_tile_positions(<span class="number">7</span>, <span class="number">4</span>, <span class="number">0.25</span>), (<span class="number">0</span>, <span class="number">3</span>))</span><br><span class="line">        <span class="variable language_">self</span>.assertEqual(_tile_positions(<span class="number">5</span>, <span class="number">4</span>, <span class="number">0.25</span>), (<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">        <span class="variable language_">self</span>.assertEqual(_tile_positions(<span class="number">3</span>, <span class="number">4</span>, <span class="number">0.25</span>), (<span class="number">0</span>,))</span><br></pre></td></tr></table></figure>
+<p>第二步，每個偵測框加上切片的位移，換回整張影格的座標。第三步，同類別、框的 IoU 達到門檻（預設 0.5）的偵測視為重複，只留信心分數最高的那個：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># inference.py</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">class_aware_nms</span>(<span class="params"></span></span><br><span class="line"><span class="params">    detections: Iterable[Detection], iou_threshold: <span class="built_in">float</span></span></span><br><span class="line"><span class="params"></span>) -&gt; <span class="type">List</span>[Detection]:</span><br><span class="line">    kept = []</span><br><span class="line">    <span class="keyword">for</span> candidate <span class="keyword">in</span> <span class="built_in">sorted</span>(detections, key=<span class="keyword">lambda</span> item: item.score, reverse=<span class="literal">True</span>):</span><br><span class="line">        duplicate = <span class="built_in">any</span>(</span><br><span class="line">            candidate.class_id == existing.class_id</span><br><span class="line">            <span class="keyword">and</span> bbox_iou(candidate.bbox, existing.bbox) &gt;= iou_threshold</span><br><span class="line">            <span class="keyword">for</span> existing <span class="keyword">in</span> kept</span><br><span class="line">        )</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> duplicate:</span><br><span class="line">            kept.append(candidate)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">sorted</span>(kept, key=<span class="keyword">lambda</span> item: (item.class_id, item.bbox[<span class="number">1</span>], item.bbox[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+<p>「碰到切片邊緣」這個資訊還在，但用法不一樣了。2024 年它被拿去扣數量，藏在公式裡；現在它是 Excel 裡的一個欄位「接觸切片邊緣」，<strong>留給看報表的人判斷</strong>，不再默默改動數字。</p>
+<h3 id="4-gui從-observer-換成事件佇列"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#4-gui從-observer-換成事件佇列"></a> 4. GUI：從 Observer 換成事件佇列</h3>
+<p>背景執行緒不再碰任何 UI 元件，只把事件丟進佇列：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gui.py</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">worker</span>():</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                result = AnalysisRun(selected_config).execute(video_path, post_progress)</span><br><span class="line">                events.put((<span class="string">&quot;completed&quot;</span>, result))</span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> exc:</span><br><span class="line">                events.put((<span class="string">&quot;error&quot;</span>, exc))</span><br></pre></td></tr></table></figure>
+<p>主執行緒每 100 ms 用  <code>root.after(100, poll_events)</code>  把佇列裡的事件取出來，再更新進度條跟狀態文字。這比第一輪的 Observer 少了一個介面、一個 adapter，也少了一個執行緒問題。</p>
+<h2 id="刻意不做的事不升級-pytorch"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#刻意不做的事不升級-pytorch"></a> 刻意不做的事：不升級 PyTorch</h2>
+<p>CenterMask2 的官方環境是 PyTorch 1.7 加 CUDA 10.1，以 2026 年來說相當舊。第二輪我刻意<strong>沒有</strong>升級它，而是把舊環境原樣釘住：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># environment.yml</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">python=3.8</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">pytorch=1.7.1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">torchvision=0.8.2</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">cudatoolkit=10.1</span></span><br></pre></td></tr></table></figure>
+<p>理由寫在  <code>docs/adr/0001-run-centermask-in-wsl2.md</code>  的最後一句：</p>
+<blockquote>
+<p>upgrading the model stack is a separate, golden-output-guarded migration.</p>
+</blockquote>
+<p>意思是：升級模型框架是另一次獨立的遷移，而且要有一份 golden output（固定輸入下的標準輸出）當護欄。如果這次同時重構程式、又升級框架，而辨識結果變了，我不會知道是哪一個造成的。這跟做實驗一次只改一個變因是同一件事。</p>
+<h2 id="還沒做完的事"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#還沒做完的事"></a> 還沒做完的事</h2>
+<p>這次重構有三件事還沒完成，必須寫清楚：</p>
+<ol>
+<li><strong>還沒拿原本的模型權重跑過。</strong> 所有行為測試用的都是假的 detector；README 也寫明，正式使用前要先在 WSL2 用既有模型做一次 GPU smoke test。換句話說，「重構後的辨識結果跟 2024 年一樣」目前<strong>還沒有被驗證</strong>。而且 2024 年沒有留下任何可以比對的輸出，所以真正的第一步，是先產生第一份 golden output。</li>
+<li><strong>範圍變窄了。</strong> 現在的版本是「一支影片 → 逐幀偵測」的工具。2024 年的影像拼接跟海灘清潔指數（CCI／PAI）計算不在這一版裡。Excel 的「數量」是所有抽樣幀的偵測次數加總：同一件垃圾如果出現在好幾個抽樣幀，就會被算好幾次。要數出「海灘上實際有幾件垃圾」，需要拼接或跨幀追蹤，這是下一步。</li>
+<li><strong>大物件仍可能重複。</strong> 水平重疊 64 px、垂直重疊 48 px，代表不超過 64 × 48 px 的物件一定完整落在某一格裡。更大的物件如果壓在交界上，可能一格看到一半、另一格看到全部；兩個框的 IoU 不到 0.5，就會被當成兩件。被切到的那一半會被標成「接觸切片邊緣」，至少查得到。</li>
+</ol>
+<h2 id="小結"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#小結"></a> 小結</h2>
+<p>兩次重構之間，差的不是程式寫得漂不漂亮，而是三件事：</p>
+<ol>
+<li><strong>抽象要看現在有誰在用。</strong> agent 補上的是「好架構應該有的樣子」，但沒有被呼叫的抽象不是彈性，是維護成本。第二輪最大的改動其實是刪除。</li>
+<li><strong>驗證要驗行為，不是驗語法。</strong> 用  <code>Protocol</code>  把模型隔開之後，切片、座標、去重、輸出這些我自己的邏輯，都能在 CPU 上用假資料測試；模型本身，則要靠 golden output。</li>
+<li><strong>沒有 baseline，就不知道改動帶來了什麼。</strong> 這次最大的遺憾，是 2024 年沒有留下一份固定輸入、固定輸出的結果。重構也好、換模型也好、調參數也好，都應該先固定一個基準，再一次只改一件事。</li>
+</ol>
+<h3 id="延伸閱讀"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#延伸閱讀"></a> 延伸閱讀</h3>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/reedlin2002/project">reedlin2002/project</a> — 本文所有程式碼的出處；2024 年的版本可以從 commit  <code>66d674c</code>  查看</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/youngwanLEE/centermask2">youngwanLEE/centermask2</a> — CenterMask2 官方 repo</li>
+<li><a href="/2026/08/23/uav-vision-notes/">空拍影像辨識技術地圖：分割策略、模型架構與影像拼接的技術取捨</a> — 這套系統用到的實例分割、評估指標與拼接原理</li>
+</ul>
+</div>
+
+  <footer class="reading-end">
+    <span class="end-mark" aria-hidden="true">✳</span>
+    <p>謝謝你，讀到這裡。</p>
+    
+    <div class="reading-tags">
+      <a href="/tags/Python/"># Python</a><a href="/tags/%E9%87%8D%E6%A7%8B/"># 重構</a><a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/"># 電腦視覺</a><a href="/tags/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/"># 軟體工程</a>
+    </div>
+    
+    
+    <div class="reading-license">
+      Lin ·
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hant" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a>
+    </div>
+    
+  </footer>
+</article>
+
+
+
+<section class="read-next" aria-labelledby="read-next-title">
+  <div class="section-heading">
+    <h2 id="read-next-title">下一個好奇心</h2>
+    <a class="text-link" href="/">回首頁 <span aria-hidden="true">↗</span></a>
+  </div>
+  <div class="read-next-grid">
+    
+    
+    <article>
+      <div class="entry-meta">
+        <time datetime="2026-08-23">2026.08.23</time>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>9 分鐘閱讀</span>
+      </div>
+      <h3><a href="/2026/08/23/uav-vision-notes/">空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</a></h3>
+      <a class="text-link" href="/2026/08/23/uav-vision-notes/">繼續讀 <span aria-hidden="true">↗</span></a>
+    </article>
+    
+    
+    <article>
+      <div class="entry-meta">
+        <time datetime="2026-07-18">2026.07.18</time>
+        <span class="meta-dot" aria-hidden="true">·</span>
+        <span>6 分鐘閱讀</span>
+      </div>
+      <h3><a href="/2026/07/18/binary-search-learning/">我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position</a></h3>
+      <a class="text-link" href="/2026/07/18/binary-search-learning/">繼續讀 <span aria-hidden="true">↗</span></a>
+    </article>
+    
+  </div>
+</section>
+
+
+
+
+
+                  
+                    <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">筆記</a></li>
+        
+          <li><a href="/archives/">所有文章</a></li>
+        
+          <li><a href="/#projects">作品</a></li>
+        
+          <li><a href="/about/">關於</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&text=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&title=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&is_video=false&description=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來&body=Check out this article: https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&title=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&title=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&title=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&title=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&name=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來&description=&lt;p&gt;2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：&lt;/p&gt;
+&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;兩年後，我把這份程式碼重構了兩次。第一次交給 Claude Code，它交出四個看起來很完整的 commit；第二次，我把其中大半拆掉了。&lt;/p&gt;
+&lt;p&gt;這篇記錄兩次重構差在哪裡。結論先講：&lt;strong&gt;沒有基準（baseline）的重構，就跟沒有對照組的實驗一樣 —— 你不知道這次改動到底改變了什麼。&lt;/strong&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/&t=兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="window.scrollTo({ top: 0, behavior: window.prefersReducedMotion && window.prefersReducedMotion() ? 'auto' : 'smooth' });return false;"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+                      
+                        <!-- ═══════════════════════════════════════════════
+     FOOTER — 開發筆記本：Stay curious 字標 + 一行資訊
+     ═══════════════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="footer-bar">
+    <a class="footer-note" href="/">Stay curious<span>繼續保持好奇。</span></a>
+    <div class="footer-meta">
+      
+      
+      <span>© 2016–2026 Lin / Reedlin2002</span>
+      <a href="https://github.com/reedlin2002" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="mailto:lin1022business@gmail.com">寫信給我 ↗</a>
+      <a href="/search/">搜尋 ↗</a>
+      <span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     返回頂部按鈕
+     ═══════════════════════════════════════════════ -->
+<button id="back-to-top" aria-label="返回頂部" title="返回頂部">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+            </main>
+            <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+              <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- 舊版 ClipboardJS 複製按鈕已移除 — Sprint 3 的 .copy-btn 為唯一實作 -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- ── 圖片燈箱（medium-zoom）── -->
+
+<script src="/lib/medium-zoom/medium-zoom.min.js"></script>
+
+<script type="text/javascript">
+window.initLightbox = function() {
+  'use strict';
+  if (typeof mediumZoom !== 'function') return;
+  // PJAX 重入：先解除舊綁定
+  if (window._mzoom) {
+    window._mzoom.detach();
+    window._mzoom = null;
+  }
+  var selector = 'article.post .content img:not(.no-zoom)';
+  if (document.querySelector(selector)) {
+    window._mzoom = mediumZoom(selector, {
+      background: 'rgba(15, 17, 20, 0.92)',
+      margin: 24
+    });
+  }
+};
+window.initLightbox();
+</script>
+
+<!-- ── Sprint 2: Navbar Scroll + Card Entrance Animations ── -->
+<script type="text/javascript">
+window.initSprint2JS = function() {
+  'use strict';
+
+  /* 卡片 staggered 進場動畫（IntersectionObserver）— 含站點導覽/相關文章 */
+  var cards = document.querySelectorAll('.post-row, .site-nav-block');
+  if (cards.length > 0 && 'IntersectionObserver' in window) {
+    if (window.cardObserver) {
+      window.cardObserver.disconnect();
+    }
+    window.cardObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          entry.target.classList.add('card-visible');
+          window.cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(function(card, i) {
+      card.style.setProperty('--card-delay', (i * 0.08) + 's');
+      card.classList.add('card-init');
+      window.cardObserver.observe(card);
+    });
+  }
+
+  /* ③ markdownIt-Anchor 已提供錨點連結，此處略過 */
+};
+window.initSprint2JS();
+</script>
+
+<!-- ── Sprint 3: Code Block Enhancement + Mobile Nav ── -->
+<script type="text/javascript">
+window.initSprint3JS = function() {
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════
+     ① Code Block: 語言 Badge + Copy Button
+     ═══════════════════════════════════════════════════ */
+  var highlights = document.querySelectorAll('.highlight:not(.has-copy-btn)');
+  highlights.forEach(function(block) {
+    block.classList.add('has-copy-btn');
+    // 取得語言類型（Hexo 在 figure 上加 class，如 highlight javascript）
+    var langClass = Array.from(block.classList).find(function(c) {
+      return c !== 'highlight' && c !== 'has-copy-btn';
+    });
+    var lang = langClass || '';
+
+    // 語言 Badge
+    if (lang) {
+      var badge = document.createElement('span');
+      badge.className = 'lang-badge';
+      badge.textContent = lang.toUpperCase();
+      block.appendChild(badge);
+    }
+
+    // Copy Button
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn';
+    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+    copyBtn.setAttribute('aria-label', '複製程式碼');
+    copyBtn.setAttribute('title', '複製');
+    copyBtn.setAttribute('type', 'button');
+    copyBtn.setAttribute('aria-live', 'polite');
+
+    copyBtn.addEventListener('click', function() {
+      // 從 .code td 取文字，相容 Hexo table highlight
+      var codeLines = block.querySelectorAll('td.code .line, td.code span');
+      var text = '';
+      if (codeLines.length > 0) {
+        var codeTd = block.querySelector('td.code');
+        text = codeTd ? codeTd.innerText : '';
+      } else {
+        // fallback：直接取 code 元素
+        var codeEl = block.querySelector('code');
+        text = codeEl ? codeEl.innerText : block.innerText;
+      }
+
+      // 成功後圖示換成 ✓、aria-label 念出「已複製」，1.4 秒後還原
+      var showCopied = function() {
+        copyBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
+        copyBtn.classList.add('copied');
+        copyBtn.setAttribute('aria-label', '已複製');
+        clearTimeout(copyBtn._resetTimer);
+        copyBtn._resetTimer = setTimeout(function() {
+          copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+          copyBtn.classList.remove('copied');
+          copyBtn.setAttribute('aria-label', '複製程式碼');
+        }, 1400);
+      };
+
+      navigator.clipboard.writeText(text.trim()).then(showCopied).catch(function() {
+        // clipboard API fallback
+        var ta = document.createElement('textarea');
+        ta.value = text.trim();
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showCopied();
+      });
+    });
+
+    block.appendChild(copyBtn);
+  });
+
+  /* ═══════════════════════════════════════════════════
+     ② Mobile Nav：點擊遮罩 / 外部區域關閉 Drawer
+     ═══════════════════════════════════════════════════ */
+  // We use standard named events to avoid duplication if we just use document.addEventListener
+  if (window._mobileNavHandlersBound) return;
+  window._mobileNavHandlersBound = true;
+
+  /* 關閉 = 移除 .responsive class（開關同一機制，不用 jQuery 動 inline display）*/
+  function closeMobileNav() {
+    var navMenu = document.querySelector('#header #nav > ul.responsive');
+    if (navMenu) navMenu.classList.remove('responsive');
+  }
+
+  document.addEventListener('click', function(e) {
+    var header = document.getElementById('header');
+    if (header && !header.contains(e.target)) closeMobileNav();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  var touchStartX = 0;
+  var touchStartY = 0;
+  document.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+  }, {passive: true});
+
+  document.addEventListener('touchend', function(e) {
+    if (document.querySelector('#header #nav > ul.responsive')) {
+      var touchEndX = e.changedTouches[0].screenX;
+      var touchEndY = e.changedTouches[0].screenY;
+      if (touchStartY - touchEndY > 50 || touchStartX - touchEndX > 50) {
+        closeMobileNav();
+      }
+    }
+  }, {passive: true});
+
+};
+window.initSprint3JS();
+</script>
+
+<!-- ── Sprint 4: Reading Progress Bar ── -->
+<script type="text/javascript">
+window.initReadingProgress = function() {
+  'use strict';
+  var bar = document.getElementById('reading-progress-bar');
+  var isPost = !!document.querySelector('article.post');
+
+  if (!isPost) {
+    if (bar) bar.classList.add('hidden');
+    return;
+  }
+
+  if (!bar) {
+    bar = document.createElement('div');
+    bar.id = 'reading-progress-bar';
+    document.body.appendChild(bar);
+  }
+  bar.classList.remove('hidden');
+
+  function updateProgress() {
+    var scrollTop = window.scrollY || document.documentElement.scrollTop;
+    /* Measure progress through the article itself, not the whole page */
+    var article = document.querySelector('article.post');
+    var articleBottom = article
+      ? article.getBoundingClientRect().bottom + scrollTop
+      : document.documentElement.scrollHeight;
+    var articleTop = article
+      ? article.getBoundingClientRect().top + scrollTop
+      : 0;
+    var articleHeight = articleBottom - articleTop - window.innerHeight;
+    var pct = articleHeight > 0
+      ? ((scrollTop - articleTop) / articleHeight) * 100
+      : 0;
+    pct = Math.max(0, Math.min(pct, 100));
+    bar.style.width = pct.toFixed(2) + '%';
+    if (pct >= 99.5) {
+      bar.classList.add('hidden');
+    } else {
+      bar.classList.remove('hidden');
+    }
+  }
+
+  if (window._readingProgressHandler) {
+    window.removeEventListener('scroll', window._readingProgressHandler);
+  }
+  window._readingProgressHandler = updateProgress;
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+};
+window.initReadingProgress();
+</script>
+
+<!-- ── Mermaid 圖表（按需載入；相容 PJAX 與佈景切換）── -->
+<script type="text/javascript">
+window.MERMAID_SRC = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
+window.initMermaid = function() {
+  'use strict';
+  if (!window.MERMAID_SRC) return;
+
+  /* 文章裡的 ```mermaid 圍欄已由 scripts/mermaid.js 轉成 pre.mermaid 元素，
+     這裡只需要保留原始碼，佈景切換時才能重繪 */
+  function collect() {
+    var nodes = [];
+    document.querySelectorAll('pre.mermaid').forEach(function(pre) {
+      if (!pre.hasAttribute('data-mmd-src')) {
+        pre.setAttribute('data-mmd-src', pre.textContent);
+      }
+      nodes.push(pre);
+    });
+    return nodes;
+  }
+
+  /* 主題色直接讀 CSS 變數，暗/亮佈景自動跟著走 */
+  function themeVariables() {
+    var cs = getComputedStyle(document.documentElement);
+    var v = function(name, fallback) {
+      return (cs.getPropertyValue(name) || '').trim() || fallback;
+    };
+    return {
+      background:         v('--shoka-color-bg',      '#08090d'),
+      mainBkg:            v('--shoka-surface-2',     '#14171f'),
+      primaryColor:       v('--shoka-surface-2',     '#14171f'),
+      secondaryColor:     v('--shoka-surface-1',     '#0d0f15'),
+      tertiaryColor:      v('--shoka-surface-3',     '#1c2029'),
+      primaryTextColor:   v('--shoka-color-text',    '#e8eaed'),
+      secondaryTextColor: v('--shoka-color-text',    '#e8eaed'),
+      tertiaryTextColor:  v('--shoka-color-text',    '#e8eaed'),
+      textColor:          v('--shoka-color-text',    '#e8eaed'),
+      primaryBorderColor: v('--shoka-color-primary', '#22d3ee'),
+      nodeBorder:         v('--shoka-color-primary', '#22d3ee'),
+      lineColor:          v('--shoka-color-text-2',  '#8b93a1'),
+      edgeLabelBackground: v('--shoka-color-bg',     '#08090d'),
+      /* 必須是實際渲染用的字體：mermaid 用這個值量測文字寬度，
+         量測字體與渲染字體不一致時，中文節點會被裁掉 */
+      fontFamily: getComputedStyle(document.body).fontFamily || 'sans-serif',
+      fontSize: '14px'
+    };
+  }
+
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme');
+  }
+
+  /* mermaid.run() 是非同步的,而顏色是 initialize() 當下燒進 SVG 的。
+     佈景在算圖途中切換時,兩次重繪會互相覆蓋,結果就是深色標籤配深色底
+     ——文字整塊變黑看不見。把重繪排成佇列,算完再確認佈景沒有又變過。 */
+  function draw(nodes) {
+    var theme = currentTheme();
+    nodes.forEach(function(n) {
+      n.removeAttribute('data-processed');
+      n.textContent = n.getAttribute('data-mmd-src') || n.textContent;
+    });
+    window.mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'base',
+      themeVariables: themeVariables(),
+      flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+    });
+    var run;
+    try {
+      run = Promise.resolve(window.mermaid.run({ nodes: nodes, suppressErrors: true }));
+    } catch (e) { /* 圖表失敗不該弄壞整頁 */ return Promise.resolve(); }
+    return run.catch(function() {}).then(function() {
+      if (theme === currentTheme()) return;
+      return draw(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+  }
+
+  function render(nodes) {
+    if (!window.mermaid || !nodes.length) return;
+    window._mermaidQueue = (window._mermaidQueue || Promise.resolve())
+      .then(function() { return draw(nodes); })
+      .catch(function() {});
+  }
+
+  var targets = collect();
+  if (!targets.length) return;
+
+  /* 佈景切換時重繪（顏色是初始化時燒進 SVG 的，不重繪不會變色） */
+  if (!window._mermaidThemeWatcher) {
+    window._mermaidThemeWatcher = new MutationObserver(function() {
+      render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+    });
+    window._mermaidThemeWatcher.observe(document.documentElement, {
+      attributes: true, attributeFilter: ['data-theme']
+    });
+  }
+
+  if (window.mermaid) { render(targets); return; }
+  if (window._mermaidLoading) return;
+  window._mermaidLoading = true;
+
+  var s = document.createElement('script');
+  s.src = window.MERMAID_SRC;
+  s.crossOrigin = 'anonymous';
+  s.onload = function() {
+    window._mermaidLoading = false;
+    render(Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')));
+  };
+  s.onerror = function() { window._mermaidLoading = false; };
+  document.head.appendChild(s);
+};
+window.initMermaid();
+</script>
+
+<!-- search -->
+<!-- 每頁都載入：PJAX 只換 main.content，從別頁換進 /search/ 時這段不會重跑，
+     所以包成冪等的 initSearch()，由 pjax-init.js 在 pjax:complete 再呼叫一次 -->
+
+  
+<script src="/js/search.js"></script>
+
+  <script type="text/javascript">
+  window.initSearch = function() {
+    var input = document.querySelector("input#search-input");
+    var $resultArea = document.querySelector("div#search-result");
+    if (!input || !$resultArea || input.hasAttribute("data-search-bound")) return;
+    input.setAttribute("data-search-bound", "1");
+
+    var $inputArea = $(input);
+
+    $inputArea.focus(function() {
+      var search_path = "search.xml";
+      if (search_path.length == 0) {
+        search_path = "search.xml";
+      }
+      var path = "/" + search_path;
+      searchFunc(path, 'search-input', 'search-result');
+    });
+
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+
+    var observer = new MutationObserver(function(mutationsList, observer) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $(".search-no-result").hide();
+        } else if (mutationsList[0].removedNodes.length) {
+          $(".search-no-result").show(200);
+        }
+      }
+    });
+
+    observer.observe($resultArea, { childList: true });
+
+    // 從別頁換進來時游標可能已在輸入框（autofocus），focus 事件不會再觸發
+    if (document.activeElement === input) $inputArea.trigger("focus");
+  };
+  $(window.initSearch);
+  </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+
+                <!-- 背景音播放器（對齊原型 B）：左下角一顆圓鈕，點開才是面板。
+     位於 main.content 外，PJAX 換頁不重載，音樂不中斷。 -->
+
+
+<aside class="companion-dock" aria-label="背景音">
+  <button type="button" class="dock-button" data-panel="music-panel" aria-label="開啟音樂播放器" aria-expanded="false" aria-controls="music-panel">♫</button>
+</aside>
+<section class="companion-panel" id="music-panel" aria-labelledby="music-title" hidden>
+  <header>
+    <div>
+      <span class="eyebrow">A LITTLE BACKGROUND MUSIC</span>
+      <h2 id="music-title">閱讀的背景音。</h2>
+    </div>
+    <button type="button" data-close-panel aria-label="收起音樂播放器">×</button>
+  </header>
+  <label for="music-track">選一首歌</label>
+  <select id="music-track">
+    
+    <option value="/music/%E4%B8%80%E9%9B%A3.mp3">一難</option>
+    
+    <option value="/music/%E7%A7%81%E3%81%8C%E9%81%B8%E3%82%93%E3%81%A0%E3%82%82%E3%81%AE%20%20%E3%83%A6%E3%82%A4%E3%82%ABMV.mp3">私が選んだもの — ユイカ</option>
+    
+  </select>
+  <audio controls preload="none" src="/music/%E4%B8%80%E9%9B%A3.mp3"></audio>
+</section>
+<script type="text/javascript">
+(function () {
+  'use strict';
+  if (window._companionDockBound) return;
+  window._companionDockBound = true;
+
+  var panel = document.getElementById('music-panel');
+  var opener = document.querySelector('[data-panel="music-panel"]');
+  var audio = panel.querySelector('audio');
+  var select = document.getElementById('music-track');
+
+  audio.volume = 0.4;
+
+  function setOpen(open) {
+    panel.hidden = !open;
+    opener.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) select.focus();
+  }
+
+  opener.addEventListener('click', function () { setOpen(panel.hidden); });
+  panel.querySelector('[data-close-panel]').addEventListener('click', function () {
+    setOpen(false);
+    opener.focus();
+  });
+
+  /* 換歌時保留播放狀態：本來在播就接著播 */
+  select.addEventListener('change', function () {
+    var wasPlaying = !audio.paused;
+    audio.src = select.value;
+    audio.load();
+    if (wasPlaying) audio.play().catch(function () {});
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) { setOpen(false); opener.focus(); }
+  });
+
+  /* 點面板與圓鈕以外的地方就收起來，但不要打斷播放 */
+  document.addEventListener('pointerdown', function (e) {
+    if (panel.hidden) return;
+    if (e.target.closest('#music-panel, [data-panel="music-panel"]')) return;
+    setOpen(false);
+  });
+})();
+</script>
+
+
+
+                    
+<script src="/js/landing.js"></script>
+
+                      <!-- PJAX 架構與進度條 -->
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+                      
+<script src="/js/pjax-init.js"></script>
+
+                      
+                      <!-- Live2D 看板娘 + 聊天（body 層，PJAX 換頁不重載） -->
+                      <script>window.LIVE2D_CHAT_CONFIG = {"enabled":true,"endpoint":"https://live2d-chat.kanewolf98.workers.dev","model":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hibiki@1.0.5/assets/hibiki.model.json"};</script>
+                      
+<script src="/lib/live2d/L2Dwidget.min.js"></script>
+
+                      
+<script src="/js/live2d-chat.js"></script>
+
+                      
+    </body>
+
+    </html>

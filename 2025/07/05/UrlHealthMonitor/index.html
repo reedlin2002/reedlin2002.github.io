@@ -12,13 +12,14 @@
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
-  <title>🌐 | 網站健康監控平台</title>
+  <title>UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控</title>
 
   <!-- ── SEO: Description + Keywords ── -->
   
-  <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta name="description" content="UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。
+規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。">
   
-  <meta name="keywords" content="project">
+  <meta name="keywords" content="project, .NET, C#, SQLite, Docker">
   <meta name="author" content="Lin">
   <meta name="robots" content="index, follow">
 
@@ -26,29 +27,35 @@
   <link rel="canonical" href="https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務  這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。  ►  「 GITHUB 」   💡 專案緣起 在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本">
+  <meta name="description" content="UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。 規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。這篇照著程式實際的結構，一塊一塊拆開來看。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="🌐 | 網站健康監控平台">
+<meta property="og:title" content="UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控">
 <meta property="og:url" content="https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務  這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。  ►  「 GITHUB 」   💡 專案緣起 在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本">
+<meta property="og:description" content="UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。 規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。這篇照著程式實際的結構，一塊一塊拆開來看。">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://reedlin2002.github.io/images/UrlHealthMonitor-01.png">
+<meta property="og:image" content="https://reedlin2002.github.io/images/UrlHealthMonitor-02.png">
 <meta property="article:published_time" content="2025-07-05T13:44:35.000Z">
-<meta property="article:modified_time" content="2025-07-05T15:00:55.076Z">
+<meta property="article:modified_time" content="2026-09-27T16:00:00.000Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="project">
+<meta property="article:tag" content=".NET">
+<meta property="article:tag" content="C#">
+<meta property="article:tag" content="SQLite">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://reedlin2002.github.io/images/UrlHealthMonitor-01.png">
+<meta name="twitter:image" content="https://reedlin2002.github.io/images/UrlHealthMonitor-02.png">
   <!-- OG 補強：確保 description 有值 -->
-  <meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:description" content="UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。
+規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。">
   <meta property="og:site_name" content="Reedlin2002">
   <meta property="og:locale" content="zh_TW">
 
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="🌐 | 網站健康監控平台">
-  <meta name="twitter:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta name="twitter:title" content="UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控">
+  <meta name="twitter:description" content="UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。
+規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。">
   
   
 
@@ -58,11 +65,12 @@
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "🌐 | 網站健康監控平台",
-    "description": "Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
+    "headline": "UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控",
+    "description": "UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。
+規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。",
     "url": "https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/",
     "datePublished": "2025-07-05T13:44:35.000Z",
-    "dateModified": "2025-07-05T15:00:55.076Z",
+    "dateModified": "2026-09-27T16:00:00.000Z",
     "author": {
       "@type": "Person",
       "name": "Lin",
@@ -178,7 +186,7 @@
       <span class="eyebrow">LOG ENTRY / FIELD NOTES</span>
       <span class="eyebrow">project</span>
     </div>
-    <h1 itemprop="headline">🌐 | 網站健康監控平台</h1>
+    <h1 itemprop="headline">UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控</h1>
     <div class="reading-byline">
       <img src="/images/logo.png" width="32" height="32" alt="">
       <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -187,12 +195,12 @@
       <div class="entry-meta">
         <time datetime="2025-07-05" itemprop="datePublished">2025.07.05</time>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>2 分鐘閱讀</span>
+        <span>7 分鐘閱讀</span>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>652 字</span>
+        <span>2142 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2025.07.05</span>
+        <span>更新於 2026.09.28</span>
         
       </div>
     </div>
@@ -201,103 +209,90 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><p class="reading-subtitle">🚀 .NET URL Health Monitor - 以 Docker 部署的網站監控服務</p>
-<blockquote>
-<p>這是一個基於 .NET 8 的 URL 健康檢查服務，提供即時監控結果與可視化儀表板，支援 Docker 容器化部署。</p>
-</blockquote>
-<p>►  「 <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/UrlHealthMonitor">GITHUB</a> 」</p>
-<hr>
-<h2 id="專案緣起"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#專案緣起"></a> 💡 專案緣起</h2>
-<p>在現代化的網站運維中，服務的可用性監控至關重要。在日常網站維運中，我們常需要定期檢查多個 URL 的可用性，並記錄歷史狀態供追蹤。本專案希望：</p>
+  <div class="reading-body content e-content" itemprop="articleBody"><p>UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。</p>
+<p>規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。這篇照著程式實際的結構，一塊一塊拆開來看。</p>
+<span id="more"></span>
+<h2 id="一支程式三種用法"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#一支程式三種用法"></a> 一支程式，三種用法</h2>
+<p>整個專案只有一個執行檔。 <code>Program.Main</code>  看第一個參數決定要扮演什麼角色：</p>
+<pre class="mermaid">flowchart TD
+    A["Program.Main(args)"] --&gt; B{"第一個參數"}
+    B --&gt;|serve| C["WebApplication&lt;br/&gt;Dashboard + /results API&lt;br/&gt;+ 背景巡邏"]
+    B --&gt;|list / add / remove| D["CLI&lt;br/&gt;操作監控清單後結束"]
+    B --&gt;|沒有參數| E["Generic Host&lt;br/&gt;只跑背景巡邏"]
+    B --&gt;|其他| F["印出指令說明後結束"]</pre>
+<p><code>serve</code>  模式把網頁伺服器跟背景巡邏放在同一個 process 裡，靠依賴注入把元件組起來：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp/Program.cs</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">args</span>.Length &gt; <span class="number">0</span> &amp;&amp; <span class="keyword">args</span>[<span class="number">0</span>].ToLowerInvariant() == <span class="string">&quot;serve&quot;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> builder = WebApplication.CreateBuilder();</span><br><span class="line"></span><br><span class="line">                builder.Services.AddSingleton&lt;Database&gt;(_ =&gt; <span class="keyword">new</span> Database(dbPath));</span><br><span class="line">                builder.Services.AddSingleton&lt;StatusChecker&gt;();</span><br><span class="line">                builder.Services.AddHostedService&lt;MonitorService&gt;();</span><br></pre></td></tr></table></figure>
+<p><code>AddHostedService</code>  註冊的  <code>MonitorService</code>  會跟著網頁伺服器一起啟動、一起關閉。資料庫路徑則從環境變數  <code>DATABASE_PATH</code>  讀，沒設定就用  <code>results.db</code> 。</p>
+<p>監控清單用 CLI 管理。實際執行長這樣：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ dotnet run -- add https://reedlin2002.github.io/</span><br><span class="line">已新增 URL：https://reedlin2002.github.io/</span><br><span class="line">$ dotnet run -- add https://httpbin.org/status/404</span><br><span class="line">已新增 URL：https://httpbin.org/status/404</span><br><span class="line">$ dotnet run -- add https://httpbin.org/status/503</span><br><span class="line">已新增 URL：https://httpbin.org/status/503</span><br><span class="line">$ dotnet run -- list</span><br><span class="line">目前監控 URL：</span><br><span class="line">1: https://reedlin2002.github.io/</span><br><span class="line">2: https://httpbin.org/status/404</span><br><span class="line">3: https://httpbin.org/status/503</span><br></pre></td></tr></table></figure>
+<p><code>remove</code>  吃的是  <code>list</code>  列出來的 ID，不是網址。</p>
+<p>這裡有個設計很方便：<strong>CLI 跟背景巡邏是兩個不同的 process，它們之間不直接溝通，而是共用同一個 SQLite 檔案。</strong> CLI 寫入監控清單，背景巡邏每一輪開始時重新讀取，所以新增、移除網址都不用重啟服務。</p>
+<h2 id="背景巡邏backgroundservice"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#背景巡邏backgroundservice"></a> 背景巡邏：BackgroundService</h2>
+<p>定時檢查寫在繼承  <code>BackgroundService</code>  的  <code>MonitorService</code>  裡：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp/MonitorService.cs</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">ExecuteAsync</span>(<span class="params">CancellationToken stoppingToken</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stoppingToken.IsCancellationRequested)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> urlRecords = <span class="keyword">await</span> _database.GetMonitoredUrlsAsync();</span><br><span class="line">                <span class="keyword">if</span> (urlRecords.Count == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(<span class="string">&quot;⚠️ 沒有任何要監控的 URL，30 秒後再檢查...&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(<span class="string">$&quot;[<span class="subst">&#123;DateTime.UtcNow&#125;</span>] 開始檢查，共 <span class="subst">&#123;urlRecords.Count&#125;</span> 個 URL...&quot;</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">foreach</span> (<span class="keyword">var</span> (id, url) <span class="keyword">in</span> urlRecords)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">var</span> result = <span class="keyword">await</span> _checker.GetStatusCodeAsync(url);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> (result.statusCode.HasValue)</span><br><span class="line">                        &#123;</span><br><span class="line">                            Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;url&#125;</span> 狀態碼：<span class="subst">&#123;(<span class="built_in">int</span>)result.statusCode&#125;</span> (<span class="subst">&#123;result.statusCode&#125;</span>)，耗時：<span class="subst">&#123;result.responseTimeMs&#125;</span> ms&quot;</span>);</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">await</span> _database.InsertResultAsync(</span><br><span class="line">                                url,</span><br><span class="line">                                (<span class="built_in">int</span>)result.statusCode,</span><br><span class="line">                                result.responseTimeMs,</span><br><span class="line">                                DateTime.UtcNow</span><br><span class="line">                            );</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;url&#125;</span> 無法取得狀態碼。&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                Console.WriteLine(<span class="string">$&quot;[<span class="subst">&#123;DateTime.UtcNow&#125;</span>] 檢查完成，30 秒後再次執行...&quot;</span>);</span><br><span class="line">                <span class="keyword">await</span> Task.Delay(TimeSpan.FromSeconds(<span class="number">30</span>), stoppingToken);  <span class="comment">// 測試用30秒執行一次</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>幾個重點：</p>
 <ul>
-<li>自動化監控：每 30 秒自動檢查所有註冊的 URL</li>
-<li>視覺化儀表板：以簡易 Web UI 呈現最近監控結果</li>
-<li>簡易管理：CLI 指令快速管理監控清單、使用 SQLite 儲存歷史資料</li>
-<li>提供容器化部署：Docker 一鍵部署，跨平台支援</li>
+<li><strong>每一輪都重新讀監控清單</strong>，這就是上一節說的「不用重啟」。</li>
+<li><strong>網址是逐一檢查的</strong>，一個檢查完才換下一個。</li>
+<li><strong> <code>Task.Delay</code>  帶著  <code>stoppingToken</code> </strong>。按下 Ctrl+C 時 token 會被取消，等待中的  <code>Delay</code>  立刻結束、迴圈跳出，服務可以正常收尾，不用硬等 30 秒。</li>
+<li><strong>只有拿到狀態碼的結果會寫進資料庫</strong>。連線失敗（例如 DNS 解析不到）只會印在主控台。</li>
 </ul>
-<hr>
-<h2 id="️-專案技術"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#️-專案技術"></a> 🛠️ 專案技術</h2>
-<p>🟢 後端核心</p>
+<p>以上面那三個網址實際跑一輪，主控台輸出是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[2026/9/28 上午 02:48:16] 開始檢查，共 3 個 URL...</span><br><span class="line">https://reedlin2002.github.io/ 狀態碼：200 (OK)，耗時：1412 ms</span><br><span class="line">https://httpbin.org/status/404 狀態碼：404 (NotFound)，耗時：943 ms</span><br><span class="line">https://httpbin.org/status/503 狀態碼：503 (ServiceUnavailable)，耗時：219 ms</span><br><span class="line">[2026/9/28 上午 02:48:19] 檢查完成，30 秒後再次執行...</span><br></pre></td></tr></table></figure>
+<h2 id="量測statuschecker"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#量測statuschecker"></a> 量測：StatusChecker</h2>
+<p>真正發出請求、計時的是  <code>StatusChecker</code> ：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp/StatusChecker.cs</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;(HttpStatusCode? statusCode, <span class="built_in">long</span> responseTimeMs)&gt; GetStatusCodeAsync(<span class="built_in">string</span> url)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> watch = Stopwatch.StartNew();</span><br><span class="line">                <span class="keyword">var</span> response = <span class="keyword">await</span> _client.GetAsync(url);</span><br><span class="line">                watch.Stop();</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span> (response.StatusCode, watch.ElapsedMilliseconds);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (HttpRequestException)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> (<span class="literal">null</span>, <span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p><code>Stopwatch</code>  包住整個  <code>GetAsync</code> 。 <code>GetAsync</code>  預設會等整個回應內容下載完才返回，所以這裡量到的「耗時」包含下載內容的時間，不只是伺服器回應的速度。</p>
+<p>回傳值用的是 tuple，狀態碼是可為 null 的  <code>HttpStatusCode?</code> ：拿到任何狀態碼（包含 404、503）都算「有回應」，只有  <code>HttpRequestException</code>  這種連不上的情況才回傳  <code>null</code> 。</p>
+<p>另一個細節是建構子：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp/StatusChecker.cs</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">StatusChecker</span>(<span class="params">HttpClient? client = <span class="literal">null</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _client = client ?? <span class="keyword">new</span> HttpClient();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p><code>HttpClient</code>  可以從外面傳進來，沒傳就自己建一個。這一行就是後面能寫測試的關鍵。</p>
+<h2 id="資料sqlite-dapper"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#資料sqlite-dapper"></a> 資料：SQLite + Dapper</h2>
+<p>資料庫只有兩張表，在  <code>Database</code>  建構時用  <code>CREATE TABLE IF NOT EXISTS</code>  建好：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp/Database.cs</span></span><br><span class="line">            connection.Execute(<span class="string">@&quot;</span></span><br><span class="line"><span class="string">                CREATE TABLE IF NOT EXISTS CheckResults (</span></span><br><span class="line"><span class="string">                    Id INTEGER PRIMARY KEY AUTOINCREMENT,</span></span><br><span class="line"><span class="string">                    Url TEXT NOT NULL,</span></span><br><span class="line"><span class="string">                    StatusCode INTEGER,</span></span><br><span class="line"><span class="string">                    ResponseTimeMs INTEGER,</span></span><br><span class="line"><span class="string">                    CheckedAt TEXT NOT NULL</span></span><br><span class="line"><span class="string">                );</span></span><br><span class="line"><span class="string">            &quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>另一張  <code>MonitoredUrls</code>  只有  <code>Id</code>  跟  <code>Url</code>  兩個欄位，就是 CLI 在操作的那份清單。</p>
+<p>SQL 用 Dapper 執行，參數化查詢寫起來跟直接寫 SQL 差不多，但不用自己組字串。值得一提的是時間欄位： <code>CheckedAt</code>  存的是  <code>DateTime.UtcNow.ToString(&quot;o&quot;)</code> ，也就是像  <code>2026-09-28T02:48:19.1433844Z</code>  這種固定格式的 ISO 8601 字串。因為全部是 UTC、格式等長，<strong>字串排序剛好等於時間排序</strong>，所以查最新 100 筆時可以直接  <code>ORDER BY CheckedAt DESC</code> 。</p>
+<h2 id="dashboard"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#dashboard"></a> Dashboard</h2>
+<p>Dashboard 是寫在  <code>Program.cs</code>  裡的一段 HTML 字串，由  <code>/</code>  回傳。頁面上的 JavaScript 每 30 秒呼叫一次  <code>/results</code> ：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp/Program.cs</span></span><br><span class="line">                app.MapGet(<span class="string">&quot;/results&quot;</span>, <span class="keyword">async</span> (Database db) =&gt;</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">var</span> results = <span class="keyword">await</span> db.GetLatestResultsAsync(<span class="number">100</span>);</span><br><span class="line">                    <span class="keyword">return</span> Results.Json(results);</span><br><span class="line">                &#125;);</span><br></pre></td></tr></table></figure>
+<p>Minimal API 的 handler 參數直接寫  <code>Database db</code> ，框架會從 DI 容器把前面註冊的 singleton 注入進來。狀態碼是 200 的顯示綠色，其他顯示紅色：</p>
+<p><img src="/images/UrlHealthMonitor-02.png" alt="UrlHealthMonitor Dashboard：200 顯示綠色，404 與 503 顯示紅色"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">以上面三個網址實際執行 <code>serve</code> 模式的畫面。</p>
+<h2 id="測試把-httpclient-換成假的"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#測試把-httpclient-換成假的"></a> 測試：把 HttpClient 換成假的</h2>
+<p>要測  <code>StatusChecker</code> ，又不想讓測試真的連上網路，做法是自己寫一個假的  <code>HttpMessageHandler</code> ，塞給  <code>HttpClient</code> ：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp.Tests/StatusCheckerTests.cs</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">FakeHttpMessageHandler</span> : <span class="title">HttpMessageHandler</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> HttpResponseMessage _response;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">FakeHttpMessageHandler</span>(<span class="params">HttpResponseMessage response</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _response = response;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> Task&lt;HttpResponseMessage&gt; <span class="title">SendAsync</span>(<span class="params">HttpRequestMessage request, CancellationToken cancellationToken</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> Task.FromResult(_response);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><code>HttpClient</code>  發出的每個請求，最後都會交給 handler 的  <code>SendAsync</code>  處理。把 handler 換成直接回傳固定結果的假物件， <code>StatusChecker</code>  完全不知道自己沒有連網：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UrlHealthMonitorApp.Tests/StatusCheckerTests.cs</span></span><br><span class="line">            <span class="keyword">var</span> fakeResponse = <span class="keyword">new</span> HttpResponseMessage(HttpStatusCode.OK);</span><br><span class="line">            <span class="keyword">var</span> fakeHandler = <span class="keyword">new</span> FakeHttpMessageHandler(fakeResponse);</span><br><span class="line">            <span class="keyword">var</span> httpClient = <span class="keyword">new</span> HttpClient(fakeHandler);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> checker = <span class="keyword">new</span> StatusChecker(httpClient);</span><br></pre></td></tr></table></figure>
+<p>這就是前面建構子接受  <code>HttpClient</code>  參數的用處。目前 repo 裡的測試就是這一個（另一個  <code>UnitTest1</code>  是專案範本留下的空測試）， <code>dotnet test</code>  兩個都會通過。</p>
+<h2 id="docker兩階段建置"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#docker兩階段建置"></a> Docker：兩階段建置</h2>
+<p>根目錄的  <code>Dockerfile</code>  分成建置跟執行兩個階段：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dockerfile</span></span><br><span class="line"><span class="comment"># Build Stage</span></span><br><span class="line"><span class="keyword">FROM</span> mcr.microsoft.com/dotnet/sdk:<span class="number">8.0</span> AS build</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /src</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把 csproj 複製進來</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> UrlHealthMonitorApp/*.csproj ./UrlHealthMonitorApp/</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> dotnet restore UrlHealthMonitorApp/UrlHealthMonitorApp.csproj</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把所有原始碼複製進來</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> UrlHealthMonitorApp/. ./UrlHealthMonitorApp/</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /src/UrlHealthMonitorApp</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> dotnet publish -c Release -o /app/publish</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Runtime Stage</span></span><br><span class="line"><span class="keyword">FROM</span> mcr.microsoft.com/dotnet/aspnet:<span class="number">8.0</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> --from=build /app/publish .</span></span><br><span class="line"><span class="comment"># 建立資料目錄</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">mkdir</span> /app/data</span></span><br><span class="line"><span class="keyword">ENV</span> DATABASE_PATH=/app/data/results.db</span><br></pre></td></tr></table></figure>
+<p>兩個安排值得注意：</p>
+<ol>
+<li><strong>先複製  <code>.csproj</code> 、還原套件，再複製原始碼。</strong> Docker 會快取每一層，只要  <code>.csproj</code>  沒變， <code>dotnet restore</code>  那一層就直接沿用快取；平常只改程式碼時，不必每次重新下載套件。</li>
+<li><strong>執行階段換成比較小的  <code>aspnet</code>  runtime 映像檔</strong>，只帶 publish 出來的結果，不帶整套 SDK。</li>
+</ol>
+<p>最後  <code>ENTRYPOINT</code>  用  <code>serve</code>  模式啟動，資料庫放在  <code>/app/data</code> 。啟動容器、再從外面新增網址：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker build -t urlhealthmonitor .</span><br><span class="line">docker run -d -p 5001:5000 --name urlhealthmonitor urlhealthmonitor</span><br><span class="line">docker <span class="built_in">exec</span> -it urlhealthmonitor dotnet UrlHealthMonitorApp.dll add &lt;你的URL&gt;</span><br></pre></td></tr></table></figure>
+<p><code>docker exec</code>  進去執行的，就是同一個執行檔的 CLI 模式；它跟容器裡正在跑的  <code>serve</code>  共用同一個 SQLite 檔，所以新增的網址下一輪就會被檢查。</p>
+<h2 id="小結"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#小結"></a> 小結</h2>
+<ol>
+<li><strong>同一個執行檔，依參數切換角色</strong>。CLI 跟背景服務不直接溝通，而是透過同一個 SQLite 檔案交換資料。</li>
+<li><strong> <code>BackgroundService</code>  加上  <code>stoppingToken</code> </strong>，讓定時工作可以跟著主程式乾淨地啟動與停止。</li>
+<li><strong>可測試性來自一個建構子參數</strong>。 <code>HttpClient</code>  能從外面注入，測試就能用假的 handler 取代真實網路。</li>
+</ol>
+<p>► 「 <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/UrlHealthMonitor">GITHUB</a> 」</p>
 <blockquote>
-<p>框架：.NET 8 Worker Service + ASP.NET Minimal API<br>
- 語言：C#（Async/Await + 依賴注入）<br>
-資料庫：SQLite 輕量級資料庫</p>
+<p>更新紀錄：2026-09-28 依 repo 的實際程式碼重寫，並重新截取執行畫面。</p>
 </blockquote>
-<p>🟡 測試與品質</p>
-<blockquote>
-<p>測試框架：xUnit + FluentAssertions<br>
- 開發方法：採用 TDD 思維</p>
-</blockquote>
-<p>🟣 前端</p>
-<blockquote>
-<p>介面：簡易 Web Dashboard<br>
- 技術：HTML5 + CSS3 + Vanilla JavaScript</p>
-</blockquote>
-<p>🟠 部署運維</p>
-<blockquote>
-<p>容器化：Docker<br>
- 環境支援：Linux / Windows /macOS</p>
-</blockquote>
-<hr>
-<h2 id="️-執行方式"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#️-執行方式"></a> ⚙️ 執行方式</h2>
-<h3 id="開發模式-本機執行"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#開發模式-本機執行"></a> 開發模式 (本機執行)</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dotnet run -- add &lt;URL&gt;       # 新增要監控的 URL</span><br><span class="line">dotnet run -- list            # 列出所有 URL</span><br><span class="line">dotnet run -- remove &lt;ID&gt;     # 移除指定 URL</span><br><span class="line">dotnet run -- serve           # 啟動 Web UI</span><br></pre></td></tr></table></figure>
-<p>打開 http://localhost:5000 查看 Dashboard。</p>
-<h3 id="docker-部署"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#docker-部署"></a> Docker 部署</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 建置映像</span><br><span class="line">docker build -t urlhealthmonitor .</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 執行容器</span><br><span class="line">docker run -d -p 5001:5000 --name urlhealthmonitor urlhealthmonitor</span><br></pre></td></tr></table></figure>
-<p>打開 http://localhost:5001 查看 Dashboard。</p>
-<hr>
-<h2 id="實際示範"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#實際示範"></a> 🌐 實際示範</h2>
-<div id="gallery">
-  <a href="/images/UrlHealthMonitor-01.png">
-    <img src="/images/UrlHealthMonitor-01.png" alt="記帳頁面" style="max-width: 600px;">
-  </a>
 </div>
-<hr>
-<h2 id="tdd-測試"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#tdd-測試"></a> 🧪 TDD 測試</h2>
-<h3 id="測試"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#測試"></a> 測試</h3>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dotnet test</span><br></pre></td></tr></table></figure>
-<p>測試範圍：</p>
-<ul>
-<li>HTTP 請求狀態檢查</li>
-<li>超時處理</li>
-<li>資料庫操作</li>
-</ul>
-<hr>
-<h2 id="未來擴展"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#未來擴展"></a> 🚀 未來擴展</h2>
-<ul>
-<li>RESTful API 支援</li>
-<li>整合通知 (EMAIL / LINE)</li>
-<li>監控數據視覺化</li>
-</ul>
-<hr>
-<p>技術與應用方法：<br>
-.NET 8、C#（Async/Await + 依賴注入）、SQLite、xUnit + FluentAssertions（TDD 開發流程）、Docker、HttpClient（網站監控）、CLI 、JavaScript + HTML/CSS</p>
-<h2 id="心得"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#心得"></a> 📝 心得</h2>
-<blockquote>
-<p>針對 TDD、HTTP 協議這兩個技術練習了這個「HTTP 狀態碼偵測器」，在撰寫程式碼的過程中因為使用的是很久沒碰的 C# 一開始確實有些生疏，經常忘記變數宣告的語法規則，但隨著練習逐漸找回手感。在 Docker 部屬上，常常遇到檔案不知道放哪裡的問題，不過經過一番 ChatGPT 的協助和一番研究也是弄好了～也靠著 TDD 學會了更可靠的程式碼，先用測試再寫功能，確保程式碼符合預期，減少 BUG，培養良好的開發習慣</p>
-</blockquote>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
-/>
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
-<script>
-  lightGallery(document.getElementById("gallery"), {
-    plugins: [lgZoom],
-    speed: 300,
-    zoom: true
-  });
-</script></div>
 
   <footer class="reading-end">
     <span class="end-mark" aria-hidden="true">✳</span>
     <p>謝謝你，讀到這裡。</p>
     
     <div class="reading-tags">
-      <a href="/tags/project/"># project</a>
+      <a href="/tags/project/"># project</a><a href="/tags/NET/"># .NET</a><a href="/tags/C/"># C#</a><a href="/tags/SQLite/"># SQLite</a><a href="/tags/Docker/"># Docker</a>
     </div>
     
     
@@ -368,16 +363,17 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&text=🌐 | 網站健康監控平台"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=🌐 | 網站健康監控平台"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&is_video=false&description=🌐 | 網站健康監控平台"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=🌐 | 網站健康監控平台&body=Check out this article: https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=🌐 | 網站健康監控平台"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=🌐 | 網站健康監控平台"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=🌐 | 網站健康監控平台"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=🌐 | 網站健康監控平台"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&name=🌐 | 網站健康監控平台&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&t=🌐 | 網站健康監控平台"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&text=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&is_video=false&description=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控&body=Check out this article: https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&title=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&name=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控&description=&lt;p&gt;UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。&lt;/p&gt;
+&lt;p&gt;規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。這篇照著程式實際的結構，一塊一塊拆開來看。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/&t=UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
