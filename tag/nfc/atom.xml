@@ -18,15 +18,17 @@
     <category term="Daily" />
     <category term="技術筆記" />
     <category term="(作者自學用)" />
+    <category term="side project" />
+    <category term="React" />
+    <category term="TypeScript" />
+    <category term="PWA" />
+    <category term="Hackathon" />
     <category term="iOS" />
     <category term="CallKit" />
     <category term="系統設計" />
-    <category term="side project" />
     <category term="NFC" />
     <category term="Android" />
     <category term="Capacitor" />
-    <category term="React" />
-    <category term="TypeScript" />
     <category term="AI" />
     <category term="重構" />
     <category term="電腦視覺" />
@@ -162,10 +164,10 @@
 &lt;/blockquote&gt;
 </content>
         <category term="side project" />
+        <category term="React" />
         <category term="NFC" />
         <category term="Android" />
         <category term="Capacitor" />
-        <category term="React" />
         <updated>2026-05-31T12:00:00.000Z</updated>
     </entry>
 </feed>

@@ -14,7 +14,10 @@
 
   var MODEL_URL = cfg.model || (cfg.models && cfg.models[Object.keys(cfg.models)[0]]);
   var CHAR_NAME = 'Hibiki';
-  var FULL_MIN_WIDTH = 769;
+  /* 文章欄 720px 置中,右側留白要放得下角色(right 26 + 92 = 118px)才顯示全身;
+     窄於此角色會站在內文上,透明 hitbox 還會擋住文字與連結 */
+  var FULL_MIN_WIDTH = 960;
+  var EXIT_MS = 160;
   var FULL_MIN_HEIGHT = 520;
   var HIDE_KEY = 'hibiki-hidden';
 
@@ -98,7 +101,7 @@
   root.innerHTML =
     '<button type="button" class="waifu-launcher" aria-controls="waifu-term" aria-expanded="false">' +
       '<span class="waifu-launcher-status" aria-hidden="true"></span>' +
-      '<span>問 Hibiki</span>' +
+      '<span class="waifu-launcher-label">問 Hibiki</span>' +
     '</button>' +
     '<button type="button" class="waifu-hitbox" title="跟 Hibiki 聊天" aria-label="開啟 Hibiki 聊天" aria-controls="waifu-term" aria-expanded="false" hidden></button>' +
     /* 滑過角色才浮出;必須排在 hitbox 之後,CSS 才能用 ~ 兄弟選擇器 */
@@ -118,7 +121,7 @@
       '<span class="waifu-bubble-text"></span>' +
     '</button>' +
     '<button type="button" class="waifu-scrim" aria-label="關閉 Hibiki 聊天" hidden></button>' +
-    '<section class="waifu-term" id="waifu-term" role="dialog" aria-label="與 Hibiki 聊天" hidden>' +
+    '<section class="waifu-term" id="waifu-term" role="dialog" aria-label="與 Hibiki 聊天" tabindex="-1" hidden>' +
       '<div class="waifu-term-bar">' +
         '<div class="waifu-nameplate">' +
           '<strong class="waifu-name">Hibiki</strong>' +
@@ -197,9 +200,54 @@
       model: { jsonPath: MODEL_URL },
       display: { position: 'right', width: 92, height: 184, hOffset: 26, vOffset: 0 },
       mobile: { show: false },
-      react: { opacityDefault: 0.55, opacityOnHover: 0.95 },
       log: false
     });
+  }
+
+  /* L2Dwidget 每幀呼叫 requestAnimationFrame(tick, canvas),沒有暫停 API;
+     角色看不見時把這條迴圈停在原地,重新出現再接上,其他 rAF 照常 */
+  var nativeRaf = window.requestAnimationFrame;
+  var live2dPaused = false;
+  var parkedTick = null;
+  window.requestAnimationFrame = function (callback, element) {
+    if (live2dPaused && element && element.id === 'live2dcanvas') {
+      parkedTick = callback;
+      return 0;
+    }
+    return nativeRaf.call(window, callback);
+  };
+
+  function setLive2DPaused(paused) {
+    live2dPaused = paused;
+    if (!paused && parkedTick) {
+      var tick = parkedTick;
+      parkedTick = null;
+      nativeRaf.call(window, tick);
+    }
+  }
+
+  /* 只有退場動畫需要延後 hidden;減少動態時直接收 */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+  var exitTimers = new WeakMap();
+
+  function showEl(el) {
+    clearTimeout(exitTimers.get(el));
+    el.classList.remove('is-leaving');
+    el.hidden = false;
+  }
+
+  function hideEl(el) {
+    if (el.hidden) return;
+    if (reduceMotion && reduceMotion.matches) {
+      el.hidden = true;
+      return;
+    }
+    el.classList.add('is-leaving');
+    clearTimeout(exitTimers.get(el));
+    exitTimers.set(el, setTimeout(function () {
+      el.classList.remove('is-leaving');
+      el.hidden = true;
+    }, EXIT_MS));
   }
 
   function syncLayout() {
@@ -220,6 +268,7 @@
 
     /* 收起狀態下不呼叫:回訪者完全不會下載模型檔 */
     if (showFull) initLive2D();
+    setLive2DPaused(!showFull);
     ensureMobileAction();
     syncExpandedState();
   }
@@ -282,8 +331,8 @@
   function openChat(trigger) {
     if (trigger) lastTrigger = trigger;
     chatOpen = true;
-    term.hidden = false;
-    scrim.hidden = false;
+    showEl(term);
+    showEl(scrim);
     bubble.hidden = true;
     clearTimeout(bubbleTimer);
     clearTimeout(ambientTimer);
@@ -291,14 +340,20 @@
     chips.hidden = !getPageContext();
     ensureIntro();
     syncLayout();
-    window.requestAnimationFrame(function () { input.focus(); });
+    /* 手機一打開就 focus 輸入框會立刻彈出鍵盤、把 bottom sheet 頂出畫面;
+       觸控裝置先 focus 對話框本身,讓讀螢幕軟體進入面板,要打字再點輸入框 */
+    var touchSheet = window.innerWidth < 500 && window.matchMedia &&
+      window.matchMedia('(pointer: coarse)').matches;
+    window.requestAnimationFrame(function () {
+      (touchSheet ? term : input).focus({ preventScroll: true });
+    });
   }
 
   function closeChat(restoreFocus) {
     if (!chatOpen) return;
     chatOpen = false;
-    term.hidden = true;
-    scrim.hidden = true;
+    hideEl(term);
+    hideEl(scrim);
     document.body.classList.remove('waifu-chat-open');
     syncLayout();
     if (restoreFocus !== false && lastTrigger && lastTrigger.isConnected) lastTrigger.focus();
@@ -441,9 +496,9 @@
   function say(text, ms) {
     if (!canShowAmbient() || currentMode === 'mobilebar') return false;
     bubbleText.textContent = text;
-    bubble.hidden = false;
     clearTimeout(bubbleTimer);
-    bubbleTimer = setTimeout(function () { bubble.hidden = true; }, ms || 6500);
+    showEl(bubble);
+    bubbleTimer = setTimeout(function () { hideEl(bubble); }, ms || 6500);
     return true;
   }
 
