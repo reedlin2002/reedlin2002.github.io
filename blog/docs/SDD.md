@@ -88,3 +88,52 @@ HTTP 狀態：錯誤 JSON 或無有效 user 訊息為 400；錯誤 method 為 40
 - 不主動提 JSON 或內部機制；問資料來源時說網站自動提供的公開文章資料。若先前把背景資料說成訪客貼的，承認錯誤；不把先前 assistant 的誤述當證據。
 - Node 原生測試驗證真實 Worker 入口的資料流、期限與回傳，來源歸因案例驗證 user 訊息未被程式附加背景資料污染。模型實際理解、繁體中文品質與資訊正確性仍需要固定問答人工比較；流程見 Worker README。
 - 本次未新增串流、長期記憶、速率限制、全文檢索或資料庫，也未部署至正式環境。
+
+---
+
+# 系統設計：Portfolio SPA（/portfolio/）
+
+獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格選單不連入。決策見 `docs/decisions/2026-09-28-portfolio-spa-react.md`。更新日期：2026-09-28。
+
+## 元件與建置流程
+
+```mermaid
+flowchart LR
+    Src["portfolio/（Vite + React + TS）"] -->|npm run build:portfolio| Out["source/portfolio/"]
+    Out -->|skip_render: portfolio/**，原樣複製| Public["public/portfolio/"]
+    Public -->|hexo deploy| Pages["GitHub Pages /portfolio/"]
+    Data["src/data/timeline.ts"] --> Src
+    RB["src/components/reactbits/"] --> Src
+```
+
+- `portfolio/` 是獨立的 npm 專案；React、gsap、motion 只打包在這一頁，cactus 主題與其他頁面不受影響。
+- build 產物進版控。修改 `portfolio/` 後必須重跑 `npm run build:portfolio`，`hexo generate` 只負責複製。
+- 頁面帶 `<meta name="robots" content="noindex, nofollow">`；`<noscript>` 內有純連結清單。
+
+## 頁面區塊
+
+| 區塊 | 檔案 | 內容 | 動畫 |
+|---|---|---|---|
+| Hero | `sections/Hero.tsx` | 姓名、學校與職稱兩行（對應研究／工程兩軌的顏色）、自我介紹；右側為 UAV 原始影格 → 7×5 切片掃描 → 2024 年系統實際輸出與 CCI／PAI | Decrypted Text；切片位置由 `lib/tiles.ts`（移植自 project repo 的 `inference.py`）計算 |
+| 雙軌時間軸 | `sections/DualTimeline.tsx` | 研究／工程兩軌，資料來自 `data/timeline.ts`；軸線終點為「NOW」標記 | Animated Content、Count Up |
+| 學習方式 | `sections/Practice.tsx` | 學習循環與寫作觀 | Scroll Reveal（逐字） |
+| 匯合 | `sections/Converge.tsx` | 定位句與聯絡方式 | 無 |
+
+## 時間軸資料（`data/timeline.ts`）
+
+| 欄位 | 用途 |
+|---|---|
+| `track` | `research` 或 `engineering`，決定左右欄與顏色 |
+| `date`／`sortKey` | 顯示用日期與排序用日期；同一 `sortKey` 依陣列順序（sort 為 stable） |
+| `tag` | 類型標籤，例如「競賽」「Side Project」「寫作」 |
+| `compact` | 小卡：獎項、里程碑等沒有圖片的節點 |
+| `image` | 真實截圖或系統輸出；UI 截圖用 `fit: 'contain'` 避免裁切 |
+| `links` | 文章／GitHub 按鈕 |
+| `stats` | Count Up 數字，另提供螢幕閱讀器用的最終值 |
+| `cases` | 工作案例子項（標題 + 說明） |
+
+- 節點只收有 repo、文章或作者確認來源的項目；日期不明的項目不放，或與同類節點合併。
+
+- Target Cursor 只在 `(hover: hover) and (pointer: fine) and (min-width: 769px)` 且未開啟減少動態時載入。
+- `prefers-reduced-motion: reduce` 時：Hero 直接顯示結果、文字不打亂、卡片直接顯示、數字顯示最終值、引言不拆字。
+- 所有影像都是真實資料（專題影格、系統輸出、實際執行截圖、文章內的圖），不繪製模型沒有輸出過的偵測框。

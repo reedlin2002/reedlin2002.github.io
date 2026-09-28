@@ -13,3 +13,4 @@
 - 好處：零額外 runtime（React islands 約 140KB）、與現有 PJAX 生命週期天然相容（Aurora 純 CSS 甚至免 re-init）、亮暗模式靠既有 CSS custom properties 免費適配、prefers-reduced-motion 可完整覆蓋。
 - 壞處：不能直接複製 React Bits 官方元件碼，每個效果要手工重刻；後續想要的新效果也要逐一移植。
 - 若未來遷移到 React 框架，此決策作廢（Superseded）。
+- 範圍：本決策只適用 cactus 主題。獨立頁面 `/portfolio/` 另以 Vite + React 子專案實作，見 `2026-09-28-portfolio-spa-react.md`。
