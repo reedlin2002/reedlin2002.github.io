@@ -8,7 +8,7 @@
 - `source/_posts/nfc-test.md`（重寫，保留 date 與網址）
 - `source/_posts/mapgo-hackathon.md`（新增）
 - `source/_posts/UrlHealthMonitor.md`（重寫，保留 date 與網址）
-- `source/images/`（新增文章截圖與封面：`uav-analysis-refactor-*`、`nfc-test-*`、`UrlHealthMonitor-cover.png`、`UrlHealthMonitor-02.png`）
+- `source/images/`（新增文章截圖與封面：`uav-analysis-refactor-*`、`nfc-test-*`、`UrlHealthMonitor-cover.png`、`UrlHealthMonitor-02.png`、`mapgo-cover.png`、`mapgo-flow-1.png`、`mapgo-flow-2.png`）
 - `docs/decisions/2026-09-28-article-sourcing-policy.md`（新增）
 
 ## Implementation
@@ -38,13 +38,13 @@ none
 - [x] project 重構：`uav-analysis-refactor.md`，封面與兩張切圖比較圖（真實 UAV 影像 + 格線，`make_tile_figs.py` 產生）
 - [x] nfc-test 重寫：封面、瀏覽器執行 `dist/` 的三張截圖；舊版的 Web NFC 描述已移除，文末附更新紀錄
 - [x] UrlHealthMonitor 重寫：本機實際執行 `serve` 模式重截 Dashboard（`UrlHealthMonitor-02.png`）；舊文中「FluentAssertions」「超時處理與資料庫測試」與 repo 不符，已移除
-- [ ] MapGo：待作者確認黑客松名稱、日期、分工與結果
+- [x] MapGo：`mapgo-hackathon.md`，六個畫面的真實截圖與離線實測（Chrome DevTools Offline，整條流程可走完）；TDX 快取與 NetworkFirst 規則已設定但未接上，文中照實說明，不沿用 README 的「整合 TDX」說法
 - 程式碼片段已用腳本逐段比對 repo 原檔（含歷史 commit 版本），全部一致
 - 2026-09-28 已部署前三篇（main `4314369`）
 
 ## Story Status
 - [x] In Progress
-- [ ] Code Done
-- [ ] Docs Updated
-- [ ] SDD Updated
-- [ ] Review Ready
+- [x] Code Done
+- [x] Docs Updated
+- [x] SDD Updated（N/A，只改內容）
+- [x] Review Ready
