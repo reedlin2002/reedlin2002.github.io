@@ -4,12 +4,12 @@
     <title>Reedlin2002 • Posts by &#34;react&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
     <updated>2026-09-28T04:00:00.000Z</updated>
+    <category term="myself" />
     <category term="project" />
     <category term=".NET" />
     <category term="C#" />
     <category term="SQLite" />
     <category term="Docker" />
-    <category term="myself" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
@@ -18,21 +18,21 @@
     <category term="Daily" />
     <category term="技術筆記" />
     <category term="(作者自學用)" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
     <category term="side project" />
+    <category term="NFC" />
+    <category term="Android" />
+    <category term="Capacitor" />
     <category term="React" />
     <category term="TypeScript" />
     <category term="PWA" />
     <category term="Hackathon" />
-    <category term="NFC" />
-    <category term="Android" />
-    <category term="Capacitor" />
-    <category term="iOS" />
-    <category term="CallKit" />
-    <category term="系統設計" />
+    <category term="AI" />
     <category term="重構" />
     <category term="電腦視覺" />
     <category term="軟體工程" />
-    <category term="AI" />
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
     <category term="影像處理" />
@@ -271,10 +271,10 @@
 &lt;/blockquote&gt;
 </content>
         <category term="side project" />
-        <category term="React" />
         <category term="NFC" />
         <category term="Android" />
         <category term="Capacitor" />
+        <category term="React" />
         <updated>2026-05-31T12:00:00.000Z</updated>
     </entry>
     <entry>

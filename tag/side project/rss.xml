@@ -7,12 +7,12 @@
         <language>zh-TW</language>
         <pubDate>Mon, 28 Sep 2026 12:00:00 +0800</pubDate>
         <lastBuildDate>Mon, 28 Sep 2026 12:00:00 +0800</lastBuildDate>
+        <category>myself</category>
         <category>project</category>
         <category>.NET</category>
         <category>C#</category>
         <category>SQLite</category>
         <category>Docker</category>
-        <category>myself</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
@@ -21,21 +21,21 @@
         <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>side project</category>
+        <category>NFC</category>
+        <category>Android</category>
+        <category>Capacitor</category>
         <category>React</category>
         <category>TypeScript</category>
         <category>PWA</category>
         <category>Hackathon</category>
-        <category>NFC</category>
-        <category>Android</category>
-        <category>Capacitor</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
+        <category>AI</category>
         <category>重構</category>
         <category>電腦視覺</category>
         <category>軟體工程</category>
-        <category>AI</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
@@ -151,10 +151,10 @@
             <title>讓手機假裝成一張 NFC 卡片：NFC-test 的 HCE 實作與平台不對稱</title>
             <link>https://reedlin2002.github.io/2026/05/31/nfc-test/</link>
             <category>side project</category>
-            <category>React</category>
             <category>NFC</category>
             <category>Android</category>
             <category>Capacitor</category>
+            <category>React</category>
             <pubDate>Sun, 31 May 2026 20:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;交換名片最麻煩的一步，是讓對方「拿到」你的資訊：傳 LINE 要先加好友，掃 QR code 要先打開相機。我想要的是兩支手機碰一下，對方手機就跳出我的連結，而且對方&lt;strong&gt;不需要安裝任何 App&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;工作上的產品後來也要做 NFC 功能，但需求還沒定型，不適合直接在正式專案裡試。所以我先開了一個獨立的 prototype：NFC-test。它是用 React + Capacitor 包成原生 App 的 NFC 名片工具，驗證三件事：手機對手機分享、寫入實體 NFC 卡、讀取別人的 NFC 名片。&lt;/p&gt;
