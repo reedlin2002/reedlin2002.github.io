@@ -8,7 +8,7 @@
 
 ## Decision
 - 前端聊天框 → POST 到站主自部署的 **Cloudflare Worker**（免費額度 100k req/day）→ Worker 持 `OPENROUTER_API_KEY` env var 轉呼叫 OpenRouter chat/completions → 回傳單一 reply。
-- Worker 端固定 system prompt（人設，env 可覆寫）、裁切歷史（最後 10 則、每則 500 字）、max_tokens 300、CORS 鎖定 blog origin，降低濫用面。
+- Worker 人設可覆寫，固定品質規則與網站背景資料來源獨立說明。2026-09-27 起歷史上限為 20 則、每則 2,000 字、總計 16,000 字，按完整輪次保留；生成預算為 1,200 tokens，截斷時一次重新生成 2,400 tokens。來源歸因與免費模型、期限政策見 [回覆品質決策](2026-09-27-hibiki-worker-quality.md)。CORS 限定瀏覽器來源，並不等同速率限制或身分驗證。
 - 前端 `theme.live2d_chat.endpoint` 未設定時退化為離線劇本回覆（關鍵字 + 隨機台詞），介面不變，之後填上 endpoint 即升級為真 LLM。
 - 渲染底座沿用 L2Dwidget（vendor 進 theme，棄用 hexo-helper-live2d 的自動注入），固定使用 jsdelivr CDN 的 Hibiki Cubism 2 模型，避免換模型 reload 與殘留 canvas。
 - Hibiki 定位為「文章聊天助理」：桌機所有頁面顯示右下完整角色，避免原本看板娘在首頁消失；平板顯示明確的「問 Hibiki」入口；手機文章頁將入口整合進既有底部操作列。文章判斷只控制總結功能與對話上下文。

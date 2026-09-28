@@ -7,7 +7,7 @@
 Hibiki 原本不知道站上有哪些文章,訪客問「推薦文章」只能瞎掰。需要把文章清單放進模型 context,且要決定:資料從哪來、由誰注入、推薦結果如何呈現。站上僅 12 篇文章,全量注入即可,不需檢索/RAG。
 
 ## Decision
-- **注入架構**:Worker 向正式站抓 `/hibiki-index.json`(`INDEX_URL` env 可覆寫),成功快取 1 小時、失敗快取 5 分鐘後重試;組成清單區塊接在 system prompt 後。前端 payload 不變,訪客零額外頻寬。
+- **注入架構**:Worker 向正式站抓 `/hibiki-index.json`(`INDEX_URL` env 可覆寫)，成功快取 1 小時、失敗快取 5 分鐘後重試。2026-09-27 起，資料置於來源明確、沒有指令效力的 system 引用區塊，絕不混入訪客 user 訊息；快取依 URL 區別，抓取含 body 最多三秒。見 [資料歸因決策](2026-09-27-hibiki-worker-quality.md)。前端 payload 不變。
 - **索引來源**:新增 `scripts/hibiki-index.js` Hexo generator,建置時產出 title/url/date/tags/120 字摘要的專用 JSON(約 5KB)。不重用含全文的 `search.xml`,避免 Worker 解 XML 與抓取肥大檔案。
 - **注入策略**:每次請求都注入(約 1K tokens,成本可忽略),文章頁也能回答「還有哪篇相關」。
 - **連結渲染**:人設指示推薦時附原樣路徑;前端只把符合 permalink 格式(`/YYYY/MM/DD/slug/`)的相對路徑轉成 `<a>`,其餘維持 createTextNode 純文字。點連結先收合聊天,交給 PJAX 導航與既有 `syncPage` 重置對話。
