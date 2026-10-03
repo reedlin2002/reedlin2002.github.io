@@ -785,6 +785,7 @@ a.card-media:hover img {
 }
 
 .btn.is-github:hover,
+.btn.is-site:hover,
 .btn.is-mail:hover {
   border-color: var(--text);
 }

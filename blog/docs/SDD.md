@@ -93,7 +93,7 @@ HTTP 狀態：錯誤 JSON 或無有效 user 訊息為 400；錯誤 method 為 40
 
 # 系統設計：Portfolio SPA（/portfolio/）
 
-獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格選單不連入。決策見 `docs/decisions/2026-09-28-portfolio-spa-react.md`。更新日期：2026-09-28。
+獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格選單不連入。決策見 `docs/decisions/2026-09-28-portfolio-spa-react.md`。更新日期：2026-10-03。
 
 ## 元件與建置流程
 
@@ -128,11 +128,11 @@ flowchart LR
 | `tag` | 類型標籤，例如「競賽」「Side Project」「寫作」 |
 | `compact` | 小卡：獎項、里程碑等沒有圖片的節點 |
 | `image` | 真實截圖或系統輸出；UI 截圖用 `fit: 'contain'` 避免裁切 |
-| `links` | 文章／GitHub 按鈕 |
+| `links` | 文章／GitHub／官網按鈕（`kind`：`article`、`github`、`site`） |
 | `stats` | Count Up 數字，另提供螢幕閱讀器用的最終值 |
 | `cases` | 工作案例子項（標題 + 說明） |
 
-- 節點只收有 repo、文章或作者確認來源的項目；日期不明的項目不放，或與同類節點合併。
+- 節點只收有 repo、文章或作者確認來源的項目；事實與申請文件（目前為 v1.8）一致。日期不明的項目不放，或與同類節點合併。
 
 - Target Cursor 只在 `(hover: hover) and (pointer: fine) and (min-width: 769px)` 且未開啟減少動態時載入。
 - `prefers-reduced-motion: reduce` 時：Hero 直接顯示結果、文字不打亂、卡片直接顯示、數字顯示最終值、引言不拆字。
