@@ -40,6 +40,7 @@ none
 - 桌機 1440：22 張卡，2023–2026 年份與排序正確，12 張圖都有載入，console 沒有錯誤；頁面上 23 個外部連結都回 200。
 - 手機 390：沒有橫向溢出；reduced motion 時 App 卡數字直接顯示 9／37／98。
 - 已知：手機寬度下，有 3 個數字的卡片會排成 2＋1（`.stats` 的 auto-fit 原本就是這樣，專題卡也一樣），不改 UI。
+- 2026-10-03 已部署（source `6cb4222`，main `1d9d7c6`）；線上 `/portfolio/` 與新的 JS、CSS、4 張圖皆為 200。
 
 ## Story Status
 - [x] In Progress
