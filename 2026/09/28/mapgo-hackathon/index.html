@@ -162,8 +162,7 @@
       <li class="nav-search"><a href="/search/" aria-label="搜尋文章"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><span>搜尋</span></a></li>
     </ul>
     <button id="theme-toggle" aria-label="切換深/淺色主題" title="切換主題">
-      <i class="fa-solid fa-sun icon-sun"></i>
-      <i class="fa-solid fa-moon icon-moon"></i>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg>
     </button>
   </div>
 </header>
@@ -403,19 +402,20 @@
 
                       
                         <!-- ═══════════════════════════════════════════════
-     FOOTER — 開發筆記本：Stay curious 字標 + 一行資訊
+     FOOTER — Stay curious 字標 + icon 連結 + 版權
      ═══════════════════════════════════════════════ -->
 <footer id="footer" role="contentinfo">
   <div class="footer-bar">
     <a class="footer-note" href="/">Stay curious<span>繼續保持好奇。</span></a>
     <div class="footer-meta">
+      <ul class="footer-icons" aria-label="聯絡與搜尋">
+        <li><a href="https://github.com/reedlin2002" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg></a></li>
+        <li><a href="mailto:lin1022business@gmail.com" aria-label="寫信給我" title="寫信給我"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></a></li>
+        <li><a href="/search/" aria-label="搜尋文章" title="搜尋文章"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></a></li>
+      </ul>
       
       
-      <span>© 2016–2026 Lin / Reedlin2002</span>
-      <a href="https://github.com/reedlin2002" target="_blank" rel="noopener">GitHub ↗</a>
-      <a href="mailto:lin1022business@gmail.com">寫信給我 ↗</a>
-      <a href="/search/">搜尋 ↗</a>
-      <span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a></span>
+      <p class="footer-copy">© 2016–2026 Lin / Reedlin2002 · Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a></p>
     </div>
   </div>
 </footer>
@@ -424,7 +424,7 @@
      返回頂部按鈕
      ═══════════════════════════════════════════════ -->
 <button id="back-to-top" aria-label="返回頂部" title="返回頂部">
-  <i class="fas fa-chevron-up"></i>
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
 </button>
 
             </main>

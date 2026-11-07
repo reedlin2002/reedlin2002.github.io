@@ -1,9 +1,9 @@
 /**
- * Hibiki 文章聊天助理
- * - 桌機所有頁面：右下 Live2D + 明確入口，聊天窗在角色上方
- * - 平板：回頂按鈕上方的精簡入口
- * - 手機文章頁：入口整合進既有底部操作列，聊天使用 bottom sheet
- * - PJAX 換文章時清空對話；同篇文章收合再開啟則保留內容
+ * Hibiki 文章聊天助理：公會櫃檯抽屜
+ * - 平常只有右下角的入口按鈕（手機文章頁改用底部操作列）
+ * - 打開時從右側滑出抽屜：上半部是櫃檯，Live2D 角色站在櫃檯後；下半部聊天
+ * - Live2D 模型第一次打開抽屜才載入，關起來就暫停繪製
+ * - PJAX 換文章時清空對話；同篇文章關掉再開保留內容
  */
 (function () {
   'use strict';
@@ -14,12 +14,7 @@
 
   var MODEL_URL = cfg.model || (cfg.models && cfg.models[Object.keys(cfg.models)[0]]);
   var CHAR_NAME = 'Hibiki';
-  /* 文章欄 720px 置中,右側留白要放得下角色(right 26 + 92 = 118px)才顯示全身;
-     窄於此角色會站在內文上,透明 hitbox 還會擋住文字與連結 */
-  var FULL_MIN_WIDTH = 960;
-  var EXIT_MS = 160;
-  var FULL_MIN_HEIGHT = 520;
-  var HIDE_KEY = 'hibiki-hidden';
+  var EXIT_MS = 200;
 
   var history = [];
   var bubbleTimer = null;
@@ -27,7 +22,7 @@
   var resizeTimer = null;
   var chatOpen = false;
   var pending = false;
-  var live2dReady = false;
+  var live2dRequested = false;
   var currentMode = '';
   var conversationKey = getConversationKey();
   var conversationVersion = 0;
@@ -40,30 +35,6 @@
   var midpointHinted = false;
   var scrollTicking = false;
   var AMBIENT_MAX_PER_PAGE = 4;
-  var dismissed = readDismissed();
-
-  /* ── 訪客自選的「收起 Hibiki」偏好 ─────────────── */
-  /* 無痕模式讀寫 localStorage 會丟例外,失敗時退回「本次瀏覽有效」 */
-  function readDismissed() {
-    // Disposable previews can opt into in-memory visibility without changing visitors' preferences.
-    if (cfg.persist_visibility === false) return !!cfg.start_hidden;
-    try {
-      return localStorage.getItem(HIDE_KEY) === '1';
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function writeDismissed(value) {
-    if (cfg.persist_visibility === false) return;
-    try {
-      if (value) {
-        localStorage.setItem(HIDE_KEY, '1');
-      } else {
-        localStorage.removeItem(HIDE_KEY);
-      }
-    } catch (e) { /* 忽略:偏好只在這次瀏覽生效 */ }
-  }
 
   /* ── 當前頁面與文章內容 ───────────────────────── */
   function getPageContext() {
@@ -80,82 +51,54 @@
     return getPageContext() ? 'article:' + location.pathname : 'site';
   }
 
-  /* mobilebar 的入口掛在文章頁的底部操作列;沒有 #actions-footer 的頁面要退回 compact,
-     否則手機上會完全找不到 Hibiki */
-  function isPhoneArticle() {
-    return window.innerWidth < 500 && !!document.getElementById('actions-footer');
+  /* 手機文章頁的入口在底部操作列;沒有 #actions-footer 的頁面退回浮動入口 */
+  function getMode() {
+    return window.innerWidth < 500 && document.getElementById('actions-footer') ? 'mobilebar' : 'float';
   }
 
-  function getMode() {
-    var canRenderFull = MODEL_URL && typeof L2Dwidget !== 'undefined';
-    if (canRenderFull && window.innerWidth >= FULL_MIN_WIDTH &&
-        window.innerHeight >= FULL_MIN_HEIGHT) {
-      return 'full';
-    }
-    return isPhoneArticle() ? 'mobilebar' : 'compact';
-  }
+  var ICON_CHAT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 5.5h15v10h-8l-4.5 3.5v-3.5h-2.5z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01" stroke-linecap="round" stroke-width="2"/></svg>';
+  var ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';
+  var ICON_SEND = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
 
   /* ── UI ───────────────────────────────────────── */
   var root = document.createElement('div');
   root.id = 'waifu-chat';
   root.innerHTML =
     '<button type="button" class="waifu-launcher" aria-controls="waifu-term" aria-expanded="false">' +
-      '<span class="waifu-launcher-status" aria-hidden="true"></span>' +
-      '<span class="waifu-launcher-label">問 Hibiki</span>' +
-    '</button>' +
-    '<button type="button" class="waifu-hitbox" title="跟 Hibiki 聊天" aria-label="開啟 Hibiki 聊天" aria-controls="waifu-term" aria-expanded="false" hidden></button>' +
-    /* 滑過角色才浮出;必須排在 hitbox 之後,CSS 才能用 ~ 兄弟選擇器 */
-    '<button type="button" class="waifu-dismiss" title="收起 Hibiki" aria-label="收起 Hibiki" hidden>✕</button>' +
-    '<button type="button" class="waifu-reopen" title="顯示 Hibiki" aria-label="顯示 Hibiki" hidden>' +
-      /* 貓耳笑臉:實心色塊在 30px 下才讀得出來,配色沿用 widget 的青綠 */
-      '<svg class="waifu-face" viewBox="0 0 32 32" aria-hidden="true" focusable="false">' +
-        '<path d="M7.4 10.2 6.1 4.6c-.1-.6.5-1 1-.7l4.8 3.1zM24.6 10.2l1.3-5.6c.1-.6-.5-1-1-.7l-4.8 3.1z" fill="currentColor"/>' +
-        '<circle cx="16" cy="17.4" r="10.2" fill="currentColor"/>' +
-        '<path d="M11.2 15.1c1 0 1.9 1 1.9 2.3s-.8 2.3-1.9 2.3-1.9-1-1.9-2.3.8-2.3 1.9-2.3z" fill="#111a33"/>' +
-        '<circle cx="10.5" cy="16.4" r="0.72" fill="#fff"/>' +
-        '<path d="M18.9 18.3c.7-1.2 1.3-1.8 1.9-1.8s1.2.6 1.9 1.8" fill="none" stroke="#111a33" stroke-width="1.6" stroke-linecap="round"/>' +
-        '<path d="M14.4 21.5c.5.7 1 1 1.6 1s1.1-.3 1.6-1" fill="none" stroke="#111a33" stroke-width="1.5" stroke-linecap="round"/>' +
-      '</svg>' +
+      ICON_CHAT + '<span class="waifu-launcher-label">Hibiki</span>' +
     '</button>' +
     '<button type="button" class="waifu-bubble" aria-label="開啟 Hibiki 聊天" hidden>' +
-      '<span class="waifu-bubble-text"></span>' +
+      '<span class="waifu-bubble-kicker">HIBIKI</span><span class="waifu-bubble-text"></span>' +
     '</button>' +
-    '<button type="button" class="waifu-scrim" aria-label="關閉 Hibiki 聊天" hidden></button>' +
-    '<section class="waifu-term" id="waifu-term" role="dialog" aria-label="與 Hibiki 聊天" tabindex="-1" hidden>' +
-      '<div class="waifu-term-bar">' +
-        '<div class="waifu-nameplate">' +
-          '<strong class="waifu-name">Hibiki</strong>' +
-          '<span class="waifu-role">文章聊天助理</span>' +
-        '</div>' +
-        '<span class="waifu-online"><i aria-hidden="true"></i>ONLINE</span>' +
-        /* 手機與鍵盤使用者沒有 hover,從面板這裡也能收起 Hibiki */
-        '<button type="button" class="waifu-term-btn waifu-btn-hide" title="收起 Hibiki" aria-label="收起 Hibiki">–</button>' +
-        '<button type="button" class="waifu-term-btn waifu-btn-close" title="關閉" aria-label="關閉聊天">✕</button>' +
+    '<button type="button" class="waifu-scrim" aria-label="關閉 Hibiki 聊天" tabindex="-1" hidden></button>' +
+    '<section class="waifu-term" id="waifu-term" role="dialog" aria-modal="true" aria-labelledby="waifu-title" tabindex="-1" hidden>' +
+      '<header class="waifu-term-bar">' +
+        '<div><span class="waifu-kicker">RECEPTION · 文章櫃檯</span><strong class="waifu-name" id="waifu-title">Hibiki</strong></div>' +
+        '<button type="button" class="waifu-term-btn waifu-btn-close" title="關閉" aria-label="關閉聊天">' + ICON_CLOSE + '</button>' +
+      '</header>' +
+      '<div class="waifu-stage" aria-hidden="true">' +
+        '<div class="waifu-stage-wall"><span>NOTICE BOARD</span><span>LIN’S FIELD NOTES</span></div>' +
+        '<div class="waifu-stage-figure"></div>' +
+        '<div class="waifu-counter"><span class="waifu-counter-plate">HIBIKI <i>·</i> 文章導覽</span></div>' +
       '</div>' +
       '<div class="waifu-log" aria-live="polite"></div>' +
       '<div class="waifu-chips" hidden>' +
-        '<span class="waifu-choice-label" aria-hidden="true">SELECT</span>' +
         '<button type="button" class="waifu-chip waifu-chip-summary">整理本文重點</button>' +
         '<button type="button" class="waifu-chip waifu-chip-explain">簡單解釋這篇</button>' +
       '</div>' +
       '<form class="waifu-form">' +
-        '<span class="waifu-prompt" aria-hidden="true">YOU</span>' +
-        '<input class="waifu-input" type="text" maxlength="200" autocomplete="off" placeholder="輸入想對 Hibiki 說的話…" aria-label="聊天輸入">' +
-        '<button class="waifu-send" type="submit"><span>送出</span><i aria-hidden="true">➤</i></button>' +
+        '<input class="waifu-input" type="text" maxlength="200" autocomplete="off" placeholder="想問 Hibiki 什麼？" aria-label="聊天輸入">' +
+        '<button class="waifu-send" type="submit" aria-label="送出">' + ICON_SEND + '</button>' +
       '</form>' +
-      '<span class="waifu-next" aria-hidden="true">◆</span>' +
     '</section>';
   document.body.appendChild(root);
 
   var launcher = root.querySelector('.waifu-launcher');
-  var hitbox = root.querySelector('.waifu-hitbox');
-  var dismissBtn = root.querySelector('.waifu-dismiss');
-  var reopenBtn = root.querySelector('.waifu-reopen');
-  var hideBtn = root.querySelector('.waifu-btn-hide');
   var bubble = root.querySelector('.waifu-bubble');
   var bubbleText = root.querySelector('.waifu-bubble-text');
   var scrim = root.querySelector('.waifu-scrim');
   var term = root.querySelector('.waifu-term');
+  var figure = root.querySelector('.waifu-stage-figure');
   var chips = root.querySelector('.waifu-chips');
   var log = root.querySelector('.waifu-log');
   var form = root.querySelector('.waifu-form');
@@ -167,7 +110,6 @@
 
   function syncExpandedState() {
     launcher.setAttribute('aria-expanded', chatOpen ? 'true' : 'false');
-    hitbox.setAttribute('aria-expanded', chatOpen ? 'true' : 'false');
     var mobileAction = getMobileAction();
     if (mobileAction) mobileAction.setAttribute('aria-expanded', chatOpen ? 'true' : 'false');
   }
@@ -186,26 +128,48 @@
       action.type = 'button';
       action.className = 'icon waifu-mobile-action';
       action.setAttribute('aria-controls', 'waifu-term');
-      action.innerHTML = '<i class="fa-solid fa-comment-dots fa-lg" aria-hidden="true"></i> Hibiki';
+      action.innerHTML = ICON_CHAT + ' Hibiki';
       actions.appendChild(action);
     }
     action.setAttribute('aria-expanded', chatOpen ? 'true' : 'false');
   }
 
-  /* ── Live2D：只在桌機且高度足夠時初始化 ───────── */
+  /* ── Live2D：第一次打開抽屜才載入，canvas 搬進櫃檯 ── */
   function initLive2D() {
-    if (live2dReady || !MODEL_URL || typeof L2Dwidget === 'undefined') return;
-    live2dReady = true;
+    if (live2dRequested || !MODEL_URL || typeof L2Dwidget === 'undefined') return;
+    live2dRequested = true;
+    figure.classList.add('is-loading');
     L2Dwidget.init({
       model: { jsonPath: MODEL_URL },
-      display: { position: 'right', width: 92, height: 184, hOffset: 26, vOffset: 0 },
-      mobile: { show: false },
+      display: { position: 'right', width: 170, height: 380, hOffset: 0, vOffset: 0 },
+      mobile: { show: true, scale: 1 },
       log: false
     });
+    adoptWidget();
+  }
+
+  /* L2Dwidget 把 #live2d-widget 掛在 body 且沒有就緒回呼;出現後搬進櫃檯,6 秒內沒出現就放棄 */
+  function adoptWidget() {
+    var waited = 0;
+    (function poll() {
+      var widget = document.getElementById('live2d-widget');
+      if (widget) {
+        figure.appendChild(widget);
+        figure.classList.remove('is-loading');
+        return;
+      }
+      waited += 120;
+      if (waited >= 6000) {
+        figure.classList.remove('is-loading');
+        figure.classList.add('is-unavailable');
+        return;
+      }
+      setTimeout(poll, 120);
+    })();
   }
 
   /* L2Dwidget 每幀呼叫 requestAnimationFrame(tick, canvas),沒有暫停 API;
-     角色看不見時把這條迴圈停在原地,重新出現再接上,其他 rAF 照常 */
+     抽屜關起來時把這條迴圈停在原地,打開再接上,其他 rAF 照常 */
   var nativeRaf = window.requestAnimationFrame;
   var live2dPaused = false;
   var parkedTick = null;
@@ -253,22 +217,11 @@
   function syncLayout() {
     currentMode = getMode();
     root.className = 'waifu-mode-' + currentMode + (chatOpen ? ' is-open' : '');
-    root.setAttribute('data-mode', currentMode);
-
-    var showFull = currentMode === 'full' && !dismissed;
-    hitbox.hidden = !showFull;
-    dismissBtn.hidden = !showFull;
-    /* mobilebar 沒有任何浮動元素可收(入口在底部操作列),就別多放一顆圓鈕擋畫面 */
-    reopenBtn.hidden = !dismissed || currentMode === 'mobilebar';
-    hideBtn.hidden = dismissed || currentMode === 'mobilebar';
-    launcher.hidden = dismissed || currentMode === 'mobilebar' || chatOpen;
-    term.setAttribute('aria-modal', window.innerWidth < 500 ? 'true' : 'false');
-    document.body.classList.toggle('waifu-live2d-visible', showFull);
-    document.body.classList.toggle('waifu-chat-open', chatOpen && showFull);
-
-    /* 收起狀態下不呼叫:回訪者完全不會下載模型檔 */
-    if (showFull) initLive2D();
-    setLive2DPaused(!showFull);
+    launcher.hidden = currentMode === 'mobilebar' || chatOpen;
+    document.documentElement.classList.toggle('waifu-drawer-open', chatOpen);
+    /* 浮動入口在最下方，回頂鈕讓到它上面；手機文章頁入口在底部操作列，回頂鈕維持原位 */
+    document.documentElement.classList.toggle('waifu-float', currentMode === 'float');
+    setLive2DPaused(!chatOpen);
     ensureMobileAction();
     syncExpandedState();
   }
@@ -322,30 +275,29 @@
     if (log.children.length) return;
     var ctx = getPageContext();
     if (ctx) {
-      addLog('assistant', '我可以幫你整理《' + ctx.title.slice(0, 28) + '》，也可以直接問我文章內容。');
+      addLog('assistant', '歡迎來到櫃檯！我可以幫你整理《' + ctx.title.slice(0, 28) + '》，也可以直接問我文章內容。');
     } else {
-      addLog('assistant', '嗨！想找文章或聊聊這個網站，都可以問我。');
+      addLog('assistant', '歡迎來到櫃檯！想找文章或聊聊這個網站，都可以問我。');
     }
   }
 
   function openChat(trigger) {
     if (trigger) lastTrigger = trigger;
     chatOpen = true;
-    showEl(term);
     showEl(scrim);
-    bubble.hidden = true;
+    showEl(term);
+    hideEl(bubble);
     clearTimeout(bubbleTimer);
     clearTimeout(ambientTimer);
     ambientTimer = null;
     chips.hidden = !getPageContext();
     ensureIntro();
+    initLive2D();
     syncLayout();
-    /* 手機一打開就 focus 輸入框會立刻彈出鍵盤、把 bottom sheet 頂出畫面;
-       觸控裝置先 focus 對話框本身,讓讀螢幕軟體進入面板,要打字再點輸入框 */
-    var touchSheet = window.innerWidth < 500 && window.matchMedia &&
-      window.matchMedia('(pointer: coarse)').matches;
+    /* 觸控手機一打開就 focus 輸入框會立刻彈出鍵盤,先 focus 對話框本身,要打字再點輸入框 */
+    var touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
     window.requestAnimationFrame(function () {
-      (touchSheet ? term : input).focus({ preventScroll: true });
+      (touch ? term : input).focus({ preventScroll: true });
     });
   }
 
@@ -354,7 +306,6 @@
     chatOpen = false;
     hideEl(term);
     hideEl(scrim);
-    document.body.classList.remove('waifu-chat-open');
     syncLayout();
     if (restoreFocus !== false && lastTrigger && lastTrigger.isConnected) lastTrigger.focus();
     scheduleAmbient(randomBetween(30000, 50000));
@@ -365,69 +316,9 @@
   }
 
   launcher.addEventListener('click', function () { toggleChat(launcher); });
-  hitbox.addEventListener('click', function () { toggleChat(hitbox); });
-  bubble.addEventListener('click', function () {
-    bubble.hidden = true;
-    openChat(currentMode === 'full' ? hitbox : launcher);
-  });
+  bubble.addEventListener('click', function () { openChat(launcher); });
   scrim.addEventListener('click', function () { closeChat(); });
   root.querySelector('.waifu-btn-close').addEventListener('click', function () { closeChat(); });
-
-  /* ── 收起 / 顯示 Hibiki ──────────────────────── */
-  /* 手機文章頁底部操作列的入口不受此偏好影響:它在正常文件流裡,不遮內文 */
-  function dismiss() {
-    if (dismissed) return;
-    dismissed = true;
-    writeDismissed(true);
-    closeChat(false);
-    clearTimeout(ambientTimer);
-    ambientTimer = null;
-    clearTimeout(bubbleTimer);
-    bubble.hidden = true;
-    syncLayout();
-    reopenBtn.focus();
-  }
-
-  function restore() {
-    if (!dismissed) return;
-    /* 帶著「收起」設定進站的訪客沒載過模型,先在圓鈕上顯示載入中再換人 */
-    if (!live2dReady && getMode() === 'full') {
-      reopenBtn.classList.add('is-loading');
-      reopenBtn.disabled = true;
-      initLive2D();
-      waitForLive2D(finishRestore);
-      return;
-    }
-    finishRestore();
-  }
-
-  function finishRestore() {
-    reopenBtn.classList.remove('is-loading');
-    reopenBtn.disabled = false;
-    dismissed = false;
-    writeDismissed(false);
-    syncLayout();
-    var next = currentMode === 'full' ? hitbox : launcher;
-    if (next && !next.hidden) next.focus();
-    scheduleAmbient(randomBetween(8000, 15000));
-  }
-
-  /* L2Dwidget 沒有載入完成的回呼,以 canvas 出現當作就緒訊號;設上限避免永遠卡住 */
-  function waitForLive2D(done) {
-    var waited = 0;
-    (function poll() {
-      if (document.getElementById('live2dcanvas') || waited >= 6000) {
-        done();
-        return;
-      }
-      waited += 120;
-      setTimeout(poll, 120);
-    })();
-  }
-
-  dismissBtn.addEventListener('click', dismiss);
-  hideBtn.addEventListener('click', dismiss);
-  reopenBtn.addEventListener('click', restore);
 
   /* 點推薦連結導向新文章:先收合聊天,PJAX 導航後由 syncPage 重置對話 */
   log.addEventListener('click', function (event) {
@@ -440,11 +331,29 @@
     if (mobileAction) toggleChat(mobileAction);
   });
 
+  /* 抽屜是 modal:Esc 關閉,Tab 不離開抽屜 */
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && chatOpen) closeChat();
+    if (!chatOpen) return;
+    if (event.key === 'Escape') {
+      closeChat();
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    var focusable = term.querySelectorAll('button:not([hidden]):not([disabled]), input, a[href]');
+    var visible = Array.prototype.filter.call(focusable, function (el) { return el.offsetParent !== null; });
+    if (!visible.length) return;
+    var first = visible[0];
+    var last = visible[visible.length - 1];
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === term)) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 
-  /* ── 待機台詞：讓角色偶爾主動參與，但不打斷閱讀 ─ */
+  /* ── 待機台詞：偶爾在入口旁出現，不打斷閱讀 ─ */
   function randomBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -454,27 +363,24 @@
     if (ctx) {
       var shortTitle = ctx.title.slice(0, 20);
       return [
-        '正在讀《' + shortTitle + '》嗎？有不懂的地方可以問我。',
+        '正在讀《' + shortTitle + '》嗎？有不懂的地方可以來櫃檯問我。',
         '讀到這裡還順利嗎？我可以幫你整理重點。',
         '如果內容有點長，可以交給我摘要哦。',
-        '需要我用更簡單的方式解釋這篇嗎？',
-        '看到重要的段落，也可以直接拿來問我。'
+        '需要我用更簡單的方式解釋這篇嗎？'
       ];
     }
 
     if (location.pathname.indexOf('/archives') === 0) {
       return [
         '文章都整理在這裡了，要我陪你找一篇嗎？',
-        '不知道要看哪篇？可以問問我的推薦。',
-        '慢慢挑吧，我會待在這裡陪你。'
+        '不知道要看哪篇？來櫃檯問問我的推薦。'
       ];
     }
 
     return [
-      '歡迎回來，今天想看點什麼呢？',
-      '需要我介紹這個網站嗎？點我就可以聊天。',
-      'Lin 最近寫了不少東西，要一起逛逛嗎？',
-      '我不只是在這裡站著哦，也可以陪你聊天。'
+      '歡迎光臨！今天想看點什麼呢？',
+      '需要我介紹這個網站嗎？櫃檯隨時開著。',
+      'Lin 最近寫了不少東西，要一起逛逛嗎？'
     ];
   }
 
@@ -489,12 +395,12 @@
   }
 
   function canShowAmbient() {
-    return !dismissed && !chatOpen && !document.hidden && window.innerWidth >= 500 &&
+    return !chatOpen && !document.hidden && currentMode === 'float' && window.innerWidth >= 500 &&
       ambientCount < AMBIENT_MAX_PER_PAGE;
   }
 
   function say(text, ms) {
-    if (!canShowAmbient() || currentMode === 'mobilebar') return false;
+    if (!canShowAmbient()) return false;
     bubbleText.textContent = text;
     clearTimeout(bubbleTimer);
     showEl(bubble);
@@ -529,7 +435,7 @@
     lastAmbientLine = '';
     lastAmbientAt = 0;
     midpointHinted = false;
-    scheduleAmbient(3000);
+    scheduleAmbient(8000);
   }
 
   function checkReadingProgress() {
@@ -599,7 +505,7 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
       syncLayout();
-      if (window.innerWidth < 500) {
+      if (!canShowAmbient()) {
         clearTimeout(ambientTimer);
         ambientTimer = null;
         bubble.hidden = true;
@@ -622,11 +528,11 @@
 
   function offlineReply(text) {
     var rules = [
-      [/你(是誰|叫什麼)|自我介紹/, '我是 Hibiki，這裡的文章聊天助理！Lin 寫程式的時候我負責監工 (｀・ω・´)'],
-      [/lin|站長|作者/i, 'Lin 是軟體設計工程師，最近都在玩 AI 應用整合～精選專案可以在首頁找到！'],
-      [/專案|project/i, '推薦看看 LocalAIAgentAPI 和 UrlHealthMonitor，首頁往下捲就有～'],
-      [/文章|blog|部落格|總結/, '文章都收在「文章」頁，LeetCode 跟技術筆記都有哦'],
-      [/謝謝|感謝/, '不客氣～常來玩！'],
+      [/你(是誰|叫什麼)|自我介紹/, '我是 Hibiki，這裡的文章櫃檯！Lin 寫程式的時候我負責監工 (｀・ω・´)'],
+      [/lin|站長|作者/i, 'Lin 是軟體設計工程師，最近都在玩 AI 應用整合～首頁下方有他的 side projects！'],
+      [/專案|project/i, '首頁往下捲就有作品卡片，智慧旅程規劃和 mien 都很推薦～'],
+      [/文章|blog|部落格|總結/, '文章都收在「所有文章」頁，LeetCode 跟技術筆記都有哦'],
+      [/謝謝|感謝/, '不客氣～歡迎再來櫃檯！'],
       [/(早安|午安|晚安|你好|嗨|哈囉)/, timeGreeting()]
     ];
     for (var i = 0; i < rules.length; i++) {
@@ -704,24 +610,6 @@
   root.querySelector('.waifu-chip-explain').addEventListener('click', function () {
     sendMessage('請用簡單易懂的方式解釋這篇文章在說什麼');
   });
-
-  /* ── 手機精簡入口:往下捲時收成圓鈕,停下或往上捲再展開 ── */
-  var COLLAPSE_MAX_WIDTH = 700;
-  var lastScrollY = window.scrollY;
-  var expandTimer = null;
-  window.addEventListener('scroll', function () {
-    var y = window.scrollY;
-    if (currentMode !== 'compact' || window.innerWidth >= COLLAPSE_MAX_WIDTH || chatOpen) {
-      root.classList.remove('is-collapsed');
-    } else if (y > lastScrollY + 4) {
-      root.classList.add('is-collapsed');
-    } else if (y < lastScrollY - 4) {
-      root.classList.remove('is-collapsed');
-    }
-    lastScrollY = y;
-    clearTimeout(expandTimer);
-    expandTimer = setTimeout(function () { root.classList.remove('is-collapsed'); }, 1200);
-  }, { passive: true });
 
   syncLayout();
   resetAmbient();
