@@ -93,7 +93,7 @@ HTTP 狀態：錯誤 JSON 或無有效 user 訊息為 400；錯誤 method 為 40
 
 # 系統設計：Portfolio SPA（/portfolio/）
 
-獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格首頁、選單、About 與文章都不連入；全名、雇主等個人資訊只出現在這一頁（見 `docs/decisions/2026-11-07-blog-identity-revert.md`）。技術邊界沿用 `docs/decisions/2026-09-28-portfolio-spa-react.md`，版型見 `docs/plans/2026-11-07-portfolio-self-intro-layout.md`。更新日期：2026-11-07。
+獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格首頁、選單、About 與文章都不連入；全名、雇主等個人資訊只出現在這一頁（見 `docs/decisions/2026-11-07-blog-identity-revert.md`）。技術邊界沿用 `docs/decisions/2026-09-28-portfolio-spa-react.md`，版型見 `docs/plans/2026-11-07-portfolio-self-intro-layout.md`、`docs/plans/2026-11-07-portfolio-resume-bilingual.md`。更新日期：2026-11-07。
 
 ## 元件與建置流程
 
@@ -102,35 +102,54 @@ flowchart LR
     Src["portfolio/（Vite + React + TS）"] -->|npm run build:portfolio| Out["source/portfolio/"]
     Out -->|skip_render: portfolio/**，原樣複製| Public["public/portfolio/"]
     Public -->|hexo deploy| Pages["GitHub Pages /portfolio/"]
-    Timeline["src/data/timeline.ts（事實、日期、圖片、連結）"] --> Data["src/data/portfolio.ts（頁面文案）"]
+    Resume["Resume_ZH/EN.pdf（2026-11-07）"] -.->|人工轉寫| Data["src/data/portfolio.ts（雙語文案）"]
+    Timeline["src/data/timeline.ts（作品日期、圖片、連結）"] --> Data
     Data --> Src
+    Prefs["src/i18n.tsx（語言、深淺色）"] --> Src
 ```
 
 - `portfolio/` 是獨立的 npm 專案；React 只打包在這一頁。React Bits 來源與授權保留但不引用。
-- 個人資料（姓名、職稱、雇主、學歷、信箱）只寫在 `portfolio/src/`，不放在 Hexo 的 `source/_data/`，部落格主題讀不到。
-- `timeline.ts` 是事實來源（申請文件 v1.8）；`portfolio.ts` 放 Experience、News、Projects、Awards 的文案，以 `node(id)` 取 timeline 的標題、日期、圖片與連結。節點只收有 repo、文章或作者確認來源的項目。
-- 樣式只有 `src/site.css`（墨綠／嫩綠 tokens，支援 `data-theme="light"`）。
+- 個人資料（姓名、職稱、雇主、學歷、信箱）只寫在 `portfolio/src/`，不放在 Hexo 的 `source/_data/`，部落格主題讀不到。電話不公開。
+- 事實來源：經歷、研究、獎項以使用者提供的新履歷為準；作品日期、圖片與連結取自 `timeline.ts`，以 `node(id)` 讀取。
+- 所有文案是 `{ zh, en }`，元件以 `useT()` 取當前語言。
+- 中文換行：About 自介以 `|` 手動標出詞組斷點（`Phrases`）；其餘中文內文用 `components/Wrap.tsx`，以 `Intl.Segmenter('zh-Hant', word)` 把每個中文詞包成 no-wrap span，只在詞與詞之間換行；配合 `p, li { text-wrap: pretty }` 避免最後一行只剩一兩字。英文與不支援 Segmenter 的瀏覽器照原本方式換行；≤340px 時自介詞組恢復一般換行以防溢出。
+- 樣式只有 `src/site.css`（墨綠／嫩綠 tokens；`html[data-theme="light"]` 覆寫）。標題與內文統一 DM Sans + Noto Sans TC，日期與 tag 用 JetBrains Mono。
 - build 產物進版控。修改 `portfolio/` 後必須重跑 `npm run build:portfolio`，`hexo generate` 只負責複製。
 - 頁面帶 `noindex, nofollow`；`<noscript>` 內有純連結清單。
+
+## 語言與深淺色
+
+```mermaid
+stateDiagram-v2
+    [*] --> Load
+    Load --> Ready: index.html 先讀 localStorage.theme 設 data-theme（避免閃爍）
+    Ready --> Ready: 中／EN 按鈕 → localStorage.portfolio-lang、html lang、document.title
+    Ready --> Ready: 對比 icon → localStorage.theme（與 Hexo 部落格共用）、data-theme、theme-color
+```
+
+- 語言預設中文；切換只改 React state 與 localStorage，不改 URL。
+- localStorage 讀寫包在 try/catch，無法存取時仍可切換，只是不保留。
 
 ## 頁面區塊（自介版型）
 
 | 區塊 | 檔案 | 內容 |
 |---|---|---|
-| Header | `sections/About.tsx` | sticky 導覽：About／Experience／News／Research／Projects／Awards＋Blog；手機可橫向捲動 |
-| About `#about` | `sections/About.tsx` | 姓名、Software Engineer · Computer Vision、三段第一人稱自介、Email／GitHub |
-| Experience `#experience` | `sections/Experience.tsx` | 程曦資訊（職稱演進、App 工作摘要、三個平台整合重點、tags）、銘傳大學 2021–2025 |
-| News `#news` | `sections/News.tsx` | 日期＋一句話，預設 6 則，按鈕展開全部 |
-| Research `#research` | `sections/Research.tsx`、`sections/Hero.tsx` | UAV 專題卡：影像切換（分割輸出／輸入影格／重疊切片）、「我做了什麼」、tags、連結 |
-| Projects `#projects` | `sections/Projects.tsx`、`components/Zoomable.tsx` | 6 張卡片（圖或影片、一句話、tags、連結），點擊以原生 `<dialog>` 放大；「其他作品」列表 |
-| Awards `#awards` | `sections/Awards.tsx` | 獎項、證照；頁尾聯絡資訊 |
+| Header | `sections/About.tsx` | sticky：姓名、區塊導覽＋部落格、中／EN 切換、深淺色切換；手機為兩列，導覽可橫向捲動 |
+| About `#about` | `sections/About.tsx` | 姓名（中英同字體）、職稱、依履歷改寫的自介、技術筆記連結、Email／GitHub |
+| Experience `#experience` | `sections/Experience.tsx` | 程曦資訊（官方 logo；軟體設計工程師、創新研發部實習生兩段職務的履歷條列）、銘傳大學（校徽、2021–2025） |
+| Milestones `#milestones` | `sections/Milestones.tsx` | 日期＋一句話的事件，預設 6 則，可展開 |
+| Research `#research` | `sections/Research.tsx`、`sections/Hero.tsx` | 自動播放：空拍影格 → 依 `lib/tiles.ts` 逐塊掃描 7×5 重疊切片 → 2024 分割輸出；進入視窗才播放，點按鈕改手動、↻ 重播；`prefers-reduced-motion` 直接顯示輸出。右側為履歷的「我做了什麼」 |
+| Projects `#projects` | `sections/Projects.tsx`、`components/Zoomable.tsx` | 6 張卡片（圖或影片、一句話、tags、連結），原生 `<dialog>` 放大；「其他作品」列表 |
+| Awards `#awards` | `sections/Awards.tsx` | 獎項、研究補助、證照 |
+| Footer | `sections/Awards.tsx` | 置中的 Email／GitHub／部落格 icon 與版權 |
 
-- 影片（mien，取自 repo 既有 demo.gif 轉 mp4）在卡片內 muted loop 自動播放，`prefers-reduced-motion` 時不自動播放；放大檢視開啟才播放、關閉即暫停。
+- 影片（mien，取自 repo 既有 demo.gif 轉 mp4）在卡片內 muted loop 自動播放；放大檢視開啟才播放、關閉即暫停。
 - 所有影像都是真實資料（專題輸出、實際執行截圖、作品既有 demo），不繪製模型沒有輸出過的偵測框。文案以個人貢獻為主，不放限制／待補段落。
+- logo 取自程曦資訊與銘傳大學官網，裁成 128px 方形，放在白底圓角框以適應深色背景，僅作經歷識別。
 
 ## 建置與檢查
 
 1. `npm run build:portfolio`：TypeScript + Vite，更新受版本控制的 `source/portfolio/`。
 2. `npm run build`：Hexo 文章、主題與靜態頁輸出。
 3. `python tools/verify-site.py`：逐位元檢查 Portfolio 複製、文章路由、JSON-LD、主要頁面的連結與資產。工具放在 `tools/`，避免 Hexo 將 `scripts/` 內容當作 JS plugin 自動載入。
-4. 瀏覽器另驗證 fragment 導覽、放大檢視（Esc／背景關閉）、鍵盤、響應式與深淺色。Noindex 延續既有設定，並非存取控制。
+4. 瀏覽器另驗證 fragment 導覽、中英與深淺色切換、研究動畫、放大檢視（Esc／背景關閉）、鍵盤與響應式。Noindex 延續既有設定，並非存取控制。

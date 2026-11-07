@@ -1,34 +1,50 @@
-import { CONTACT } from '../data/portfolio';
+import { ABOUT, CONTACT, UI } from '../data/portfolio';
+import { usePrefs, useT } from '../i18n';
+import { MailIcon, GitHubIcon, ContrastIcon } from '../components/Icons';
 
-const NAV = [
-  ['about', 'About'], ['experience', 'Experience'], ['news', 'News'],
-  ['research', 'Research'], ['projects', 'Projects'], ['awards', 'Awards']
-];
+const SECTIONS = ['about', 'experience', 'milestones', 'research', 'projects', 'awards'] as const;
 
 export function SiteHeader() {
+  const tr = useT();
+  const { lang, setLang, theme, toggleTheme } = usePrefs();
   return <header className="site-header">
     <div className="wrap site-header-inner">
-      <a className="brand" href="#about">林立人</a>
-      <nav aria-label="頁面區塊">
-        {NAV.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}
-        <a className="nav-blog" href={CONTACT.blog}>Blog ↗</a>
+      <a className="brand" href="#about">{tr(ABOUT.name)}</a>
+      <nav aria-label={lang === 'zh' ? '頁面區塊' : 'Sections'}>
+        {SECTIONS.map(id => <a key={id} href={`#${id}`}>{tr(UI.nav[id])}</a>)}
+        <a href={CONTACT.blog}>{tr(UI.nav.blog)} ↗</a>
       </nav>
+      <div className="header-tools">
+        <div className="lang-switch" role="group" aria-label={tr(UI.langLabel)}>
+          <button type="button" aria-pressed={lang === 'zh'} onClick={() => setLang('zh')} lang="zh-Hant">中</button>
+          <button type="button" aria-pressed={lang === 'en'} onClick={() => setLang('en')} lang="en">EN</button>
+        </div>
+        <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={tr(theme === 'dark' ? UI.themeToLight : UI.themeToDark)} title={tr(theme === 'dark' ? UI.themeToLight : UI.themeToDark)}>
+          <ContrastIcon />
+        </button>
+      </div>
     </div>
   </header>;
 }
 
+// Lines may wrap only between "|"-separated phrases; text without markers wraps normally.
+function Phrases({ text }: { text: string }) {
+  if (!text.includes('|')) return <>{text}</>;
+  return <>{text.split('|').filter(Boolean).map((part, i) => <span className="ph" key={i}>{part}</span>)}</>;
+}
+
 export default function About() {
+  const tr = useT();
   return <section className="wrap about" id="about" aria-labelledby="about-title">
-    <h1 id="about-title">林立人 <span lang="en">Jerry Lin</span></h1>
-    <p className="about-role" lang="en">Software Engineer · Computer Vision</p>
+    <h1 id="about-title">{tr(ABOUT.name)}<span>{tr(ABOUT.altName)}</span></h1>
+    <p className="about-role">{tr(ABOUT.role)}</p>
     <div className="about-body">
-      <p>我是林立人，目前在程曦資訊擔任軟體設計工程師，用 React、TypeScript 與 Capacitor 開發跨平台 App，負責 Android／iOS 的原生功能整合，例如 Deep Link、推播與 NFC。</p>
-      <p>畢業於銘傳大學人工智慧應用學系。大學專題以 UAV 空拍影像做海灘垃圾的實例分割，我負責資料處理、少數類別的資料增強與 CenterMask2 模型訓練；兩年後再回頭重構推論程式，找出影響計數的切片問題。</p>
-      <p>我也持續做 side project，並把專案的設計取捨寫成<a href={CONTACT.blog}>技術筆記</a>。</p>
+      {ABOUT.paragraphs.map(p => <p key={p.en}><Phrases text={tr(p)} /></p>)}
+      <p><Phrases text={tr(ABOUT.notes.before)} /><span className="ph">{tr(ABOUT.notes.lead)}<a href={CONTACT.blog}>{tr(ABOUT.notes.link)}</a>{tr(ABOUT.notes.after)}</span></p>
     </div>
-    <ul className="about-contact" aria-label="聯絡方式">
-      <li><a href={`mailto:${CONTACT.email}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z M3 6l9 7 9-7" /></svg>{CONTACT.email}</a></li>
-      <li><a href={CONTACT.github}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4 1.4-4-2-6-2.5m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21" /></svg>reedlin2002</a></li>
+    <ul className="about-contact" aria-label={tr(UI.contact)}>
+      <li><a href={`mailto:${CONTACT.email}`}><MailIcon />{CONTACT.email}</a></li>
+      <li><a href={CONTACT.github}><GitHubIcon />reedlin2002</a></li>
     </ul>
   </section>;
 }
