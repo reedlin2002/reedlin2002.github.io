@@ -45,7 +45,6 @@ export const UI = {
 export const ABOUT = {
   name: t('林立人', 'Lin Li-Ren'),
   altName: t('Lin Li-Ren', '林立人'),
-  role: t('軟體設計工程師 · 電腦視覺', 'Software Engineer · Computer Vision'),
   // "|" marks where a Chinese line may wrap, so words like 工程師 or 機器學習 never split.
   paragraphs: [
     t('我是林立人，|目前在程曦資訊|擔任軟體設計工程師，|用 React、TypeScript 與 Capacitor |開發跨平台 App。|熟悉需求分析、|問題排查|與版本發布流程，|重視產品的實用性|與可維護性。',

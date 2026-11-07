@@ -1,6 +1,6 @@
 import { ABOUT, CONTACT, UI } from '../data/portfolio';
 import { usePrefs, useT } from '../i18n';
-import { MailIcon, GitHubIcon, ContrastIcon } from '../components/Icons';
+import { MailIcon, GitHubIcon, ContrastIcon, BlogIcon } from '../components/Icons';
 
 const SECTIONS = ['about', 'experience', 'milestones', 'research', 'projects', 'awards'] as const;
 
@@ -12,9 +12,9 @@ export function SiteHeader() {
       <a className="brand" href="#about">{tr(ABOUT.name)}</a>
       <nav aria-label={lang === 'zh' ? '頁面區塊' : 'Sections'}>
         {SECTIONS.map(id => <a key={id} href={`#${id}`}>{tr(UI.nav[id])}</a>)}
-        <a href={CONTACT.blog}>{tr(UI.nav.blog)} ↗</a>
       </nav>
       <div className="header-tools">
+        <a className="icon-button" href={CONTACT.blog} aria-label={tr(UI.nav.blog)} title={tr(UI.nav.blog)}><BlogIcon /></a>
         <div className="lang-switch" role="group" aria-label={tr(UI.langLabel)}>
           <button type="button" aria-pressed={lang === 'zh'} onClick={() => setLang('zh')} lang="zh-Hant">中</button>
           <button type="button" aria-pressed={lang === 'en'} onClick={() => setLang('en')} lang="en">EN</button>
@@ -37,7 +37,6 @@ export default function About() {
   const tr = useT();
   return <section className="wrap about" id="about" aria-labelledby="about-title">
     <h1 id="about-title">{tr(ABOUT.name)}<span>{tr(ABOUT.altName)}</span></h1>
-    <p className="about-role">{tr(ABOUT.role)}</p>
     <div className="about-body">
       {ABOUT.paragraphs.map(p => <p key={p.en}><Phrases text={tr(p)} /></p>)}
       <p><Phrases text={tr(ABOUT.notes.before)} /><span className="ph">{tr(ABOUT.notes.lead)}<a href={CONTACT.blog}>{tr(ABOUT.notes.link)}</a>{tr(ABOUT.notes.after)}</span></p>

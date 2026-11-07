@@ -1,7 +1,7 @@
 import { ABOUT, AWARDS, CERTIFICATIONS, CONTACT, UI, type Award } from '../data/portfolio';
 import Wrap from '../components/Wrap';
 import { useT } from '../i18n';
-import { GitHubIcon, MailIcon, NotesIcon } from '../components/Icons';
+import { GitHubIcon, MailIcon, BlogIcon } from '../components/Icons';
 
 function List({ items }: { items: Award[] }) {
   const tr = useT();
@@ -26,7 +26,7 @@ export function Footer() {
     <ul aria-label={tr(UI.contact)}>
       <li><a href={`mailto:${CONTACT.email}`} aria-label="Email" title={CONTACT.email}><MailIcon /></a></li>
       <li><a href={CONTACT.github} aria-label="GitHub" title="GitHub"><GitHubIcon /></a></li>
-      <li><a href={CONTACT.blog} aria-label={tr(UI.nav.blog)} title={tr(UI.nav.blog)}><NotesIcon /></a></li>
+      <li><a href={CONTACT.blog} aria-label={tr(UI.nav.blog)} title={tr(UI.nav.blog)}><BlogIcon /></a></li>
     </ul>
     <p>© 2026 {tr(ABOUT.name)}</p>
   </footer>;

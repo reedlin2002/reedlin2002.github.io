@@ -1,26 +1,59 @@
 [
-    {
-       "name": "LocalAIAgentAPI",
-       "desc": "本地部署的 AI 推理平台：圖像分類、OCR 文字辨識、圖像描述與 LLM 文字生成，全程離線、高隱私。",
-       "tags": [".NET 8", "ONNX Runtime", "Tesseract OCR", "LLM"],
-       "url": "https://github.com/reedlin2002/Local_API_AI"
-    },
-    {
-       "name": "UrlHealthMonitor",
-       "desc": "網站可用性與回應時間監控服務，含單元測試與 Docker 容器化部署。",
-       "tags": [".NET", "Docker", "xUnit"],
-       "url": "https://github.com/reedlin2002/UrlHealthMonitor"
-    },
-    {
-       "name": "my-ollama",
-       "desc": "以 Ollama + LangChain 打造的本地 LLM Agent，支援天氣、計算、文件問答等工具呼叫。",
-       "tags": ["Python", "LangChain", "Ollama"],
-       "url": "https://github.com/reedlin2002"
-    },
-    {
-       "name": "HTTP Status Checker",
-       "desc": "批次檢測網址 HTTP 狀態的小工具，快速盤點連結健康度。",
-       "tags": ["C#", ".NET"],
-       "url": "https://github.com/reedlin2002"
-    }
+  {
+    "name": "智慧旅程規劃",
+    "desc": "AI 排出行程初稿後，加景點時列出多繞時間最少的插入位置，預覽確認才套用，也能復原。",
+    "tags": ["React", "TypeScript", "MapLibre GL"],
+    "image": "/images/homepage-travel.webp",
+    "links": [{ "label": "文章", "url": "/2026/09/28/smart-trip-planner/" }]
+  },
+  {
+    "name": "mien",
+    "desc": "GitHub 個人頁 README 的視覺化編輯器：拖拉小工具排版，複製即用，不用寫 Markdown。",
+    "tags": ["React", "TypeScript", "GitHub Actions"],
+    "image": "/images/mien.webp",
+    "links": [
+      { "label": "Demo", "url": "https://mien.kanewolf98.workers.dev/" },
+      { "label": "GitHub", "url": "https://github.com/reedlin2002/mien" }
+    ]
+  },
+  {
+    "name": "玩點任務地圖 MapGo",
+    "desc": "黑客松前端 Prototype：畫面狀態機串起展示主線，PWA 預先快取，離線也能完整 demo。",
+    "tags": ["React", "TypeScript", "PWA"],
+    "image": "/images/homepage-mapgo.webp",
+    "links": [
+      { "label": "文章", "url": "/2026/09/28/mapgo-hackathon/" },
+      { "label": "GitHub", "url": "https://github.com/reedlin2002/MapGo" }
+    ]
+  },
+  {
+    "name": "010401 Finance",
+    "desc": "台股 AI 分析助手：先在本地算好技術指標，AI 只根據這份資料寫摘要，並串接 LINE 推播。",
+    "tags": ["React", "Capacitor", "Python"],
+    "image": "/images/thumbs/twstock-agent-cover.webp",
+    "links": [
+      { "label": "文章", "url": "/2026/07/19/twstock-agent/" },
+      { "label": "GitHub", "url": "https://github.com/reedlin2002/twstock-agent" }
+    ]
+  },
+  {
+    "name": "UrlHealthMonitor",
+    "desc": "網站可用性與回應時間監控：背景服務定時檢查並存入 SQLite，附 xUnit 測試與 Docker 部署。",
+    "tags": [".NET", "SQLite", "Docker"],
+    "image": "/images/thumbs/UrlHealthMonitor-cover.webp",
+    "links": [
+      { "label": "文章", "url": "/2025/07/05/UrlHealthMonitor/" },
+      { "label": "GitHub", "url": "https://github.com/reedlin2002/UrlHealthMonitor" }
+    ]
+  },
+  {
+    "name": "LocalAIAgentAPI",
+    "desc": "本地 AI 推論 API：ONNX 影像分類、Tesseract OCR 與 Ollama 文字生成，全程離線。",
+    "tags": [".NET 8", "ONNX", "Ollama"],
+    "image": "/images/thumbs/LocalAIAgentAPI.webp",
+    "links": [
+      { "label": "文章", "url": "/2025/07/19/LocalAIAgentAPI/" },
+      { "label": "GitHub", "url": "https://github.com/reedlin2002/Local_API_AI" }
+    ]
+  }
 ]
