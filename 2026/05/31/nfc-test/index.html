@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -61,30 +61,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "讓手機假裝成一張 NFC 卡片：NFC-test 的 HCE 實作與平台不對稱",
-    "description": "交換名片最麻煩的一步，是讓對方「拿到」你的資訊：傳 LINE 要先加好友，掃 QR code 要先打開相機。我想要的是兩支手機碰一下，對方手機就跳出我的連結，而且對方不需要安裝任何 App。
-工作上的產品後來也要做 NFC 功能，但需求還沒定型，不適合直接在正式專案裡試。所以我先開了一個獨立的 prototy",
-    "url": "https://reedlin2002.github.io/2026/05/31/nfc-test/",
-    "datePublished": "2026-05-31T12:00:00.000Z",
-    "dateModified": "2026-09-27T16:00:00.000Z",
-    "author": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    }
-    
-  }
-  </script>
-  
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"讓手機假裝成一張 NFC 卡片：NFC-test 的 HCE 實作與平台不對稱","description":"交換名片最麻煩的一步，是讓對方「拿到」你的資訊：傳 LINE 要先加好友，掃 QR code 要先打開相機。我想要的是兩支手機碰一下，對方手機就跳出我的連結，而且對方不需要安裝任何 App。\n工作上的產品後來也要做 NFC 功能，但需求還沒定型，不適合直接在正式專案裡試。所以我先開了一個獨立的 prototy","url":"https://reedlin2002.github.io/2026/05/31/nfc-test/","datePublished":"2026-05-31T12:00:00.000Z","dateModified":"2026-09-27T16:00:00.000Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -139,7 +117,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -178,6 +158,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 <article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="reading-header">
@@ -388,6 +369,7 @@
 
 
 
+                </div>
                   
                     <div id="footer-post-container">
   <div id="footer-post">

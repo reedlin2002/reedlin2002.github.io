@@ -13,33 +13,33 @@
         <category>C#</category>
         <category>SQLite</category>
         <category>Docker</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>leetcode</category>
-        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
         <category>side project</category>
         <category>React</category>
         <category>TypeScript</category>
         <category>PWA</category>
         <category>Hackathon</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>NFC</category>
         <category>Android</category>
         <category>Capacitor</category>
         <category>AI</category>
         <category>PRD</category>
-        <category>重構</category>
         <category>電腦視覺</category>
-        <category>軟體工程</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
+        <category>重構</category>
+        <category>軟體工程</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2025/07/13/singleton-pattern/</guid>
             <title>單例模式 Singleton_pattern</title>

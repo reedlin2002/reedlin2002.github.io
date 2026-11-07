@@ -1425,6 +1425,18 @@ code {
 .highlight .line {
   height: 22px;
 }
+.site-skip {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 18px;
+  background: var(--shoka-color-primary);
+  color: var(--shoka-color-bg);
+}
+.site-skip:focus {
+  top: 12px;
+}
 :root {
   --shoka-color-primary: #b5e78b;
   --shoka-color-secondary: #cdf0ac;

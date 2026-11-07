@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://reedlin2002.github.io/images/uav-vision-notes-iou.jpg">
 <meta property="og:image" content="https://reedlin2002.github.io/images/uav-vision-notes-stitching-pipeline.jpg">
 <meta property="article:published_time" content="2026-08-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-08-23T03:41:11.762Z">
+<meta property="article:modified_time" content="2026-11-07T02:45:55.671Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="電腦視覺">
 <meta property="article:tag" content="Deep Learning">
@@ -66,30 +66,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨",
-    "description": "空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以及當任務需要把多張影像拼成一張時，為什麼在特定場景下，古典幾何方法反而比深度學習更可靠。
-這篇整理把這幾塊拆開講清楚，每",
-    "url": "https://reedlin2002.github.io/2026/08/23/uav-vision-notes/",
-    "datePublished": "2026-08-22T16:00:00.000Z",
-    "dateModified": "2026-08-23T03:41:11.762Z",
-    "author": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    }
-    
-  }
-  </script>
-  
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨","description":"空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以及當任務需要把多張影像拼成一張時，為什麼在特定場景下，古典幾何方法反而比深度學習更可靠。\n這篇整理把這幾塊拆開講清楚，每","url":"https://reedlin2002.github.io/2026/08/23/uav-vision-notes/","datePublished":"2026-08-22T16:00:00.000Z","dateModified":"2026-11-07T02:45:55.671Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -144,7 +122,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -183,6 +163,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 <article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="reading-header">
@@ -205,7 +186,7 @@
         <span>3374 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2026.08.23</span>
+        <span>更新於 2026.11.07</span>
         
       </div>
     </div>
@@ -404,6 +385,7 @@
 
 
 
+                </div>
                   
                     <div id="footer-post-container">
   <div id="footer-post">

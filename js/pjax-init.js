@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 避免音樂重新載入，Pjax 只負責抽換主要內容
     if (typeof Pjax === 'undefined') return;
     var pjax = new Pjax({
-      elements: "a[href]:not([target='_blank']):not([href^='#']):not([href^='/#']):not([data-pjax-state])",
+      elements: "a[href]:not([target='_blank']):not([href^='#']):not([href^='/#']):not([data-pjax-state]):not([data-no-pjax]):not([href^='/portfolio']):not([href*='github.io/portfolio'])",
       selectors: [
         "title",
         "main.content" // 只抽換 content 區塊

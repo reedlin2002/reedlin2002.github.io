@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -61,31 +61,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position",
-    "description": "以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。
-但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？
-這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程",
-    "url": "https://reedlin2002.github.io/2026/07/18/binary-search-learning/",
-    "datePublished": "2026-07-17T16:00:00.000Z",
-    "dateModified": "2026-09-27T13:57:16.139Z",
-    "author": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    }
-    
-  }
-  </script>
-  
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"我終於搞懂二分搜尋：從直覺、邊界到 Search Insert Position","description":"以前看到二分搜尋（Binary Search），我只記得一句話：從中間開始找。\n但真的要自己寫時，我才發現問題沒有這麼簡單： left  和  right  到底代表什麼？為什麼要寫  mid + 1 ？找不到時，為什麼又能直接回傳  left ？\n這篇文章記錄我把二分搜尋一步一步拆開後，終於真正理解它的過程","url":"https://reedlin2002.github.io/2026/07/18/binary-search-learning/","datePublished":"2026-07-17T16:00:00.000Z","dateModified":"2026-09-27T13:57:16.139Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -140,7 +117,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -179,6 +158,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 <article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="reading-header">
@@ -394,6 +374,7 @@
 
 
 
+                </div>
                   
                     <div id="footer-post-container">
   <div id="footer-post">

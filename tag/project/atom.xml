@@ -10,33 +10,33 @@
     <category term="C#" />
     <category term="SQLite" />
     <category term="Docker" />
+    <category term="leetcode" />
+    <category term="Daily" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
-    <category term="leetcode" />
-    <category term="Daily" />
     <category term="技術筆記" />
     <category term="(作者自學用)" />
-    <category term="iOS" />
-    <category term="CallKit" />
-    <category term="系統設計" />
     <category term="side project" />
     <category term="React" />
     <category term="TypeScript" />
     <category term="PWA" />
     <category term="Hackathon" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
     <category term="NFC" />
     <category term="Android" />
     <category term="Capacitor" />
     <category term="AI" />
     <category term="PRD" />
-    <category term="重構" />
     <category term="電腦視覺" />
-    <category term="軟體工程" />
     <category term="Deep Learning" />
     <category term="Instance Segmentation" />
     <category term="影像處理" />
+    <category term="重構" />
+    <category term="軟體工程" />
     <entry>
         <id>https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/</id>
         <title>🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</title>

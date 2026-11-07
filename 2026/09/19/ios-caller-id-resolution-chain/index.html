@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -58,30 +58,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈",
-    "description": "我最近在研究一個商務名片 App 的 iOS 來電辨識該怎麼做。需求講起來很單純：讓使用者接到電話時，畫面上那行字是由我們的 App 決定的。
-查完文件會發現 Apple 給了三個看起來都能做這件事的 API, 而大部分的介紹文章都是各自說明它們的用途。我一開始也是這樣理解的，把它們排成「三個層次」, 以為可",
-    "url": "https://reedlin2002.github.io/2026/09/19/ios-caller-id-resolution-chain/",
-    "datePublished": "2026-09-18T16:00:00.000Z",
-    "dateModified": "2026-09-19T04:42:14.060Z",
-    "author": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    }
-    
-  }
-  </script>
-  
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"來電畫面上那行字,是誰決定的?iOS 來電辨識的四層短路鏈","description":"我最近在研究一個商務名片 App 的 iOS 來電辨識該怎麼做。需求講起來很單純：讓使用者接到電話時，畫面上那行字是由我們的 App 決定的。\n查完文件會發現 Apple 給了三個看起來都能做這件事的 API, 而大部分的介紹文章都是各自說明它們的用途。我一開始也是這樣理解的，把它們排成「三個層次」, 以為可","url":"https://reedlin2002.github.io/2026/09/19/ios-caller-id-resolution-chain/","datePublished":"2026-09-18T16:00:00.000Z","dateModified":"2026-09-19T04:42:14.060Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -136,7 +114,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -175,6 +155,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 <article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="reading-header">
@@ -615,6 +596,7 @@
 
 
 
+                </div>
                   
                     <div id="footer-post-container">
   <div id="footer-post">

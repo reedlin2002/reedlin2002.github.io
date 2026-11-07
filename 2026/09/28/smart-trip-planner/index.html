@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -51,7 +51,7 @@
 <meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-explore-food.png">
 <meta property="og:image" content="https://reedlin2002.github.io/images/smart-trip-planner-history.png">
 <meta property="article:published_time" content="2026-09-28T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-09-28T13:01:48.952Z">
+<meta property="article:modified_time" content="2026-11-07T02:45:55.668Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="side project">
 <meta property="article:tag" content="React">
@@ -86,35 +86,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "智慧旅程規劃：AI 排初稿，在地圖上隨時加景點",
-    "description": " 智慧旅程規劃：AI 排初稿，在地圖上隨時加景點
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"智慧旅程規劃：AI 排初稿，在地圖上隨時加景點","description":" 智慧旅程規劃：AI 排初稿，在地圖上隨時加景點\n\n五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。\n\n\n 問題是什麼\n在計畫旅遊的","url":"https://reedlin2002.github.io/2026/09/28/smart-trip-planner/","datePublished":"2026-09-28T12:00:00.000Z","dateModified":"2026-11-07T02:45:55.668Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
 
-五月那篇〈用 AI 幫你規劃旅程〉記錄了 v0.1 的開發過程。這次是完整的重做 ——UI、資料模型、規劃邏輯全部砍掉重來。這篇不談程式細節，而是從「這個平台要解決什麼問題、用戶需要什麼、每個功能怎麼回應那個需求」的角度來寫。
-
-
- 問題是什麼
-在計畫旅遊的",
-    "url": "https://reedlin2002.github.io/2026/09/28/smart-trip-planner/",
-    "datePublished": "2026-09-28T12:00:00.000Z",
-    "dateModified": "2026-09-28T13:01:48.952Z",
-    "author": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    }
-    
-  }
-  </script>
-  
 
   <!-- ── Favicon ── -->
   
@@ -169,7 +142,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -208,6 +183,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 <article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="reading-header">
@@ -230,7 +206,7 @@
         <span>2696 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2026.09.28</span>
+        <span>更新於 2026.11.07</span>
         
       </div>
     </div>
@@ -483,6 +459,7 @@
 
 
 
+                </div>
                   
                     <div id="footer-post-container">
   <div id="footer-post">

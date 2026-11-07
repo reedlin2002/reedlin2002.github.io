@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -52,6 +52,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Tags","description":"Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程","url":"https://reedlin2002.github.io/tags/index.html","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -106,7 +108,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -145,6 +149,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   
 
@@ -296,6 +301,7 @@
   </div>
 </article>
 
+                </div>
                   
                         <!-- ═══════════════════════════════════════════════
      FOOTER — 開發筆記本：Stay curious 字標 + 一行資訊

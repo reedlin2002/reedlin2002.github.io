@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -61,30 +61,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控",
-    "description": "UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。
-規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。",
-    "url": "https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/",
-    "datePublished": "2025-07-05T13:44:35.000Z",
-    "dateModified": "2026-09-27T16:00:00.000Z",
-    "author": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    }
-    
-  }
-  </script>
-  
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"UrlHealthMonitor：用 .NET 8 做一個會自己定時巡邏的網址監控","description":"UrlHealthMonitor 是我第一次用 .NET 寫後端的小專案：定期對一組網址發 HTTP GET，記下狀態碼跟耗時，存進 SQLite，再用一個網頁 Dashboard 顯示最近 100 筆結果。\n規模不大，但剛好會碰到後端的幾個基本元件：背景服務、依賴注入、資料庫、HTTP 用戶端，以及容器化。","url":"https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/","datePublished":"2025-07-05T13:44:35.000Z","dateModified":"2026-09-27T16:00:00.000Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -139,7 +117,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -178,6 +158,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 <article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="reading-header">
@@ -342,6 +323,7 @@
 
 
 
+                </div>
                   
                     <div id="footer-post-container">
   <div id="footer-post">

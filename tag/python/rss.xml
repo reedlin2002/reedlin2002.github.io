@@ -13,40 +13,40 @@
         <category>C#</category>
         <category>SQLite</category>
         <category>Docker</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
-        <category>leetcode</category>
-        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
-        <category>iOS</category>
-        <category>CallKit</category>
-        <category>系統設計</category>
         <category>side project</category>
         <category>React</category>
         <category>TypeScript</category>
         <category>PWA</category>
         <category>Hackathon</category>
+        <category>iOS</category>
+        <category>CallKit</category>
+        <category>系統設計</category>
         <category>NFC</category>
         <category>Android</category>
         <category>Capacitor</category>
         <category>AI</category>
         <category>PRD</category>
-        <category>重構</category>
         <category>電腦視覺</category>
-        <category>軟體工程</category>
         <category>Deep Learning</category>
         <category>Instance Segmentation</category>
         <category>影像處理</category>
+        <category>重構</category>
+        <category>軟體工程</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/</guid>
             <title>兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來</title>
             <link>https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/</link>
             <category>Python</category>
-            <category>重構</category>
             <category>電腦視覺</category>
+            <category>重構</category>
             <category>軟體工程</category>
             <pubDate>Mon, 28 Sep 2026 00:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：&lt;/p&gt;

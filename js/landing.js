@@ -181,7 +181,7 @@
       open = value;
       root.classList.toggle('is-open', open);
       button.setAttribute('aria-expanded', open ? 'true' : 'false');
-      button.setAttribute('aria-label', (open ? '收起' : '開啟') + '主題資料夾');
+      // Keep the visible name stable; aria-expanded communicates open/closed state.
       if ('inert' in world) world.inert = !open;
       if (open) { layout(); animate(); }
       else { cancelAnimationFrame(frame); frame = 0; last = 0; }

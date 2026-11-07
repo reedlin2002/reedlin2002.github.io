@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -20,7 +20,7 @@
 1bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！
 兩年後，">
   
-  <meta name="keywords" content="Python, 重構, 電腦視覺, 軟體工程">
+  <meta name="keywords" content="Python, 電腦視覺, 重構, 軟體工程">
   <meta name="author" content="Lin">
   <meta name="robots" content="index, follow">
 
@@ -38,11 +38,11 @@
 <meta property="og:image" content="https://reedlin2002.github.io/images/uav-analysis-refactor-tiles-2024.jpg">
 <meta property="og:image" content="https://reedlin2002.github.io/images/uav-analysis-refactor-tiles-2026.jpg">
 <meta property="article:published_time" content="2026-09-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-09-28T02:27:40.782Z">
+<meta property="article:modified_time" content="2026-11-07T02:45:55.669Z">
 <meta property="article:author" content="Lin">
 <meta property="article:tag" content="Python">
-<meta property="article:tag" content="重構">
 <meta property="article:tag" content="電腦視覺">
+<meta property="article:tag" content="重構">
 <meta property="article:tag" content="軟體工程">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://reedlin2002.github.io/images/uav-analysis-refactor-tiles-2024.jpg">
@@ -64,31 +64,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來",
-    "description": "2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：
-1bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！
-兩年後，",
-    "url": "https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/",
-    "datePublished": "2026-09-27T16:00:00.000Z",
-    "dateModified": "2026-09-28T02:27:40.782Z",
-    "author": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    },
-    "publisher": {
-      "@type": "Person",
-      "name": "Lin",
-      "url": "https://reedlin2002.github.io"
-    }
-    
-  }
-  </script>
-  
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來","description":"2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：\n1bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！\n兩年後，","url":"https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/","datePublished":"2026-09-27T16:00:00.000Z","dateModified":"2026-11-07T02:45:55.669Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -143,7 +120,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index " role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -182,6 +161,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 <article class="reading-article post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="reading-header">
@@ -204,7 +184,7 @@
         <span>3559 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2026.09.28</span>
+        <span>更新於 2026.11.07</span>
         
       </div>
     </div>
@@ -354,7 +334,7 @@
     <p>謝謝你，讀到這裡。</p>
     
     <div class="reading-tags">
-      <a href="/tags/Python/"># Python</a><a href="/tags/%E9%87%8D%E6%A7%8B/"># 重構</a><a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/"># 電腦視覺</a><a href="/tags/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/"># 軟體工程</a>
+      <a href="/tags/Python/"># Python</a><a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/"># 電腦視覺</a><a href="/tags/%E9%87%8D%E6%A7%8B/"># 重構</a><a href="/tags/%E8%BB%9F%E9%AB%94%E5%B7%A5%E7%A8%8B/"># 軟體工程</a>
     </div>
     
     
@@ -404,6 +384,7 @@
 
 
 
+                </div>
                   
                     <div id="footer-post-container">
   <div id="footer-post">

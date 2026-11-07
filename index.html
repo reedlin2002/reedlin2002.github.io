@@ -2,7 +2,7 @@
 <html lang=zh-TW>
   <head>
   <!-- ── Theme: Anti-FOUC — 在 CSS 載入前讀取 localStorage，防止閃爍 ── -->
-  <script>(function(){var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;})();</script>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 
   <!-- ── Core Meta ── -->
   <meta charset="utf-8">
@@ -23,7 +23,7 @@
   <meta name="robots" content="index, follow">
 
   <!-- ── Canonical URL ── -->
-  <link rel="canonical" href="https://reedlin2002.github.io">
+  <link rel="canonical" href="https://reedlin2002.github.io/index.html">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
   <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
@@ -50,28 +50,8 @@
 
   <!-- ── JSON-LD Structured Data ── -->
   
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Reedlin2002",
-    "description": "Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程",
-    "url": "https://reedlin2002.github.io",
-    "author": {
-      "@type": "Person",
-      "name": "Lin"
-    },
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://reedlin2002.github.io/search?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
-  
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Reedlin2002","description":"Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程","url":"https://reedlin2002.github.io/index.html","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+
 
   <!-- ── Favicon ── -->
   
@@ -126,7 +106,9 @@
   
 <meta name="generator" content="Hexo 7.3.0"></head>
 
+
     <body class="max-width mx-auto px3 ltr">
+            <a class="site-skip" href="#main-content">跳至主要內容</a>
             <main class="content index h-card" role="main">
               <header id="header">
   <a class="header-left u-url u-uid" href="/" style="display: flex; align-items: center; gap: 16px;">
@@ -165,6 +147,7 @@
   </div>
 </header>
 
+                <div id="main-content" tabindex="-1">
                 
 
 <!-- ══ Skills 跑馬燈（滿版細帶）══ -->
@@ -298,7 +281,7 @@
         <p>2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時…</p>
         
         <div class="notebook-tags">
-          <a href="/tags/Python/">Python</a><a href="/tags/%E9%87%8D%E6%A7%8B/">重構</a><a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/">電腦視覺</a>
+          <a href="/tags/Python/">Python</a><a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/">電腦視覺</a><a href="/tags/%E9%87%8D%E6%A7%8B/">重構</a>
         </div>
         
       </div>
@@ -428,6 +411,7 @@
 </section>
 
 
+                </div>
                   
                         <!-- ═══════════════════════════════════════════════
      FOOTER — 開發筆記本：Stay curious 字標 + 一行資訊
