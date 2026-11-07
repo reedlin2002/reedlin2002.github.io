@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-07",
+  "mode": "snapshot",
+  "device": "Chrome mobile emulation 390x844",
+  "scope": "Local static build. Excludes performance, real-device and indexing validation.",
+  "reports": {
+    "home": {
+      "url": "http://127.0.0.1:4000/",
+      "categories": {
+        "accessibility": {
+          "title": "Accessibility",
+          "score": 1
+        },
+        "best-practices": {
+          "title": "Best Practices",
+          "score": 1
+        },
+        "seo": {
+          "title": "SEO",
+          "score": 1
+        },
+        "agentic-browsing": {
+          "title": "Agentic Browsing",
+          "score": 1
+        }
+      },
+      "failed": []
+    },
+    "portfolio": {
+      "url": "http://127.0.0.1:4000/portfolio/",
+      "categories": {
+        "accessibility": {
+          "title": "Accessibility",
+          "score": 1
+        },
+        "best-practices": {
+          "title": "Best Practices",
+          "score": 1
+        },
+        "seo": {
+          "title": "SEO",
+          "score": 1
+        },
+        "agentic-browsing": {
+          "title": "Agentic Browsing",
+          "score": 1
+        }
+      },
+      "failed": []
+    }
+  }
+}

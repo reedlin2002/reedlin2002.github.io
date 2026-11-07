@@ -93,7 +93,7 @@ HTTP 狀態：錯誤 JSON 或無有效 user 訊息為 400；錯誤 method 為 40
 
 # 系統設計：Portfolio SPA（/portfolio/）
 
-獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格選單不連入。決策見 `docs/decisions/2026-09-28-portfolio-spa-react.md`。更新日期：2026-10-03。
+獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格首頁、選單、About 與文章都不連入；全名、雇主等個人資訊只出現在這一頁（見 `docs/decisions/2026-11-07-blog-identity-revert.md`）。技術邊界沿用 `docs/decisions/2026-09-28-portfolio-spa-react.md`，版型見 `docs/plans/2026-11-07-portfolio-self-intro-layout.md`。更新日期：2026-11-07。
 
 ## 元件與建置流程
 
@@ -102,38 +102,35 @@ flowchart LR
     Src["portfolio/（Vite + React + TS）"] -->|npm run build:portfolio| Out["source/portfolio/"]
     Out -->|skip_render: portfolio/**，原樣複製| Public["public/portfolio/"]
     Public -->|hexo deploy| Pages["GitHub Pages /portfolio/"]
-    Data["src/data/timeline.ts"] --> Src
-    RB["src/components/reactbits/"] --> Src
+    Timeline["src/data/timeline.ts（事實、日期、圖片、連結）"] --> Data["src/data/portfolio.ts（頁面文案）"]
+    Data --> Src
 ```
 
-- `portfolio/` 是獨立的 npm 專案；React、gsap、motion 只打包在這一頁，cactus 主題與其他頁面不受影響。
+- `portfolio/` 是獨立的 npm 專案；React 只打包在這一頁。React Bits 來源與授權保留但不引用。
+- 個人資料（姓名、職稱、雇主、學歷、信箱）只寫在 `portfolio/src/`，不放在 Hexo 的 `source/_data/`，部落格主題讀不到。
+- `timeline.ts` 是事實來源（申請文件 v1.8）；`portfolio.ts` 放 Experience、News、Projects、Awards 的文案，以 `node(id)` 取 timeline 的標題、日期、圖片與連結。節點只收有 repo、文章或作者確認來源的項目。
+- 樣式只有 `src/site.css`（墨綠／嫩綠 tokens，支援 `data-theme="light"`）。
 - build 產物進版控。修改 `portfolio/` 後必須重跑 `npm run build:portfolio`，`hexo generate` 只負責複製。
-- 頁面帶 `<meta name="robots" content="noindex, nofollow">`；`<noscript>` 內有純連結清單。
+- 頁面帶 `noindex, nofollow`；`<noscript>` 內有純連結清單。
 
-## 頁面區塊
+## 頁面區塊（自介版型）
 
-| 區塊 | 檔案 | 內容 | 動畫 |
-|---|---|---|---|
-| Hero | `sections/Hero.tsx` | 姓名、學校與職稱兩行（對應研究／工程兩軌的顏色）、自我介紹；右側為 UAV 原始影格 → 7×5 切片掃描 → 2024 年系統實際輸出與 CCI／PAI | Decrypted Text；切片位置由 `lib/tiles.ts`（移植自 project repo 的 `inference.py`）計算 |
-| 雙軌時間軸 | `sections/DualTimeline.tsx` | 研究／工程兩軌，資料來自 `data/timeline.ts`；軸線終點為「NOW」標記 | Animated Content、Count Up |
-| 學習方式 | `sections/Practice.tsx` | 學習循環與寫作觀 | Scroll Reveal（逐字） |
-| 匯合 | `sections/Converge.tsx` | 定位句與聯絡方式 | 無 |
+| 區塊 | 檔案 | 內容 |
+|---|---|---|
+| Header | `sections/About.tsx` | sticky 導覽：About／Experience／News／Research／Projects／Awards＋Blog；手機可橫向捲動 |
+| About `#about` | `sections/About.tsx` | 姓名、Software Engineer · Computer Vision、三段第一人稱自介、Email／GitHub |
+| Experience `#experience` | `sections/Experience.tsx` | 程曦資訊（職稱演進、App 工作摘要、三個平台整合重點、tags）、銘傳大學 2021–2025 |
+| News `#news` | `sections/News.tsx` | 日期＋一句話，預設 6 則，按鈕展開全部 |
+| Research `#research` | `sections/Research.tsx`、`sections/Hero.tsx` | UAV 專題卡：影像切換（分割輸出／輸入影格／重疊切片）、「我做了什麼」、tags、連結 |
+| Projects `#projects` | `sections/Projects.tsx`、`components/Zoomable.tsx` | 6 張卡片（圖或影片、一句話、tags、連結），點擊以原生 `<dialog>` 放大；「其他作品」列表 |
+| Awards `#awards` | `sections/Awards.tsx` | 獎項、證照；頁尾聯絡資訊 |
 
-## 時間軸資料（`data/timeline.ts`）
+- 影片（mien，取自 repo 既有 demo.gif 轉 mp4）在卡片內 muted loop 自動播放，`prefers-reduced-motion` 時不自動播放；放大檢視開啟才播放、關閉即暫停。
+- 所有影像都是真實資料（專題輸出、實際執行截圖、作品既有 demo），不繪製模型沒有輸出過的偵測框。文案以個人貢獻為主，不放限制／待補段落。
 
-| 欄位 | 用途 |
-|---|---|
-| `track` | `research` 或 `engineering`，決定左右欄與顏色 |
-| `date`／`sortKey` | 顯示用日期與排序用日期；同一 `sortKey` 依陣列順序（sort 為 stable） |
-| `tag` | 類型標籤，例如「競賽」「Side Project」「寫作」 |
-| `compact` | 小卡：獎項、里程碑等沒有圖片的節點 |
-| `image` | 真實截圖或系統輸出；UI 截圖用 `fit: 'contain'` 避免裁切 |
-| `links` | 文章／GitHub／官網按鈕（`kind`：`article`、`github`、`site`） |
-| `stats` | Count Up 數字，另提供螢幕閱讀器用的最終值 |
-| `cases` | 工作案例子項（標題 + 說明） |
+## 建置與檢查
 
-- 節點只收有 repo、文章或作者確認來源的項目；事實與申請文件（目前為 v1.8）一致。日期不明的項目不放，或與同類節點合併。
-
-- Target Cursor 只在 `(hover: hover) and (pointer: fine) and (min-width: 769px)` 且未開啟減少動態時載入。
-- `prefers-reduced-motion: reduce` 時：Hero 直接顯示結果、文字不打亂、卡片直接顯示、數字顯示最終值、引言不拆字。
-- 所有影像都是真實資料（專題影格、系統輸出、實際執行截圖、文章內的圖），不繪製模型沒有輸出過的偵測框。
+1. `npm run build:portfolio`：TypeScript + Vite，更新受版本控制的 `source/portfolio/`。
+2. `npm run build`：Hexo 文章、主題與靜態頁輸出。
+3. `python tools/verify-site.py`：逐位元檢查 Portfolio 複製、文章路由、JSON-LD、主要頁面的連結與資產。工具放在 `tools/`，避免 Hexo 將 `scripts/` 內容當作 JS plugin 自動載入。
+4. 瀏覽器另驗證 fragment 導覽、放大檢視（Esc／背景關閉）、鍵盤、響應式與深淺色。Noindex 延續既有設定，並非存取控制。
