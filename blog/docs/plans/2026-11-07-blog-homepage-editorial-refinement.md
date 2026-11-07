@@ -4,17 +4,15 @@
 Redesign only the Blog homepage around a clear professional introduction, real research evidence, readable work experience, and the existing Field Notes article list.
 
 ## Files Impacted
-- `themes/cactus/layout/_partial/profile.ejs`
 - `themes/cactus/layout/index.ejs`
 - `themes/cactus/layout/_partial/header.ejs`
 - `themes/cactus/layout/_partial/footer.ejs`
-- `themes/cactus/layout/layout.ejs`
-- `themes/cactus/source/css/_profile.styl`
 - `themes/cactus/source/css/_landing.styl`
+- `themes/cactus/source/css/_live2d.styl`
+- `themes/cactus/source/js/live2d-chat.js`
 - `themes/cactus/_config.yml`
-- `themes/cactus/_config.yml`
-- `source/_data/profile.json`
-- `source/images/homepage-*.webp` (reused project evidence screenshots)
+- `themes/cactus/scripts/cover_thumb.js`
+- `source/images/homepage-research.webp`
 - `docs/validation/2026-11-07-blog-homepage-editorial-refinement.md`
 
 ## DB Impact
@@ -30,8 +28,8 @@ None.
 - No API, service, schema, or third-party integration changes.
 
 ## Story Status
-- [x] In Progress
-- [ ] Code Done
-- [ ] Docs Updated
-- [ ] SDD Updated
-- [ ] Review Ready
+- [ ] In Progress
+- [x] Code Done
+- [x] Docs Updated
+- [x] SDD Updated (not applicable; no API/service/schema/third-party changes)
+- [x] Review Ready
