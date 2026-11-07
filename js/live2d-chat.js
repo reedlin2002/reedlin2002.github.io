@@ -395,7 +395,7 @@
   }
 
   function canShowAmbient() {
-    return !chatOpen && !document.hidden && currentMode === 'float' && window.innerWidth >= 500 &&
+    return cfg.ambient_messages === true && !chatOpen && !document.hidden && currentMode === 'float' && window.innerWidth >= 500 &&
       ambientCount < AMBIENT_MAX_PER_PAGE;
   }
 
