@@ -1,0 +1,72 @@
+diff --git a/_config.yml b/_config.yml
+index 95b5262..57acf0d 100644
+--- a/_config.yml
++++ b/_config.yml
+@@ -10,10 +10,10 @@ direction: ltr
+ 
+ # 導覽列選單設定，格式為「名稱: 連結」
+ nav:
+-  筆記: /
++  首頁: /
+   所有文章: /archives/
+   作品: /#projects
+-  關於: /about/
++  關於: /portfolio/
+ 
+ # 社群連結與圖示設定（使用 Fontawesome 的 icon 名稱）
+ social_links:
+diff --git a/layout/archive.ejs b/layout/archive.ejs
+index 9e9226b..47ee0b6 100644
+--- a/layout/archive.ejs
++++ b/layout/archive.ejs
+@@ -1,5 +1,25 @@
+ <div id="archive">
+ 
++  <!-- ── 依年份分組的完整文章列表（同首頁卡片樣式）── -->
++  <section class="archive-list">
++    <span class="section-title"><%= __('index.view_all') %></span>
++    <div class="post-list">
++      <% var year = 0 %>
++      <% var change = false %>
++      <% var field_sort = theme.archive.sort_updated ? 'updated' : 'date' %>
++      <% page.posts.sort(field_sort, 'desc').each(function(post) { %>
++        <% var itemYear = date(post[field_sort], 'YYYY') %>
++        <% change = year !== itemYear %>
++        <% year = change ? itemYear : year %>
++        <% if (change) { %>
++          <h2 class="archive-year"><%= year %></h2>
++        <% } %>
++        <%- partial('_partial/post-card', { post: post }) %>
++      <% }); %>
++    </div>
++    <%- partial('_partial/pagination') %>
++  </section>
++
+   <!-- ── 站點導覽（自首頁遷入：標籤 / 分類 / 統計）── -->
+   <section id="site-nav">
+     <span class="section-title">站點導覽</span>
+@@ -56,24 +76,4 @@
+     </div>
+   </section>
+ 
+-  <!-- ── 依年份分組的完整文章列表（同首頁卡片樣式）── -->
+-  <section class="archive-list">
+-    <span class="section-title"><%= __('index.view_all') %></span>
+-    <div class="post-list">
+-      <% var year = 0 %>
+-      <% var change = false %>
+-      <% var field_sort = theme.archive.sort_updated ? 'updated' : 'date' %>
+-      <% page.posts.sort(field_sort, 'desc').each(function(post) { %>
+-        <% var itemYear = date(post[field_sort], 'YYYY') %>
+-        <% change = year !== itemYear %>
+-        <% year = change ? itemYear : year %>
+-        <% if (change) { %>
+-          <h2 class="archive-year"><%= year %></h2>
+-        <% } %>
+-        <%- partial('_partial/post-card', { post: post }) %>
+-      <% }); %>
+-    </div>
+-    <%- partial('_partial/pagination') %>
+-  </section>
+-
+ </div>
