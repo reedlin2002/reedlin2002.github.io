@@ -8,10 +8,9 @@ description: Lin 的技術實作與作品：跨平台 App、電腦視覺，以�
 .lin-about > * { min-width: 0; }
 .lin-about h2, .lin-about h3 { border: 0 !important; padding-left: 0 !important; color: inherit !important; }
 .lin-about h2::before, .lin-about h2::after, .lin-about h3::before, .lin-about h3::after { display: none !important; }
-.lin-about .profile-banner { grid-column: 1 / -1; position: relative; display: grid; place-items: center; min-height: 260px; margin-bottom: 42px; overflow: hidden; }
-.lin-about .profile-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(.45); margin: 0; }
-.lin-about .profile-banner p { position: relative; margin: 24px; padding: 20px 64px; border: 2px solid #fff; color: #fff; font-size: clamp(36px, 7vw, 64px); font-weight: 700; line-height: 1.2; }
-.lin-about .about-intro { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 40px; align-items: center; padding: 0 0 42px; }
+.lin-about .profile-banner { grid-column: 1 / -1; display: grid; place-items: center; min-height: 220px; margin-bottom: 42px; background: var(--shoka-card-bg, transparent); border-bottom: 1px solid var(--shoka-color-border, currentColor); }
+.lin-about .profile-banner p { margin: 24px; padding: 20px 64px; color: inherit; font-size: clamp(36px, 7vw, 64px); font-weight: 700; line-height: 1.2; }
+.lin-about .about-intro { grid-column: 1 / -1; padding: 0 0 42px; }
 .lin-about .intro-image { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; margin: 0; }
 .lin-about .about-intro h2 { margin: 0 0 20px; font-size: clamp(28px, 5vw, 36px); line-height: 1.3; }
 .lin-about .about-intro p { max-width: 65ch; font-size: 17px; line-height: 1.9; }
@@ -19,7 +18,8 @@ description: Lin 的技術實作與作品：跨平台 App、電腦視覺，以�
 .lin-about .about-section h2 { margin-top: 0; }
 .lin-about .about-section h3 { margin-top: 26px; }
 .lin-about .about-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin: 20px 0 0; }
-.lin-about .about-links a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 5px; }
+.lin-about .about-links a, .lin-about .about-links a:hover, .lin-about .about-links a:focus-visible { display: inline-flex; align-items: center; min-height: 44px; background-image: none; text-decoration: none; border-bottom: 1px solid currentColor; }
+.lin-about .about-links a:hover { color: var(--shoka-color-text); }
 .lin-about .about-image { width: 100%; height: auto; margin: 24px 0 12px; border-radius: 4px; }
 .lin-about .about-caption, .lin-about .about-stack { font-size: 13px; line-height: 1.7; }
 .lin-about #practice { grid-column: 1; grid-row: 3; }
@@ -52,9 +52,8 @@ description: Lin 的技術實作與作品：跨平台 App、電腦視覺，以�
 </style>
 
 <div class="lin-about">
-<div class="profile-banner"><img src="/images/beach-litter-monitoring-map.jpg" alt="" fetchpriority="high"><p>關於 Lin</p></div>
+<div class="profile-banner"><p>關於 Lin</p></div>
 <section class="about-intro" id="intro">
-<img class="intro-image" src="/images/beach-litter-monitoring-cover.jpg" alt="海灘垃圾監測專題的影像成果">
 <div>
 
 ## 你好，我是 Lin
