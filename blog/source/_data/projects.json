@@ -51,9 +51,6 @@
     "desc": "本地 AI 推論 API：ONNX 影像分類、Tesseract OCR 與 Ollama 文字生成，全程離線。",
     "tags": [".NET 8", "ONNX", "Ollama"],
     "image": "/images/thumbs/LocalAIAgentAPI.webp",
-    "links": [
-      { "label": "文章", "url": "/2025/07/19/LocalAIAgentAPI/" },
-      { "label": "GitHub", "url": "https://github.com/reedlin2002/Local_API_AI" }
-    ]
+    "links": [{ "label": "GitHub", "url": "https://github.com/reedlin2002/Local_API_AI" }]
   }
 ]

@@ -5,9 +5,9 @@ tags: [電腦視覺, Deep Learning, Instance Segmentation, 影像處理]
 cover: /images/uav-vision-notes-cover.png
 ---
 
-空拍(UAV)影像辨識任務,常被當成「套一個模型跑一跑」的黑箱問題,但拆開來看,其實牽涉好幾個獨立的技術決策:分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼,以及當任務需要把多張影像拼成一張時,為什麼在特定場景下,古典幾何方法反而比深度學習更可靠。
+空拍(UAV)影像辨識任務,常被當成「套一個模型跑一跑」的黑箱問題,但拆開來看,其實牽涉好幾個獨立的技術決策:分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼,以及當任務需要把多張影像拼成一張時,背後用的是哪一套幾何方法。
 
-這篇整理把這幾塊拆開講清楚,每個結論都對照原始論文、官方 repo 或官方文件的圖,而不是憑印象複述。
+這篇整理把這幾塊拆開講清楚,圖都取自原始論文、官方 repo 或官方文件。
 
 <!-- more -->
 
@@ -43,7 +43,7 @@ cover: /images/uav-vision-notes-cover.png
 
 決定做實例分割之後,下一步是選模型。這裡有個經典分岔:**anchor-based**(如 Mask R-CNN)先在圖上鋪一堆預設候選框(不同尺寸、長寬比),逐一判斷框裡有沒有物件;**anchor-free**(如 CenterMask2)則直接對 feature map 上每個位置預測物件邊界,不需要事先假設物件的尺寸與長寬比。
 
-空拍畫面裡的目標往往**大小懸殊、形狀不規則**,很難設計出一組涵蓋所有情況的 anchor 尺寸,這是 anchor-free 路線在此類場景較有優勢的主因。CenterMask2 是這條路線的代表作之一,下圖是官方 repo 公開的架構圖:
+anchor 的尺寸、長寬比與數量都是要事先設定的超參數。FCOS 論文的主張是:拿掉 anchor,就不必再調這組對偵測表現很敏感的設定。空拍畫面裡的目標往往**大小懸殊、形狀不規則**,要事先定出一組合適的 anchor 並不容易,這是選型時會考慮 anchor-free 路線的理由之一。CenterMask2 是這條路線的代表作之一,下圖是官方 repo 公開的架構圖:
 
 <img src="/images/uav-vision-notes-centermask2-architecture.png" alt="CenterMask2 架構圖" style="width:100%;border-radius:6px;margin-top:16px;">
 <p style="font-size:13px;color:#888;text-align:center;margin-top:4px;">圖片來源:<a href="https://github.com/youngwanLEE/centermask2" target="_blank">youngwanLEE/centermask2</a> 官方 GitHub repo(CVPR 2020,arXiv:1911.06667)</p>
@@ -60,7 +60,7 @@ cover: /images/uav-vision-notes-cover.png
 |---|---|---|---|
 | Mask R-CNN | anchor-based | RoIAlign 後直接卷積出 mask | 精度高,是長期的 baseline |
 | YOLACT | anchor-based | 先生成一組 prototype mask 再線性組合 | 速度快,即時性佳,精度略遜 |
-| CenterMask2 | anchor-free(FCOS) | SAG-Mask(空間注意力) | 對尺寸懸殊、形狀不規則物件較友善 |
+| CenterMask2 | anchor-free(FCOS) | SAG-Mask(空間注意力) | 論文回報:同樣使用 ResNet-101-FPN 時 mask AP 為 38.3%,比當時其他方法準,速度也更快 |
 
 ## 三、怎麼知道模型準不準:IoU 與 mAP
 
@@ -75,7 +75,7 @@ cover: /images/uav-vision-notes-cover.png
 2. 用 Precision = TP/(TP+FP)、Recall = TP/(TP+FN) 畫出 precision-recall 曲線,曲線下面積就是這個類別在這個 threshold 下的 **AP(Average Precision)**。
 3. 對所有類別取平均,得到 **mAP**。COCO 的評估標準更嚴格,會在 IoU 0.5 到 0.95、每 0.05 一個間隔取多個 threshold 分別算 AP 再平均(常標示為 mAP@[.5:.95]),比 PASCAL VOC 只看單一 IoU 0.5 的標準更能反映定位精準度。
 
-實務上訓練這類模型很少從零開始,通常用 COCO 預訓練權重做遷移學習,再用自己的資料集微調。常見取捨包括:learning rate 通常要調小(避免破壞預訓練特徵)、資料量小時可以凍結 backbone 前幾層降低過擬合風險、資料增強策略要配合場景設計(空拍影像因為視角本來就沒有固定「正向」,旋轉與翻轉類增強特別合理)。
+實務上訓練這類模型很少從零開始,通常從預訓練權重出發做遷移學習(例如 ImageNet 預訓練的 backbone,或整個模型的 COCO 預訓練權重),再用自己的資料集微調。常見取捨包括:learning rate 通常要調小(避免破壞預訓練特徵)、資料量小時可以凍結 backbone 前幾層降低過擬合風險、資料增強策略要配合場景設計(空拍影像因為視角本來就沒有固定「正向」,旋轉與翻轉類增強特別合理)。
 
 ## 四、把多張影像拼成一張:Homography 與 RANSAC
 
@@ -91,7 +91,7 @@ OpenCV 的 `cv2.Stitcher` 把這整套流程包好,官方文件的 pipeline 圖�
 - **Registration**:縮圖 → 找特徵(Find features)→ 匹配特徵(Match features)→ 挑選要用來拼接的影像與匹配子集 → 粗估相機參數 → 全域精修相機參數 → 波形修正與最終全景尺度估計,最後輸出「Registration data」(也就是每張影像對應的 homography / 相機參數)。
 - **Compositing**:依 Registration data 把影像變形(Warp images)、估計並補償曝光差異(Compensate exposure errors)、找接縫遮罩(Find seam masks)、混合(Blend images),最後輸出完整全景圖。
 
-值得記錄的一個教訓:如果想用深度學習方法(例如訓練一個 Siamese network 學習特徵描述子,取代 Registration 階段的傳統 SIFT/ORB)來做特徵匹配,在海面、沙灘、農地這類**低紋理、高重複性**的場景反而容易踩坑。原因有二:一是這類場景的局部區塊長得都很像,學出來的描述子區分度不夠;二是訓練這種模型需要大量「已知正確對應」的成對資料,這類場景的正負樣本本來就不好標注。相較之下,傳統 SIFT/ORB 搭配 RANSAC 幾何驗證不需要訓練資料,而且 RANSAC 那一步天生就是為了處理雜訊匹配設計的,在這類場景反而是更穩的路線——這也是為什麼 `cv2.Stitcher` 至今仍是許多空拍拼接應用的預設選擇,而不是換成端到端的深度學習方案。
+我們的專題用的就是 OpenCV 的 Stitcher。過程中也試過另一條路:用自監督學習的深度學習模型來估計單應性矩陣,希望減少拼接時的殘影、物體重複出現與對不齊。不過訓練出來的模型經過投影變換驗證後,效果都不如預期,系統最後維持傳統的特徵點方法。傳統流程有一個實際的好處:特徵點匹配加上 RANSAC 不需要訓練資料,而 RANSAC 這一步本來就是為了排除錯誤匹配設計的。
 
 ## 五、資料不夠的時候:半監督學習與極小物件偵測
 
@@ -108,15 +108,17 @@ OpenCV 的 `cv2.Stitcher` 把這整套流程包好,官方文件的 pipeline 圖�
 - 用 **FPN** 這類多尺度特徵融合架構,讓淺層(解析度高、細節多)跟深層(語意資訊豐富)的特徵互相補強——這也是前面 CenterMask2 架構圖裡 P3~P7 金字塔的作用之一。
 - **切圖推論**(如 SAHI,Slicing Aided Hyper Inference):把高解析度大圖切成多個小 patch 分別做推論,再把結果合併回原圖座標,避免小物件在整張大圖被下採樣到消失。
 - **Copy-paste 資料增強**:訓練時刻意把小物件樣本複製貼到不同背景上,增加小物件在訓練資料中的曝光量,緩解類別/尺度不平衡問題。
-- Anchor-free 的偵測頭因為不需要預設物件尺寸,對尺度變化大的場景本身也會比 anchor-based 更寬容一些。
+- Anchor-free 的偵測頭不需要預先設定物件尺寸,少了一組要跟著資料調整的超參數。
 
 ## 小結
 
-整理下來,這條技術地圖大致是:先用「要不要分清楚個體」決定分割策略 → 用「物件尺寸/形狀是否規律」決定要不要走 anchor-free、並依此拆解 CenterMask2 這類架構的三個組件 → 用 IoU/mAP 評估、遷移學習微調 → 如果需要拼接多張影像,Homography + RANSAC 這套古典幾何方法在特定場景反而比深度學習更可靠 → 資料不夠的時候,半監督學習與針對小物件的架構/資料調整是兩個最直接的槓桿。
+整理下來,這條技術地圖大致是:先用「要不要分清楚個體」決定分割策略 → 用「物件尺寸/形狀是否規律」決定要不要走 anchor-free、並依此拆解 CenterMask2 這類架構的三個組件 → 用 IoU/mAP 評估、遷移學習微調 → 如果需要拼接多張影像,背後是 Homography + RANSAC 這套古典幾何方法(我們在專題裡試過用深度學習估計單應性矩陣,效果不如預期,最後仍用傳統方法)→ 資料不夠的時候,半監督學習與針對小物件的架構/資料調整是兩個最直接的槓桿。
 
 ### 延伸閱讀
 
 - Kirillov et al., [Panoptic Segmentation](https://arxiv.org/abs/1801.00868), CVPR 2019
+- Tian et al., [FCOS: Fully Convolutional One-Stage Object Detection](https://arxiv.org/abs/1904.01355), ICCV 2019
 - Lee & Park, [CenterMask: Real-Time Anchor-Free Instance Segmentation](https://arxiv.org/abs/1911.06667), CVPR 2020 / [官方 repo](https://github.com/youngwanLEE/centermask2)
+- [大學專題：澎湖海灘垃圾自動監測系統的開發與應用](/2026/11/17/beach-litter-monitoring/) — 這些技術實際用在哪裡、模型的測試結果
 - OpenCV, [High level stitching API (Stitcher class)](https://docs.opencv.org/4.x/d8/d19/tutorial_stitcher.html)
 - Sohn et al., [FixMatch: Simplifying Semi-Supervised Learning](https://arxiv.org/abs/2001.07685)

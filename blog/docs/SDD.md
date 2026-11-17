@@ -94,7 +94,7 @@ HTTP 狀態：錯誤 JSON 或無有效 user 訊息為 400；錯誤 method 為 40
 
 # 系統設計：部落格首頁（`themes/cactus/layout/index.ejs`）
 
-更新日期：2026-11-07。身分只用「Lin」，不連入 `/portfolio/`。
+更新日期：2026-11-17。身分只用「Lin」，不連入 `/portfolio/`。
 
 | 區塊 | 內容 |
 |---|---|
@@ -106,13 +106,15 @@ HTTP 狀態：錯誤 JSON 或無有效 user 訊息為 400；錯誤 method 為 40
 
 - 封面縮圖：`themes/cactus/scripts/cover_thumb.js` 的 `cover_thumb()` helper，若 `source/images/thumbs/<檔名>.webp` 存在就用縮圖（640px WebP），否則用原圖；外部網址原樣回傳。新增文章封面後以 ffmpeg 產生縮圖：`ffmpeg -i source/images/foo.png -vf "scale='min(640,iw)':-2" -c:v libwebp -quality 78 source/images/thumbs/foo.webp`。
 - header 的主題切換與搜尋、頁尾、回頂鈕都使用 1.5 線寬的 inline SVG，與 Portfolio 的 icon 一致。
+- 文章下架：把檔案從 `source/_posts/` 移到 `source/_drafts/`（`render_drafts: false`，不會產生頁面，也不進 `search.xml` 與 `hibiki-index.json`）；恢復時移回 `_posts/`。下架前先清掉 `projects.json`、Portfolio 與其他文章裡指向它的連結。目前下架的文章與原因見 `docs/decisions/2026-11-17-content-curation.md`。
+- 作品卡片的連結可以只有 GitHub（例如 LocalAIAgentAPI，文章已下架）。
 
 
 ---
 
 # 系統設計：Portfolio SPA（/portfolio/）
 
-獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格首頁、選單、About 與文章都不連入；全名、雇主等個人資訊只出現在這一頁（見 `docs/decisions/2026-11-07-blog-identity-revert.md`）。技術邊界沿用 `docs/decisions/2026-09-28-portfolio-spa-react.md`，版型見 `docs/plans/2026-11-07-portfolio-self-intro-layout.md`、`docs/plans/2026-11-07-portfolio-resume-bilingual.md`。更新日期：2026-11-07。
+獨立的作品精選頁，只從外部連結（作品集 QR code）進入，部落格首頁、選單、About 與文章都不連入；全名、雇主等個人資訊只出現在這一頁（見 `docs/decisions/2026-11-07-blog-identity-revert.md`）。技術邊界沿用 `docs/decisions/2026-09-28-portfolio-spa-react.md`，版型見 `docs/plans/2026-11-07-portfolio-self-intro-layout.md`、`docs/plans/2026-11-07-portfolio-resume-bilingual.md`。更新日期：2026-11-17。
 
 ## 元件與建置流程
 
@@ -157,13 +159,15 @@ stateDiagram-v2
 | About `#about` | `sections/About.tsx` | 姓名（中英同字體）、依履歷改寫的自介、技術筆記連結、Email／GitHub（不另列職稱行） |
 | Experience `#experience` | `sections/Experience.tsx` | 程曦資訊（官方 logo；軟體設計工程師、創新研發部實習生兩段職務的履歷條列）、銘傳大學（校徽、2021–2025） |
 | Milestones `#milestones` | `sections/Milestones.tsx` | 日期＋一句話的事件，預設 6 則，可展開 |
-| Research `#research` | `sections/Research.tsx`、`sections/Hero.tsx` | 自動播放：空拍影格 → 依 `lib/tiles.ts` 逐塊掃描 7×5 重疊切片 → 2024 分割輸出；進入視窗才播放，點按鈕改手動、↻ 重播；`prefers-reduced-motion` 直接顯示輸出。右側為履歷的「我做了什麼」 |
+| Research `#research` | `sections/Research.tsx`、`sections/Hero.tsx` | 自動播放三張真實影像：空拍影格 → CenterMask2 在一張 640×480 小影像上的輸出（專題論文圖 5.5）→ 2024 分割輸出；進入視窗才播放，點按鈕改手動、↻ 重播；`prefers-reduced-motion` 直接顯示輸出。右側為履歷的「我做了什麼」；連結依序為專題介紹（部落格文章）、GitHub、技術筆記 |
 | Projects `#projects` | `sections/Projects.tsx`、`components/Zoomable.tsx` | 6 張卡片（圖或影片、一句話、tags、連結），原生 `<dialog>` 放大；「其他作品」列表 |
 | Awards `#awards` | `sections/Awards.tsx` | 獎項、研究補助、證照 |
 | Footer | `sections/Awards.tsx` | 置中的 Email／GitHub／部落格 icon 與版權 |
 
 - 影片（mien，取自 repo 既有 demo.gif 轉 mp4）在卡片內 muted loop 自動播放；放大檢視開啟才播放、關閉即暫停。
 - 所有影像都是真實資料（專題輸出、實際執行截圖、作品既有 demo），不繪製模型沒有輸出過的偵測框。文案以個人貢獻為主，不放限制／待補段落。
+- 研究區只呈現 2024 專題系統實際跑出的結果。2026 重構版的 7×5 重疊切片沒有用真實模型驗證過，也與論文表 5.2（3840×2160 切成 24 張）不同，2026-11-17 起不再出現在頁面上（`lib/tiles.ts` 已刪除）。
+- `index.html` 的 `og:image` 用部落格的 `/images/beach-litter-monitoring-cover.jpg`（專題輸出），`<noscript>` 連結清單要跟著文章上下架更新。
 - logo 取自程曦資訊與銘傳大學官網，裁成 128px 方形，放在白底圓角框以適應深色背景，僅作經歷識別。
 
 ## 建置與檢查

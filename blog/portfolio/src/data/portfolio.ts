@@ -133,13 +133,14 @@ export const RESEARCH = {
   ],
   tags: ['Python', 'OpenCV', 'PyTorch', 'Detectron2', 'CenterMask2'],
   links: [
+    { label: t('專題介紹', 'Project overview'), href: `${BLOG}/2026/11/17/beach-litter-monitoring/` },
     { label: t('GitHub', 'GitHub'), href: `${GH}/project` },
-    { label: t('技術筆記', 'Technical notes'), href: `${BLOG}/2026/08/23/uav-vision-notes/` },
-    { label: t('重構筆記', 'Refactor notes'), href: `${BLOG}/2026/09/28/uav-analysis-refactor/` }
+    { label: t('技術筆記', 'Technical notes'), href: `${BLOG}/2026/08/23/uav-vision-notes/` }
   ],
+  // One caption per slide in sections/Hero.tsx, in the same order.
   steps: [
     { label: t('空拍影格', 'UAV frame'), caption: t('UAV 航拍影片擷取的影格', 'A frame extracted from UAV footage') },
-    { label: t('切片推論', 'Tiled inference'), caption: t('以 7 × 5 重疊切片逐塊送進模型', 'Overlapping 7 × 5 tiles fed to the model one by one') },
+    { label: t('模型輸出', 'Model output'), caption: t('CenterMask2 在一張 640 × 480 小影像上的輸出', 'CenterMask2 output on a single 640 × 480 tile') },
     { label: t('分割輸出', 'Segmentation'), caption: t('拼接全景上的實例分割輸出（2024 系統）', 'Instance segmentation on the stitched panorama (2024 system)') }
   ]
 };
@@ -184,8 +185,7 @@ export const PROJECTS: Project[] = [
 
 export const MORE_PROJECTS: { id: string; title: T; summary: T }[] = [
   { id: 'localai', title: t('LocalAIAgentAPI', 'LocalAIAgentAPI'), summary: t('.NET 8 Web API 整合本地推論：ONNX 影像分類、Tesseract OCR 與 Ollama 文字生成。', '.NET 8 Web API with local inference: ONNX image classification, Tesseract OCR and Ollama text generation.') },
-  { id: 'nfc-test', title: t('NFC-test：讓手機假裝成一張 NFC 卡片', 'NFC-test: making a phone act as an NFC card'), summary: t('Android HCE 的 APDU 狀態機與 vCard 容量計算；實測確認 iOS 只能當接收端，正式產品因此改用實體卡片。', 'An Android HCE APDU state machine and vCard capacity math; testing showed iOS can only read, so the product moved to physical cards.') },
-  { id: 'grad-lab-skills', title: t('tw-grad-lab-skills', 'tw-grad-lab-skills'), summary: t('把找研究所實驗室的流程整理成 Agent Skills，官方資訊與社群評價分開標示。', 'Agent Skills for researching graduate labs, keeping official information and community reviews clearly separated.') }
+  { id: 'nfc-test', title: t('NFC-test：讓手機假裝成一張 NFC 卡片', 'NFC-test: making a phone act as an NFC card'), summary: t('Android HCE 的 APDU 狀態機與 vCard 容量計算；實測確認 iOS 只能當接收端，正式產品因此改用實體卡片。', 'An Android HCE APDU state machine and vCard capacity math; testing showed iOS can only read, so the product moved to physical cards.') }
 ];
 
 export interface Award { date: string; title: T; detail: T }

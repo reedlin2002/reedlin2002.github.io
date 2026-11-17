@@ -118,9 +118,6 @@ html[data-theme='light'] .theme-toggle svg { transform: rotate(180deg); }
 .stage { margin: 0; }
 .stage-view { position: relative; aspect-ratio: 16 / 9; background: #050807; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .stage-img { position: absolute; inset: 0; width: 100%; height: 100%; }
-.tile-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
-.tile { fill: rgba(181, 231, 139, .1); stroke: #b5e78b; stroke-width: 1; }
-.tile.is-now { fill: rgba(181, 231, 139, .38); stroke-width: 2.5; }
 .stage-progress { position: absolute; left: 12px; right: 12px; bottom: 10px; display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; }
 .stage-progress li { flex: 1; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .25); }
 .stage-progress li.is-done, .stage-progress li.is-active { background: #b5e78b; }

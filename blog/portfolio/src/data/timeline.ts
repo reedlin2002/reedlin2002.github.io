@@ -4,7 +4,6 @@
 // Items without a known date are left out.
 
 import capstone from '../assets/capstone.webp';
-import refactor from '../assets/refactor.webp';
 import uavNotes from '../assets/uav-notes.webp';
 import urlHealthMonitor from '../assets/urlhealthmonitor.webp';
 import localAi from '../assets/localai.webp';
@@ -73,7 +72,10 @@ const nodes: TimelineNode[] = [
     title: '大學專題：澎湖海灘垃圾自動監測系統',
     body: '與澎湖海洋公民基金會合作，用 UAV 空拍影像建立垃圾量化流程：CenterMask2 實例分割辨識五類垃圾，再換算成海灘清潔指數（CCI）與塑膠豐度指數（PAI）。五人團隊中，我負責資料處理、模型訓練與評估，並自己寫了少數類別的資料增強程式。',
     image: { src: capstone, alt: '專題系統輸出：拼接全景上的實例分割遮罩', caption: '專題系統的實際輸出' },
-    links: [{ kind: 'github', href: `${GH}/project` }],
+    links: [
+      { kind: 'article', href: `${BLOG}/2026/11/17/beach-litter-monitoring/` },
+      { kind: 'github', href: `${GH}/project` }
+    ],
     stats: [
       { value: 4709, label: '訓練影像', separator: ',' },
       { value: 523, label: '測試影像' },
@@ -136,20 +138,6 @@ const nodes: TimelineNode[] = [
     compact: true
   },
   {
-    id: 'refactor',
-    track: 'research',
-    date: '2026.07–08',
-    sortKey: '2026-07-26',
-    tag: '重構',
-    title: '重構兩年前的專題程式碼',
-    body: '第一輪交給 coding agent，結果做過頭；第二輪由我定方向。過程中找到兩個會直接影響數字的問題：影像最下方 240 px 從沒送進模型，貼邊的完整物件也會被扣掉。改成重疊切片加去重、補上行為測試，舊的訓練環境則刻意不升級，先保住可比較的基準。',
-    image: { src: refactor, alt: '真實 UAV 影格上的 7 × 5 重疊切片格線', caption: '重構後的切片方式' },
-    links: [
-      { kind: 'article', href: `${BLOG}/2026/09/28/uav-analysis-refactor/` },
-      { kind: 'github', href: `${GH}/project` }
-    ]
-  },
-  {
     id: 'uav-notes',
     track: 'research',
     date: '2026.08',
@@ -196,10 +184,7 @@ const nodes: TimelineNode[] = [
     title: 'LocalAIAgentAPI',
     body: '在 .NET 8 Web API 裡整合本地推論：ONNX 影像分類、Tesseract OCR，以及透過 Ollama 的文字生成。',
     image: { src: localAi, alt: 'LocalAIAgentAPI 的測試頁：選擇圖片分類、文字生成、OCR 等模型' },
-    links: [
-      { kind: 'article', href: `${BLOG}/2025/07/19/LocalAIAgentAPI/` },
-      { kind: 'github', href: `${GH}/Local_API_AI` }
-    ]
+    links: [{ kind: 'github', href: `${GH}/Local_API_AI` }]
   },
   {
     id: 'intern',
@@ -291,20 +276,6 @@ const nodes: TimelineNode[] = [
     body: 'Python 資料管線整併多個官方來源，通過品質檢查才發佈；Flutter App 離線優先、不需登入。ATM 能力欄位分成「確認支援／確認不支援／未知」三種，未知不會被當成支援。',
     image: { src: atm, alt: '台灣 ATM Finder 的使用說明與篩選條件畫面', fit: 'contain' },
     links: [{ kind: 'github', href: `${GH}/atm_Location` }]
-  },
-  {
-    id: 'grad-lab-skills',
-    track: 'engineering',
-    date: '2026.07',
-    sortKey: '2026-07-27',
-    tag: 'AI 工作流',
-    title: 'tw-grad-lab-skills',
-    body: '把找研究所實驗室的流程整理成 Agent Skills，官方資訊與社群評價分開標示，查不到就寫「未知」。',
-    links: [
-      { kind: 'article', href: `${BLOG}/2026/07/27/tw-grad-lab-skills/` },
-      { kind: 'github', href: `${GH}/tw-grad-lab-skills` }
-    ],
-    compact: true
   },
   {
     id: 'caller-id',
