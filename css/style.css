@@ -2620,6 +2620,40 @@ article.post .content img:not(.no-zoom) {
     transform: none;
   }
 }
+#header.avatar-morph-header {
+  position: sticky;
+  top: 0;
+}
+#header.avatar-morph-header #title {
+  opacity: var(--avatar-name-opacity, 1);
+}
+#header.avatar-morph-header .header-left:focus-visible #title {
+  opacity: 1;
+}
+.avatar-morph-home .notebook-sidebar {
+  position: relative;
+  top: auto;
+}
+.avatar-morph-home .notebook-emblem {
+  width: 96px;
+  height: 96px;
+}
+.scroll-avatar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 101;
+  margin: 0;
+  max-width: none;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform-origin: top left;
+  pointer-events: none;
+  will-change: transform;
+}
+.scroll-avatar[hidden] {
+  display: none;
+}
 .eyebrow {
   display: inline-flex;
   align-items: center;
