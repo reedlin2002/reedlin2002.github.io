@@ -1,8 +1,8 @@
 diff --git a/_config.yml b/_config.yml
-index 95b5262..57acf0d 100644
+index 95b5262..4925786 100644
 --- a/_config.yml
 +++ b/_config.yml
-@@ -10,10 +10,10 @@ direction: ltr
+@@ -10,7 +10,7 @@ direction: ltr
  
  # 導覽列選單設定，格式為「名稱: 連結」
  nav:
@@ -10,11 +10,7 @@ index 95b5262..57acf0d 100644
 +  首頁: /
    所有文章: /archives/
    作品: /#projects
--  關於: /about/
-+  關於: /portfolio/
- 
- # 社群連結與圖示設定（使用 Fontawesome 的 icon 名稱）
- social_links:
+   關於: /about/
 diff --git a/layout/archive.ejs b/layout/archive.ejs
 index 9e9226b..47ee0b6 100644
 --- a/layout/archive.ejs
