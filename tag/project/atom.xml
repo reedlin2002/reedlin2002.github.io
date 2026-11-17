@@ -3,19 +3,23 @@
     <id>https://reedlin2002.github.io</id>
     <title>Reedlin2002 • Posts by &#34;project&#34; tag</title>
     <link href="https://reedlin2002.github.io" />
-    <updated>2026-07-27T14:40:00.000Z</updated>
+    <updated>2026-07-19T04:59:38.000Z</updated>
     <category term="myself" />
     <category term="project" />
     <category term=".NET" />
     <category term="C#" />
     <category term="SQLite" />
     <category term="Docker" />
-    <category term="leetcode" />
-    <category term="Daily" />
+    <category term="電腦視覺" />
+    <category term="Instance Segmentation" />
+    <category term="Deep Learning" />
+    <category term="專題研究" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
+    <category term="leetcode" />
+    <category term="Daily" />
     <category term="技術筆記" />
     <category term="(作者自學用)" />
     <category term="side project" />
@@ -31,185 +35,55 @@
     <category term="Hackathon" />
     <category term="AI" />
     <category term="PRD" />
-    <category term="重構" />
-    <category term="電腦視覺" />
-    <category term="軟體工程" />
-    <category term="Deep Learning" />
-    <category term="Instance Segmentation" />
     <category term="影像處理" />
     <entry>
-        <id>https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/</id>
-        <title>🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</title>
-        <link rel="alternate" href="https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/"/>
-        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;►  「 &lt;a href=&#34;https://github.com/reedlin2002/tw-grad-lab-skills&#34;&gt;GITHUB&lt;/a&gt; 」&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
-&lt;p&gt;我自己也在準備研究所。找實驗室的時候，最痛苦的不是資訊太少，而是資訊太散：教授的研究方向在系網、近期論文在 Google Scholar、實驗室風氣要翻 Dcard 跟 PTT、到底適不適合我還得自己在腦中拼湊。每一檔候選教授都要重複一次這個流程，開一堆分頁、比來比去，最後還常常漏掉一些其實不錯、只是學校名氣沒那麼響的實驗室。&lt;/p&gt;
-&lt;p&gt;所以我把這個流程做成兩個 Agent Skills。核心理念很簡單:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;它不是幫我做決定，而是幫我先把候選名單整理清楚&lt;/strong&gt; —— 剩下的還是要自己去寫信、去面談確認。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;有幾分證據說幾分話&lt;/strong&gt;。官方來源歸官方，社群風評歸社群風評，並且清楚標示哪些「未經查證」。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;廣撒網，不要只盯著台成清交政&lt;/strong&gt;。強實驗室常常藏在中字輩、科大或私校裡。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果你也正在找研究所，希望它對你也有幫助 🙌&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;這是什麼agent-skills不是又一個網站&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#這是什麼agent-skills不是又一個網站&#34;&gt;&lt;/a&gt; 🧩 這是什麼：Agent Skills, 不是又一個網站&lt;/h2&gt;
-&lt;p&gt;這個專案沒有後端、沒有資料庫、甚至不需要 Python。它是兩個 &lt;strong&gt;Agent Skills&lt;/strong&gt;—— 放進支援 skills 的 coding agent (Claude Code、Codex⋯⋯) 後，就多出兩個斜線指令。你用自然語言跟 agent 對話，它負責上網搜尋、交叉比對、整理證據，最後直接生成一份 HTML 報告給你看。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;換句話說：報告是 agent 依照技能裡的規範「當場產生」的，而不是我寫死的一份範本。技能的價值在於那套&lt;strong&gt;流程與規範&lt;/strong&gt; —— 問什麼、去哪找、怎麼標註證據、報告長什麼樣。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;repo 收錄兩個技能，通常搭配使用：先用  &lt;code&gt;find-grad-labs&lt;/code&gt;  找出候選名單，再用  &lt;code&gt;investigate-grad-lab&lt;/code&gt;  深挖你最在意的幾位。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;技能一find-grad-labs-探索合適的實驗室&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技能一find-grad-labs-探索合適的實驗室&#34;&gt;&lt;/a&gt; 🔎 技能一: &lt;code&gt;/find-grad-labs&lt;/code&gt;  — 探索合適的實驗室&lt;/h2&gt;
-&lt;p&gt;這個技能負責「從零到候選名單」。它會先跑一輪結構化訪談，把你的條件問清楚，再開始跨校搜尋、比較，最後產出報告。&lt;/p&gt;
-&lt;h3 id=&#34;先問清楚再開始找&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#先問清楚再開始找&#34;&gt;&lt;/a&gt; 先問清楚，再開始找&lt;/h3&gt;
-&lt;p&gt;在搜尋之前，它會用問答蒐集這些資訊:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;研究主題 / 子領域&lt;/strong&gt; —— 例如 NLP/LLM、電腦視覺、MLSys、RL, 可以複選&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;學生背景&lt;/strong&gt; —— 就讀學校、科系、GPA / 班排，以及有沒有研究 / 實習 / 競賽經歷 (這會直接拿來校準落點，但只當作&lt;strong&gt;有保留的估計&lt;/strong&gt;，不是錄取機率)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;目標學校與類型&lt;/strong&gt; —— 公立 / 私立、研究型 / 應用型&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;目標系所&lt;/strong&gt; ——CSIE、電機、資料科學、AI 學程、資管⋯⋯(不預設，因為強實驗室常常不在最明顯的系所)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;地區、指導風格、生涯目標、限制條件&lt;/strong&gt; (獎學金需求、硬性條件等)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;廣撒網-落點分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#廣撒網-落點分級&#34;&gt;&lt;/a&gt; 廣撒網 + 落點分級&lt;/h3&gt;
-&lt;p&gt;我最在意的兩個設計都在這裡:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;跨層級搜尋&lt;/strong&gt;：就算主題集中在頂大，它也會刻意去找中字輩國立大學、科技大學 (台科、北科、雲科⋯⋯) 與相關私校，最終名單&lt;strong&gt;必須跨越一個以上的層級&lt;/strong&gt;。如果某主題在頂大以外真的很稀缺，它會直說，並且列出「搜尋過但排除的學校」與原因 —— 不會給你一份「又全是四大」卻不解釋的名單。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;reach /match/safety (衝刺 / 穩健 / 保底)&lt;/strong&gt;: 用你的學校與成績，把候選教授分成落點，讓名單務實而不是全部都是衝刺。但這些標籤是&lt;strong&gt;有保留的建議&lt;/strong&gt;，絕不輸出錄取機率數字或任何保證，也會提醒你錄取還牽涉面試、SOP、推薦信、名額、推甄 vs 考試等這裡沒涵蓋的因素。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;產出&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#產出&#34;&gt;&lt;/a&gt; 產出&lt;/h3&gt;
-&lt;p&gt;一份 HTML 報告，包含：偏好摘要、涵蓋度 / 透明度說明 (名單的層級與地區分布、排除了哪些學校)、候選教授卡片 (附落點標籤與「學生風評」小區塊)、比較矩陣、研究領域地圖、跨落點的推薦，以及&lt;strong&gt;依教授分組、可點擊的完整來源清單&lt;/strong&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;技能二investigate-grad-lab-深入調查單一教授&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技能二investigate-grad-lab-深入調查單一教授&#34;&gt;&lt;/a&gt; 🔬 技能二: &lt;code&gt;/investigate-grad-lab&lt;/code&gt;  — 深入調查單一教授&lt;/h2&gt;
-&lt;p&gt;當你心裡已經有特定人選，這個技能負責把單一教授 / 實驗室查深、查實。它會:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;先用官方系網 / 系所頁面&lt;strong&gt;確認教授身分與現職&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;檢視近期研究方向、代表論文與計畫&lt;/li&gt;
-&lt;li&gt;查指導的論文紀錄與畢業要求&lt;/li&gt;
-&lt;li&gt;蒐集可查證的實驗室運作資訊 (meeting 風格、實習支援、發表期待)&lt;/li&gt;
-&lt;li&gt;產出報告，並&lt;strong&gt;明確區分「已確認」「他人回報」「未知」&lt;/strong&gt;, 附上適合的學生輪廓、待釐清問題與後續可以提問的問題清單&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;重點在最後那件事:&lt;strong&gt; 沒有可靠公開來源的東西就標成「未知」, 而不是硬掰&lt;/strong&gt;。它不會用論文數量去推斷實驗室風氣，也不會做無法佐證的個性判斷。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;讓報告可信的設計證據分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#讓報告可信的設計證據分級&#34;&gt;&lt;/a&gt; 📐 讓報告可信的設計：證據分級&lt;/h2&gt;
-&lt;p&gt;兩個技能最核心的規範，是一套&lt;strong&gt;來源分級政策&lt;/strong&gt;。所有事實性宣稱都要有來源、要能點進去，而且證據等級要看得出來:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;等級&lt;/th&gt;
-&lt;th&gt;來源&lt;/th&gt;
-&lt;th&gt;用途&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;官方 / 第一手&lt;/td&gt;
-&lt;td&gt;校系網頁、實驗室頁、論文紀錄、Google Scholar&lt;/td&gt;
-&lt;td&gt;一切&lt;strong&gt;事實&lt;/strong&gt;宣稱的基礎&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;學術彙整&lt;/td&gt;
-&lt;td&gt;Scholar、Semantic Scholar、DBLP&lt;/td&gt;
-&lt;td&gt;論文與引用數據&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;社群&lt;/td&gt;
-&lt;td&gt;Dcard 研究所版、PTT&lt;/td&gt;
-&lt;td&gt;&lt;strong&gt;主動查閱&lt;/strong&gt;，但只用於風氣 / 指導風格 / 風評，一律標「未經查證」&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;規則很嚴格：官方事實和社群風向要分開放；社群訊息一律標成「未經查證的次級證據」, 永遠不能當成已確認的事實呈現；能交叉比對就交叉比對，單一來源、時間久遠或彼此矛盾的都要標出來；查不到就寫「未知」。報告視覺上也對應這套分級 ——&lt;strong&gt; 已確認用綠色、不確定用琥珀色、缺漏用灰色&lt;/strong&gt;，社群風評有自己專屬的「未經查證」樣式，不會被誤讀成事實。&lt;/p&gt;
-&lt;p&gt;這其實是我做這個專案最想守住的一條線:&lt;strong&gt; 找實驗室這種事，寧可誠實說「不知道」, 也不要給人一個看起來很篤定、其實是猜的答案。&lt;/strong&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;️-技術與實作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-技術與實作&#34;&gt;&lt;/a&gt; 🛠️ 技術與實作&lt;/h2&gt;
-&lt;p&gt;🟢 標準&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;每個技能都是一個含  &lt;code&gt;SKILL.md&lt;/code&gt;  的資料夾，frontmatter 具備  &lt;code&gt;name&lt;/code&gt; 、 &lt;code&gt;description&lt;/code&gt; , 符合 Agent Skills 標準，因此可被  &lt;code&gt;skills&lt;/code&gt;  CLI 自動安裝。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;🟡 零 runtime 依賴&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不需要 Python、沒有腳本要跑。報告完全由 agent 依技能說明 ( &lt;code&gt;HTML-REPORT.md&lt;/code&gt; 、 &lt;code&gt;EVIDENCE-RULES.md&lt;/code&gt; ) 當場產生，樣式用 CDN 版 Tailwind CSS。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;🟣 只在你叫它時才動&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;兩個技能都設了 Claude 的  &lt;code&gt;disable-model-invocation: true&lt;/code&gt; , 不會被模型自動觸發。Codex 不吃這個設定，所以另外附了  &lt;code&gt;agents/openai.yaml&lt;/code&gt; ( &lt;code&gt;allow_implicit_invocation: false&lt;/code&gt; ) 作為對應。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;🟠 跨 agent&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;透過 &lt;a href=&#34;https://github.com/vercel-labs/skills&#34;&gt; &lt;code&gt;skills&lt;/code&gt; &lt;/a&gt; CLI 安裝，官方支援 70+ 種 agent, 同一份技能在 Claude Code 用  &lt;code&gt;/&lt;/code&gt; 、在 Codex 用  &lt;code&gt;$&lt;/code&gt;  呼叫。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;專案結構也刻意保持乾淨：每個技能把「流程 (SKILL.md)、報告結構 (HTML-REPORT.md)、證據規範 (EVIDENCE-RULES.md)」拆成三份， &lt;code&gt;docs/&lt;/code&gt;  再放產品原則與來源政策 —— 規範和實作分開，之後要調整某一條規則，不用去翻整份 prompt。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;安裝與使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#安裝與使用&#34;&gt;&lt;/a&gt; 📦 安裝與使用&lt;/h2&gt;
-&lt;p&gt;用 &lt;a href=&#34;https://github.com/vercel-labs/skills&#34;&gt; &lt;code&gt;skills&lt;/code&gt; &lt;/a&gt; CLI 一鍵安裝，過程會問你要裝哪些技能、裝到哪個 agent:&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 一鍵安裝&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 先看看這個 repo 有哪些技能&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills --list&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 只裝其中一個&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills --skill find-grad-labs&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;裝好之後，在 Claude Code 直接輸入斜線指令:&lt;/p&gt;
-&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/find-grad-labs&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/investigate-grad-lab&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在 Codex 則改用  &lt;code&gt;$find-grad-labs&lt;/code&gt;  /  &lt;code&gt;$investigate-grad-lab&lt;/code&gt;  (或  &lt;code&gt;/skills&lt;/code&gt;  選單)。不想用 CLI 的話，把  &lt;code&gt;skills/&lt;/code&gt;  底下的資料夾複製到 agent 的 skills 目錄 (Claude Code 全域是  &lt;code&gt;~/.claude/skills/&lt;/code&gt; ) 也可以。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;一點心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#一點心得&#34;&gt;&lt;/a&gt; 🧭 一點心得&lt;/h2&gt;
-&lt;p&gt;做這個專案最大的收穫，不是「AI 幫我找到了神級實驗室」, 而是逼自己把「怎麼算是有根據的判斷」寫成規範：什麼能當事實、什麼只能當參考、查不到的時候要誠實。這套原則其實不只適用找研究所 —— 任何要&lt;strong&gt;基於證據給建議&lt;/strong&gt;的 AI 應用，都適用。&lt;/p&gt;
-&lt;p&gt;它終究只是把候選名單整理清楚的工具。真正的決定，還是要自己去寫信、去面談、去感受那個實驗室適不適合你。如果你也在準備研究所，歡迎試用，也歡迎回饋 🙌&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;⚠️ 技能產生的落點與風評僅供參考。reach /match/safety 是有保留的估計，不是錄取保證；社群風評未經查證。實際申請請自行判斷。&lt;/p&gt;
-&lt;/blockquote&gt;
-</content>
-        <category term="project" />
-        <updated>2026-07-27T14:40:00.000Z</updated>
-    </entry>
-    <entry>
         <id>https://reedlin2002.github.io/2026/07/19/twstock-agent/</id>
-        <title>📈 | 010401 Finance 台股 AI 分析助手</title>
+        <title>010401 Finance 台股 AI 分析助手</title>
         <link rel="alternate" href="https://reedlin2002.github.io/2026/07/19/twstock-agent/"/>
-        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;🚀 010401 Finance - 把台股研究壓縮成一次查詢的 AI 分析 App&lt;/p&gt;
+        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;010401 Finance：把台股研究壓縮成一次查詢的 AI 分析 App&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;一款面向台股投資人的 AI 分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合在同一個畫面，輸入股票代號，就能得到一份可閱讀、可追蹤、可行動的分析報告。&lt;/p&gt;
+&lt;p&gt;一款台股分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合在同一個畫面，輸入股票代號，就能看到一份整理好的分析報告。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;►  「 &lt;a href=&#34;https://github.com/reedlin2002/twstock-agent&#34;&gt;GITHUB&lt;/a&gt; 」&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;⚠️ 本專案提供投資研究與資料整理輔助，不構成任何買賣建議或投資邀約。實際交易前請自行判斷風險。&lt;/p&gt;
+&lt;p&gt;本專案提供投資研究與資料整理輔助，不構成任何買賣建議或投資邀約。實際交易前請自行判斷風險。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
+&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 專案緣起&lt;/h2&gt;
 &lt;p&gt;研究一檔台股，散戶通常要開一堆分頁：看線圖一個網站、查三大法人一個網站、翻新聞又一個網站，最後還要自己在腦中把這些資訊拼起來。這個專案想把「找資料、看技術線、看籌碼、整理觀點」壓縮成一次查詢:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;輸入  &lt;code&gt;2330&lt;/code&gt;  或公司名稱，自動抓價格、算指標、補籌碼&lt;/li&gt;
-&lt;li&gt;技術分析不只畫線，還轉成可執行的檢查表與買賣計畫&lt;/li&gt;
-&lt;li&gt;AI 只根據 App 整理好的結構化資料寫報告，降低幻覺&lt;/li&gt;
+&lt;li&gt;技術分析除了畫線，也整理成逐項檢查表，並依固定規則算出觀察區間、停損與停利的參考價&lt;/li&gt;
+&lt;li&gt;AI 拿到的是 App 整理好的結構化資料，而不是只有一個股票代號&lt;/li&gt;
 &lt;li&gt;Web 與行動端同一套程式碼，可打包成 Android App&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;核心理念是:&lt;strong&gt; 不是只問 AI, 而是先有資料再問 AI&lt;/strong&gt;。AI 的角色是研究助理，不是憑空說故事的分析師。&lt;/p&gt;
+&lt;p&gt;核心理念是:&lt;strong&gt; 不是只問 AI, 而是先有資料再問 AI&lt;/strong&gt;。AI 負責把算好的資料整理成文字，指標與價位由程式計算。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-專案技術&#34;&gt;&lt;/a&gt; 🛠️ 專案技術&lt;/h2&gt;
-&lt;p&gt;🟢 前端核心&lt;/p&gt;
+&lt;h2 id=&#34;專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案技術&#34;&gt;&lt;/a&gt; 專案技術&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;前端核心&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;框架：React 18 + Vite 6&lt;br&gt;
  圖表：Recharts (價格走勢、籌碼柱狀圖)&lt;br&gt;
  圖示:lucide-react&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;🟡 資料來源&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;資料來源&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Yahoo Finance: 近兩年日線價格、開高低收、成交量&lt;br&gt;
  FinMind: 三大法人買賣超、融資融券、台股公司清單&lt;br&gt;
  Google News RSS / PTT 股板：即時新聞與鄉民風向 (選配)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;🟣 AI 分析&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AI 分析&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;OpenRouter API (可換模型), 採資料驅動 prompt&lt;br&gt;
 Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;🟠 行動端&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;行動端&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Capacitor 8:Android 打包、本地推播、背景任務&lt;br&gt;
 到價提醒、自選股資料存在裝置端 localStorage&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;功能導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#功能導覽&#34;&gt;&lt;/a&gt; 📱 功能導覽&lt;/h2&gt;
+&lt;h2 id=&#34;功能導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#功能導覽&#34;&gt;&lt;/a&gt; 功能導覽&lt;/h2&gt;
 &lt;p&gt;以下畫面都是用行動裝置尺寸實際操作 App 的截圖。&lt;/p&gt;
 &lt;h3 id=&#34;自選股儀表板&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#自選股儀表板&#34;&gt;&lt;/a&gt; 自選股儀表板&lt;/h3&gt;
 &lt;p&gt;打開 App 首頁就是自選股儀表板：每一檔顯示迷你走勢、動能訊號燈 (偏多 / 偏空 / 中性)、現價與漲跌幅，持有中的部位還會直接顯示未實現損益。&lt;/p&gt;
@@ -225,12 +99,12 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
     &lt;img src=&#34;/images/twstock-agent-analysis-top.png&#34; alt=&#34;個股分析頁&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;走勢圖-買賣計畫-overlay&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#走勢圖-買賣計畫-overlay&#34;&gt;&lt;/a&gt; 走勢圖 + 買賣計畫 Overlay&lt;/h3&gt;
-&lt;p&gt;這是我最喜歡的功能：買賣計畫不是一段文字，而是直接疊在走勢圖上 —— 買點區、停損線、目標價都畫在圖上，和月線 MA20、季線 MA60 放在一起看。圖下方的計畫卡會給出明確狀態 (進場 / 觀望 / 先不要碰), 搭配觀察買點、突破參考、停損與分批停利價位。&lt;/p&gt;
+&lt;h3 id=&#34;走勢圖-價位參考-overlay&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#走勢圖-價位參考-overlay&#34;&gt;&lt;/a&gt; 走勢圖 + 價位參考 Overlay&lt;/h3&gt;
+&lt;p&gt;價位參考不是一段文字，而是直接疊在走勢圖上：觀察區間、停損線、停利參考價都畫在圖上，和月線 MA20、季線 MA60 放在一起看。圖下方的卡片會顯示目前的趨勢狀態 (進場 / 觀望 / 先不要碰), 以及觀察區間、突破參考、停損與分批停利的參考價。這些數值是依固定規則算出的研究輔助，不是保證報酬的交易訊號。&lt;/p&gt;
 &lt;p&gt;所有價位都對齊台股最小升降單位 (tick), 不會算出掛不出去的價格。&lt;/p&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/twstock-agent-chart.png&#34;&gt;
-    &lt;img src=&#34;/images/twstock-agent-chart.png&#34; alt=&#34;走勢圖與買賣計畫&#34; style=&#34;max-width: 320px;&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-chart.png&#34; alt=&#34;走勢圖與價位參考&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;ai-深入分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-深入分析&#34;&gt;&lt;/a&gt; AI 深入分析&lt;/h3&gt;
@@ -259,7 +133,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;ai-分析流程先有資料再問-ai&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-分析流程先有資料再問-ai&#34;&gt;&lt;/a&gt; 🧠 AI 分析流程：先有資料，再問 AI&lt;/h2&gt;
+&lt;h2 id=&#34;ai-分析流程先有資料再問-ai&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-分析流程先有資料再問-ai&#34;&gt;&lt;/a&gt; AI 分析流程：先有資料，再問 AI&lt;/h2&gt;
 &lt;p&gt;整個分析採用資料驅動流程，AI 拿到的不是股票代號，而是 App 已經算好的結構化資料:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;使用者輸入股票名稱或代號&lt;/li&gt;
@@ -272,129 +146,20 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;停損的取法也有講究：取「近 20 日低點、季線 ×0.98、觀察區上緣 ×0.92」中最接近價格的支撐，並確保與假設買價至少相隔 1×ATR 或 3%—— 太近就放寬停損，而不是把目標灌大，讓 2R/3R 名實相符。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;line-整合&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#line-整合&#34;&gt;&lt;/a&gt; 📲 LINE 整合&lt;/h2&gt;
-&lt;p&gt;除了 App 本體，專案也接上了 LINE 官方帳號：透過 webhook + LIFF 可以在 LINE 裡管理觀察清單，每天定時收到自選股的分析摘要，以 Flex 卡片呈現重點價位與訊號，還會追蹤 AI 過去的看法戰績、在觀點被推翻時主動提醒。&lt;/p&gt;
+&lt;h2 id=&#34;line-整合&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#line-整合&#34;&gt;&lt;/a&gt; LINE 整合&lt;/h2&gt;
+&lt;p&gt;除了 App 本體，專案也接上了 LINE 官方帳號：透過 webhook + LIFF 可以在 LINE 裡管理觀察清單，每天定時收到自選股的分析摘要，以 Flex 卡片呈現重點價位與訊號，也會記錄 AI 先前的看法與後續結果，在看法被推翻時主動提醒。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;其他周邊&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#其他周邊&#34;&gt;&lt;/a&gt; 🔧 其他周邊&lt;/h2&gt;
+&lt;h2 id=&#34;其他周邊&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#其他周邊&#34;&gt;&lt;/a&gt; 其他周邊&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Python 報告產生器&lt;/strong&gt;: &lt;code&gt;python/taiwan_stock_agent.py 2330&lt;/code&gt;  一行指令產出含 K 線、均線、KD、MACD 的單檔 HTML 分析報告&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Android 打包&lt;/strong&gt;: &lt;code&gt;npm run android:apk&lt;/code&gt;  一鍵走完 Vite build → Capacitor sync → Gradle assemble&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-重要聲明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-重要聲明&#34;&gt;&lt;/a&gt; ⚠️ 重要聲明&lt;/h2&gt;
+&lt;h2 id=&#34;重要聲明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#重要聲明&#34;&gt;&lt;/a&gt; 重要聲明&lt;/h2&gt;
 &lt;p&gt;本 App 產生的內容只供研究、學習與資訊整理使用。技術指標與 AI 分析都可能失準，任何買進、賣出、停損或停利決策，皆應由使用者自行負責。&lt;/p&gt;
 </content>
         <category term="project" />
         <updated>2026-07-19T04:59:38.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/</id>
-        <title>📍 | LocalAIAgentAPI</title>
-        <link rel="alternate" href="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"/>
-        <content type="html">&lt;p class=&#34;reading-subtitle&#34;&gt;學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div id=&#34;gallery&#34;&gt;
-  &lt;a href=&#34;/images/LocalAIAgentAPI_frontend.png&#34;&gt;
-    &lt;img src=&#34;/images/LocalAIAgentAPI_frontend.png&#34; alt=&#34;前端頁面&#34; style=&#34;max-width: 600px;&#34;&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;學習目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#學習目標&#34;&gt;&lt;/a&gt; 學習目標&lt;/h2&gt;
-&lt;p&gt;作為一個正在準備面試的開發者，我給自己設定了一個挑戰：&lt;br&gt;
-能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？&lt;/p&gt;
-&lt;p&gt;說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有挑戰性的目標：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;練習 .NET 8 的新特性&lt;/li&gt;
-&lt;li&gt;熟悉 AI 模型整合的流程，這應該是未來的趨勢&lt;/li&gt;
-&lt;li&gt;為面試準備一些能拿出手的作品&lt;/li&gt;
-&lt;li&gt;順便踩踩坑，累積一些真實的開發經驗&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;結果沒想到，這個學習過程遠比我預期的有趣。每天回家寫 code，看到專案從無到有的感覺真的很讚。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;localaiagentapi&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#localaiagentapi&#34;&gt;&lt;/a&gt; LocalAIAgentAPI&lt;/h2&gt;
-&lt;p&gt;這個專案基本上就是我這週學習筆記的具現化。我想透過實作來理解一些平常只能紙上談兵的問題：&lt;/p&gt;
-&lt;p&gt;怎麼在 .NET 中整合不同類型的 AI 模型？每個模型的 API 都不一樣，要怎麼設計統一的介面？REST API 的架構要怎麼設計才不會讓未來的自己想哭？前端跟後端的資料交換有哪些眉角？錯誤處理和日誌記錄該做到什麼程度？&lt;/p&gt;
-&lt;p&gt;雖然是練習專案，但我還是盡量按照真實專案的標準來做。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;building&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#building&#34;&gt;&lt;/a&gt; Building&lt;/h2&gt;
-&lt;p&gt;這一週下來，我大概涉獵了這些領域：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;後端架構&lt;/strong&gt;：.NET 8 Web API、依賴注入、Middleware&lt;br&gt;
- 老實說，之前對 .NET 8 的依賴注入只是停留在「知道有這個東西」的階段，實際動手做才發現它比想像中強大很多。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;AI 整合&lt;/strong&gt;：Ollama LLM、ONNX 圖片分類、Tesseract OCR&lt;br&gt;
- 每個模型的整合方式都不太一樣，這讓我對「統一介面設計」有了更深的體會。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;API 設計&lt;/strong&gt;：RESTful API、輸入驗證、回應格式統一&lt;br&gt;
-如何讓不同模型的回應格式保持一致，這個問題比我想的複雜多了。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;前端互動&lt;/strong&gt;：簡單的 HTML/JS、檔案上傳、即時回應&lt;br&gt;
-雖然前端不是我的強項，但現在有很多非常好用的 AI 工具 像是 ChatGPT、Claude 等，都協助我設計好的 UI 和功能。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;測試工具&lt;/strong&gt;：Swagger 整合、API 測試&lt;br&gt;
- Swagger 真的是開發者的好朋友，設定完就有完整的測試介面。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;錯誤處理&lt;/strong&gt;：全域異常處理、Timeout 機制&lt;br&gt;
-踩了不少坑，但也學到如何優雅地處理各種意外狀況。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;problems&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#problems&#34;&gt;&lt;/a&gt; Problems&lt;/h2&gt;
-&lt;p&gt;一週要整合這麼多東西，當然會遇到一些讓人頭痛的問題：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;模型載入失敗&lt;/strong&gt;：一開始 LLAMA2 模型老是載入不起來，debug 了半天才發現是 Ollama 路徑的問題。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;回應時間過長&lt;/strong&gt;：某些 LLM 推理需要很長時間，一開始沒設 Timeout，結果前端就一直等等等。體驗直接崩潰。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;資料格式轉換&lt;/strong&gt;：不同模型的輸入輸出格式差異很大，光是設計統一的 API 介面就花了不少時間思考。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖片處理&lt;/strong&gt;：從前端上傳圖片到後端處理，編碼的部分搞了我一陣子。有些知識真的要實作過才會印象深刻。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不過每解決一個問題，就覺得又成長了一點。這大概就是寫 code 最爽的地方吧。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;learning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#learning&#34;&gt;&lt;/a&gt; Learning&lt;/h2&gt;
-&lt;h3 id=&#34;技術層面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技術層面&#34;&gt;&lt;/a&gt; 技術層面&lt;/h3&gt;
-&lt;p&gt;對 .NET 8 的依賴注入和 Middleware 機制有了更深入的理解。之前都是看文件學習，實際用過才知道哪些地方容易出錯。&lt;/p&gt;
-&lt;p&gt;了解了不同 AI 模型的整合方式和各自的限制。每種模型都有自己的脾氣，要花時間去摸索。&lt;/p&gt;
-&lt;p&gt;練習了 API 設計和錯誤處理的一些最佳實踐。雖然還不敢說做得很好，但至少知道該注意什麼。&lt;/p&gt;
-&lt;p&gt;熟悉了前後端資料交換的完整流程。之前都是分別學習，這次算是串起來了。&lt;/p&gt;
-&lt;h3 id=&#34;軟實力&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#軟實力&#34;&gt;&lt;/a&gt; 軟實力&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;問題解決能力&lt;/strong&gt;：遇到問題時如何有效地搜尋資料、閱讀文件、測試假設。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;學習方法&lt;/strong&gt;：如何在有限時間內快速掌握新技術的核心概念。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;架構思維&lt;/strong&gt;：開始思考如何設計可維護、可擴展的系統架構。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;這個專案&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#這個專案&#34;&gt;&lt;/a&gt; 這個專案&lt;/h3&gt;
-&lt;p&gt;我會誠實地說：「這是我為了學習 AI 整合和準備面試而做的練習專案。功能相對簡單，但我把重點放在架構設計和程式碼品質上。」&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;為什麼選擇這些技術組合？各有什麼優缺點？&lt;/li&gt;
-&lt;li&gt;開發過程中遇到的最大挑戰是什麼？如何解決的？&lt;/li&gt;
-&lt;li&gt;如果要將這個專案擴展成正式產品，需要加強哪些部分？&lt;/li&gt;
-&lt;li&gt;從這次經驗中學到最重要的一課是什麼？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;我覺得展現學習態度和解決問題的思路，比專案本身的完成度更重要。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;next-week&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#next-week&#34;&gt;&lt;/a&gt; Next Week！&lt;/h2&gt;
-&lt;p&gt;這個專案讓我嚐到了甜頭，也發現了很多可以改進的地方：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;程式碼重構&lt;/strong&gt;：有些地方寫得匆忙，想練習如何重構成更乾淨的程式碼。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;容器化部署&lt;/strong&gt;：嘗試用 Docker 打包，體驗現代化的部署流程。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;專案原始碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案原始碼&#34;&gt;&lt;/a&gt; 專案原始碼&lt;/h2&gt;
-&lt;p&gt;GitHub Repo: &lt;a href=&#34;https://github.com/reedlin2002/LocalAIAgentAPI&#34;&gt;reedlin2002/LocalAIAgentAPI&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;重要提醒&lt;/strong&gt;：這是我的學習練習專案，程式碼品質可能還有很大改進空間，絕對不建議直接用在正式環境中。但如果你也在學習相關技術，歡迎參考或給我一些建議。&lt;/p&gt;
-&lt;p&gt;如果發現任何問題或有改進建議，也歡迎開 Issue 讓我學習。畢竟一個人閉門造車很容易有盲點。&lt;/p&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;每週挑戰一個小專案，慢慢累積實戰經驗。雖然距離真正的高手還很遠，但至少在正確的路上前進。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;link
-  rel=&#34;stylesheet&#34;
-  href=&#34;https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css&#34;
-/&gt;
-&lt;script src=&#34;https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js&#34;&gt;&lt;/script&gt;
-&lt;script&gt;
-  lightGallery(document.getElementById(&#34;gallery&#34;), {
-    plugins: [lgZoom],
-    speed: 300,
-    zoom: true
-  });
-&lt;/script&gt;</content>
-        <category term="project" />
-        <updated>2025-07-19T07:34:20.000Z</updated>
     </entry>
     <entry>
         <id>https://reedlin2002.github.io/2025/07/05/UrlHealthMonitor/</id>

@@ -13,12 +13,16 @@
         <category>C#</category>
         <category>SQLite</category>
         <category>Docker</category>
-        <category>leetcode</category>
-        <category>Daily</category>
+        <category>電腦視覺</category>
+        <category>Instance Segmentation</category>
+        <category>Deep Learning</category>
+        <category>專題研究</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
         <category>side project</category>
@@ -34,11 +38,6 @@
         <category>Hackathon</category>
         <category>AI</category>
         <category>PRD</category>
-        <category>重構</category>
-        <category>電腦視覺</category>
-        <category>軟體工程</category>
-        <category>Deep Learning</category>
-        <category>Instance Segmentation</category>
         <category>影像處理</category>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/mapgo-hackathon/</guid>
@@ -104,7 +103,7 @@
 &lt;h3 id=&#34;關於-tdx&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#關於-tdx&#34;&gt;&lt;/a&gt; 關於 TDX&lt;/h3&gt;
 &lt;p&gt;路線畫面上標的是「捷運站點資料示意」。repo 裡其實有一份從 TDX（交通部運輸資料流通服務） &lt;code&gt;/v3/Rail/Metro/StationOfRoute/TRTC&lt;/code&gt;  抓下來的站序快取  &lt;code&gt;tdx-cache.json&lt;/code&gt; ，上面的設定裡也有一條針對  &lt;code&gt;tdx.transportdata.tw&lt;/code&gt;  的  &lt;code&gt;NetworkFirst&lt;/code&gt;  規則：網路 5 秒內沒回應，就改用快取。這是準備接真實資料時的備援設計。&lt;/p&gt;
 &lt;p&gt;但這一版沒有任何地方讀取這份快取，也沒有呼叫 TDX API，路線資料是寫死的。換句話說，真正讓這個 demo 不怕斷網的，不是 fallback，而是&lt;strong&gt;它從頭到尾都不需要網路&lt;/strong&gt;。接上 TDX 的即時資料，是這個 prototype 還沒做的下一步。&lt;/p&gt;
-&lt;h2 id=&#34;範圍149-項功能裡只做-32-項&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#範圍149-項功能裡只做-32-項&#34;&gt;&lt;/a&gt; 範圍：149 項功能裡只做 32 項&lt;/h2&gt;
+&lt;h2 id=&#34;範圍先決定哪些不做&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#範圍先決定哪些不做&#34;&gt;&lt;/a&gt; 範圍：先決定哪些不做&lt;/h2&gt;
 &lt;p&gt;最後一份文件是  &lt;code&gt;docs/PRODUCT_FEATURES.md&lt;/code&gt; 。我用產品負責人（PO）的角度，把所有想得到的功能列成清單，再分成三級：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;

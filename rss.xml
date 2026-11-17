@@ -5,20 +5,24 @@
         <link>https://reedlin2002.github.io</link>
         <description>Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程</description>
         <language>zh-TW</language>
-        <pubDate>Mon, 28 Sep 2026 20:00:00 +0800</pubDate>
-        <lastBuildDate>Mon, 28 Sep 2026 20:00:00 +0800</lastBuildDate>
+        <pubDate>Tue, 17 Nov 2026 12:00:00 +0800</pubDate>
+        <lastBuildDate>Tue, 17 Nov 2026 12:00:00 +0800</lastBuildDate>
         <category>myself</category>
         <category>project</category>
         <category>.NET</category>
         <category>C#</category>
         <category>SQLite</category>
         <category>Docker</category>
-        <category>leetcode</category>
-        <category>Daily</category>
+        <category>電腦視覺</category>
+        <category>Instance Segmentation</category>
+        <category>Deep Learning</category>
+        <category>專題研究</category>
         <category>演算法</category>
         <category>Binary Search</category>
         <category>Python</category>
         <category>LeetCode</category>
+        <category>leetcode</category>
+        <category>Daily</category>
         <category>技術筆記</category>
         <category>(作者自學用)</category>
         <category>side project</category>
@@ -34,12 +38,157 @@
         <category>Hackathon</category>
         <category>AI</category>
         <category>PRD</category>
-        <category>重構</category>
-        <category>電腦視覺</category>
-        <category>軟體工程</category>
-        <category>Deep Learning</category>
-        <category>Instance Segmentation</category>
         <category>影像處理</category>
+        <item>
+            <guid isPermalink="true">https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/</guid>
+            <title>大學專題：澎湖海灘垃圾自動監測系統的開發與應用</title>
+            <link>https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/</link>
+            <category>電腦視覺</category>
+            <category>Instance Segmentation</category>
+            <category>Deep Learning</category>
+            <category>專題研究</category>
+            <pubDate>Tue, 17 Nov 2026 12:00:00 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專院校競賽獎項與校內專題研究獎。&lt;/p&gt;
+&lt;p&gt;這篇整理系統怎麼運作、我負責的部分，以及模型在測試集上的實際表現。圖表都取自我們的專題論文。&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-map.jpg&#34; alt=&#34;海灘全景影像上的垃圾辨識結果&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;海灘全景影像上的垃圾辨識結果（取自專題論文圖 7.12）。&lt;/p&gt;
+&lt;h2 id=&#34;研究問題與分工&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#研究問題與分工&#34;&gt;&lt;/a&gt; 研究問題與分工&lt;/h2&gt;
+&lt;p&gt;這個專題想做的事，是用無人機航拍影像建立一套自動化的海灘垃圾辨識與量化流程，取代一部分原本靠人工目視的調查。&lt;/p&gt;
+&lt;p&gt;專題是五人團隊的研究。我負責資料與模型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;整理影像資料集與分割標註&lt;/li&gt;
+&lt;li&gt;格式轉換與前處理&lt;/li&gt;
+&lt;li&gt;撰寫少數類別的資料增強程式&lt;/li&gt;
+&lt;li&gt;訓練與測試 CenterMask2&lt;/li&gt;
+&lt;li&gt;分析實驗結果並製作圖表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;系統流程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#系統流程&#34;&gt;&lt;/a&gt; 系統流程&lt;/h2&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;flowchart TD
+    V[&#34;UAV 航拍影片&#34;] --&amp;gt; F[&#34;擷取影格&#34;]
+    F --&amp;gt; S[&#34;OpenCV 影像拼接&#34;]
+    S --&amp;gt; P[&#34;海灘全景影像&#34;]
+    S --&amp;gt; O[&#34;找出相鄰影格的重疊區域&#34;]
+    O --&amp;gt; N[&#34;無重疊區域影像&#34;]
+    N --&amp;gt; T[&#34;影像預處理&amp;lt;br/&amp;gt;切成 640 × 480&#34;]
+    T --&amp;gt; M[&#34;CenterMask2&amp;lt;br/&amp;gt;實例分割&#34;]
+    M --&amp;gt; R[&#34;辨識結果影像&#34;]
+    R --&amp;gt; C[&#34;影像重構&#34;]
+    C --&amp;gt; D[&#34;拼接成&amp;lt;br/&amp;gt;海灘垃圾分布地圖&#34;]
+    M --&amp;gt; K[&#34;各類垃圾統計&#34;]
+    K --&amp;gt; I[&#34;海灘指數計算&amp;lt;br/&amp;gt;CCI · PAI&#34;]&lt;/pre&gt;
+&lt;p&gt;航拍影片先切成影格，接著分成兩路。&lt;/p&gt;
+&lt;p&gt;一路由團隊以 OpenCV 把影格拼接成海灘全景。&lt;/p&gt;
+&lt;p&gt;另一路負責辨識。相鄰影格拍到的範圍會重疊，同一件垃圾可能被辨識兩次，所以先找出影格之間的重疊區域並把它遮掉，再把影像切成 640 × 480 的小影像（原始影格是 3840 × 2160，直接送進模型的運算量太大），送進 CenterMask2 做實例分割。&lt;/p&gt;
+&lt;p&gt;辨識結果會重構回原本的影格大小，再拼接成海灘垃圾分布地圖，也就是文章開頭那張圖。系統同時依類別統計垃圾的數量與面積，計算海灘清潔指數（CCI）與塑膠豐度指數（PAI）。&lt;/p&gt;
+&lt;h2 id=&#34;資料與標註&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#資料與標註&#34;&gt;&lt;/a&gt; 資料與標註&lt;/h2&gt;
+&lt;p&gt;我們標註了五類垃圾：保麗龍、寶特瓶、木材、浮標、浮球。每一類對應一種顏色，把影像裡每個物件的輪廓逐一標出來，作為實例分割的訓練標籤。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-samples.jpg&#34; alt=&#34;訓練樣本與對應的分割標註&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;訓練樣本與分割標註範例（取自專題論文圖 7.5）。&lt;/p&gt;
+&lt;h3 id=&#34;處理類別不平衡&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#處理類別不平衡&#34;&gt;&lt;/a&gt; 處理類別不平衡&lt;/h3&gt;
+&lt;p&gt;各類別的樣本數差距很大。原始資料中，浮球只有 1,727 個標註，寶特瓶和保麗龍則分別有約 2.5 萬與 2.7 萬個。差距這麼大，模型容易偏向樣本多的類別。&lt;/p&gt;
+&lt;p&gt;我寫了一支資料增強程式來處理這個問題：把浮標、木材和浮球這些少數類別的物件，連同標註一起複製，經過旋轉、縮放後，貼到影像中沒有標註的區域。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-augment.jpg&#34; alt=&#34;物件複製貼上的結果與對應標籤&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;物件複製貼上的結果與對應標籤，紅框是貼上去的物件（取自專題論文圖 7.6）。&lt;/p&gt;
+&lt;p&gt;擴充之後，浮球的標註從 1,727 個增加到 12,030 個，浮標從 5,676 個增加到 12,218 個。&lt;/p&gt;
+&lt;div style=&#34;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;&#34;&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/beach-litter-monitoring-classes-before.jpg&#34; alt=&#34;資料擴充前各類別的標註數量&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;擴充前&lt;/p&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/beach-litter-monitoring-classes-after.jpg&#34; alt=&#34;資料擴充後各類別的標註數量&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;擴充後&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;各類別的標註數量（取自專題論文圖 5.2、圖 7.7）。圖中 Float 是浮球、Buoy 是浮標、Bottle 是寶特瓶、Styrofoam 是保麗龍、Wood 是木材。&lt;/p&gt;
+&lt;h2 id=&#34;訓練設定&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#訓練設定&#34;&gt;&lt;/a&gt; 訓練設定&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;項目&lt;/th&gt;
+&lt;th&gt;設定&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;訓練／測試影像&lt;/td&gt;
+&lt;td&gt;4,709 張／523 張&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;模型&lt;/td&gt;
+&lt;td&gt;CenterMask2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;迭代次數／Batch&lt;/td&gt;
+&lt;td&gt;500,000／12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;初始學習率&lt;/td&gt;
+&lt;td&gt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;學習率調整&lt;/td&gt;
+&lt;td&gt;第 47 萬、49 萬次迭代時各降為 1/10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;測試集的辨識結果&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#測試集的辨識結果&#34;&gt;&lt;/a&gt; 測試集的辨識結果&lt;/h2&gt;
+&lt;p&gt;訓練完成後，用 523 張測試影像評估模型，再從混淆矩陣算出每一類的 Precision、Recall 與 F1-Score：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;類別&lt;/th&gt;
+&lt;th&gt;Precision&lt;/th&gt;
+&lt;th&gt;Recall&lt;/th&gt;
+&lt;th&gt;F1-Score&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;浮球&lt;/td&gt;
+&lt;td&gt;0.83&lt;/td&gt;
+&lt;td&gt;0.76&lt;/td&gt;
+&lt;td&gt;0.79&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;木材&lt;/td&gt;
+&lt;td&gt;0.54&lt;/td&gt;
+&lt;td&gt;0.46&lt;/td&gt;
+&lt;td&gt;0.49&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;浮標&lt;/td&gt;
+&lt;td&gt;0.54&lt;/td&gt;
+&lt;td&gt;0.43&lt;/td&gt;
+&lt;td&gt;0.48&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;保麗龍&lt;/td&gt;
+&lt;td&gt;0.63&lt;/td&gt;
+&lt;td&gt;0.35&lt;/td&gt;
+&lt;td&gt;0.45&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;寶特瓶&lt;/td&gt;
+&lt;td&gt;0.34&lt;/td&gt;
+&lt;td&gt;0.22&lt;/td&gt;
+&lt;td&gt;0.27&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;浮球外形規則、顏色鮮明，辨識最穩定。保麗龍與寶特瓶的 Recall 明顯偏低，代表漏檢多。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-output.jpg&#34; alt=&#34;CenterMask2 在一張小影像上的輸出&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;模型在一張 640 × 480 小影像上的輸出：每個物件有邊界框、遮罩、類別與信心分數（取自專題論文圖 5.5）。&lt;/p&gt;
+&lt;h2 id=&#34;錯誤分析保麗龍與寶特瓶&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#錯誤分析保麗龍與寶特瓶&#34;&gt;&lt;/a&gt; 錯誤分析：保麗龍與寶特瓶&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-confusion.png&#34; alt=&#34;測試集混淆矩陣&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;測試集混淆矩陣，縱軸是實際類別，橫軸是模型預測的類別（取自專題論文圖 7.11）。&lt;/p&gt;
+&lt;p&gt;把測試結果按類別拆開來看，類別之間最主要的錯誤是保麗龍與寶特瓶互相誤判：實際是保麗龍、被判成寶特瓶的有 1,018 筆；實際是寶特瓶、被判成保麗龍的有 474 筆。&lt;/p&gt;
+&lt;p&gt;值得注意的是，寶特瓶在原始資料中有 24,993 個標註，僅次於保麗龍，是樣本最多的類別之一，辨識效果卻最差。問題可能不只在樣本數量，也和物件尺寸、外觀相似與背景複雜度有關。這是我想進一步驗證的地方。&lt;/p&gt;
+&lt;h2 id=&#34;研究限制與後續工作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#研究限制與後續工作&#34;&gt;&lt;/a&gt; 研究限制與後續工作&lt;/h2&gt;
+&lt;p&gt;目前的測試結果是整體平均，沒有依物件尺寸、拍攝高度、光線或背景分組，所以還回答不了「模型最小能辨識多少像素的垃圾」這類問題。這個問題是參加競賽時評審問的，當時我們沒有實驗數據可以回答。&lt;/p&gt;
+&lt;p&gt;後續可以依物件的像素面積把測試資料分組，分別計算各組的 Recall，找出辨識率明顯下降的尺寸界線，作為無人機拍攝高度的設計依據。針對小而相似的物件，也可以比較提高輸入解析度、不同的切片方式、更有針對性的資料增強，以及不同模型架構的效果。&lt;/p&gt;
+&lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#延伸閱讀&#34;&gt;&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Lee &amp;amp; Park, &lt;a href=&#34;https://arxiv.org/abs/1911.06667&#34;&gt;CenterMask: Real-Time Anchor-Free Instance Segmentation&lt;/a&gt;, CVPR 2020 / &lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34;&gt;官方 repo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/2026/08/23/uav-vision-notes/&#34;&gt;空拍影像辨識技術地圖：分割策略、模型架構與影像拼接的技術取捨&lt;/a&gt; — 這套系統用到的實例分割、評估指標與拼接原理&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/smart-trip-planner/</guid>
             <title>智慧旅程規劃：AI 排初稿，在地圖上隨時加景點</title>
@@ -303,7 +452,7 @@
 &lt;h3 id=&#34;關於-tdx&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#關於-tdx&#34;&gt;&lt;/a&gt; 關於 TDX&lt;/h3&gt;
 &lt;p&gt;路線畫面上標的是「捷運站點資料示意」。repo 裡其實有一份從 TDX（交通部運輸資料流通服務） &lt;code&gt;/v3/Rail/Metro/StationOfRoute/TRTC&lt;/code&gt;  抓下來的站序快取  &lt;code&gt;tdx-cache.json&lt;/code&gt; ，上面的設定裡也有一條針對  &lt;code&gt;tdx.transportdata.tw&lt;/code&gt;  的  &lt;code&gt;NetworkFirst&lt;/code&gt;  規則：網路 5 秒內沒回應，就改用快取。這是準備接真實資料時的備援設計。&lt;/p&gt;
 &lt;p&gt;但這一版沒有任何地方讀取這份快取，也沒有呼叫 TDX API，路線資料是寫死的。換句話說，真正讓這個 demo 不怕斷網的，不是 fallback，而是&lt;strong&gt;它從頭到尾都不需要網路&lt;/strong&gt;。接上 TDX 的即時資料，是這個 prototype 還沒做的下一步。&lt;/p&gt;
-&lt;h2 id=&#34;範圍149-項功能裡只做-32-項&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#範圍149-項功能裡只做-32-項&#34;&gt;&lt;/a&gt; 範圍：149 項功能裡只做 32 項&lt;/h2&gt;
+&lt;h2 id=&#34;範圍先決定哪些不做&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#範圍先決定哪些不做&#34;&gt;&lt;/a&gt; 範圍：先決定哪些不做&lt;/h2&gt;
 &lt;p&gt;最後一份文件是  &lt;code&gt;docs/PRODUCT_FEATURES.md&lt;/code&gt; 。我用產品負責人（PO）的角度，把所有想得到的功能列成清單，再分成三級：&lt;/p&gt;
 &lt;table&gt;
 &lt;thead&gt;
@@ -343,151 +492,6 @@
 &lt;li&gt;&lt;a href=&#34;https://github.com/reedlin2002/MapGo&#34;&gt;reedlin2002/MapGo&lt;/a&gt; — 本文程式碼與規劃文件的出處&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://vite-pwa-org.netlify.app/&#34;&gt;Vite PWA&lt;/a&gt; —  &lt;code&gt;vite-plugin-pwa&lt;/code&gt;  官方文件&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://developer.chrome.com/docs/workbox/modules/workbox-strategies&#34;&gt;Workbox strategies&lt;/a&gt; —  &lt;code&gt;NetworkFirst&lt;/code&gt;  等快取策略的說明&lt;/li&gt;
-&lt;/ul&gt;
- ]]></description>
-        </item>
-        <item>
-            <guid isPermalink="true">https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/</guid>
-            <title>兩年前的專題程式碼，我重構了兩次：第一次做太多，第二次拆回來</title>
-            <link>https://reedlin2002.github.io/2026/09/28/uav-analysis-refactor/</link>
-            <category>Python</category>
-            <category>重構</category>
-            <category>電腦視覺</category>
-            <category>軟體工程</category>
-            <pubDate>Mon, 28 Sep 2026 00:00:00 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;2023 年底到 2024 年秋天，我在大學專題裡寫了一套海灘垃圾辨識程式：無人機影片抽幀、切成小圖丟進 CenterMask2 做實例分割，最後把各類垃圾的數量跟面積寫進 Excel。那時候的 commit 訊息長這樣：&lt;/p&gt;
-&lt;figure class=&#34;highlight text&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;bb55de1  07/27 影像分割+預測+拼接  一定要整包下載！！！&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;兩年後，我把這份程式碼重構了兩次。第一次交給 Claude Code，它交出四個看起來很完整的 commit；第二次，我把其中大半拆掉了。&lt;/p&gt;
-&lt;p&gt;這篇記錄兩次重構差在哪裡。結論先講：&lt;strong&gt;沒有基準（baseline）的重構，就跟沒有對照組的實驗一樣 —— 你不知道這次改動到底改變了什麼。&lt;/strong&gt;&lt;/p&gt;
-&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
-&lt;h2 id=&#34;起點2024-年的程式在做什麼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#起點2024-年的程式在做什麼&#34;&gt;&lt;/a&gt; 起點：2024 年的程式在做什麼&lt;/h2&gt;
-&lt;p&gt;當年的主程式  &lt;code&gt;project_main.py&lt;/code&gt;  流程大致如下：&lt;/p&gt;
-&lt;pre class=&#34;mermaid&#34;&gt;flowchart LR
-    A[&#34;GUI&amp;lt;br/&amp;gt;影片抽幀&#34;] --&amp;gt; B[&#34;frames_output/&#34;]
-    B --&amp;gt; C[&#34;cv2.Stitcher&amp;lt;br/&amp;gt;拼出全景圖&#34;]
-    B --&amp;gt; D[&#34;split_image&amp;lt;br/&amp;gt;切成 640×480&#34;]
-    D --&amp;gt; E[&#34;CenterMask2&#34;]
-    E --&amp;gt; X[&#34;output_data.xlsx&#34;]
-    W[&#34;withoutoverlap/&amp;lt;br/&amp;gt;另外準備的影像&#34;] --&amp;gt; F[&#34;predict_withoutoverlap.py&amp;lt;br/&amp;gt;再切一次、再辨識一次&#34;]
-    F --&amp;gt; X&lt;/pre&gt;
-&lt;p&gt;它能跑，也真的交出了專題成果。但現在回頭讀，有四個問題：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;一、同樣的函式有兩份。&lt;/strong&gt;  &lt;code&gt;predict_segm.py&lt;/code&gt;  跟  &lt;code&gt;predict_withoutoverlap.py&lt;/code&gt;  各有一份  &lt;code&gt;setup_predictor&lt;/code&gt; 、 &lt;code&gt;is_on_boundary&lt;/code&gt; 、 &lt;code&gt;save_excel&lt;/code&gt; ，內容幾乎一樣，類別名稱清單  &lt;code&gt;[&#39;Float&#39;, &#39;Wood&#39;, &#39;Styrofoam&#39;, &#39;Bottle&#39;, &#39;Buoy&#39;]&lt;/code&gt;  在這兩個檔案裡一共寫了四次。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;二、兩份切圖邏輯不一樣。&lt;/strong&gt; 主程式的  &lt;code&gt;split_image&lt;/code&gt;  是這樣切的：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# project_main.py（2024，commit 66d674c）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; y &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, h - height + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, height):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; x &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, w - width + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, width):&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;code&gt;predict_withoutoverlap.py&lt;/code&gt;  則是這樣：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# predict_withoutoverlap.py（2024，commit 66d674c）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; y &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, height, &lt;span class=&#34;number&#34;&gt;480&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; x &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, width, &lt;span class=&#34;number&#34;&gt;640&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;差別在  &lt;code&gt;range&lt;/code&gt;  的終點。前者只切「放得下一整格」的位置，後者連不滿一格的尾巴也切。拿 repo 歷史裡保留的一張 3840×2160 空拍影像來算：2160 ÷ 480 = 4.5，前者只切出 4 列，&lt;strong&gt;最下面 240 px 不會被送進模型&lt;/strong&gt;；後者切出 5 列，但最後一列每格只有 640×240。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/uav-analysis-refactor-tiles-2024.jpg&#34; alt=&#34;2024 年 split_image 的切法：6 × 4 = 24 格，最下面 240 px 沒有送進模型&#34;&gt;&lt;/p&gt;
-&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;影像取自專題 repo 歷史（commit a77cc57）中的 UAV 空拍影像，格線依 2024 年 &lt;code&gt;split_image&lt;/code&gt; 的邏輯繪製。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;三、被切開的物件怎麼算。&lt;/strong&gt; 一個寶特瓶剛好壓在兩格的交界上，會被切成兩半、各自被辨識一次。當年的處理方式寫在  &lt;code&gt;save_excel&lt;/code&gt;  裡：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# predict_withoutoverlap.py（2024，commit 66d674c）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            total_count = class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;count&amp;quot;&lt;/span&gt;] - class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;boundary_count&amp;quot;&lt;/span&gt;] &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;count&amp;quot;&lt;/span&gt;] &amp;gt; &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;else&lt;/span&gt; class_info[&lt;span class=&#34;string&#34;&gt;&amp;quot;count&amp;quot;&lt;/span&gt;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;code&gt;boundary_count&lt;/code&gt;  是「mask 碰到切片邊緣」的物件數。這條公式把它們全部扣掉：被切成兩半的寶特瓶，兩半都碰到邊緣，算進 2 個、又扣掉 2 個，最後變成 0；一個完整、只是剛好貼著邊緣的寶特瓶，也會被扣掉。面積那一欄則沒有扣，兩半的面積照樣加總。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;四、兩個步驟寫同一個檔案。&lt;/strong&gt; 主程式先呼叫  &lt;code&gt;predict_images_in_folder(...)&lt;/code&gt;  寫出  &lt;code&gt;output_data.xlsx&lt;/code&gt; ，再呼叫  &lt;code&gt;process_images_without_overlap(...)&lt;/code&gt;  寫&lt;strong&gt;同一個路徑&lt;/strong&gt;。 &lt;code&gt;pd.ExcelWriter&lt;/code&gt;  預設是覆寫模式，所以最後留下來的只有第二步的結果。 &lt;code&gt;withoutoverlap/&lt;/code&gt;  資料夾裡是另外準備、已經去掉重疊區域的影像，repo 裡找不到產生它的程式。&lt;/p&gt;
-&lt;p&gt;這些問題有個共同點：模型本身當年用 mAP、IoU 評估過，但&lt;strong&gt;從切圖到 Excel 這一整段，沒有任何方法可以回答「這個數字對不對」&lt;/strong&gt;。沒有測試，也沒有一份固定輸入、固定輸出的結果可以比對。&lt;/p&gt;
-&lt;h2 id=&#34;第一輪交給-claude-code&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#第一輪交給-claude-code&#34;&gt;&lt;/a&gt; 第一輪：交給 Claude Code&lt;/h2&gt;
-&lt;p&gt;2026 年 7 月，我讓 Claude Code 對這個 repo 做架構重構。它列出四個候選方案，一個一個實作、各自 commit：&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Commit&lt;/th&gt;
-&lt;th&gt;候選方案&lt;/th&gt;
-&lt;th&gt;內容&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;13f6308&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Candidate 1&lt;/td&gt;
-&lt;td&gt;常數集中到  &lt;code&gt;PipelineConfig&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;8afafa4&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Candidate 2&lt;/td&gt;
-&lt;td&gt;抽出  &lt;code&gt;predictor/&lt;/code&gt;  套件，加上 Strategy 類別&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;b2fd681&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Candidate 3&lt;/td&gt;
-&lt;td&gt;支援 YAML／JSON 設定檔&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;732d459&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;Candidate 4&lt;/td&gt;
-&lt;td&gt;GUI 改用  &lt;code&gt;VideoProcessor&lt;/code&gt;  服務層 + Observer&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;最後還附了一份  &lt;code&gt;REFACTORING_SUMMARY.md&lt;/code&gt; ，寫著「消除 95% 代碼重複」、「從～1000 行減少到～534 行」。&lt;/p&gt;
-&lt;p&gt;有些改動是真的有效的。三個重複的共用函式搬進了  &lt;code&gt;predictor/garbage_predictor.py&lt;/code&gt; ，舊腳本改成從那裡 import；常數也集中到了一處。但仔細看，有三個地方不對勁：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Strategy 類別沒有接上。&lt;/strong&gt; Candidate 2 新增了  &lt;code&gt;OverlapStrategyPredictor&lt;/code&gt;  跟  &lt;code&gt;NoOverlapStrategyPredictor&lt;/code&gt;  兩個類別（合計約 290 行），也在  &lt;code&gt;predictor/__init__.py&lt;/code&gt;  匯出了。但在  &lt;code&gt;994a1aa&lt;/code&gt;  這個版本裡搜尋整個 repo，除了定義跟匯出，沒有任何地方呼叫它們。主程式走的還是原本的  &lt;code&gt;classify_and_save&lt;/code&gt;  跟  &lt;code&gt;process_images&lt;/code&gt; 。同一份 summary 的最後一行寫的是「&lt;strong&gt;+702 新增行，-165 刪除行&lt;/strong&gt;」—— 說是消除重複，實際上是多了一套沒人用的抽象。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Observer 從背景執行緒改 UI。&lt;/strong&gt; Candidate 4 讓 GUI 在背景執行緒跑影片處理：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# gui.py（第一輪，commit 994a1aa）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;process_thread&lt;/span&gt;():&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            processor.process_video(file_path, frame_cut, start_point, end_point)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        threading.Thread(target=process_thread, daemon=&lt;span class=&#34;literal&#34;&gt;True&lt;/span&gt;).start()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;code&gt;process_video&lt;/code&gt;  在這條執行緒裡呼叫  &lt;code&gt;self._notify_status(&amp;quot;處理中...&amp;quot;)&lt;/code&gt; ，經過  &lt;code&gt;GuiAdapter&lt;/code&gt;  轉發後，最後執行的是：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# gui.py（第一輪，commit 994a1aa）&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;on_status_changed&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;status: &lt;span class=&#34;built_in&#34;&gt;str&lt;/span&gt;&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;string&#34;&gt;&amp;quot;&amp;quot;&amp;quot;處理狀態變更&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        completion_label.config(text=status, fg=&lt;span class=&#34;string&#34;&gt;&amp;quot;black&amp;quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;也就是&lt;strong&gt;從背景執行緒直接改 Tkinter 元件&lt;/strong&gt;。Tkinter 的元件只應該在主執行緒操作，這種寫法大部分時候看起來沒事，偶爾才出問題，是最難查的那一種 bug。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;驗證只驗了語法。&lt;/strong&gt; summary 列出的驗證方法是「Python AST 編譯檢查（py_compile）、導入測試、配置加載測試、參數驗證測試」。這些能證明程式可以被 import，但沒有任何一項能證明「重構後辨識出來的數量，跟重構前一樣」。&lt;/p&gt;
-&lt;p&gt;回頭看，agent 很擅長把「一個好架構應該有的東西」補齊：設定檔、抽象基類、設計模式、服務層。它沒有問、我當時也沒有問的是兩個問題：&lt;strong&gt;這個抽象現在被誰呼叫？改完之後，輸出跟改之前一樣嗎？&lt;/strong&gt; 第二個問題在這個 repo 裡根本沒有辦法回答，因為從來沒有基準。&lt;/p&gt;
-&lt;h2 id=&#34;第二輪先定名詞再劃邊界&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#第二輪先定名詞再劃邊界&#34;&gt;&lt;/a&gt; 第二輪：先定名詞，再劃邊界&lt;/h2&gt;
-&lt;p&gt;第二輪我先決定方向，再交給 agent 照計畫實作。方向有四條。&lt;/p&gt;
-&lt;h3 id=&#34;1-先把名詞定下來&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#1-先把名詞定下來&#34;&gt;&lt;/a&gt; 1. 先把名詞定下來&lt;/h3&gt;
-&lt;p&gt;新增的  &lt;code&gt;CONTEXT.md&lt;/code&gt;  只做一件事：規定這個專案裡的名詞，以及&lt;strong&gt;不要用&lt;/strong&gt;的同義詞。&lt;/p&gt;
-&lt;figure class=&#34;highlight markdown&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;strong&#34;&gt;**Tile**&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;A possibly overlapping rectangular region of a Sampled Frame submitted to the model for detection.&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;emphasis&#34;&gt;_Avoid_&lt;/span&gt;: crop, patch&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;2024 年的程式裡，同一個東西叫  &lt;code&gt;sub_image&lt;/code&gt; 、「小圖」、「切割圖像」；「一次執行」則沒有名字，散在  &lt;code&gt;project_main.py&lt;/code&gt;  的  &lt;code&gt;__main__&lt;/code&gt;  裡。名詞不統一，邊界就只能靠檔案來劃。定下 &lt;strong&gt;Analysis Run&lt;/strong&gt;、&lt;strong&gt;Sampled Frame&lt;/strong&gt;、&lt;strong&gt;Tile&lt;/strong&gt;、&lt;strong&gt;Detection&lt;/strong&gt;、&lt;strong&gt;Artifact&lt;/strong&gt; 這五個詞之後，模組怎麼切就很自然了：&lt;/p&gt;
-&lt;pre class=&#34;mermaid&#34;&gt;flowchart TD
-    UI[&#34;GUI / CLI&amp;lt;br/&amp;gt;project_main.py&#34;] --&amp;gt; R[&#34;AnalysisRun&amp;lt;br/&amp;gt;analysis_run.py&#34;]
-    R --&amp;gt; S[&#34;VideoSampler&amp;lt;br/&amp;gt;抽出 Sampled Frame&#34;]
-    R --&amp;gt; I[&#34;inference.py&amp;lt;br/&amp;gt;Tile · 全域座標 · 去重&#34;]
-    I --&amp;gt; A[&#34;CenterMaskAdapter&amp;lt;br/&amp;gt;Detectron2 只在這裡載入&#34;]
-    R --&amp;gt; W[&#34;ArtifactWriter&amp;lt;br/&amp;gt;JSON · Excel&#34;]&lt;/pre&gt;
-&lt;p&gt;第一輪的 Strategy 類別跟  &lt;code&gt;VideoProcessor&lt;/code&gt;  服務層都拿掉了。 &lt;code&gt;REFACTORING_SUMMARY.md&lt;/code&gt;  沒有刪，但開頭加上一行註記，標明它是「歷史文件」、描述的是已經被取代的中間版本。&lt;/p&gt;
-&lt;h3 id=&#34;2-模型框架只從一個地方進來&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#2-模型框架只從一個地方進來&#34;&gt;&lt;/a&gt; 2. 模型框架只從一個地方進來&lt;/h3&gt;
-&lt;p&gt;除了  &lt;code&gt;--diagnose&lt;/code&gt;  會讀取套件版本之外，整個專案只有  &lt;code&gt;CenterMaskAdapter&lt;/code&gt;  會真正載入 Detectron2，而且是等到真的要跑模型時才 import：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# predictor/garbage_predictor.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; torch&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; detectron2.engine &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; DefaultPredictor&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; centermask.config &lt;span class=&#34;keyword&#34;&gt;import&lt;/span&gt; get_cfg&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;except&lt;/span&gt; ImportError &lt;span class=&#34;keyword&#34;&gt;as&lt;/span&gt; exc:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;raise&lt;/span&gt; ConfigError(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                &lt;span class=&#34;string&#34;&gt;&amp;quot;CenterMask runtime is unavailable. Activate the pinned WSL2 environment: &amp;#123;&amp;#125;&amp;quot;&lt;/span&gt;.&lt;span class=&#34;built_in&#34;&gt;format&lt;/span&gt;(exc)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            ) &lt;span class=&#34;keyword&#34;&gt;from&lt;/span&gt; exc&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;其他模組只認得一個介面：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;title class_&#34;&gt;DetectionAdapter&lt;/span&gt;(&lt;span class=&#34;title class_ inherited__&#34;&gt;Protocol&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;detect&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self, image&lt;/span&gt;) -&amp;gt; &lt;span class=&#34;type&#34;&gt;Sequence&lt;/span&gt;[TileDetection]:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;這讓切片、座標換算、去重、輸出這些&lt;strong&gt;我自己寫的邏輯&lt;/strong&gt;，可以在沒有 GPU 的電腦上用假的 detector 測試。第一輪只驗了語法；第二輪的  &lt;code&gt;tests/&lt;/code&gt;  驗的是行為：幀數與秒數的換算、切片有沒有蓋到尾端、全黑的切片會不會被跳過、重複的偵測會不會被去掉、JSON 跟 Excel 有沒有正確寫出來。&lt;/p&gt;
-&lt;h3 id=&#34;3-tile重疊切片-座標轉回-再去重&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#3-tile重疊切片-座標轉回-再去重&#34;&gt;&lt;/a&gt; 3. Tile：重疊切片、座標轉回、再去重&lt;/h3&gt;
-&lt;p&gt;2024 年「切開的物件扣掉邊緣數」那條公式，換成了三個步驟。第一步，切片之間留重疊，最後一格貼齊影像邊緣：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;_tile_positions&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;length: &lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;, tile_size: &lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;, overlap: &lt;span class=&#34;built_in&#34;&gt;float&lt;/span&gt;&lt;/span&gt;) -&amp;gt; &lt;span class=&#34;type&#34;&gt;Tuple&lt;/span&gt;[&lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;, ...]:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; length &amp;lt;= tile_size:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    stride = &lt;span class=&#34;built_in&#34;&gt;max&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, &lt;span class=&#34;built_in&#34;&gt;int&lt;/span&gt;(&lt;span class=&#34;built_in&#34;&gt;round&lt;/span&gt;(tile_size * (&lt;span class=&#34;number&#34;&gt;1.0&lt;/span&gt; - overlap))))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    final_start = length - tile_size&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    positions = &lt;span class=&#34;built_in&#34;&gt;list&lt;/span&gt;(&lt;span class=&#34;built_in&#34;&gt;range&lt;/span&gt;(&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, final_start + &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;, stride))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; positions[-&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;] != final_start:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        positions.append(final_start)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;tuple&lt;/span&gt;(positions)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;預設重疊 10%，步長是 576 × 432 px。同一張 3840×2160 影格會切成 7 × 5 = 35 格，每一格都是完整的 640×480，不會再有漏掉的尾巴或半格：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;/images/uav-analysis-refactor-tiles-2026.jpg&#34; alt=&#34;2026 年 iter_tiles 的切法：7 × 5 = 35 格，藍色是相鄰切片的重疊帶&#34;&gt;&lt;/p&gt;
-&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;同一張影格，格線依 2026 年 &lt;code&gt;inference.iter_tiles&lt;/code&gt; 的邏輯繪製。&lt;/p&gt;
-&lt;p&gt;對應的測試直接把「尾端有沒有被蓋到」寫成斷言：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# tests/test_inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;test_tiles_cover_the_trailing_edges&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;self&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.assertEqual(_tile_positions(&lt;span class=&#34;number&#34;&gt;7&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0.25&lt;/span&gt;), (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.assertEqual(_tile_positions(&lt;span class=&#34;number&#34;&gt;5&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0.25&lt;/span&gt;), (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;variable language_&#34;&gt;self&lt;/span&gt;.assertEqual(_tile_positions(&lt;span class=&#34;number&#34;&gt;3&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;4&lt;/span&gt;, &lt;span class=&#34;number&#34;&gt;0.25&lt;/span&gt;), (&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;第二步，每個偵測框加上切片的位移，換回整張影格的座標。第三步，同類別、框的 IoU 達到門檻（預設 0.5）的偵測視為重複，只留信心分數最高的那個：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# inference.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;class_aware_nms&lt;/span&gt;(&lt;span class=&#34;params&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;params&#34;&gt;    detections: Iterable[Detection], iou_threshold: &lt;span class=&#34;built_in&#34;&gt;float&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;params&#34;&gt;&lt;/span&gt;) -&amp;gt; &lt;span class=&#34;type&#34;&gt;List&lt;/span&gt;[Detection]:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    kept = []&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; candidate &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;sorted&lt;/span&gt;(detections, key=&lt;span class=&#34;keyword&#34;&gt;lambda&lt;/span&gt; item: item.score, reverse=&lt;span class=&#34;literal&#34;&gt;True&lt;/span&gt;):&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        duplicate = &lt;span class=&#34;built_in&#34;&gt;any&lt;/span&gt;(&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            candidate.class_id == existing.class_id&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;and&lt;/span&gt; bbox_iou(candidate.bbox, existing.bbox) &amp;gt;= iou_threshold&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;for&lt;/span&gt; existing &lt;span class=&#34;keyword&#34;&gt;in&lt;/span&gt; kept&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        )&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;keyword&#34;&gt;not&lt;/span&gt; duplicate:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            kept.append(candidate)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;built_in&#34;&gt;sorted&lt;/span&gt;(kept, key=&lt;span class=&#34;keyword&#34;&gt;lambda&lt;/span&gt; item: (item.class_id, item.bbox[&lt;span class=&#34;number&#34;&gt;1&lt;/span&gt;], item.bbox[&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;]))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;「碰到切片邊緣」這個資訊還在，但用法不一樣了。2024 年它被拿去扣數量，藏在公式裡；現在它是 Excel 裡的一個欄位「接觸切片邊緣」，&lt;strong&gt;留給看報表的人判斷&lt;/strong&gt;，不再默默改動數字。&lt;/p&gt;
-&lt;h3 id=&#34;4-gui從-observer-換成事件佇列&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#4-gui從-observer-換成事件佇列&#34;&gt;&lt;/a&gt; 4. GUI：從 Observer 換成事件佇列&lt;/h3&gt;
-&lt;p&gt;背景執行緒不再碰任何 UI 元件，只把事件丟進佇列：&lt;/p&gt;
-&lt;figure class=&#34;highlight python&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# gui.py&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;        &lt;span class=&#34;keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;worker&lt;/span&gt;():&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;try&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                result = AnalysisRun(selected_config).execute(video_path, post_progress)&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                events.put((&lt;span class=&#34;string&#34;&gt;&amp;quot;completed&amp;quot;&lt;/span&gt;, result))&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;            &lt;span class=&#34;keyword&#34;&gt;except&lt;/span&gt; Exception &lt;span class=&#34;keyword&#34;&gt;as&lt;/span&gt; exc:&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;                events.put((&lt;span class=&#34;string&#34;&gt;&amp;quot;error&amp;quot;&lt;/span&gt;, exc))&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;主執行緒每 100 ms 用  &lt;code&gt;root.after(100, poll_events)&lt;/code&gt;  把佇列裡的事件取出來，再更新進度條跟狀態文字。這比第一輪的 Observer 少了一個介面、一個 adapter，也少了一個執行緒問題。&lt;/p&gt;
-&lt;h2 id=&#34;刻意不做的事不升級-pytorch&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#刻意不做的事不升級-pytorch&#34;&gt;&lt;/a&gt; 刻意不做的事：不升級 PyTorch&lt;/h2&gt;
-&lt;p&gt;CenterMask2 的官方環境是 PyTorch 1.7 加 CUDA 10.1，以 2026 年來說相當舊。第二輪我刻意&lt;strong&gt;沒有&lt;/strong&gt;升級它，而是把舊環境原樣釘住：&lt;/p&gt;
-&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# environment.yml&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;python=3.8&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;pytorch=1.7.1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;torchvision=0.8.2&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;  &lt;span class=&#34;bullet&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;cudatoolkit=10.1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;理由寫在  &lt;code&gt;docs/adr/0001-run-centermask-in-wsl2.md&lt;/code&gt;  的最後一句：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;upgrading the model stack is a separate, golden-output-guarded migration.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;意思是：升級模型框架是另一次獨立的遷移，而且要有一份 golden output（固定輸入下的標準輸出）當護欄。如果這次同時重構程式、又升級框架，而辨識結果變了，我不會知道是哪一個造成的。這跟做實驗一次只改一個變因是同一件事。&lt;/p&gt;
-&lt;h2 id=&#34;還沒做完的事&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#還沒做完的事&#34;&gt;&lt;/a&gt; 還沒做完的事&lt;/h2&gt;
-&lt;p&gt;這次重構有三件事還沒完成，必須寫清楚：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;還沒拿原本的模型權重跑過。&lt;/strong&gt; 所有行為測試用的都是假的 detector；README 也寫明，正式使用前要先在 WSL2 用既有模型做一次 GPU smoke test。換句話說，「重構後的辨識結果跟 2024 年一樣」目前&lt;strong&gt;還沒有被驗證&lt;/strong&gt;。而且 2024 年沒有留下任何可以比對的輸出，所以真正的第一步，是先產生第一份 golden output。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;範圍變窄了。&lt;/strong&gt; 現在的版本是「一支影片 → 逐幀偵測」的工具。2024 年的影像拼接跟海灘清潔指數（CCI／PAI）計算不在這一版裡。Excel 的「數量」是所有抽樣幀的偵測次數加總：同一件垃圾如果出現在好幾個抽樣幀，就會被算好幾次。要數出「海灘上實際有幾件垃圾」，需要拼接或跨幀追蹤，這是下一步。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;大物件仍可能重複。&lt;/strong&gt; 水平重疊 64 px、垂直重疊 48 px，代表不超過 64 × 48 px 的物件一定完整落在某一格裡。更大的物件如果壓在交界上，可能一格看到一半、另一格看到全部；兩個框的 IoU 不到 0.5，就會被當成兩件。被切到的那一半會被標成「接觸切片邊緣」，至少查得到。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#小結&#34;&gt;&lt;/a&gt; 小結&lt;/h2&gt;
-&lt;p&gt;兩次重構之間，差的不是程式寫得漂不漂亮，而是三件事：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;抽象要看現在有誰在用。&lt;/strong&gt; agent 補上的是「好架構應該有的樣子」，但沒有被呼叫的抽象不是彈性，是維護成本。第二輪最大的改動其實是刪除。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;驗證要驗行為，不是驗語法。&lt;/strong&gt; 用  &lt;code&gt;Protocol&lt;/code&gt;  把模型隔開之後，切片、座標、去重、輸出這些我自己的邏輯，都能在 CPU 上用假資料測試；模型本身，則要靠 golden output。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;沒有 baseline，就不知道改動帶來了什麼。&lt;/strong&gt; 這次最大的遺憾，是 2024 年沒有留下一份固定輸入、固定輸出的結果。重構也好、換模型也好、調參數也好，都應該先固定一個基準，再一次只改一件事。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#延伸閱讀&#34;&gt;&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/reedlin2002/project&#34;&gt;reedlin2002/project&lt;/a&gt; — 本文所有程式碼的出處；2024 年的版本可以從 commit  &lt;code&gt;66d674c&lt;/code&gt;  查看&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34;&gt;youngwanLEE/centermask2&lt;/a&gt; — CenterMask2 官方 repo&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;/2026/08/23/uav-vision-notes/&#34;&gt;空拍影像辨識技術地圖：分割策略、模型架構與影像拼接的技術取捨&lt;/a&gt; — 這套系統用到的實例分割、評估指標與拼接原理&lt;/li&gt;
 &lt;/ul&gt;
  ]]></description>
         </item>
@@ -859,12 +863,12 @@
             <title>空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</title>
             <link>https://reedlin2002.github.io/2026/08/23/uav-vision-notes/</link>
             <category>電腦視覺</category>
-            <category>Deep Learning</category>
             <category>Instance Segmentation</category>
+            <category>Deep Learning</category>
             <category>影像處理</category>
             <pubDate>Sun, 23 Aug 2026 00:00:00 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以及當任務需要把多張影像拼成一張時，為什麼在特定場景下，古典幾何方法反而比深度學習更可靠。&lt;/p&gt;
-&lt;p&gt;這篇整理把這幾塊拆開講清楚，每個結論都對照原始論文、官方 repo 或官方文件的圖，而不是憑印象複述。&lt;/p&gt;
+            <description><![CDATA[ &lt;p&gt;空拍 (UAV) 影像辨識任務，常被當成「套一個模型跑一跑」的黑箱問題，但拆開來看，其實牽涉好幾個獨立的技術決策：分割策略要怎麼選、偵測模型的架構為什麼要這樣設計、評估指標實際在衡量什麼，以及當任務需要把多張影像拼成一張時，背後用的是哪一套幾何方法。&lt;/p&gt;
+&lt;p&gt;這篇整理把這幾塊拆開講清楚，圖都取自原始論文、官方 repo 或官方文件。&lt;/p&gt;
 &lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
 &lt;h2 id=&#34;一-分割策略語義-實例-全景分割的本質差異&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#一-分割策略語義-實例-全景分割的本質差異&#34;&gt;&lt;/a&gt; 一、分割策略：語義、實例、全景分割的本質差異&lt;/h2&gt;
 &lt;p&gt;分割任務常見的三種類型，定義上很容易背，但實務上的差異要透過範例才看得清楚。下圖出自 Kirillov 等人提出全景分割任務的原始論文，同一張街景照片分別用三種方式標註:&lt;/p&gt;
@@ -910,7 +914,7 @@
 &lt;/table&gt;
 &lt;h2 id=&#34;二-模型選型anchor-based-還是-anchor-freecentermask2-拆解&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#二-模型選型anchor-based-還是-anchor-freecentermask2-拆解&#34;&gt;&lt;/a&gt; 二、模型選型:anchor-based 還是 anchor-free?CenterMask2 拆解&lt;/h2&gt;
 &lt;p&gt;決定做實例分割之後，下一步是選模型。這裡有個經典分岔:&lt;strong&gt;anchor-based&lt;/strong&gt; (如 Mask R-CNN) 先在圖上鋪一堆預設候選框 (不同尺寸、長寬比), 逐一判斷框裡有沒有物件；&lt;strong&gt;anchor-free&lt;/strong&gt; (如 CenterMask2) 則直接對 feature map 上每個位置預測物件邊界，不需要事先假設物件的尺寸與長寬比。&lt;/p&gt;
-&lt;p&gt;空拍畫面裡的目標往往&lt;strong&gt;大小懸殊、形狀不規則&lt;/strong&gt;，很難設計出一組涵蓋所有情況的 anchor 尺寸，這是 anchor-free 路線在此類場景較有優勢的主因。CenterMask2 是這條路線的代表作之一，下圖是官方 repo 公開的架構圖:&lt;/p&gt;
+&lt;p&gt;anchor 的尺寸、長寬比與數量都是要事先設定的超參數。FCOS 論文的主張是：拿掉 anchor, 就不必再調這組對偵測表現很敏感的設定。空拍畫面裡的目標往往&lt;strong&gt;大小懸殊、形狀不規則&lt;/strong&gt;，要事先定出一組合適的 anchor 並不容易，這是選型時會考慮 anchor-free 路線的理由之一。CenterMask2 是這條路線的代表作之一，下圖是官方 repo 公開的架構圖:&lt;/p&gt;
 &lt;img src=&#34;/images/uav-vision-notes-centermask2-architecture.png&#34; alt=&#34;CenterMask2 架構圖&#34; style=&#34;width:100%;border-radius:6px;margin-top:16px;&#34;&gt;
 &lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:4px;&#34;&gt;圖片來源:&lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34; target=&#34;_blank&#34;&gt;youngwanLEE/centermask2&lt;/a&gt; 官方 GitHub repo(CVPR 2020,arXiv:1911.06667)&lt;/p&gt;
 &lt;p&gt;拆解這張圖，整個流程分三段:&lt;/p&gt;
@@ -946,7 +950,7 @@
 &lt;td&gt;CenterMask2&lt;/td&gt;
 &lt;td&gt;anchor-free(FCOS)&lt;/td&gt;
 &lt;td&gt;SAG-Mask (空間注意力)&lt;/td&gt;
-&lt;td&gt;對尺寸懸殊、形狀不規則物件較友善&lt;/td&gt;
+&lt;td&gt;論文回報：同樣使用 ResNet-101-FPN 時 mask AP 為 38.3%, 比當時其他方法準，速度也更快&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -960,7 +964,7 @@
 &lt;li&gt;用 Precision = TP/(TP+FP)、Recall = TP/(TP+FN) 畫出 precision-recall 曲線，曲線下面積就是這個類別在這個 threshold 下的 &lt;strong&gt;AP(Average Precision)&lt;/strong&gt;。&lt;/li&gt;
 &lt;li&gt;對所有類別取平均，得到 &lt;strong&gt;mAP&lt;/strong&gt;。COCO 的評估標準更嚴格，會在 IoU 0.5 到 0.95、每 0.05 一個間隔取多個 threshold 分別算 AP 再平均 (常標示為 mAP@[.5:.95]), 比 PASCAL VOC 只看單一 IoU 0.5 的標準更能反映定位精準度。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;實務上訓練這類模型很少從零開始，通常用 COCO 預訓練權重做遷移學習，再用自己的資料集微調。常見取捨包括:learning rate 通常要調小 (避免破壞預訓練特徵)、資料量小時可以凍結 backbone 前幾層降低過擬合風險、資料增強策略要配合場景設計 (空拍影像因為視角本來就沒有固定「正向」, 旋轉與翻轉類增強特別合理)。&lt;/p&gt;
+&lt;p&gt;實務上訓練這類模型很少從零開始，通常從預訓練權重出發做遷移學習 (例如 ImageNet 預訓練的 backbone, 或整個模型的 COCO 預訓練權重), 再用自己的資料集微調。常見取捨包括:learning rate 通常要調小 (避免破壞預訓練特徵)、資料量小時可以凍結 backbone 前幾層降低過擬合風險、資料增強策略要配合場景設計 (空拍影像因為視角本來就沒有固定「正向」, 旋轉與翻轉類增強特別合理)。&lt;/p&gt;
 &lt;h2 id=&#34;四-把多張影像拼成一張homography-與-ransac&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#四-把多張影像拼成一張homography-與-ransac&#34;&gt;&lt;/a&gt; 四、把多張影像拼成一張：Homography 與 RANSAC&lt;/h2&gt;
 &lt;p&gt;分割與偵測處理的是「單張影像裡有什麼」, 但空拍任務常常還需要把連續拍攝的多張照片拼成一張完整地圖，這是另一套數學:&lt;strong&gt;Homography (投影變換)&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;Homography 是一個 3×3、自由度為 8 的矩陣 (定義到一個比例常數為止), 描述「同一個平面場景」在兩個視角下的座標對應關係。只要能在兩張影像裡找到至少 4 組對應特徵點，就能用 &lt;strong&gt;DLT(Direct Linear Transform)&lt;/strong&gt; 解出這個矩陣。問題是，自動找到的特徵點對應裡一定混著錯誤匹配，直接解方程式會被雜訊帶偏，這時候要靠 &lt;strong&gt;RANSAC(Random Sample Consensus)&lt;/strong&gt;: 隨機抽取幾組對應點算出候選 homography, 再看有多少其他對應點也符合這個變換，重複多次、選出支持者最多的解，自動排除離群的錯誤匹配。&lt;/p&gt;
@@ -971,7 +975,7 @@
 &lt;li&gt;&lt;strong&gt;Registration&lt;/strong&gt;: 縮圖 → 找特徵 (Find features)→ 匹配特徵 (Match features)→ 挑選要用來拼接的影像與匹配子集 → 粗估相機參數 → 全域精修相機參數 → 波形修正與最終全景尺度估計，最後輸出「Registration data」(也就是每張影像對應的 homography / 相機參數)。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Compositing&lt;/strong&gt;: 依 Registration data 把影像變形 (Warp images)、估計並補償曝光差異 (Compensate exposure errors)、找接縫遮罩 (Find seam masks)、混合 (Blend images), 最後輸出完整全景圖。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;值得記錄的一個教訓：如果想用深度學習方法 (例如訓練一個 Siamese network 學習特徵描述子，取代 Registration 階段的傳統 SIFT/ORB) 來做特徵匹配，在海面、沙灘、農地這類&lt;strong&gt;低紋理、高重複性&lt;/strong&gt;的場景反而容易踩坑。原因有二：一是這類場景的局部區塊長得都很像，學出來的描述子區分度不夠；二是訓練這種模型需要大量「已知正確對應」的成對資料，這類場景的正負樣本本來就不好標注。相較之下，傳統 SIFT/ORB 搭配 RANSAC 幾何驗證不需要訓練資料，而且 RANSAC 那一步天生就是為了處理雜訊匹配設計的，在這類場景反而是更穩的路線 —— 這也是為什麼  &lt;code&gt;cv2.Stitcher&lt;/code&gt;  至今仍是許多空拍拼接應用的預設選擇，而不是換成端到端的深度學習方案。&lt;/p&gt;
+&lt;p&gt;我們的專題用的就是 OpenCV 的 Stitcher。過程中也試過另一條路：用自監督學習的深度學習模型來估計單應性矩陣，希望減少拼接時的殘影、物體重複出現與對不齊。不過訓練出來的模型經過投影變換驗證後，效果都不如預期，系統最後維持傳統的特徵點方法。傳統流程有一個實際的好處：特徵點匹配加上 RANSAC 不需要訓練資料，而 RANSAC 這一步本來就是為了排除錯誤匹配設計的。&lt;/p&gt;
 &lt;h2 id=&#34;五-資料不夠的時候半監督學習與極小物件偵測&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#五-資料不夠的時候半監督學習與極小物件偵測&#34;&gt;&lt;/a&gt; 五、資料不夠的時候：半監督學習與極小物件偵測&lt;/h2&gt;
 &lt;p&gt;實務上做這類任務最大的痛點通常是「標註資料不夠」—— 實例分割的標註成本遠比分類或單純 bounding box 高，因為要把每個物件的完整輪廓畫出來。這裡有兩個常見的因應方向。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;半監督學習&lt;/strong&gt;：用少量標註資料搭配大量未標註資料一起訓練。常見手法包括:&lt;/p&gt;
@@ -985,194 +989,71 @@
 &lt;li&gt;用 &lt;strong&gt;FPN&lt;/strong&gt; 這類多尺度特徵融合架構，讓淺層 (解析度高、細節多) 跟深層 (語意資訊豐富) 的特徵互相補強 —— 這也是前面 CenterMask2 架構圖裡 P3~P7 金字塔的作用之一。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;切圖推論&lt;/strong&gt; (如 SAHI,Slicing Aided Hyper Inference): 把高解析度大圖切成多個小 patch 分別做推論，再把結果合併回原圖座標，避免小物件在整張大圖被下採樣到消失。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Copy-paste 資料增強&lt;/strong&gt;：訓練時刻意把小物件樣本複製貼到不同背景上，增加小物件在訓練資料中的曝光量，緩解類別 / 尺度不平衡問題。&lt;/li&gt;
-&lt;li&gt;Anchor-free 的偵測頭因為不需要預設物件尺寸，對尺度變化大的場景本身也會比 anchor-based 更寬容一些。&lt;/li&gt;
+&lt;li&gt;Anchor-free 的偵測頭不需要預先設定物件尺寸，少了一組要跟著資料調整的超參數。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;小結&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#小結&#34;&gt;&lt;/a&gt; 小結&lt;/h2&gt;
-&lt;p&gt;整理下來，這條技術地圖大致是：先用「要不要分清楚個體」決定分割策略 → 用「物件尺寸 / 形狀是否規律」決定要不要走 anchor-free、並依此拆解 CenterMask2 這類架構的三個組件 → 用 IoU/mAP 評估、遷移學習微調 → 如果需要拼接多張影像，Homography + RANSAC 這套古典幾何方法在特定場景反而比深度學習更可靠 → 資料不夠的時候，半監督學習與針對小物件的架構 / 資料調整是兩個最直接的槓桿。&lt;/p&gt;
+&lt;p&gt;整理下來，這條技術地圖大致是：先用「要不要分清楚個體」決定分割策略 → 用「物件尺寸 / 形狀是否規律」決定要不要走 anchor-free、並依此拆解 CenterMask2 這類架構的三個組件 → 用 IoU/mAP 評估、遷移學習微調 → 如果需要拼接多張影像，背後是 Homography + RANSAC 這套古典幾何方法 (我們在專題裡試過用深度學習估計單應性矩陣，效果不如預期，最後仍用傳統方法)→ 資料不夠的時候，半監督學習與針對小物件的架構 / 資料調整是兩個最直接的槓桿。&lt;/p&gt;
 &lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#延伸閱讀&#34;&gt;&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Kirillov et al., &lt;a href=&#34;https://arxiv.org/abs/1801.00868&#34;&gt;Panoptic Segmentation&lt;/a&gt;, CVPR 2019&lt;/li&gt;
+&lt;li&gt;Tian et al., &lt;a href=&#34;https://arxiv.org/abs/1904.01355&#34;&gt;FCOS: Fully Convolutional One-Stage Object Detection&lt;/a&gt;, ICCV 2019&lt;/li&gt;
 &lt;li&gt;Lee &amp;amp; Park, &lt;a href=&#34;https://arxiv.org/abs/1911.06667&#34;&gt;CenterMask: Real-Time Anchor-Free Instance Segmentation&lt;/a&gt;, CVPR 2020 / &lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34;&gt;官方 repo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/2026/11/17/beach-litter-monitoring/&#34;&gt;大學專題：澎湖海灘垃圾自動監測系統的開發與應用&lt;/a&gt; — 這些技術實際用在哪裡、模型的測試結果&lt;/li&gt;
 &lt;li&gt;OpenCV, &lt;a href=&#34;https://docs.opencv.org/4.x/d8/d19/tutorial_stitcher.html&#34;&gt;High level stitching API (Stitcher class)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Sohn et al., &lt;a href=&#34;https://arxiv.org/abs/2001.07685&#34;&gt;FixMatch: Simplifying Semi-Supervised Learning&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
  ]]></description>
         </item>
         <item>
-            <guid isPermalink="true">https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/</guid>
-            <title>🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</title>
-            <link>https://reedlin2002.github.io/2026/07/27/tw-grad-lab-skills/</link>
-            <category>project</category>
-            <pubDate>Mon, 27 Jul 2026 22:40:00 +0800</pubDate>
-            <description><![CDATA[ &lt;p class=&#34;reading-subtitle&#34;&gt;🎓 tw-grad-lab-skills — 用 Agent Skills 幫你找台灣研究所的教授與實驗室&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;一組給 Claude Code、Codex 等 coding agent 使用的 Agent Skills。先幫你跨校找出「可能」適合的實驗室，再深入調查你最在意的那幾位教授，最後產出一份有憑有據、標明來源的 HTML 報告。它不幫你做決定，只幫你少走一點冤枉路。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;►  「 &lt;a href=&#34;https://github.com/reedlin2002/tw-grad-lab-skills&#34;&gt;GITHUB&lt;/a&gt; 」&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
-&lt;p&gt;我自己也在準備研究所。找實驗室的時候，最痛苦的不是資訊太少，而是資訊太散：教授的研究方向在系網、近期論文在 Google Scholar、實驗室風氣要翻 Dcard 跟 PTT、到底適不適合我還得自己在腦中拼湊。每一檔候選教授都要重複一次這個流程，開一堆分頁、比來比去，最後還常常漏掉一些其實不錯、只是學校名氣沒那麼響的實驗室。&lt;/p&gt;
-&lt;p&gt;所以我把這個流程做成兩個 Agent Skills。核心理念很簡單:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;它不是幫我做決定，而是幫我先把候選名單整理清楚&lt;/strong&gt; —— 剩下的還是要自己去寫信、去面談確認。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;有幾分證據說幾分話&lt;/strong&gt;。官方來源歸官方，社群風評歸社群風評，並且清楚標示哪些「未經查證」。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;廣撒網，不要只盯著台成清交政&lt;/strong&gt;。強實驗室常常藏在中字輩、科大或私校裡。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果你也正在找研究所，希望它對你也有幫助 🙌&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;這是什麼agent-skills不是又一個網站&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#這是什麼agent-skills不是又一個網站&#34;&gt;&lt;/a&gt; 🧩 這是什麼：Agent Skills, 不是又一個網站&lt;/h2&gt;
-&lt;p&gt;這個專案沒有後端、沒有資料庫、甚至不需要 Python。它是兩個 &lt;strong&gt;Agent Skills&lt;/strong&gt;—— 放進支援 skills 的 coding agent (Claude Code、Codex⋯⋯) 後，就多出兩個斜線指令。你用自然語言跟 agent 對話，它負責上網搜尋、交叉比對、整理證據，最後直接生成一份 HTML 報告給你看。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;換句話說：報告是 agent 依照技能裡的規範「當場產生」的，而不是我寫死的一份範本。技能的價值在於那套&lt;strong&gt;流程與規範&lt;/strong&gt; —— 問什麼、去哪找、怎麼標註證據、報告長什麼樣。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;repo 收錄兩個技能，通常搭配使用：先用  &lt;code&gt;find-grad-labs&lt;/code&gt;  找出候選名單，再用  &lt;code&gt;investigate-grad-lab&lt;/code&gt;  深挖你最在意的幾位。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;技能一find-grad-labs-探索合適的實驗室&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技能一find-grad-labs-探索合適的實驗室&#34;&gt;&lt;/a&gt; 🔎 技能一: &lt;code&gt;/find-grad-labs&lt;/code&gt;  — 探索合適的實驗室&lt;/h2&gt;
-&lt;p&gt;這個技能負責「從零到候選名單」。它會先跑一輪結構化訪談，把你的條件問清楚，再開始跨校搜尋、比較，最後產出報告。&lt;/p&gt;
-&lt;h3 id=&#34;先問清楚再開始找&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#先問清楚再開始找&#34;&gt;&lt;/a&gt; 先問清楚，再開始找&lt;/h3&gt;
-&lt;p&gt;在搜尋之前，它會用問答蒐集這些資訊:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;研究主題 / 子領域&lt;/strong&gt; —— 例如 NLP/LLM、電腦視覺、MLSys、RL, 可以複選&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;學生背景&lt;/strong&gt; —— 就讀學校、科系、GPA / 班排，以及有沒有研究 / 實習 / 競賽經歷 (這會直接拿來校準落點，但只當作&lt;strong&gt;有保留的估計&lt;/strong&gt;，不是錄取機率)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;目標學校與類型&lt;/strong&gt; —— 公立 / 私立、研究型 / 應用型&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;目標系所&lt;/strong&gt; ——CSIE、電機、資料科學、AI 學程、資管⋯⋯(不預設，因為強實驗室常常不在最明顯的系所)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;地區、指導風格、生涯目標、限制條件&lt;/strong&gt; (獎學金需求、硬性條件等)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;廣撒網-落點分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#廣撒網-落點分級&#34;&gt;&lt;/a&gt; 廣撒網 + 落點分級&lt;/h3&gt;
-&lt;p&gt;我最在意的兩個設計都在這裡:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;跨層級搜尋&lt;/strong&gt;：就算主題集中在頂大，它也會刻意去找中字輩國立大學、科技大學 (台科、北科、雲科⋯⋯) 與相關私校，最終名單&lt;strong&gt;必須跨越一個以上的層級&lt;/strong&gt;。如果某主題在頂大以外真的很稀缺，它會直說，並且列出「搜尋過但排除的學校」與原因 —— 不會給你一份「又全是四大」卻不解釋的名單。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;reach /match/safety (衝刺 / 穩健 / 保底)&lt;/strong&gt;: 用你的學校與成績，把候選教授分成落點，讓名單務實而不是全部都是衝刺。但這些標籤是&lt;strong&gt;有保留的建議&lt;/strong&gt;，絕不輸出錄取機率數字或任何保證，也會提醒你錄取還牽涉面試、SOP、推薦信、名額、推甄 vs 考試等這裡沒涵蓋的因素。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;產出&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#產出&#34;&gt;&lt;/a&gt; 產出&lt;/h3&gt;
-&lt;p&gt;一份 HTML 報告，包含：偏好摘要、涵蓋度 / 透明度說明 (名單的層級與地區分布、排除了哪些學校)、候選教授卡片 (附落點標籤與「學生風評」小區塊)、比較矩陣、研究領域地圖、跨落點的推薦，以及&lt;strong&gt;依教授分組、可點擊的完整來源清單&lt;/strong&gt;。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;技能二investigate-grad-lab-深入調查單一教授&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技能二investigate-grad-lab-深入調查單一教授&#34;&gt;&lt;/a&gt; 🔬 技能二: &lt;code&gt;/investigate-grad-lab&lt;/code&gt;  — 深入調查單一教授&lt;/h2&gt;
-&lt;p&gt;當你心裡已經有特定人選，這個技能負責把單一教授 / 實驗室查深、查實。它會:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;先用官方系網 / 系所頁面&lt;strong&gt;確認教授身分與現職&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;檢視近期研究方向、代表論文與計畫&lt;/li&gt;
-&lt;li&gt;查指導的論文紀錄與畢業要求&lt;/li&gt;
-&lt;li&gt;蒐集可查證的實驗室運作資訊 (meeting 風格、實習支援、發表期待)&lt;/li&gt;
-&lt;li&gt;產出報告，並&lt;strong&gt;明確區分「已確認」「他人回報」「未知」&lt;/strong&gt;, 附上適合的學生輪廓、待釐清問題與後續可以提問的問題清單&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;重點在最後那件事:&lt;strong&gt; 沒有可靠公開來源的東西就標成「未知」, 而不是硬掰&lt;/strong&gt;。它不會用論文數量去推斷實驗室風氣，也不會做無法佐證的個性判斷。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;讓報告可信的設計證據分級&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#讓報告可信的設計證據分級&#34;&gt;&lt;/a&gt; 📐 讓報告可信的設計：證據分級&lt;/h2&gt;
-&lt;p&gt;兩個技能最核心的規範，是一套&lt;strong&gt;來源分級政策&lt;/strong&gt;。所有事實性宣稱都要有來源、要能點進去，而且證據等級要看得出來:&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;等級&lt;/th&gt;
-&lt;th&gt;來源&lt;/th&gt;
-&lt;th&gt;用途&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;官方 / 第一手&lt;/td&gt;
-&lt;td&gt;校系網頁、實驗室頁、論文紀錄、Google Scholar&lt;/td&gt;
-&lt;td&gt;一切&lt;strong&gt;事實&lt;/strong&gt;宣稱的基礎&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;學術彙整&lt;/td&gt;
-&lt;td&gt;Scholar、Semantic Scholar、DBLP&lt;/td&gt;
-&lt;td&gt;論文與引用數據&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;社群&lt;/td&gt;
-&lt;td&gt;Dcard 研究所版、PTT&lt;/td&gt;
-&lt;td&gt;&lt;strong&gt;主動查閱&lt;/strong&gt;，但只用於風氣 / 指導風格 / 風評，一律標「未經查證」&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;規則很嚴格：官方事實和社群風向要分開放；社群訊息一律標成「未經查證的次級證據」, 永遠不能當成已確認的事實呈現；能交叉比對就交叉比對，單一來源、時間久遠或彼此矛盾的都要標出來；查不到就寫「未知」。報告視覺上也對應這套分級 ——&lt;strong&gt; 已確認用綠色、不確定用琥珀色、缺漏用灰色&lt;/strong&gt;，社群風評有自己專屬的「未經查證」樣式，不會被誤讀成事實。&lt;/p&gt;
-&lt;p&gt;這其實是我做這個專案最想守住的一條線:&lt;strong&gt; 找實驗室這種事，寧可誠實說「不知道」, 也不要給人一個看起來很篤定、其實是猜的答案。&lt;/strong&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;️-技術與實作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-技術與實作&#34;&gt;&lt;/a&gt; 🛠️ 技術與實作&lt;/h2&gt;
-&lt;p&gt;🟢 標準&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;每個技能都是一個含  &lt;code&gt;SKILL.md&lt;/code&gt;  的資料夾，frontmatter 具備  &lt;code&gt;name&lt;/code&gt; 、 &lt;code&gt;description&lt;/code&gt; , 符合 Agent Skills 標準，因此可被  &lt;code&gt;skills&lt;/code&gt;  CLI 自動安裝。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;🟡 零 runtime 依賴&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不需要 Python、沒有腳本要跑。報告完全由 agent 依技能說明 ( &lt;code&gt;HTML-REPORT.md&lt;/code&gt; 、 &lt;code&gt;EVIDENCE-RULES.md&lt;/code&gt; ) 當場產生，樣式用 CDN 版 Tailwind CSS。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;🟣 只在你叫它時才動&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;兩個技能都設了 Claude 的  &lt;code&gt;disable-model-invocation: true&lt;/code&gt; , 不會被模型自動觸發。Codex 不吃這個設定，所以另外附了  &lt;code&gt;agents/openai.yaml&lt;/code&gt; ( &lt;code&gt;allow_implicit_invocation: false&lt;/code&gt; ) 作為對應。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;🟠 跨 agent&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;透過 &lt;a href=&#34;https://github.com/vercel-labs/skills&#34;&gt; &lt;code&gt;skills&lt;/code&gt; &lt;/a&gt; CLI 安裝，官方支援 70+ 種 agent, 同一份技能在 Claude Code 用  &lt;code&gt;/&lt;/code&gt; 、在 Codex 用  &lt;code&gt;$&lt;/code&gt;  呼叫。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;專案結構也刻意保持乾淨：每個技能把「流程 (SKILL.md)、報告結構 (HTML-REPORT.md)、證據規範 (EVIDENCE-RULES.md)」拆成三份， &lt;code&gt;docs/&lt;/code&gt;  再放產品原則與來源政策 —— 規範和實作分開，之後要調整某一條規則，不用去翻整份 prompt。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;安裝與使用&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#安裝與使用&#34;&gt;&lt;/a&gt; 📦 安裝與使用&lt;/h2&gt;
-&lt;p&gt;用 &lt;a href=&#34;https://github.com/vercel-labs/skills&#34;&gt; &lt;code&gt;skills&lt;/code&gt; &lt;/a&gt; CLI 一鍵安裝，過程會問你要裝哪些技能、裝到哪個 agent:&lt;/p&gt;
-&lt;figure class=&#34;highlight bash&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 一鍵安裝&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 先看看這個 repo 有哪些技能&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills --list&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;# 只裝其中一個&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;npx skills add reedlin2002/tw-grad-lab-skills --skill find-grad-labs&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;裝好之後，在 Claude Code 直接輸入斜線指令:&lt;/p&gt;
-&lt;figure class=&#34;highlight plaintext&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;/find-grad-labs&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;/investigate-grad-lab&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;在 Codex 則改用  &lt;code&gt;$find-grad-labs&lt;/code&gt;  /  &lt;code&gt;$investigate-grad-lab&lt;/code&gt;  (或  &lt;code&gt;/skills&lt;/code&gt;  選單)。不想用 CLI 的話，把  &lt;code&gt;skills/&lt;/code&gt;  底下的資料夾複製到 agent 的 skills 目錄 (Claude Code 全域是  &lt;code&gt;~/.claude/skills/&lt;/code&gt; ) 也可以。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;一點心得&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#一點心得&#34;&gt;&lt;/a&gt; 🧭 一點心得&lt;/h2&gt;
-&lt;p&gt;做這個專案最大的收穫，不是「AI 幫我找到了神級實驗室」, 而是逼自己把「怎麼算是有根據的判斷」寫成規範：什麼能當事實、什麼只能當參考、查不到的時候要誠實。這套原則其實不只適用找研究所 —— 任何要&lt;strong&gt;基於證據給建議&lt;/strong&gt;的 AI 應用，都適用。&lt;/p&gt;
-&lt;p&gt;它終究只是把候選名單整理清楚的工具。真正的決定，還是要自己去寫信、去面談、去感受那個實驗室適不適合你。如果你也在準備研究所，歡迎試用，也歡迎回饋 🙌&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;⚠️ 技能產生的落點與風評僅供參考。reach /match/safety 是有保留的估計，不是錄取保證；社群風評未經查證。實際申請請自行判斷。&lt;/p&gt;
-&lt;/blockquote&gt;
- ]]></description>
-        </item>
-        <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2026/07/19/twstock-agent/</guid>
-            <title>📈 | 010401 Finance 台股 AI 分析助手</title>
+            <title>010401 Finance 台股 AI 分析助手</title>
             <link>https://reedlin2002.github.io/2026/07/19/twstock-agent/</link>
             <category>project</category>
             <pubDate>Sun, 19 Jul 2026 12:59:38 +0800</pubDate>
-            <description><![CDATA[ &lt;p class=&#34;reading-subtitle&#34;&gt;🚀 010401 Finance - 把台股研究壓縮成一次查詢的 AI 分析 App&lt;/p&gt;
+            <description><![CDATA[ &lt;p class=&#34;reading-subtitle&#34;&gt;010401 Finance：把台股研究壓縮成一次查詢的 AI 分析 App&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;一款面向台股投資人的 AI 分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合在同一個畫面，輸入股票代號，就能得到一份可閱讀、可追蹤、可行動的分析報告。&lt;/p&gt;
+&lt;p&gt;一款台股分析 App。把股價走勢、技術指標、法人籌碼、風險控管與 AI 摘要整合在同一個畫面，輸入股票代號，就能看到一份整理好的分析報告。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;►  「 &lt;a href=&#34;https://github.com/reedlin2002/twstock-agent&#34;&gt;GITHUB&lt;/a&gt; 」&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;⚠️ 本專案提供投資研究與資料整理輔助，不構成任何買賣建議或投資邀約。實際交易前請自行判斷風險。&lt;/p&gt;
+&lt;p&gt;本專案提供投資研究與資料整理輔助，不構成任何買賣建議或投資邀約。實際交易前請自行判斷風險。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 💡 專案緣起&lt;/h2&gt;
+&lt;h2 id=&#34;專案緣起&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案緣起&#34;&gt;&lt;/a&gt; 專案緣起&lt;/h2&gt;
 &lt;p&gt;研究一檔台股，散戶通常要開一堆分頁：看線圖一個網站、查三大法人一個網站、翻新聞又一個網站，最後還要自己在腦中把這些資訊拼起來。這個專案想把「找資料、看技術線、看籌碼、整理觀點」壓縮成一次查詢:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;輸入  &lt;code&gt;2330&lt;/code&gt;  或公司名稱，自動抓價格、算指標、補籌碼&lt;/li&gt;
-&lt;li&gt;技術分析不只畫線，還轉成可執行的檢查表與買賣計畫&lt;/li&gt;
-&lt;li&gt;AI 只根據 App 整理好的結構化資料寫報告，降低幻覺&lt;/li&gt;
+&lt;li&gt;技術分析除了畫線，也整理成逐項檢查表，並依固定規則算出觀察區間、停損與停利的參考價&lt;/li&gt;
+&lt;li&gt;AI 拿到的是 App 整理好的結構化資料，而不是只有一個股票代號&lt;/li&gt;
 &lt;li&gt;Web 與行動端同一套程式碼，可打包成 Android App&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;核心理念是:&lt;strong&gt; 不是只問 AI, 而是先有資料再問 AI&lt;/strong&gt;。AI 的角色是研究助理，不是憑空說故事的分析師。&lt;/p&gt;
+&lt;p&gt;核心理念是:&lt;strong&gt; 不是只問 AI, 而是先有資料再問 AI&lt;/strong&gt;。AI 負責把算好的資料整理成文字，指標與價位由程式計算。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-專案技術&#34;&gt;&lt;/a&gt; 🛠️ 專案技術&lt;/h2&gt;
-&lt;p&gt;🟢 前端核心&lt;/p&gt;
+&lt;h2 id=&#34;專案技術&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案技術&#34;&gt;&lt;/a&gt; 專案技術&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;前端核心&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;框架：React 18 + Vite 6&lt;br&gt;
  圖表：Recharts (價格走勢、籌碼柱狀圖)&lt;br&gt;
  圖示:lucide-react&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;🟡 資料來源&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;資料來源&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Yahoo Finance: 近兩年日線價格、開高低收、成交量&lt;br&gt;
  FinMind: 三大法人買賣超、融資融券、台股公司清單&lt;br&gt;
  Google News RSS / PTT 股板：即時新聞與鄉民風向 (選配)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;🟣 AI 分析&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AI 分析&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;OpenRouter API (可換模型), 採資料驅動 prompt&lt;br&gt;
 Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;🟠 行動端&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;行動端&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Capacitor 8:Android 打包、本地推播、背景任務&lt;br&gt;
 到價提醒、自選股資料存在裝置端 localStorage&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;功能導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#功能導覽&#34;&gt;&lt;/a&gt; 📱 功能導覽&lt;/h2&gt;
+&lt;h2 id=&#34;功能導覽&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#功能導覽&#34;&gt;&lt;/a&gt; 功能導覽&lt;/h2&gt;
 &lt;p&gt;以下畫面都是用行動裝置尺寸實際操作 App 的截圖。&lt;/p&gt;
 &lt;h3 id=&#34;自選股儀表板&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#自選股儀表板&#34;&gt;&lt;/a&gt; 自選股儀表板&lt;/h3&gt;
 &lt;p&gt;打開 App 首頁就是自選股儀表板：每一檔顯示迷你走勢、動能訊號燈 (偏多 / 偏空 / 中性)、現價與漲跌幅，持有中的部位還會直接顯示未實現損益。&lt;/p&gt;
@@ -1188,12 +1069,12 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
     &lt;img src=&#34;/images/twstock-agent-analysis-top.png&#34; alt=&#34;個股分析頁&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
-&lt;h3 id=&#34;走勢圖-買賣計畫-overlay&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#走勢圖-買賣計畫-overlay&#34;&gt;&lt;/a&gt; 走勢圖 + 買賣計畫 Overlay&lt;/h3&gt;
-&lt;p&gt;這是我最喜歡的功能：買賣計畫不是一段文字，而是直接疊在走勢圖上 —— 買點區、停損線、目標價都畫在圖上，和月線 MA20、季線 MA60 放在一起看。圖下方的計畫卡會給出明確狀態 (進場 / 觀望 / 先不要碰), 搭配觀察買點、突破參考、停損與分批停利價位。&lt;/p&gt;
+&lt;h3 id=&#34;走勢圖-價位參考-overlay&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#走勢圖-價位參考-overlay&#34;&gt;&lt;/a&gt; 走勢圖 + 價位參考 Overlay&lt;/h3&gt;
+&lt;p&gt;價位參考不是一段文字，而是直接疊在走勢圖上：觀察區間、停損線、停利參考價都畫在圖上，和月線 MA20、季線 MA60 放在一起看。圖下方的卡片會顯示目前的趨勢狀態 (進場 / 觀望 / 先不要碰), 以及觀察區間、突破參考、停損與分批停利的參考價。這些數值是依固定規則算出的研究輔助，不是保證報酬的交易訊號。&lt;/p&gt;
 &lt;p&gt;所有價位都對齊台股最小升降單位 (tick), 不會算出掛不出去的價格。&lt;/p&gt;
 &lt;div id=&#34;gallery&#34;&gt;
   &lt;a href=&#34;/images/twstock-agent-chart.png&#34;&gt;
-    &lt;img src=&#34;/images/twstock-agent-chart.png&#34; alt=&#34;走勢圖與買賣計畫&#34; style=&#34;max-width: 320px;&#34;&gt;
+    &lt;img src=&#34;/images/twstock-agent-chart.png&#34; alt=&#34;走勢圖與價位參考&#34; style=&#34;max-width: 320px;&#34;&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;ai-深入分析&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-深入分析&#34;&gt;&lt;/a&gt; AI 深入分析&lt;/h3&gt;
@@ -1222,7 +1103,7 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
   &lt;/a&gt;
 &lt;/div&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;ai-分析流程先有資料再問-ai&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-分析流程先有資料再問-ai&#34;&gt;&lt;/a&gt; 🧠 AI 分析流程：先有資料，再問 AI&lt;/h2&gt;
+&lt;h2 id=&#34;ai-分析流程先有資料再問-ai&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#ai-分析流程先有資料再問-ai&#34;&gt;&lt;/a&gt; AI 分析流程：先有資料，再問 AI&lt;/h2&gt;
 &lt;p&gt;整個分析採用資料驅動流程，AI 拿到的不是股票代號，而是 App 已經算好的結構化資料:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;使用者輸入股票名稱或代號&lt;/li&gt;
@@ -1235,16 +1116,16 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;停損的取法也有講究：取「近 20 日低點、季線 ×0.98、觀察區上緣 ×0.92」中最接近價格的支撐，並確保與假設買價至少相隔 1×ATR 或 3%—— 太近就放寬停損，而不是把目標灌大，讓 2R/3R 名實相符。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;line-整合&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#line-整合&#34;&gt;&lt;/a&gt; 📲 LINE 整合&lt;/h2&gt;
-&lt;p&gt;除了 App 本體，專案也接上了 LINE 官方帳號：透過 webhook + LIFF 可以在 LINE 裡管理觀察清單，每天定時收到自選股的分析摘要，以 Flex 卡片呈現重點價位與訊號，還會追蹤 AI 過去的看法戰績、在觀點被推翻時主動提醒。&lt;/p&gt;
+&lt;h2 id=&#34;line-整合&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#line-整合&#34;&gt;&lt;/a&gt; LINE 整合&lt;/h2&gt;
+&lt;p&gt;除了 App 本體，專案也接上了 LINE 官方帳號：透過 webhook + LIFF 可以在 LINE 裡管理觀察清單，每天定時收到自選股的分析摘要，以 Flex 卡片呈現重點價位與訊號，也會記錄 AI 先前的看法與後續結果，在看法被推翻時主動提醒。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;其他周邊&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#其他周邊&#34;&gt;&lt;/a&gt; 🔧 其他周邊&lt;/h2&gt;
+&lt;h2 id=&#34;其他周邊&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#其他周邊&#34;&gt;&lt;/a&gt; 其他周邊&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Python 報告產生器&lt;/strong&gt;: &lt;code&gt;python/taiwan_stock_agent.py 2330&lt;/code&gt;  一行指令產出含 K 線、均線、KD、MACD 的單檔 HTML 分析報告&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Android 打包&lt;/strong&gt;: &lt;code&gt;npm run android:apk&lt;/code&gt;  一鍵走完 Vite build → Capacitor sync → Gradle assemble&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;️-重要聲明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#️-重要聲明&#34;&gt;&lt;/a&gt; ⚠️ 重要聲明&lt;/h2&gt;
+&lt;h2 id=&#34;重要聲明&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#重要聲明&#34;&gt;&lt;/a&gt; 重要聲明&lt;/h2&gt;
 &lt;p&gt;本 App 產生的內容只供研究、學習與資訊整理使用。技術指標與 AI 分析都可能失準，任何買進、賣出、停損或停利決策，皆應由使用者自行負責。&lt;/p&gt;
  ]]></description>
         </item>
@@ -1623,115 +1504,6 @@ Vite dev server 內建 API proxy, 統一處理 CORS 與金鑰&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;em&gt;技術棧：React 18 / TypeScript / Vite / Google Maps API / Gemini API / Apollo Client / GraphQL /dnd-kit/ Framer Motion /i18next&lt;/em&gt;&lt;/p&gt;
  ]]></description>
-        </item>
-        <item>
-            <guid isPermalink="true">https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/</guid>
-            <title>📍 | LocalAIAgentAPI</title>
-            <link>https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/</link>
-            <category>project</category>
-            <pubDate>Sat, 19 Jul 2025 15:34:20 +0800</pubDate>
-            <description><![CDATA[ &lt;p class=&#34;reading-subtitle&#34;&gt;學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;div id=&#34;gallery&#34;&gt;
-  &lt;a href=&#34;/images/LocalAIAgentAPI_frontend.png&#34;&gt;
-    &lt;img src=&#34;/images/LocalAIAgentAPI_frontend.png&#34; alt=&#34;前端頁面&#34; style=&#34;max-width: 600px;&#34;&gt;
-  &lt;/a&gt;
-&lt;/div&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;學習目標&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#學習目標&#34;&gt;&lt;/a&gt; 學習目標&lt;/h2&gt;
-&lt;p&gt;作為一個正在準備面試的開發者，我給自己設定了一個挑戰：&lt;br&gt;
-能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？&lt;/p&gt;
-&lt;p&gt;說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有挑戰性的目標：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;練習 .NET 8 的新特性&lt;/li&gt;
-&lt;li&gt;熟悉 AI 模型整合的流程，這應該是未來的趨勢&lt;/li&gt;
-&lt;li&gt;為面試準備一些能拿出手的作品&lt;/li&gt;
-&lt;li&gt;順便踩踩坑，累積一些真實的開發經驗&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;結果沒想到，這個學習過程遠比我預期的有趣。每天回家寫 code，看到專案從無到有的感覺真的很讚。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;localaiagentapi&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#localaiagentapi&#34;&gt;&lt;/a&gt; LocalAIAgentAPI&lt;/h2&gt;
-&lt;p&gt;這個專案基本上就是我這週學習筆記的具現化。我想透過實作來理解一些平常只能紙上談兵的問題：&lt;/p&gt;
-&lt;p&gt;怎麼在 .NET 中整合不同類型的 AI 模型？每個模型的 API 都不一樣，要怎麼設計統一的介面？REST API 的架構要怎麼設計才不會讓未來的自己想哭？前端跟後端的資料交換有哪些眉角？錯誤處理和日誌記錄該做到什麼程度？&lt;/p&gt;
-&lt;p&gt;雖然是練習專案，但我還是盡量按照真實專案的標準來做。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;building&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#building&#34;&gt;&lt;/a&gt; Building&lt;/h2&gt;
-&lt;p&gt;這一週下來，我大概涉獵了這些領域：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;後端架構&lt;/strong&gt;：.NET 8 Web API、依賴注入、Middleware&lt;br&gt;
- 老實說，之前對 .NET 8 的依賴注入只是停留在「知道有這個東西」的階段，實際動手做才發現它比想像中強大很多。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;AI 整合&lt;/strong&gt;：Ollama LLM、ONNX 圖片分類、Tesseract OCR&lt;br&gt;
- 每個模型的整合方式都不太一樣，這讓我對「統一介面設計」有了更深的體會。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;API 設計&lt;/strong&gt;：RESTful API、輸入驗證、回應格式統一&lt;br&gt;
-如何讓不同模型的回應格式保持一致，這個問題比我想的複雜多了。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;前端互動&lt;/strong&gt;：簡單的 HTML/JS、檔案上傳、即時回應&lt;br&gt;
-雖然前端不是我的強項，但現在有很多非常好用的 AI 工具 像是 ChatGPT、Claude 等，都協助我設計好的 UI 和功能。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;測試工具&lt;/strong&gt;：Swagger 整合、API 測試&lt;br&gt;
- Swagger 真的是開發者的好朋友，設定完就有完整的測試介面。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;錯誤處理&lt;/strong&gt;：全域異常處理、Timeout 機制&lt;br&gt;
-踩了不少坑，但也學到如何優雅地處理各種意外狀況。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;problems&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#problems&#34;&gt;&lt;/a&gt; Problems&lt;/h2&gt;
-&lt;p&gt;一週要整合這麼多東西，當然會遇到一些讓人頭痛的問題：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;模型載入失敗&lt;/strong&gt;：一開始 LLAMA2 模型老是載入不起來，debug 了半天才發現是 Ollama 路徑的問題。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;回應時間過長&lt;/strong&gt;：某些 LLM 推理需要很長時間，一開始沒設 Timeout，結果前端就一直等等等。體驗直接崩潰。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;資料格式轉換&lt;/strong&gt;：不同模型的輸入輸出格式差異很大，光是設計統一的 API 介面就花了不少時間思考。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;圖片處理&lt;/strong&gt;：從前端上傳圖片到後端處理，編碼的部分搞了我一陣子。有些知識真的要實作過才會印象深刻。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不過每解決一個問題，就覺得又成長了一點。這大概就是寫 code 最爽的地方吧。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;learning&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#learning&#34;&gt;&lt;/a&gt; Learning&lt;/h2&gt;
-&lt;h3 id=&#34;技術層面&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#技術層面&#34;&gt;&lt;/a&gt; 技術層面&lt;/h3&gt;
-&lt;p&gt;對 .NET 8 的依賴注入和 Middleware 機制有了更深入的理解。之前都是看文件學習，實際用過才知道哪些地方容易出錯。&lt;/p&gt;
-&lt;p&gt;了解了不同 AI 模型的整合方式和各自的限制。每種模型都有自己的脾氣，要花時間去摸索。&lt;/p&gt;
-&lt;p&gt;練習了 API 設計和錯誤處理的一些最佳實踐。雖然還不敢說做得很好，但至少知道該注意什麼。&lt;/p&gt;
-&lt;p&gt;熟悉了前後端資料交換的完整流程。之前都是分別學習，這次算是串起來了。&lt;/p&gt;
-&lt;h3 id=&#34;軟實力&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#軟實力&#34;&gt;&lt;/a&gt; 軟實力&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;問題解決能力&lt;/strong&gt;：遇到問題時如何有效地搜尋資料、閱讀文件、測試假設。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;學習方法&lt;/strong&gt;：如何在有限時間內快速掌握新技術的核心概念。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;架構思維&lt;/strong&gt;：開始思考如何設計可維護、可擴展的系統架構。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h3 id=&#34;這個專案&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#這個專案&#34;&gt;&lt;/a&gt; 這個專案&lt;/h3&gt;
-&lt;p&gt;我會誠實地說：「這是我為了學習 AI 整合和準備面試而做的練習專案。功能相對簡單，但我把重點放在架構設計和程式碼品質上。」&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;為什麼選擇這些技術組合？各有什麼優缺點？&lt;/li&gt;
-&lt;li&gt;開發過程中遇到的最大挑戰是什麼？如何解決的？&lt;/li&gt;
-&lt;li&gt;如果要將這個專案擴展成正式產品，需要加強哪些部分？&lt;/li&gt;
-&lt;li&gt;從這次經驗中學到最重要的一課是什麼？&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;我覺得展現學習態度和解決問題的思路，比專案本身的完成度更重要。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;next-week&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#next-week&#34;&gt;&lt;/a&gt; Next Week！&lt;/h2&gt;
-&lt;p&gt;這個專案讓我嚐到了甜頭，也發現了很多可以改進的地方：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;程式碼重構&lt;/strong&gt;：有些地方寫得匆忙，想練習如何重構成更乾淨的程式碼。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;容器化部署&lt;/strong&gt;：嘗試用 Docker 打包，體驗現代化的部署流程。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;專案原始碼&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#專案原始碼&#34;&gt;&lt;/a&gt; 專案原始碼&lt;/h2&gt;
-&lt;p&gt;GitHub Repo: &lt;a href=&#34;https://github.com/reedlin2002/LocalAIAgentAPI&#34;&gt;reedlin2002/LocalAIAgentAPI&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;重要提醒&lt;/strong&gt;：這是我的學習練習專案，程式碼品質可能還有很大改進空間，絕對不建議直接用在正式環境中。但如果你也在學習相關技術，歡迎參考或給我一些建議。&lt;/p&gt;
-&lt;p&gt;如果發現任何問題或有改進建議，也歡迎開 Issue 讓我學習。畢竟一個人閉門造車很容易有盲點。&lt;/p&gt;
-&lt;hr&gt;
-&lt;blockquote&gt;
-&lt;p&gt;每週挑戰一個小專案，慢慢累積實戰經驗。雖然距離真正的高手還很遠，但至少在正確的路上前進。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;link
-  rel=&#34;stylesheet&#34;
-  href=&#34;https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css&#34;
-/&gt;
-&lt;script src=&#34;https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js&#34;&gt;&lt;/script&gt;
-&lt;script src=&#34;https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js&#34;&gt;&lt;/script&gt;
-&lt;script&gt;
-  lightGallery(document.getElementById(&#34;gallery&#34;), {
-    plugins: [lgZoom],
-    speed: 300,
-    zoom: true
-  });
-&lt;/script&gt; ]]></description>
         </item>
         <item>
             <guid isPermalink="true">https://reedlin2002.github.io/2025/07/13/singleton-pattern/</guid>

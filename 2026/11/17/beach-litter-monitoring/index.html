@@ -12,49 +12,58 @@
   <meta name="theme-color" content="#101816">
 
   <!-- ── Title ── -->
-  <title>📍 | LocalAIAgentAPI</title>
+  <title>大學專題：澎湖海灘垃圾自動監測系統的開發與應用</title>
 
   <!-- ── SEO: Description + Keywords ── -->
   
-  <meta name="description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta name="description" content="海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專">
   
-  <meta name="keywords" content="project">
+  <meta name="keywords" content="電腦視覺, Instance Segmentation, Deep Learning, 專題研究">
   <meta name="author" content="Lin">
   <meta name="robots" content="index, follow">
 
   <!-- ── Canonical URL ── -->
-  <link rel="canonical" href="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/">
+  <link rel="canonical" href="https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/">
 
   <!-- ── Open Graph (Facebook / LINE / Discord) ── -->
-  <meta name="description" content="學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習  這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。                 學習目標 作為一個正在準備面試的開發者，我給自己設定了一個挑戰： 能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？ 說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就">
+  <meta name="description" content="海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專院校競賽獎項與校內專題研究獎。 這篇整理系統怎麼運作、我負責的部分，以及模型在測試集上的實">
 <meta property="og:type" content="article">
-<meta property="og:title" content="📍 | LocalAIAgentAPI">
-<meta property="og:url" content="https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/index.html">
+<meta property="og:title" content="大學專題：澎湖海灘垃圾自動監測系統的開發與應用">
+<meta property="og:url" content="https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/index.html">
 <meta property="og:site_name" content="Reedlin2002">
-<meta property="og:description" content="學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習  這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。                 學習目標 作為一個正在準備面試的開發者，我給自己設定了一個挑戰： 能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？ 說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就">
+<meta property="og:description" content="海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專院校競賽獎項與校內專題研究獎。 這篇整理系統怎麼運作、我負責的部分，以及模型在測試集上的實">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://reedlin2002.github.io/images/LocalAIAgentAPI_frontend.png">
-<meta property="article:published_time" content="2025-07-19T07:34:20.000Z">
-<meta property="article:modified_time" content="2025-07-22T08:44:06.782Z">
+<meta property="og:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-map.jpg">
+<meta property="og:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-samples.jpg">
+<meta property="og:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-augment.jpg">
+<meta property="og:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-classes-before.jpg">
+<meta property="og:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-classes-after.jpg">
+<meta property="og:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-output.jpg">
+<meta property="og:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-confusion.png">
+<meta property="article:published_time" content="2026-11-17T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-11-17T05:11:21.732Z">
 <meta property="article:author" content="Lin">
-<meta property="article:tag" content="project">
+<meta property="article:tag" content="電腦視覺">
+<meta property="article:tag" content="Instance Segmentation">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="專題研究">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://reedlin2002.github.io/images/LocalAIAgentAPI_frontend.png">
+<meta name="twitter:image" content="https://reedlin2002.github.io/images/beach-litter-monitoring-map.jpg">
   <!-- OG 補強：確保 description 有值 -->
-  <meta property="og:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta property="og:description" content="海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專">
   <meta property="og:site_name" content="Reedlin2002">
   <meta property="og:locale" content="zh_TW">
 
   <!-- ── Twitter Card ── -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="📍 | LocalAIAgentAPI">
-  <meta name="twitter:description" content="Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程">
+  <meta name="twitter:title" content="大學專題：澎湖海灘垃圾自動監測系統的開發與應用">
+  <meta name="twitter:description" content="海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專">
   
   
 
   <!-- ── JSON-LD Structured Data ── -->
   
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"📍 | LocalAIAgentAPI","description":"Lin 的個人技術 Blog，記錄 AI、系統設計、全端開發與學習歷程","url":"https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/","datePublished":"2025-07-19T07:34:20.000Z","dateModified":"2025-07-22T08:44:06.782Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"大學專題：澎湖海灘垃圾自動監測系統的開發與應用","description":"海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專","url":"https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/","datePublished":"2026-11-17T04:00:00.000Z","dateModified":"2026-11-17T05:11:21.732Z","author":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"},"publisher":{"@type":"Person","name":"Lin","url":"https://reedlin2002.github.io"}}</script>
 
 
   <!-- ── Favicon ── -->
@@ -157,23 +166,23 @@
     <a class="reading-back" href="/">← 回到筆記</a>
     <div class="reading-eyebrow">
       <span class="eyebrow">LOG ENTRY / FIELD NOTES</span>
-      <span class="eyebrow">project</span>
+      <span class="eyebrow">電腦視覺</span>
     </div>
-    <h1 itemprop="headline">📍 | LocalAIAgentAPI</h1>
+    <h1 itemprop="headline">大學專題：澎湖海灘垃圾自動監測系統的開發與應用</h1>
     <div class="reading-byline">
       <img src="/images/logo.png" width="32" height="32" alt="">
       <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
         By <span class="p-name" itemprop="name">Lin</span>
       </span>
       <div class="entry-meta">
-        <time datetime="2025-07-19" itemprop="datePublished">2025.07.19</time>
+        <time datetime="2026-11-17" itemprop="datePublished">2026.11.17</time>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>4 分鐘閱讀</span>
+        <span>5 分鐘閱讀</span>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>1594 字</span>
+        <span>1743 字</span>
         
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>更新於 2025.07.22</span>
+        <span>更新於 2026.11.17</span>
         
       </div>
     </div>
@@ -182,115 +191,153 @@
   
 
 
-  <div class="reading-body content e-content" itemprop="articleBody"><p class="reading-subtitle">學習專案：LocalAIAgentAPI - 從零開始的 AI 整合練習</p>
-<blockquote>
-<p>這週挑戰自己整合多個 AI 模型，順便為面試準備一些實戰經驗。雖然是練習專案，但收穫比想像中還要多。</p>
-</blockquote>
-<div id="gallery">
-  <a href="/images/LocalAIAgentAPI_frontend.png">
-    <img src="/images/LocalAIAgentAPI_frontend.png" alt="前端頁面" style="max-width: 600px;">
-  </a>
+  <div class="reading-body content e-content" itemprop="articleBody"><p>海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專院校競賽獎項與校內專題研究獎。</p>
+<p>這篇整理系統怎麼運作、我負責的部分，以及模型在測試集上的實際表現。圖表都取自我們的專題論文。</p>
+<span id="more"></span>
+<p><img src="/images/beach-litter-monitoring-map.jpg" alt="海灘全景影像上的垃圾辨識結果"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">海灘全景影像上的垃圾辨識結果（取自專題論文圖 7.12）。</p>
+<h2 id="研究問題與分工"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#研究問題與分工"></a> 研究問題與分工</h2>
+<p>這個專題想做的事，是用無人機航拍影像建立一套自動化的海灘垃圾辨識與量化流程，取代一部分原本靠人工目視的調查。</p>
+<p>專題是五人團隊的研究。我負責資料與模型：</p>
+<ul>
+<li>整理影像資料集與分割標註</li>
+<li>格式轉換與前處理</li>
+<li>撰寫少數類別的資料增強程式</li>
+<li>訓練與測試 CenterMask2</li>
+<li>分析實驗結果並製作圖表</li>
+</ul>
+<h2 id="系統流程"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#系統流程"></a> 系統流程</h2>
+<pre class="mermaid">flowchart TD
+    V["UAV 航拍影片"] --&gt; F["擷取影格"]
+    F --&gt; S["OpenCV 影像拼接"]
+    S --&gt; P["海灘全景影像"]
+    S --&gt; O["找出相鄰影格的重疊區域"]
+    O --&gt; N["無重疊區域影像"]
+    N --&gt; T["影像預處理&lt;br/&gt;切成 640 × 480"]
+    T --&gt; M["CenterMask2&lt;br/&gt;實例分割"]
+    M --&gt; R["辨識結果影像"]
+    R --&gt; C["影像重構"]
+    C --&gt; D["拼接成&lt;br/&gt;海灘垃圾分布地圖"]
+    M --&gt; K["各類垃圾統計"]
+    K --&gt; I["海灘指數計算&lt;br/&gt;CCI · PAI"]</pre>
+<p>航拍影片先切成影格，接著分成兩路。</p>
+<p>一路由團隊以 OpenCV 把影格拼接成海灘全景。</p>
+<p>另一路負責辨識。相鄰影格拍到的範圍會重疊，同一件垃圾可能被辨識兩次，所以先找出影格之間的重疊區域並把它遮掉，再把影像切成 640 × 480 的小影像（原始影格是 3840 × 2160，直接送進模型的運算量太大），送進 CenterMask2 做實例分割。</p>
+<p>辨識結果會重構回原本的影格大小，再拼接成海灘垃圾分布地圖，也就是文章開頭那張圖。系統同時依類別統計垃圾的數量與面積，計算海灘清潔指數（CCI）與塑膠豐度指數（PAI）。</p>
+<h2 id="資料與標註"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#資料與標註"></a> 資料與標註</h2>
+<p>我們標註了五類垃圾：保麗龍、寶特瓶、木材、浮標、浮球。每一類對應一種顏色，把影像裡每個物件的輪廓逐一標出來，作為實例分割的訓練標籤。</p>
+<p><img src="/images/beach-litter-monitoring-samples.jpg" alt="訓練樣本與對應的分割標註"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">訓練樣本與分割標註範例（取自專題論文圖 7.5）。</p>
+<h3 id="處理類別不平衡"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#處理類別不平衡"></a> 處理類別不平衡</h3>
+<p>各類別的樣本數差距很大。原始資料中，浮球只有 1,727 個標註，寶特瓶和保麗龍則分別有約 2.5 萬與 2.7 萬個。差距這麼大，模型容易偏向樣本多的類別。</p>
+<p>我寫了一支資料增強程式來處理這個問題：把浮標、木材和浮球這些少數類別的物件，連同標註一起複製，經過旋轉、縮放後，貼到影像中沒有標註的區域。</p>
+<p><img src="/images/beach-litter-monitoring-augment.jpg" alt="物件複製貼上的結果與對應標籤"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">物件複製貼上的結果與對應標籤，紅框是貼上去的物件（取自專題論文圖 7.6）。</p>
+<p>擴充之後，浮球的標註從 1,727 個增加到 12,030 個，浮標從 5,676 個增加到 12,218 個。</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;">
+  <div><img src="/images/beach-litter-monitoring-classes-before.jpg" alt="資料擴充前各類別的標註數量" style="width:100%;border-radius:6px;"><p style="text-align:center;font-size:13px;color:#888;margin-top:4px;">擴充前</p></div>
+  <div><img src="/images/beach-litter-monitoring-classes-after.jpg" alt="資料擴充後各類別的標註數量" style="width:100%;border-radius:6px;"><p style="text-align:center;font-size:13px;color:#888;margin-top:4px;">擴充後</p></div>
 </div>
-<hr>
-<h2 id="學習目標"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#學習目標"></a> 學習目標</h2>
-<p>作為一個正在準備面試的開發者，我給自己設定了一個挑戰：<br>
-能不能在一週內整合多種 AI 模型，做出一個像樣的測試平台？</p>
-<p>說實話，一開始我也不確定能做到什麼程度。但想說既然要學，不如就設個有挑戰性的目標：</p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">各類別的標註數量（取自專題論文圖 5.2、圖 7.7）。圖中 Float 是浮球、Buoy 是浮標、Bottle 是寶特瓶、Styrofoam 是保麗龍、Wood 是木材。</p>
+<h2 id="訓練設定"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#訓練設定"></a> 訓練設定</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>設定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>訓練／測試影像</td>
+<td>4,709 張／523 張</td>
+</tr>
+<tr>
+<td>模型</td>
+<td>CenterMask2</td>
+</tr>
+<tr>
+<td>迭代次數／Batch</td>
+<td>500,000／12</td>
+</tr>
+<tr>
+<td>初始學習率</td>
+<td>0.001</td>
+</tr>
+<tr>
+<td>學習率調整</td>
+<td>第 47 萬、49 萬次迭代時各降為 1/10</td>
+</tr>
+</tbody>
+</table>
+<h2 id="測試集的辨識結果"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#測試集的辨識結果"></a> 測試集的辨識結果</h2>
+<p>訓練完成後，用 523 張測試影像評估模型，再從混淆矩陣算出每一類的 Precision、Recall 與 F1-Score：</p>
+<table>
+<thead>
+<tr>
+<th>類別</th>
+<th>Precision</th>
+<th>Recall</th>
+<th>F1-Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>浮球</td>
+<td>0.83</td>
+<td>0.76</td>
+<td>0.79</td>
+</tr>
+<tr>
+<td>木材</td>
+<td>0.54</td>
+<td>0.46</td>
+<td>0.49</td>
+</tr>
+<tr>
+<td>浮標</td>
+<td>0.54</td>
+<td>0.43</td>
+<td>0.48</td>
+</tr>
+<tr>
+<td>保麗龍</td>
+<td>0.63</td>
+<td>0.35</td>
+<td>0.45</td>
+</tr>
+<tr>
+<td>寶特瓶</td>
+<td>0.34</td>
+<td>0.22</td>
+<td>0.27</td>
+</tr>
+</tbody>
+</table>
+<p>浮球外形規則、顏色鮮明，辨識最穩定。保麗龍與寶特瓶的 Recall 明顯偏低，代表漏檢多。</p>
+<p><img src="/images/beach-litter-monitoring-output.jpg" alt="CenterMask2 在一張小影像上的輸出"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">模型在一張 640 × 480 小影像上的輸出：每個物件有邊界框、遮罩、類別與信心分數（取自專題論文圖 5.5）。</p>
+<h2 id="錯誤分析保麗龍與寶特瓶"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#錯誤分析保麗龍與寶特瓶"></a> 錯誤分析：保麗龍與寶特瓶</h2>
+<p><img src="/images/beach-litter-monitoring-confusion.png" alt="測試集混淆矩陣"></p>
+<p style="font-size:13px;color:#888;text-align:center;margin-top:-10px;">測試集混淆矩陣，縱軸是實際類別，橫軸是模型預測的類別（取自專題論文圖 7.11）。</p>
+<p>把測試結果按類別拆開來看，類別之間最主要的錯誤是保麗龍與寶特瓶互相誤判：實際是保麗龍、被判成寶特瓶的有 1,018 筆；實際是寶特瓶、被判成保麗龍的有 474 筆。</p>
+<p>值得注意的是，寶特瓶在原始資料中有 24,993 個標註，僅次於保麗龍，是樣本最多的類別之一，辨識效果卻最差。問題可能不只在樣本數量，也和物件尺寸、外觀相似與背景複雜度有關。這是我想進一步驗證的地方。</p>
+<h2 id="研究限制與後續工作"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#研究限制與後續工作"></a> 研究限制與後續工作</h2>
+<p>目前的測試結果是整體平均，沒有依物件尺寸、拍攝高度、光線或背景分組，所以還回答不了「模型最小能辨識多少像素的垃圾」這類問題。這個問題是參加競賽時評審問的，當時我們沒有實驗數據可以回答。</p>
+<p>後續可以依物件的像素面積把測試資料分組，分別計算各組的 Recall，找出辨識率明顯下降的尺寸界線，作為無人機拍攝高度的設計依據。針對小而相似的物件，也可以比較提高輸入解析度、不同的切片方式、更有針對性的資料增強，以及不同模型架構的效果。</p>
+<h3 id="延伸閱讀"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#延伸閱讀"></a> 延伸閱讀</h3>
 <ul>
-<li>練習 .NET 8 的新特性</li>
-<li>熟悉 AI 模型整合的流程，這應該是未來的趨勢</li>
-<li>為面試準備一些能拿出手的作品</li>
-<li>順便踩踩坑，累積一些真實的開發經驗</li>
+<li>Lee &amp; Park, <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1911.06667">CenterMask: Real-Time Anchor-Free Instance Segmentation</a>, CVPR 2020 / <a target="_blank" rel="noopener" href="https://github.com/youngwanLEE/centermask2">官方 repo</a></li>
+<li><a href="/2026/08/23/uav-vision-notes/">空拍影像辨識技術地圖：分割策略、模型架構與影像拼接的技術取捨</a> — 這套系統用到的實例分割、評估指標與拼接原理</li>
 </ul>
-<blockquote>
-<p>結果沒想到，這個學習過程遠比我預期的有趣。每天回家寫 code，看到專案從無到有的感覺真的很讚。</p>
-</blockquote>
-<h2 id="localaiagentapi"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#localaiagentapi"></a> LocalAIAgentAPI</h2>
-<p>這個專案基本上就是我這週學習筆記的具現化。我想透過實作來理解一些平常只能紙上談兵的問題：</p>
-<p>怎麼在 .NET 中整合不同類型的 AI 模型？每個模型的 API 都不一樣，要怎麼設計統一的介面？REST API 的架構要怎麼設計才不會讓未來的自己想哭？前端跟後端的資料交換有哪些眉角？錯誤處理和日誌記錄該做到什麼程度？</p>
-<p>雖然是練習專案，但我還是盡量按照真實專案的標準來做。</p>
-<hr>
-<h2 id="building"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#building"></a> Building</h2>
-<p>這一週下來，我大概涉獵了這些領域：</p>
-<p><strong>後端架構</strong>：.NET 8 Web API、依賴注入、Middleware<br>
- 老實說，之前對 .NET 8 的依賴注入只是停留在「知道有這個東西」的階段，實際動手做才發現它比想像中強大很多。</p>
-<p><strong>AI 整合</strong>：Ollama LLM、ONNX 圖片分類、Tesseract OCR<br>
- 每個模型的整合方式都不太一樣，這讓我對「統一介面設計」有了更深的體會。</p>
-<p><strong>API 設計</strong>：RESTful API、輸入驗證、回應格式統一<br>
-如何讓不同模型的回應格式保持一致，這個問題比我想的複雜多了。</p>
-<p><strong>前端互動</strong>：簡單的 HTML/JS、檔案上傳、即時回應<br>
-雖然前端不是我的強項，但現在有很多非常好用的 AI 工具 像是 ChatGPT、Claude 等，都協助我設計好的 UI 和功能。</p>
-<p><strong>測試工具</strong>：Swagger 整合、API 測試<br>
- Swagger 真的是開發者的好朋友，設定完就有完整的測試介面。</p>
-<p><strong>錯誤處理</strong>：全域異常處理、Timeout 機制<br>
-踩了不少坑，但也學到如何優雅地處理各種意外狀況。</p>
-<hr>
-<h2 id="problems"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#problems"></a> Problems</h2>
-<p>一週要整合這麼多東西，當然會遇到一些讓人頭痛的問題：</p>
-<p><strong>模型載入失敗</strong>：一開始 LLAMA2 模型老是載入不起來，debug 了半天才發現是 Ollama 路徑的問題。</p>
-<p><strong>回應時間過長</strong>：某些 LLM 推理需要很長時間，一開始沒設 Timeout，結果前端就一直等等等。體驗直接崩潰。</p>
-<p><strong>資料格式轉換</strong>：不同模型的輸入輸出格式差異很大，光是設計統一的 API 介面就花了不少時間思考。</p>
-<p><strong>圖片處理</strong>：從前端上傳圖片到後端處理，編碼的部分搞了我一陣子。有些知識真的要實作過才會印象深刻。</p>
-<blockquote>
-<p>不過每解決一個問題，就覺得又成長了一點。這大概就是寫 code 最爽的地方吧。</p>
-</blockquote>
-<hr>
-<h2 id="learning"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#learning"></a> Learning</h2>
-<h3 id="技術層面"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#技術層面"></a> 技術層面</h3>
-<p>對 .NET 8 的依賴注入和 Middleware 機制有了更深入的理解。之前都是看文件學習，實際用過才知道哪些地方容易出錯。</p>
-<p>了解了不同 AI 模型的整合方式和各自的限制。每種模型都有自己的脾氣，要花時間去摸索。</p>
-<p>練習了 API 設計和錯誤處理的一些最佳實踐。雖然還不敢說做得很好，但至少知道該注意什麼。</p>
-<p>熟悉了前後端資料交換的完整流程。之前都是分別學習，這次算是串起來了。</p>
-<h3 id="軟實力"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#軟實力"></a> 軟實力</h3>
-<p><strong>問題解決能力</strong>：遇到問題時如何有效地搜尋資料、閱讀文件、測試假設。</p>
-<p><strong>學習方法</strong>：如何在有限時間內快速掌握新技術的核心概念。</p>
-<p><strong>架構思維</strong>：開始思考如何設計可維護、可擴展的系統架構。</p>
-<hr>
-<h3 id="這個專案"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#這個專案"></a> 這個專案</h3>
-<p>我會誠實地說：「這是我為了學習 AI 整合和準備面試而做的練習專案。功能相對簡單，但我把重點放在架構設計和程式碼品質上。」</p>
-<ul>
-<li>為什麼選擇這些技術組合？各有什麼優缺點？</li>
-<li>開發過程中遇到的最大挑戰是什麼？如何解決的？</li>
-<li>如果要將這個專案擴展成正式產品，需要加強哪些部分？</li>
-<li>從這次經驗中學到最重要的一課是什麼？</li>
-</ul>
-<blockquote>
-<p>我覺得展現學習態度和解決問題的思路，比專案本身的完成度更重要。</p>
-</blockquote>
-<hr>
-<h2 id="next-week"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#next-week"></a> Next Week！</h2>
-<p>這個專案讓我嚐到了甜頭，也發現了很多可以改進的地方：</p>
-<p><strong>程式碼重構</strong>：有些地方寫得匆忙，想練習如何重構成更乾淨的程式碼。</p>
-<p><strong>容器化部署</strong>：嘗試用 Docker 打包，體驗現代化的部署流程。</p>
-<hr>
-<h2 id="專案原始碼"><a class="markdownIt-Anchor" aria-label="此段落的連結" href="#專案原始碼"></a> 專案原始碼</h2>
-<p>GitHub Repo: <a target="_blank" rel="noopener" href="https://github.com/reedlin2002/LocalAIAgentAPI">reedlin2002/LocalAIAgentAPI</a></p>
-<p><strong>重要提醒</strong>：這是我的學習練習專案，程式碼品質可能還有很大改進空間，絕對不建議直接用在正式環境中。但如果你也在學習相關技術，歡迎參考或給我一些建議。</p>
-<p>如果發現任何問題或有改進建議，也歡迎開 Issue 讓我學習。畢竟一個人閉門造車很容易有盲點。</p>
-<hr>
-<blockquote>
-<p>每週挑戰一個小專案，慢慢累積實戰經驗。雖然距離真正的高手還很遠，但至少在正確的路上前進。</p>
-</blockquote>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
-/>
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
-<script>
-  lightGallery(document.getElementById("gallery"), {
-    plugins: [lgZoom],
-    speed: 300,
-    zoom: true
-  });
-</script></div>
+</div>
 
   <footer class="reading-end">
     <span class="end-mark" aria-hidden="true">✳</span>
     <p>謝謝你，讀到這裡。</p>
     
     <div class="reading-tags">
-      <a href="/tags/project/"># project</a>
+      <a href="/tags/%E9%9B%BB%E8%85%A6%E8%A6%96%E8%A6%BA/"># 電腦視覺</a><a href="/tags/Instance-Segmentation/"># Instance Segmentation</a><a href="/tags/Deep-Learning/"># Deep Learning</a><a href="/tags/%E5%B0%88%E9%A1%8C%E7%A0%94%E7%A9%B6/"># 專題研究</a>
     </div>
     
     
@@ -314,23 +361,23 @@
     
     <article>
       <div class="entry-meta">
-        <time datetime="2026-07-27">2026.07.27</time>
+        <time datetime="2026-08-23">2026.08.23</time>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>7 分鐘閱讀</span>
+        <span>9 分鐘閱讀</span>
       </div>
-      <h3><a href="/2026/07/27/tw-grad-lab-skills/">🎓 | tw-grad-lab-skills 台灣研究所實驗室探索技能</a></h3>
-      <a class="text-link" href="/2026/07/27/tw-grad-lab-skills/">繼續讀 <span aria-hidden="true">↗</span></a>
+      <h3><a href="/2026/08/23/uav-vision-notes/">空拍影像辨識技術地圖:分割策略、模型架構與影像拼接的技術取捨</a></h3>
+      <a class="text-link" href="/2026/08/23/uav-vision-notes/">繼續讀 <span aria-hidden="true">↗</span></a>
     </article>
     
     
     <article>
       <div class="entry-meta">
-        <time datetime="2026-07-19">2026.07.19</time>
+        <time datetime="2026-09-28">2026.09.28</time>
         <span class="meta-dot" aria-hidden="true">·</span>
-        <span>4 分鐘閱讀</span>
+        <span>7 分鐘閱讀</span>
       </div>
-      <h3><a href="/2026/07/19/twstock-agent/">📈 | 010401 Finance 台股 AI 分析助手</a></h3>
-      <a class="text-link" href="/2026/07/19/twstock-agent/">繼續讀 <span aria-hidden="true">↗</span></a>
+      <h3><a href="/2026/09/28/smart-trip-planner/">智慧旅程規劃：AI 排初稿，在地圖上隨時加景點</a></h3>
+      <a class="text-link" href="/2026/09/28/smart-trip-planner/">繼續讀 <span aria-hidden="true">↗</span></a>
     </article>
     
   </div>
@@ -361,17 +408,18 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&text=📍 | LocalAIAgentAPI"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&is_video=false&description=📍 | LocalAIAgentAPI"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=📍 | LocalAIAgentAPI&body=Check out this article: https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&title=📍 | LocalAIAgentAPI"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&name=📍 | LocalAIAgentAPI&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2025/07/19/LocalAIAgentAPI/&t=📍 | LocalAIAgentAPI"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&text=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&title=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&is_video=false&description=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=大學專題：澎湖海灘垃圾自動監測系統的開發與應用&body=Check out this article: https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&title=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&title=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&title=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&title=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&name=大學專題：澎湖海灘垃圾自動監測系統的開發與應用&description=&lt;p&gt;海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專院校競賽獎項與校內專題研究獎。&lt;/p&gt;
+&lt;p&gt;這篇整理系統怎麼運作、我負責的部分，以及模型在測試集上的實際表現。圖表都取自我們的專題論文。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/&t=大學專題：澎湖海灘垃圾自動監測系統的開發與應用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

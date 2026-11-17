@@ -10,12 +10,16 @@
     <category term="C#" />
     <category term="SQLite" />
     <category term="Docker" />
-    <category term="leetcode" />
-    <category term="Daily" />
+    <category term="電腦視覺" />
+    <category term="Instance Segmentation" />
+    <category term="Deep Learning" />
+    <category term="專題研究" />
     <category term="演算法" />
     <category term="Binary Search" />
     <category term="Python" />
     <category term="LeetCode" />
+    <category term="leetcode" />
+    <category term="Daily" />
     <category term="技術筆記" />
     <category term="(作者自學用)" />
     <category term="side project" />
@@ -31,11 +35,6 @@
     <category term="Hackathon" />
     <category term="AI" />
     <category term="PRD" />
-    <category term="重構" />
-    <category term="電腦視覺" />
-    <category term="軟體工程" />
-    <category term="Deep Learning" />
-    <category term="Instance Segmentation" />
     <category term="影像處理" />
     <entry>
         <id>https://reedlin2002.github.io/2026/05/31/nfc-test/</id>

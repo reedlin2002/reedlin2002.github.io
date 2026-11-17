@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://reedlin2002.github.io</id>
+    <title>Reedlin2002 • Posts by &#34;專題研究&#34; tag</title>
+    <link href="https://reedlin2002.github.io" />
+    <updated>2026-11-17T04:00:00.000Z</updated>
+    <category term="myself" />
+    <category term="project" />
+    <category term=".NET" />
+    <category term="C#" />
+    <category term="SQLite" />
+    <category term="Docker" />
+    <category term="電腦視覺" />
+    <category term="Instance Segmentation" />
+    <category term="Deep Learning" />
+    <category term="專題研究" />
+    <category term="演算法" />
+    <category term="Binary Search" />
+    <category term="Python" />
+    <category term="LeetCode" />
+    <category term="leetcode" />
+    <category term="Daily" />
+    <category term="技術筆記" />
+    <category term="(作者自學用)" />
+    <category term="side project" />
+    <category term="NFC" />
+    <category term="Android" />
+    <category term="Capacitor" />
+    <category term="React" />
+    <category term="iOS" />
+    <category term="CallKit" />
+    <category term="系統設計" />
+    <category term="TypeScript" />
+    <category term="PWA" />
+    <category term="Hackathon" />
+    <category term="AI" />
+    <category term="PRD" />
+    <category term="影像處理" />
+    <entry>
+        <id>https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/</id>
+        <title>大學專題：澎湖海灘垃圾自動監測系統的開發與應用</title>
+        <link rel="alternate" href="https://reedlin2002.github.io/2026/11/17/beach-litter-monitoring/"/>
+        <content type="html">&lt;p&gt;海灘垃圾調查通常要靠人到現場觀察、記錄與分類，很花人力，也很難長期追蹤大範圍的海灘。2023 年 5 月到 2025 年 2 月，我在大學專題裡和四位同學一起做了一套海灘垃圾自動監測系統：與澎湖海洋公民基金會合作，用無人機航拍影像結合影像處理與深度學習，自動辨識海灘上的垃圾，再換算成量化指標。專題曾獲全國大專院校競賽獎項與校內專題研究獎。&lt;/p&gt;
+&lt;p&gt;這篇整理系統怎麼運作、我負責的部分，以及模型在測試集上的實際表現。圖表都取自我們的專題論文。&lt;/p&gt;
+&lt;span id=&#34;more&#34;&gt;&lt;/span&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-map.jpg&#34; alt=&#34;海灘全景影像上的垃圾辨識結果&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;海灘全景影像上的垃圾辨識結果（取自專題論文圖 7.12）。&lt;/p&gt;
+&lt;h2 id=&#34;研究問題與分工&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#研究問題與分工&#34;&gt;&lt;/a&gt; 研究問題與分工&lt;/h2&gt;
+&lt;p&gt;這個專題想做的事，是用無人機航拍影像建立一套自動化的海灘垃圾辨識與量化流程，取代一部分原本靠人工目視的調查。&lt;/p&gt;
+&lt;p&gt;專題是五人團隊的研究。我負責資料與模型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;整理影像資料集與分割標註&lt;/li&gt;
+&lt;li&gt;格式轉換與前處理&lt;/li&gt;
+&lt;li&gt;撰寫少數類別的資料增強程式&lt;/li&gt;
+&lt;li&gt;訓練與測試 CenterMask2&lt;/li&gt;
+&lt;li&gt;分析實驗結果並製作圖表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;系統流程&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#系統流程&#34;&gt;&lt;/a&gt; 系統流程&lt;/h2&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;flowchart TD
+    V[&#34;UAV 航拍影片&#34;] --&amp;gt; F[&#34;擷取影格&#34;]
+    F --&amp;gt; S[&#34;OpenCV 影像拼接&#34;]
+    S --&amp;gt; P[&#34;海灘全景影像&#34;]
+    S --&amp;gt; O[&#34;找出相鄰影格的重疊區域&#34;]
+    O --&amp;gt; N[&#34;無重疊區域影像&#34;]
+    N --&amp;gt; T[&#34;影像預處理&amp;lt;br/&amp;gt;切成 640 × 480&#34;]
+    T --&amp;gt; M[&#34;CenterMask2&amp;lt;br/&amp;gt;實例分割&#34;]
+    M --&amp;gt; R[&#34;辨識結果影像&#34;]
+    R --&amp;gt; C[&#34;影像重構&#34;]
+    C --&amp;gt; D[&#34;拼接成&amp;lt;br/&amp;gt;海灘垃圾分布地圖&#34;]
+    M --&amp;gt; K[&#34;各類垃圾統計&#34;]
+    K --&amp;gt; I[&#34;海灘指數計算&amp;lt;br/&amp;gt;CCI · PAI&#34;]&lt;/pre&gt;
+&lt;p&gt;航拍影片先切成影格，接著分成兩路。&lt;/p&gt;
+&lt;p&gt;一路由團隊以 OpenCV 把影格拼接成海灘全景。&lt;/p&gt;
+&lt;p&gt;另一路負責辨識。相鄰影格拍到的範圍會重疊，同一件垃圾可能被辨識兩次，所以先找出影格之間的重疊區域並把它遮掉，再把影像切成 640 × 480 的小影像（原始影格是 3840 × 2160，直接送進模型的運算量太大），送進 CenterMask2 做實例分割。&lt;/p&gt;
+&lt;p&gt;辨識結果會重構回原本的影格大小，再拼接成海灘垃圾分布地圖，也就是文章開頭那張圖。系統同時依類別統計垃圾的數量與面積，計算海灘清潔指數（CCI）與塑膠豐度指數（PAI）。&lt;/p&gt;
+&lt;h2 id=&#34;資料與標註&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#資料與標註&#34;&gt;&lt;/a&gt; 資料與標註&lt;/h2&gt;
+&lt;p&gt;我們標註了五類垃圾：保麗龍、寶特瓶、木材、浮標、浮球。每一類對應一種顏色，把影像裡每個物件的輪廓逐一標出來，作為實例分割的訓練標籤。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-samples.jpg&#34; alt=&#34;訓練樣本與對應的分割標註&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;訓練樣本與分割標註範例（取自專題論文圖 7.5）。&lt;/p&gt;
+&lt;h3 id=&#34;處理類別不平衡&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#處理類別不平衡&#34;&gt;&lt;/a&gt; 處理類別不平衡&lt;/h3&gt;
+&lt;p&gt;各類別的樣本數差距很大。原始資料中，浮球只有 1,727 個標註，寶特瓶和保麗龍則分別有約 2.5 萬與 2.7 萬個。差距這麼大，模型容易偏向樣本多的類別。&lt;/p&gt;
+&lt;p&gt;我寫了一支資料增強程式來處理這個問題：把浮標、木材和浮球這些少數類別的物件，連同標註一起複製，經過旋轉、縮放後，貼到影像中沒有標註的區域。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-augment.jpg&#34; alt=&#34;物件複製貼上的結果與對應標籤&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;物件複製貼上的結果與對應標籤，紅框是貼上去的物件（取自專題論文圖 7.6）。&lt;/p&gt;
+&lt;p&gt;擴充之後，浮球的標註從 1,727 個增加到 12,030 個，浮標從 5,676 個增加到 12,218 個。&lt;/p&gt;
+&lt;div style=&#34;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;&#34;&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/beach-litter-monitoring-classes-before.jpg&#34; alt=&#34;資料擴充前各類別的標註數量&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;擴充前&lt;/p&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;img src=&#34;/images/beach-litter-monitoring-classes-after.jpg&#34; alt=&#34;資料擴充後各類別的標註數量&#34; style=&#34;width:100%;border-radius:6px;&#34;&gt;&lt;p style=&#34;text-align:center;font-size:13px;color:#888;margin-top:4px;&#34;&gt;擴充後&lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;各類別的標註數量（取自專題論文圖 5.2、圖 7.7）。圖中 Float 是浮球、Buoy 是浮標、Bottle 是寶特瓶、Styrofoam 是保麗龍、Wood 是木材。&lt;/p&gt;
+&lt;h2 id=&#34;訓練設定&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#訓練設定&#34;&gt;&lt;/a&gt; 訓練設定&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;項目&lt;/th&gt;
+&lt;th&gt;設定&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;訓練／測試影像&lt;/td&gt;
+&lt;td&gt;4,709 張／523 張&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;模型&lt;/td&gt;
+&lt;td&gt;CenterMask2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;迭代次數／Batch&lt;/td&gt;
+&lt;td&gt;500,000／12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;初始學習率&lt;/td&gt;
+&lt;td&gt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;學習率調整&lt;/td&gt;
+&lt;td&gt;第 47 萬、49 萬次迭代時各降為 1/10&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;測試集的辨識結果&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#測試集的辨識結果&#34;&gt;&lt;/a&gt; 測試集的辨識結果&lt;/h2&gt;
+&lt;p&gt;訓練完成後，用 523 張測試影像評估模型，再從混淆矩陣算出每一類的 Precision、Recall 與 F1-Score：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;類別&lt;/th&gt;
+&lt;th&gt;Precision&lt;/th&gt;
+&lt;th&gt;Recall&lt;/th&gt;
+&lt;th&gt;F1-Score&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;浮球&lt;/td&gt;
+&lt;td&gt;0.83&lt;/td&gt;
+&lt;td&gt;0.76&lt;/td&gt;
+&lt;td&gt;0.79&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;木材&lt;/td&gt;
+&lt;td&gt;0.54&lt;/td&gt;
+&lt;td&gt;0.46&lt;/td&gt;
+&lt;td&gt;0.49&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;浮標&lt;/td&gt;
+&lt;td&gt;0.54&lt;/td&gt;
+&lt;td&gt;0.43&lt;/td&gt;
+&lt;td&gt;0.48&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;保麗龍&lt;/td&gt;
+&lt;td&gt;0.63&lt;/td&gt;
+&lt;td&gt;0.35&lt;/td&gt;
+&lt;td&gt;0.45&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;寶特瓶&lt;/td&gt;
+&lt;td&gt;0.34&lt;/td&gt;
+&lt;td&gt;0.22&lt;/td&gt;
+&lt;td&gt;0.27&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;浮球外形規則、顏色鮮明，辨識最穩定。保麗龍與寶特瓶的 Recall 明顯偏低，代表漏檢多。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-output.jpg&#34; alt=&#34;CenterMask2 在一張小影像上的輸出&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;模型在一張 640 × 480 小影像上的輸出：每個物件有邊界框、遮罩、類別與信心分數（取自專題論文圖 5.5）。&lt;/p&gt;
+&lt;h2 id=&#34;錯誤分析保麗龍與寶特瓶&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#錯誤分析保麗龍與寶特瓶&#34;&gt;&lt;/a&gt; 錯誤分析：保麗龍與寶特瓶&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;/images/beach-litter-monitoring-confusion.png&#34; alt=&#34;測試集混淆矩陣&#34;&gt;&lt;/p&gt;
+&lt;p style=&#34;font-size:13px;color:#888;text-align:center;margin-top:-10px;&#34;&gt;測試集混淆矩陣，縱軸是實際類別，橫軸是模型預測的類別（取自專題論文圖 7.11）。&lt;/p&gt;
+&lt;p&gt;把測試結果按類別拆開來看，類別之間最主要的錯誤是保麗龍與寶特瓶互相誤判：實際是保麗龍、被判成寶特瓶的有 1,018 筆；實際是寶特瓶、被判成保麗龍的有 474 筆。&lt;/p&gt;
+&lt;p&gt;值得注意的是，寶特瓶在原始資料中有 24,993 個標註，僅次於保麗龍，是樣本最多的類別之一，辨識效果卻最差。問題可能不只在樣本數量，也和物件尺寸、外觀相似與背景複雜度有關。這是我想進一步驗證的地方。&lt;/p&gt;
+&lt;h2 id=&#34;研究限制與後續工作&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#研究限制與後續工作&#34;&gt;&lt;/a&gt; 研究限制與後續工作&lt;/h2&gt;
+&lt;p&gt;目前的測試結果是整體平均，沒有依物件尺寸、拍攝高度、光線或背景分組，所以還回答不了「模型最小能辨識多少像素的垃圾」這類問題。這個問題是參加競賽時評審問的，當時我們沒有實驗數據可以回答。&lt;/p&gt;
+&lt;p&gt;後續可以依物件的像素面積把測試資料分組，分別計算各組的 Recall，找出辨識率明顯下降的尺寸界線，作為無人機拍攝高度的設計依據。針對小而相似的物件，也可以比較提高輸入解析度、不同的切片方式、更有針對性的資料增強，以及不同模型架構的效果。&lt;/p&gt;
+&lt;h3 id=&#34;延伸閱讀&#34;&gt;&lt;a class=&#34;markdownIt-Anchor&#34; aria-label=&#34;此段落的連結&#34; href=&#34;#延伸閱讀&#34;&gt;&lt;/a&gt; 延伸閱讀&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Lee &amp;amp; Park, &lt;a href=&#34;https://arxiv.org/abs/1911.06667&#34;&gt;CenterMask: Real-Time Anchor-Free Instance Segmentation&lt;/a&gt;, CVPR 2020 / &lt;a href=&#34;https://github.com/youngwanLEE/centermask2&#34;&gt;官方 repo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;/2026/08/23/uav-vision-notes/&#34;&gt;空拍影像辨識技術地圖：分割策略、模型架構與影像拼接的技術取捨&lt;/a&gt; — 這套系統用到的實例分割、評估指標與拼接原理&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="電腦視覺" />
+        <category term="Instance Segmentation" />
+        <category term="Deep Learning" />
+        <category term="專題研究" />
+        <updated>2026-11-17T04:00:00.000Z</updated>
+    </entry>
+</feed>
